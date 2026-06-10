@@ -1,0 +1,28 @@
+<Window
+    x:Class="PokerHUD.App.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokerHUD.App"
+    Title="Poker HUD & GTO Advisor" Height="600" Width="400"
+    WindowStartupLocation="Manual">
+
+    <Grid Background="#1E1E1E">
+        <StackPanel Margin="20" Spacing="12">
+            <TextBlock Text="Poker HUD & GTO Advisor" FontSize="24" FontWeight="Bold" Foreground="White"/>
+            <TextBlock Text="MVP - Screen Reading + GTO Suggestions" Foreground="#AAAAAA"/>
+
+            <Button x:Name="StartCaptureBtn" Content="Start Capture (Select Poker Window)" Click="StartCapture_Click" Margin="0,20,0,0"/>
+            <Button x:Name="StopCaptureBtn" Content="Stop Capture" Click="StopCapture_Click" IsEnabled="False"/>
+
+            <Border Background="#2D2D2D" CornerRadius="8" Padding="15" Margin="0,20,0,0">
+                <StackPanel>
+                    <TextBlock Text="Current Recommendation" FontSize="16" Foreground="#00FF9F"/>
+                    <TextBlock x:Name="ActionText" Text="--" FontSize="32" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock x:Name="ReasonText" Text="" Foreground="#CCCCCC" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <TextBlock x:Name="StatusText" Text="Status: Ready" Foreground="#888888" Margin="0,20,0,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

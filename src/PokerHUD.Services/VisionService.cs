@@ -3,70 +3,112 @@ using PokerHUD.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
-
-// VisionService - Computer Vision for poker table analysis
-// Uses OpenCvSharp (OpenCV wrapper) for template matching on cards
+using System.Linq;
 
 namespace PokerHUD.Services;
 
-public class VisionService
+public class VisionService : IDisposable
 {
-    private readonly Dictionary<string, Mat> _cardTemplates = new();
+    private readonly Dictionary<string, Mat> _templates = new();
+    private readonly string _templatesPath;
 
     public VisionService(string templatesPath)
     {
-        LoadTemplates(templatesPath);
+        _templatesPath = templatesPath;
+        LoadTemplates();
     }
 
-    private void LoadTemplates(string path)
+    private void LoadTemplates()
     {
-        // Load all card templates (e.g. "Ah.png", "Ks.png", etc.)
-        // Recommended: Take clean screenshots of every card in your poker client's theme
-        foreach (var file in Directory.GetFiles(path, "*.png"))
+        if (!Directory.Exists(_templatesPath)) return;
+
+        foreach (var file in Directory.GetFiles(_templatesPath, "*.png"))
         {
-            var name = Path.GetFileNameWithoutExtension(file);
-            _cardTemplates[name] = Cv2.ImRead(file, ImreadModes.Color);
+            var key = Path.GetFileNameWithoutExtension(file);
+            var img = Cv2.ImRead(file, ImreadModes.Color);
+            if (!img.Empty())
+                _templates[key] = img;
         }
     }
 
-    public List<Card> DetectCards(Mat screenRegion)
+    public List<Card> DetectHoleAndBoard(Mat screenMat, Rect? holeRegion = null, Rect? boardRegion = null)
+    {
+        var cards = new List<Card>();
+
+        // Detect hole cards (left side usually)
+        var holeArea = holeRegion ?? new Rect(0, 0, screenMat.Width / 3, screenMat.Height);
+        var holeMat = new Mat(screenMat, holeArea);
+        cards.AddRange(DetectCardsInRegion(holeMat, isHole: true));
+
+        // Detect community cards
+        var boardArea = boardRegion ?? new Rect(screenMat.Width / 3, 0, screenMat.Width * 2 / 3, screenMat.Height);
+        var boardMat = new Mat(screenMat, boardArea);
+        cards.AddRange(DetectCardsInRegion(boardMat, isHole: false));
+
+        return cards;
+    }
+
+    private List<Card> DetectCardsInRegion(Mat region, bool isHole)
     {
         var detected = new List<Card>();
 
-        foreach (var (name, template) in _cardTemplates)
+        foreach (var (name, template) in _templates)
         {
-            // Simple template matching example
             using var result = new Mat();
-            Cv2.MatchTemplate(screenRegion, template, result, TemplateMatchModes.CCoeffNormed);
+            Cv2.MatchTemplate(region, template, result, TemplateMatchModes.CCoeffNormed);
+            Cv2.MinMaxLoc(result, out _, out double maxVal, out _, out _);
 
-            Cv2.MinMaxLoc(result, out _, out double maxVal, out _, out Point maxLoc);
-
-            if (maxVal > 0.85) // Confidence threshold - tune this!
+            if (maxVal > 0.82) // Tune this threshold per your client/theme
             {
-                // Parse name to Rank + Suit (implement your own parser)
-                var card = ParseCardName(name);
+                var card = ParseCardFromTemplateName(name);
                 if (card != null) detected.Add(card);
             }
         }
 
-        return detected;
+        return detected.Distinct().ToList(); // Remove duplicates
     }
 
-    private Card? ParseCardName(string name)
+    private Card? ParseCardFromTemplateName(string name)
     {
-        // Example: "Ah" -> Ace of Hearts
-        // Implement proper parsing based on your template naming
-        try
+        // Expected naming: "Ah.png", "Ks.png", "10d.png" etc.
+        // Implement robust parser here
+        if (name.Length < 2) return null;
+
+        var rankStr = name[..^1];
+        var suitChar = name[^1];
+
+        Rank rank = rankStr.ToLower() switch
         {
-            // Simple example logic - expand this
-            return null; // TODO: Implement full parser
-        }
-        catch
+            "a" or "ace" => Rank.Ace,
+            "k" or "king" => Rank.King,
+            "q" or "queen" => Rank.Queen,
+            "j" or "jack" => Rank.Jack,
+            "10" or "t" => Rank.Ten,
+            _ when int.TryParse(rankStr, out int r) => (Rank)r,
+            _ => Rank.Two
+        };
+
+        Suit suit = suitChar.ToLower() switch
         {
-            return null;
-        }
+            'h' => Suit.Hearts,
+            'd' => Suit.Diamonds,
+            'c' => Suit.Clubs,
+            's' => Suit.Spades,
+            _ => Suit.Hearts
+        };
+
+        return new Card(rank, suit);
     }
 
-    // TODO: Add methods for detecting number of opponents, pot, etc.
-    // Use contours, color detection, or OCR (Tesseract) for text areas
+    public int DetectOpponentCount(Mat screenMat)
+    {
+        // TODO: Implement using seat detection, color blobs, or OCR on player areas
+        // For MVP: return a fixed number or simple contour count
+        return 5; // Placeholder
+    }
+
+    public void Dispose()
+    {
+        foreach (var t in _templates.Values) t.Dispose();
+    }
 }
