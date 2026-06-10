@@ -3,7 +3,9 @@ using PokerHUD.Models;
 using PokerHUD.Services;
 using System;
 using System.Diagnostics;
-using Windows.Foundation;
+using System.Runtime.InteropServices;
+using System.Text;
+using OpenCvSharp;
 
 namespace PokerHUD.App;
 
@@ -18,7 +20,7 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
 
-        // TODO: Set correct path to your card templates folder
+        // TODO: Update this path to where you store your card templates
         string templatesPath = @"C:\PokerHUD\CardTemplates";
         _visionService = new VisionService(templatesPath);
         _decisionEngine = new DecisionEngine();
@@ -26,13 +28,11 @@ public sealed partial class MainWindow : Window
 
     private async void StartCapture_Click(object sender, RoutedEventArgs e)
     {
-        // For MVP: User can hardcode or add picker for poker window handle
-        // Example: Find poker window by title (implement FindWindow via P/Invoke)
-        var hwnd = FindPokerWindow(); // Implement this helper
+        var hwnd = FindPokerWindow();
 
         if (hwnd == IntPtr.Zero)
         {
-            StatusText.Text = "Poker window not found. Please open your poker client.";
+            StatusText.Text = "Could not find poker window. Make sure PokerStars / GG Poker is running.";
             return;
         }
 
@@ -44,33 +44,39 @@ public sealed partial class MainWindow : Window
         {
             StartCaptureBtn.IsEnabled = false;
             StopCaptureBtn.IsEnabled = true;
-            StatusText.Text = "Capturing...";
+            StatusText.Text = "Capturing from poker window...";
+        }
+        else
+        {
+            StatusText.Text = "Failed to start capture. Check permissions and capabilities.";
         }
     }
 
-    private void OnFrameProcessed(object? sender, OpenCvSharp.Mat mat)
+    private void OnFrameProcessed(object? sender, Mat mat)
     {
         if (_visionService == null || _decisionEngine == null) return;
 
-        // Detect cards
-        var cards = _visionService.DetectHoleAndBoard(mat);
-
-        _currentState.HoleCards = cards.Take(2).ToList();
-        _currentState.CommunityCards = cards.Skip(2).ToList();
-        _currentState.OpponentCount = _visionService.DetectOpponentCount(mat);
-
-        // Get recommendation
-        var rec = _decisionEngine.GetRecommendation(_currentState);
-
-        // Update UI on main thread
-        DispatcherQueue.TryEnqueue(() =>
+        try
         {
-            ActionText.Text = rec.Action;
-            ReasonText.Text = rec.Reason;
-            StatusText.Text = $"Opponents: {_currentState.OpponentCount} | Cards detected: {cards.Count}";
-        });
+            var cards = _visionService.DetectHoleAndBoard(mat);
 
-        mat.Dispose();
+            _currentState.HoleCards = cards.Take(2).ToList();
+            _currentState.CommunityCards = cards.Skip(2).ToList();
+            _currentState.OpponentCount = _visionService.DetectOpponentCount(mat);
+
+            var rec = _decisionEngine.GetRecommendation(_currentState);
+
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                ActionText.Text = rec.Action;
+                ReasonText.Text = rec.Reason;
+                StatusText.Text = $"Opponents: {_currentState.OpponentCount} | Detected cards: {cards.Count}";
+            });
+        }
+        finally
+        {
+            mat.Dispose();
+        }
     }
 
     private void StopCapture_Click(object sender, RoutedEventArgs e)
@@ -78,14 +84,59 @@ public sealed partial class MainWindow : Window
         _captureService?.Stop();
         StartCaptureBtn.IsEnabled = true;
         StopCaptureBtn.IsEnabled = false;
-        StatusText.Text = "Stopped";
+        StatusText.Text = "Capture stopped";
     }
 
-    // Simple helper - improve with proper window enumeration
-    private IntPtr FindPokerWindow()
+    // ==================== Find Poker Window (Win32) ====================
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    private static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+
+    private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+    private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
+
+    private static IntPtr FindPokerWindow()
     {
-        // TODO: Use Win32 FindWindow or EnumWindows to find PokerStars / GG Poker window
-        // For testing: return Process.GetProcessesByName("pokerstars").FirstOrDefault()?.MainWindowHandle ?? IntPtr.Zero;
-        return IntPtr.Zero; // Replace with real implementation
+        IntPtr foundHwnd = IntPtr.Zero;
+
+        // Try common poker client window titles / class names
+        string[] possibleTitles = { "PokerStars", "GGPoker", "PartyPoker", "888poker", "Winamax" };
+
+        foreach (var title in possibleTitles)
+        {
+            foundHwnd = FindWindow(null, title);
+            if (foundHwnd != IntPtr.Zero) return foundHwnd;
+
+            // Also try partial match
+            foundHwnd = FindWindowContaining(title);
+            if (foundHwnd != IntPtr.Zero) return foundHwnd;
+        }
+
+        return IntPtr.Zero;
+    }
+
+    private static IntPtr FindWindowContaining(string partialTitle)
+    {
+        IntPtr result = IntPtr.Zero;
+
+        EnumWindows((hWnd, lParam) =>
+        {
+            var sb = new StringBuilder(256);
+            GetWindowText(hWnd, sb, sb.Capacity);
+            string windowTitle = sb.ToString();
+
+            if (windowTitle.Contains(partialTitle, StringComparison.OrdinalIgnoreCase))
+            {
+                result = hWnd;
+                return false; // stop enumeration
+            }
+            return true; // continue
+        }, IntPtr.Zero);
+
+        return result;
     }
 }

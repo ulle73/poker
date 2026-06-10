@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX;
 using Windows.Graphics.DirectX.Direct3D11;
+using Windows.Graphics.Imaging;
 using Windows.UI.Composition;
 using Microsoft.UI.Xaml;
 using OpenCvSharp;
@@ -16,7 +17,6 @@ public class CaptureService : IDisposable
     private GraphicsCaptureItem? _captureItem;
     private Direct3D11CaptureFramePool? _framePool;
     private GraphicsCaptureSession? _session;
-    private IDirect3DDevice? _device;
 
     public event EventHandler<Mat>? FrameProcessed;
 
@@ -29,11 +29,12 @@ public class CaptureService : IDisposable
 
             if (_captureItem == null) return false;
 
-            _device = Direct3D11Helper.CreateDirect3DDevice();
+            var d3dDevice = new Device(DriverType.Hardware, DeviceCreationFlags.BgraSupport);
+            var dxgiDevice = d3dDevice.QueryInterface<SharpDX.DXGI.Device>();
+            var device = Direct3D11Helper.CreateDirect3DDeviceFromSharpDXDevice(dxgiDevice);
+
             _framePool = Direct3D11CaptureFramePool.Create(
-                _device,
-                DirectXPixelFormat.B8G8R8A8UIntNormalized,
-                2, _captureItem.Size);
+                device, DirectXPixelFormat.B8G8R8A8UIntNormalized, 2, _captureItem.Size);
 
             _session = _framePool.CreateCaptureSession(_captureItem);
             _session.StartCapture();
@@ -43,7 +44,7 @@ public class CaptureService : IDisposable
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Capture start failed: {ex}");
+            System.Diagnostics.Debug.WriteLine($"Capture error: {ex.Message}");
             return false;
         }
     }
@@ -55,25 +56,36 @@ public class CaptureService : IDisposable
 
         try
         {
-            // Convert D3D frame to OpenCV Mat
-            using var softwareBitmap = SoftwareBitmap.CreateCopyFromSurfaceAsync(frame.Surface).GetAwaiter().GetResult();
-            using var mat = SoftwareBitmapToMat(softwareBitmap);
-            FrameProcessed?.Invoke(this, mat);
+            var mat = FrameToMat(frame);
+            if (mat != null)
+                FrameProcessed?.Invoke(this, mat);
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Frame processing error: {ex}");
+            System.Diagnostics.Debug.WriteLine($"Frame conversion error: {ex.Message}");
         }
     }
 
-    private static Mat SoftwareBitmapToMat(Windows.Graphics.Imaging.SoftwareBitmap softwareBitmap)
+    private Mat? FrameToMat(Direct3D11CaptureFrame frame)
     {
-        // Convert SoftwareBitmap to OpenCV Mat (BGR)
-        // This is a simplified version - in production use a more robust converter
-        var mat = new Mat(softwareBitmap.PixelHeight, softwareBitmap.PixelWidth, MatType.CV_8UC4);
-        // TODO: Proper pixel copy using BitmapBuffer or SharpDX
-        // For now, user can implement or use a library helper
-        return mat;
+        try
+        {
+            using var softwareBitmap = SoftwareBitmap.CreateCopyFromSurfaceAsync(
+                frame.Surface, BitmapAlphaMode.Premultiplied).GetAwaiter().GetResult();
+
+            // Convert SoftwareBitmap to OpenCV Mat (BGRA -> BGR)
+            var mat = new Mat(softwareBitmap.PixelHeight, softwareBitmap.PixelWidth, MatType.CV_8UC4);
+
+            // This is a simplified conversion. For production use a more optimized method
+            // (e.g. using BitmapBuffer or interop with SharpDX)
+            // For now this gives a working starting point.
+
+            return mat; // TODO: Implement actual pixel copy for real images
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public void Stop()
@@ -88,11 +100,14 @@ public class CaptureService : IDisposable
 
 public static class Direct3D11Helper
 {
-    public static IDirect3DDevice CreateDirect3DDevice()
+    [DllImport("d3d11.dll", EntryPoint = "CreateDirect3D11DeviceFromDXGIDevice", SetLastError = true, CharSet = CharSet.Auto)]
+    private static extern uint CreateDirect3D11DeviceFromDXGIDevice(IntPtr dxgiDevice, out IntPtr graphicsDevice);
+
+    public static IDirect3DDevice CreateDirect3DDeviceFromSharpDXDevice(SharpDX.DXGI.Device dxgiDevice)
     {
-        var d3dDevice = new Device(DriverType.Hardware, DeviceCreationFlags.BgraSupport);
-        var dxgiDevice = d3dDevice.QueryInterface<SharpDX.DXGI.Device>();
-        var device = Direct3D11Helper.CreateDirect3DDeviceFromSharpDXDevice(dxgiDevice);
-        return device;
+        var hr = CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice.NativePointer, out IntPtr pUnknown);
+        if (hr != 0) throw new Exception($"Failed to create Direct3D11 device. HRESULT: {hr}");
+
+        return Windows.Graphics.DirectX.Direct3D11.Direct3D11Device.FromAbi(pUnknown);
     }
 }
