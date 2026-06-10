@@ -6,9 +6,11 @@ Windows desktop application that reads online poker tables via screen capture, d
 
 ## Project Status
 
-- **Current phase**: Initial setup & architecture
+- **Current phase**: Initial structure + core services skeletons (Capture + Vision)
 - **Target stack**: C# .NET 8 + WinUI 3 (main app) + OpenCvSharp + Tesseract.NET
 - **Hybrid option**: Python backend (inspired by proven open-source scrapers) communicating with C# UI
+
+**Latest progress**: Added models and basic CaptureService + VisionService skeletons. Ready for integration into a WinUI 3 project.
 
 ## Key Features (MVP Roadmap)
 
@@ -69,20 +71,20 @@ Windows desktop application that reads online poker tables via screen capture, d
 - Poker Vision pipeline description: https://azbvision.github.io/PokerVision/
   (Eye → Reader → Players & State → Analysis & Equity)
 
-## Project Structure (Planned)
+## Project Structure (Current)
 
 ```
-PokerHUD/
-├── README.md
-├── .gitignore
-├── docs/
-│   └── PRD_Poker_HUD_GTO_Advisor.md
-├── src/
-│   ├── PokerHUD.App/          # WinUI 3 main project
-│   ├── PokerHUD.Services/     # Capture, Vision, OCR, State, Decision
-│   └── PokerHUD.Models/       # GameState, Card, Recommendation etc.
-└── Resources/
-    └── CardTemplates/       # PNG templates for ranks & suits
+src/
+├── PokerHUD.Models/
+│   ├── Card.cs
+│   └── GameState.cs
+├── PokerHUD.Services/
+│   ├── CaptureService.cs
+│   └── VisionService.cs   # Skeleton with template matching guidance
+└── PokerHUD.App/          # Your WinUI 3 project goes here
+
+Resources/
+└── CardTemplates/       # Add your PNG templates here (one per rank+suit)
 ```
 
 ## Getting Started (Setup Instructions)
@@ -96,16 +98,24 @@ PokerHUD/
 
 ### Step-by-Step
 1. Clone this repo
-2. Open Visual Studio and create a new **WinUI 3 Blank App, Packaged** project named `PokerHUD.App` (or similar)
-3. Add the following NuGet packages:
-   - OpenCvSharp
-   - Tesseract (or Tesseract.NET)
-   - Other helpers as needed
-4. Copy the source files we will add to this repo into your project
-5. Add your own card template images (screenshots from your poker client) to `Resources/CardTemplates/`
-6. Implement the modular services (CaptureService, VisionService, etc.)
+2. Open Visual Studio and create a new **WinUI 3 Blank App, Packaged** project (name it e.g. `PokerHUD.App`)
+3. Add the NuGet packages:
+   - `OpenCvSharp`
+   - `Tesseract` (from charlesw or equivalent)
+4. Copy the files from `src/PokerHUD.Models` and `src/PokerHUD.Services` into your project
+5. Add required capabilities in Package.appxmanifest (see below)
+6. Start implementing the services (examples provided)
 
-We will push ready-to-use service classes and examples directly to this repo.
+### Required App Capabilities (Package.appxmanifest)
+Add these under `<Capabilities>`:
+```xml
+<Capability Name="internetClient" />
+<rescap:Capability Name="graphicsCapture" />
+<rescap:Capability Name="graphicsCaptureWithoutBorder" />
+```
+(Also add the namespace: `xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"`)
+
+We will continue pushing ready-to-use and well-commented service classes.
 
 ## Important Warnings
 
@@ -115,22 +125,13 @@ Most online poker sites (PokerStars, GG Poker, etc.) prohibit the use of externa
 This project is intended for **educational and personal study purposes** only. Use at your own risk.
 
 **Detection**
-Poker rooms use process scanning, behavioral analysis, window detection, and sometimes desktop inspection. Full undetectability is difficult. Recommendations for reducing risk (VM usage, neutral naming, side-panel UI instead of obvious overlays, no input automation) will be documented.
+Poker rooms use process scanning, behavioral analysis, window detection, and sometimes desktop inspection. Recommendations for reducing risk will be added.
 
-## Next Steps in This Repo
+## Next Steps
+We build iteratively. Current focus: Get capture + basic vision working.
 
-We are building this iteratively:
-1. Initial structure & documentation (current commit)
-2. Core capture + basic CV/OCR modules
-3. Game state parser + simple decision engine
-4. WinUI overlay/panel UI
-5. Per-site mapping & TexasSolver integration
-
-Follow the commits and issues for progress.
-
-## Contributing
-This is a personal development project. Feel free to open issues or suggest improvements.
+Follow the commits!
 
 ---
 
-Built with assistance from Grok. Strong focus on using the best open-source foundations (dickreuter/Poker, TexasSolver, etc.).
+Built iteratively with Grok. Strong foundation from dickreuter/Poker + TexasSolver.
