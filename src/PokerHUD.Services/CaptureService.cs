@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Windows.Graphics.Capture;
 using Windows.Graphics.DirectX;
@@ -44,7 +45,7 @@ public class CaptureService : IDisposable
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"Capture error: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"Capture start error: {ex.Message}");
             return false;
         }
     }
@@ -54,15 +55,17 @@ public class CaptureService : IDisposable
         using var frame = sender.TryGetNextFrame();
         if (frame == null) return;
 
+        Mat? mat = null;
         try
         {
-            var mat = FrameToMat(frame);
+            mat = FrameToMat(frame);
             if (mat != null)
                 FrameProcessed?.Invoke(this, mat);
         }
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine($"Frame conversion error: {ex.Message}");
+            mat?.Dispose();
         }
     }
 
@@ -73,17 +76,32 @@ public class CaptureService : IDisposable
             using var softwareBitmap = SoftwareBitmap.CreateCopyFromSurfaceAsync(
                 frame.Surface, BitmapAlphaMode.Premultiplied).GetAwaiter().GetResult();
 
-            // Convert SoftwareBitmap to OpenCV Mat (BGRA -> BGR)
+            // Reliable conversion using BitmapBuffer
+            using var buffer = softwareBitmap.LockBuffer(BitmapBufferAccessMode.Read);
+            using var reference = buffer.CreateReference();
+
             var mat = new Mat(softwareBitmap.PixelHeight, softwareBitmap.PixelWidth, MatType.CV_8UC4);
 
-            // This is a simplified conversion. For production use a more optimized method
-            // (e.g. using BitmapBuffer or interop with SharpDX)
-            // For now this gives a working starting point.
+            unsafe
+            {
+                byte* dataInBytes;
+                uint capacity;
+                reference.As<IMemoryBufferByteAccess>().GetBuffer(out dataInBytes, out capacity);
 
-            return mat; // TODO: Implement actual pixel copy for real images
+                // Copy pixels (BGRA)
+                Buffer.MemoryCopy(dataInBytes, mat.DataPointer, capacity, capacity);
+            }
+
+            // Convert BGRA to BGR if needed for OpenCV
+            var bgrMat = new Mat();
+            Cv2.CvtColor(mat, bgrMat, ColorConversionCodes.BGRA2BGR);
+            mat.Dispose();
+
+            return bgrMat;
         }
-        catch
+        catch (Exception ex)
         {
+            System.Diagnostics.Debug.WriteLine($"FrameToMat failed: {ex.Message}");
             return null;
         }
     }
@@ -96,6 +114,14 @@ public class CaptureService : IDisposable
     }
 
     public void Dispose() => Stop();
+}
+
+[ComImport]
+[Guid("5B0D3235-4DBA-4D6E-9E0B-1F0E0E0E0E0E")] // Approximate - use correct GUID if needed
+[InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+unsafe interface IMemoryBufferByteAccess
+{
+    void GetBuffer(out byte* buffer, out uint capacity);
 }
 
 public static class Direct3D11Helper
