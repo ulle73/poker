@@ -73,6 +73,8 @@ export interface DecisionResult {
     suitPermutations: number;
     rootClassSize: number;
     tableLimited: boolean;
+    completedEpisodes?: number;
+    maximumEpisodeNodes?: number;
   };
 }
 export interface SampledDeal {
@@ -81,6 +83,7 @@ export interface SampledDeal {
   importance: number;
 }
 export interface SolveOptions {
+  sampling?: "external" | "outcome";
   seed?: number;
   maxIterations?: number;
   timeBudgetMs?: number;

@@ -2,13 +2,13 @@
 
 En fungerande Windows-app för **heads-up riverträning** med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
-**Aktuell status 1.3:** Automatisk beräkning av handlingar, storlekar och frekvenser fungerar från preflop till river för 2–10 aktiva spelare. Den nya MCCFR-modellen har dock **inte klarat kvalitetsgranskningen** och visas bara efter aktivt val av experimentläge. Den beställda tillförlitliga automatiska GTO-beslutsmotorn är **inte färdig**. Matchade heads-up-riverträd kan få separat verifierade DCFR-råd. Se [beslutsmotorns kvalitetsrapport](docs/decision-engine.md).
+**Aktuell status 1.3.1:** Automatisk beräkning av handlingar, storlekar och frekvenser fungerar från preflop till river för 2–10 aktiva spelare. Den nya MCCFR-modellen har dock **inte klarat kvalitetsgranskningen** och visas bara efter aktivt val av experimentläge. Den beställda tillförlitliga automatiska GTO-beslutsmotorn är **inte färdig**. Matchade heads-up-riverträd kan få separat verifierade DCFR-råd. Se [beslutsmotorns kvalitetsrapport](docs/decision-engine.md).
 
 ## Starta
 
 Dubbelklicka **`Start-Poker.cmd`** i denna mapp, eller kör:
 
-`release/Poker-GTO-Advisor-1.3.0-Windows.exe`
+`release/Poker-GTO-Advisor-1.3.1-Windows.exe`
 
 Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsignerad. En uppackad version finns också i `release/win-unpacked/`. Flytta hela den mappen om du använder dess `.exe`.
 

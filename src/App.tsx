@@ -928,7 +928,7 @@ export function App() {
         {view === "live" && <LivePanel />}
         <footer className="app-footer">
           <span>
-            Poker GTO Advisor <span className="muted">/ 1.3 · Träning & strategilabb</span>
+            Poker GTO Advisor <span className="muted">/ 1.3.1 · Träning & strategilabb</span>
           </span>
           <span>Verklig solver. Synliga antaganden. Träning på din dator.</span>
         </footer>

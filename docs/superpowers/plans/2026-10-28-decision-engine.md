@@ -38,3 +38,12 @@ Range conditioning from observed strategies and validated generic continuation
 values remain open. Do not mark the full goal complete on the basis of functional
 matrix tests. Reproducible diagnostic: `tests/decision-quality.test.ts` (opt-in),
 results: `docs/evidence/decision-quality.json`.
+
+Version 1.3.1 replaces the default generic traversal with complete outcome-
+sampling cycles. Exact suit symmetry, root-class importance sampling, weighted
+small-game equilibria and finite-number guards are tested and independently
+reviewed. The Windows portable passes all 16 native street/count cases; 237 unit
+tests pass. Capacity is reserved before drawing chance and every started cycle
+finishes, removing the former passive continuation mechanism. Full-range
+reliability still fails: `docs/evidence/decision-quality-outcome.json`. The gate
+remains and neither unchecked task above is complete.

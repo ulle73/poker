@@ -1,22 +1,23 @@
 {
-  "version": "1.3.0",
-  "builtAndVerifiedAt": "2026-10-28T07:48:57.729Z",
-  "binary": "release/Poker-GTO-Advisor-1.3.0-Windows.exe",
-  "bytes": 386705092,
-  "sha256": "C0AB647A998A49EA073656B32FCD9767BB30379334CC9877C3A5B54447A29D58",
+  "version": "1.3.1",
+  "builtAndVerifiedAt": "2026-10-28T12:07:55.9777165Z",
+  "binary": "release/Poker-GTO-Advisor-1.3.1-Windows.exe",
+  "bytes": 386709785,
+  "sha256": "1554CF56E9E3B0CDD09A29C33F5C347A810EEFC661C5F94E9142126911929569",
   "unitTests": {
-    "passed": 183,
+    "passed": 237,
     "skippedOptInDiagnostics": 1
   },
   "portableNative": {
-    "evidence": "decision-portable-smoke.json",
+    "evidence": "decision-portable-smoke-1.3.1.json",
     "decisionMatrixCases": 16,
     "verifiedRiverUpgrade": true,
-    "experimentalHiddenByDefault": true
+    "experimentalHiddenByDefault": true,
+    "unexpectedRendererErrors": 0
   },
   "goalReady": false,
-  "genericStrategyQuality": "failed-reliability-audit",
-  "qualityEvidence": "decision-quality.json",
+  "genericStrategyQuality": "not-certified-reliability-failures-persist",
+  "qualityEvidence": "decision-quality-outcome.json",
   "capturePreserved": [
     {
       "file": "src/live/reader.ts",

@@ -1,14 +1,16 @@
 # Third-party notices
 
-## OpenSpiel external-sampling MCCFR (Apache License 2.0)
+## OpenSpiel MCCFR sampling algorithms (Apache License 2.0)
 
-The traversal and cyclic SIMPLE averaging in `src/decision/mccfr.ts` are adapted
-to TypeScript from Google DeepMind OpenSpiel's `external_sampling_mccfr.py`.
+The traversals and averaging in `src/decision/mccfr.ts` are adapted to TypeScript
+from Google DeepMind OpenSpiel's external- and outcome-sampling algorithms.
 Copyright 2019 DeepMind Technologies Limited. Source:
 https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py
+https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py
 
 Changes include integer-chip hold'em states, sampled ranges, importance weighting,
-bounded passive continuation, cancellation and result provenance. These additions
+exact suit isomorphism, complete outcome update cycles, optional experimental
+passive external-sampling continuation, cancellation and result provenance. These additions
 are application code; this is not a bundled or certified OpenSpiel poker solver.
 The complete Apache License 2.0 is in `docs/licenses/OpenSpiel-APACHE-2.0.txt`.
 

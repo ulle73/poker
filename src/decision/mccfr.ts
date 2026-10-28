@@ -17,6 +17,7 @@
  * TypeScript poker integration, bounded continuation, public keys and chance
  * importance weighting added for this application. Reference:
  * https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py
+ * https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py
  */
 import { cardCode, evaluateCardCodes } from "phe";
 import { createSeededRandom } from "../multiway/equity";
@@ -76,11 +77,21 @@ export function informationSetKey(
 }
 /** Regret matching uses cumulative signed regrets, not accumulated action EV. */
 export function regretMatching(regrets: readonly number[]): number[] {
-  const positive = regrets.map((value) => Math.max(0, value));
+  if (!regrets.length || !regrets.every(Number.isFinite))
+    throw new Error("Regret matching requires a nonempty finite vector.");
+  const scale = Math.max(0, ...regrets);
+  if (!scale) return regrets.map(() => 1 / regrets.length);
+  const positive = regrets.map((value) => Math.max(0, value) / scale);
   const sum = positive.reduce((a, b) => a + b, 0);
   return sum > 0
     ? positive.map((value) => value / sum)
     : positive.map(() => 1 / positive.length);
+}
+function finiteSum(previous: number, increment: number): number {
+  const next = previous + increment;
+  if (!Number.isFinite(increment) || !Number.isFinite(next))
+    throw new Error("Nonfinite outcome-sampling update; no strategy returned.");
+  return next;
 }
 function boundedInteger(
   value: number | undefined,
@@ -93,16 +104,18 @@ function boundedInteger(
     throw new Error(`${label} must be a positive integer.`);
   return Math.min(value, limit);
 }
-/** A finite betting abstraction solved with external-sampling MCCFR.
+/** A finite betting abstraction solved with outcome-sampling MCCFR by default.
+ * The former external-sampling implementation remains selectable for diagnostics.
  * One iteration updates each player; opponent actions follow their own policy,
  * while every updater action is expanded. Chance is sampled jointly in advance
  * but revealed to the policy only as streets advance. Every player's regret
  * update is corrected for the sampler's equivalent-root-class proposal.
  *
- * The SIMPLE average follows OpenSpiel's cyclic-next-player implementation.
+ * External sampling's SIMPLE average follows OpenSpiel's cyclic-next-player implementation.
  * It is intentionally identified as an empirical approximation for >2 players.
- * Depth/node/table/deadline cuts use a card-independent passive policy; terminal
- * payoffs alone inspect hidden cards. These cuts introduce continuation bias.
+ * External sampling's depth/node/table/deadline cuts use a passive policy and
+ * introduce continuation bias. Outcome sampling completes every started cycle;
+ * terminal payoffs alone inspect hidden cards in both implementations.
  */
 export function solveDecision(
   input: DecisionInput,
@@ -139,20 +152,44 @@ export function solveDecision(
   if (!Number.isFinite(budget) || budget <= 0)
     throw new Error("Time budget must be positive.");
   const deadline = started + Math.min(4000, budget);
+  if (options.sampling && !["external", "outcome"].includes(options.sampling))
+    throw new Error("Unknown MCCFR sampling method.");
+  const outcome = options.sampling !== "external";
   const maxIterations = boundedInteger(
     options.maxIterations,
-    5000,
-    5000,
+    outcome ? 200000 : 5000,
+    outcome ? 200000 : 5000,
     "Iteration limit",
   );
-  const maxNodes = boundedInteger(options.maxNodes, 512, 4096, "Node limit");
-  const maxDepth = boundedInteger(options.maxDepth, 18, 48, "Depth limit");
+  const maxNodes = boundedInteger(
+    options.maxNodes,
+    outcome ? 4096 : 512,
+    4096,
+    "Node limit",
+  );
+  const maxDepth = boundedInteger(
+    options.maxDepth,
+    outcome ? 4096 : 18,
+    outcome ? 4096 : 48,
+    "Depth limit",
+  );
   const maxInfosets = boundedInteger(
     options.maxInfosets,
     50000,
     50000,
     "Information-set limit",
   );
+  // A street has an initial round, at most one opening bet and maxRaises raises;
+  // each can require at most n actions. Reserve all four streets conservatively.
+  // Outcome episodes must finish: selective long-path rejection would bias CFR.
+  const maximumEpisodeNodes = 4 * n * (input.rules.maxRaises + 2) + 1;
+  if (
+    outcome &&
+    (maxNodes < maximumEpisodeNodes || maxDepth < maximumEpisodeNodes)
+  )
+    throw new Error(
+      "Node/depth limits cannot accommodate a complete legal outcome episode.",
+    );
   const seed = options.seed ?? 0x4d434346;
   if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff)
     throw new Error("Seed must be an unsigned 32-bit integer.");
@@ -197,11 +234,15 @@ export function solveDecision(
     iterations < maxIterations &&
     (passes === 0 || Date.now() < deadline)
   ) {
+    if (outcome && infosets.size + n * maximumEpisodeNodes > maxInfosets) {
+      tableLimited = true;
+      break;
+    }
     for (let updateOffset = 0; updateOffset < n; updateOffset++) {
       // Hero goes first so a short budget cannot be spent entirely updating
       // earlier seats. The cyclic averaging relation still uses seat indices.
       const updater = (input.hero + updateOffset) % n;
-      if (passes > 0 && Date.now() >= deadline) break;
+      if (!outcome && passes > 0 && Date.now() >= deadline) break;
       // Each updater receives an independent chance sample, as in the reference.
       // Reusing a deal after changing another player's policy would correlate
       // that new policy with the hidden cards in the next regret traversal.
@@ -294,7 +335,97 @@ export function solveDecision(
         }
         return value;
       };
-      visit(input.state, 0);
+      const episode = (
+        state: BettingState,
+        depth: number,
+        myReach: number,
+        oppReach: number,
+        sampleReach: number,
+      ): number => {
+        if (state.terminal) return payoff(state, updater);
+        if (++nodes > maximumEpisodeNodes)
+          throw new Error(
+            "Outcome episode exceeded its complete-game path bound.",
+          );
+        const actions =
+          depth === 0 ? rootActions : legalActions(state, input.rules);
+        if (!actions.length)
+          throw new Error("Nonterminal state has no legal action.");
+        const key = informationSetKey(
+          input.key,
+          state,
+          deal.holes[state.actor],
+          deal.runout,
+          cardInformation,
+        );
+        let info = infosets.get(key);
+        if (!info) {
+          // Capacity for every node in this entire update cycle was reserved
+          // before sampling. Reaching this guard is an implementation failure.
+          if (infosets.size >= maxInfosets)
+            throw new Error(
+              "Outcome cycle exceeded its reserved information-set capacity.",
+            );
+          info = {
+            regrets: actions.map(() => 0),
+            average: actions.map(() => 0),
+          };
+          infosets.set(key, info);
+        }
+        const policy = regretMatching(info.regrets);
+        const owns = state.actor === updater;
+        const samplingPolicy = owns
+          ? policy.map((p) => 0.6 / actions.length + 0.4 * p)
+          : policy;
+        const selected = choose(samplingPolicy);
+        const child = episode(
+          applyAction(state, actions[selected], input.rules),
+          depth + 1,
+          myReach * (owns ? policy[selected] : 1),
+          oppReach * (owns ? 1 : policy[selected]),
+          sampleReach * samplingPolicy[selected],
+        );
+        // OpenSpiel's zero-baseline outcome estimator. Hidden-card importance
+        // belongs in updates once; never multiply it into the returned utility.
+        const childValues = actions.map((_, a) =>
+          a === selected ? child / samplingPolicy[a] : 0,
+        );
+        const value = policy[selected] * childValues[selected];
+        if (owns) {
+          const regretWeight = (deal.importance * oppReach) / sampleReach;
+          const averageWeight = (deal.importance * myReach) / sampleReach;
+          if (
+            ![value, regretWeight, averageWeight, ...childValues].every(
+              Number.isFinite,
+            )
+          )
+            throw new Error(
+              "Nonfinite outcome-sampling estimate; no strategy returned.",
+            );
+          for (let a = 0; a < actions.length; a++) {
+            info.regrets[a] = finiteSum(
+              info.regrets[a],
+              regretWeight * (childValues[a] - value),
+            );
+            info.average[a] = finiteSum(
+              info.average[a],
+              averageWeight * policy[a],
+            );
+          }
+          if (depth === 0 && key === rootKey) {
+            rootVisits++;
+            rootValueWeight = finiteSum(rootValueWeight, deal.importance);
+            for (let a = 0; a < actions.length; a++)
+              rootValueSums[a] = finiteSum(
+                rootValueSums[a],
+                deal.importance * childValues[a],
+              );
+          }
+        }
+        return value;
+      };
+      if (outcome) episode(input.state, 0, 1, 1, 1);
+      else visit(input.state, 0);
       passes++;
     }
     iterations++;
@@ -305,16 +436,22 @@ export function solveDecision(
     throw new Error(
       "Undertrained decision: no root information-set regret traversal completed within the computation budget. Increase the budget or retry.",
     );
-  const averageTotal = rootInfo.average.reduce((sum, value) => sum + value, 0);
-  const frequencies =
-    averageTotal > 0
-      ? rootInfo.average.map((value) => value / averageTotal)
-      : regretMatching(rootInfo.regrets);
+  const frequencies = rootInfo.average.some((value) => value > 0)
+    ? regretMatching(rootInfo.average)
+    : regretMatching(rootInfo.regrets);
   const actions = rootActions.map((action, index) => ({
     ...action,
     frequency: frequencies[index],
     ev: rootValueWeight > 0 ? rootValueSums[index] / rootValueWeight : null,
   }));
+  if (
+    actions.some(
+      (action) =>
+        !Number.isFinite(action.frequency) ||
+        (action.ev !== null && !Number.isFinite(action.ev)),
+    )
+  )
+    throw new Error("Nonfinite final decision; no strategy returned.");
   const recommended = frequencies.reduce(
     (best, value, index) => (value > frequencies[best] ? index : best),
     0,
@@ -324,9 +461,15 @@ export function solveDecision(
     "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
     "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
   ];
+  if (outcome)
+    limitations.push(
+      "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+    );
   if (n > 2)
     limitations.push(
-      "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+      outcome
+        ? "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        : "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
     );
   if (cardInformation.permutations.length > 1)
     limitations.push(
@@ -338,7 +481,9 @@ export function solveDecision(
     );
   if (tableLimited)
     limitations.push(
-      `Information-set table reached its ${maxInfosets} entry limit.`,
+      outcome
+        ? `Training stopped before the ${maxInfosets} entry limit because a complete update cycle could no longer be reserved.`
+        : `Information-set table reached its ${maxInfosets} entry limit.`,
     );
   if (rootVisits < 100)
     limitations.push(
@@ -352,7 +497,9 @@ export function solveDecision(
     key: input.key,
     rangeRevision: input.rangeRevision,
     quality: "approximation",
-    provider: "external-sampling-mccfr/isomorphic-v3",
+    provider: outcome
+      ? "outcome-sampling-mccfr/isomorphic-v1"
+      : "external-sampling-mccfr/isomorphic-v3",
     actions,
     recommended,
     iterations,
@@ -368,6 +515,8 @@ export function solveDecision(
       suitPermutations: cardInformation.permutations.length,
       rootClassSize: rootClass.length,
       tableLimited,
+      completedEpisodes: passes,
+      maximumEpisodeNodes: outcome ? maximumEpisodeNodes : undefined,
     },
   };
 }

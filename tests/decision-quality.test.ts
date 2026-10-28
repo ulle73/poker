@@ -8,6 +8,8 @@ import type { LiveSnapshot } from "../src/live/types";
 it.skipIf(process.env.POKER_QUALITY_PROBE !== "1")(
   "records full-range reliability limitations without certifying an equilibrium",
   () => {
+    const sampling =
+      process.env.POKER_QUALITY_SAMPLING === "outcome" ? "outcome" : "external";
     const runs = [];
     for (const count of [2, 10])
       for (const seed of [19, 395])
@@ -54,7 +56,11 @@ it.skipIf(process.env.POKER_QUALITY_PROBE !== "1")(
             observedActions: [],
           };
           const input = prepareDecision(s, { minBet: 2 });
-          const result = solveDecision(input, { seed, timeBudgetMs: 1500 });
+          const result = solveDecision(input, {
+            seed,
+            timeBudgetMs: 1500,
+            sampling,
+          });
           expect(result.quality).toBe("approximation");
           expect(result.exploitabilityPct).toBeNull();
           runs.push({
@@ -82,7 +88,9 @@ it.skipIf(process.env.POKER_QUALITY_PROBE !== "1")(
           observedConcern:
             "Full-range results are diagnostic only; no independently evaluated best-response certificate exists. The prior provider failed reliability review and suit isomorphism alone cannot clear that finding.",
           mechanism:
-            "Full-range private/public information sets receive sparse training. Table/depth/deadline cuts use unconditional check/call continuation. The root can exploit unfinished/artificial responses.",
+            sampling === "outcome"
+              ? "Complete terminal outcome episodes replace passive continuation. Every started update cycle completes, with memory reserved before drawing chance. Full-range information sets remain sparsely trained and sampled estimates can have high variance; no independent best-response certificate exists."
+              : "Full-range private/public information sets receive sparse training. Table/depth/deadline cuts use unconditional check/call continuation. The root can exploit unfinished/artificial responses.",
           interpretation:
             "This diagnostic records an observed failure of validation. It does not assert an externally solved optimal mix for these fixtures. The ten-player fixture represents earlier limps to SB; those ranges remain uniform assumptions, not a derived limping strategy.",
           releaseDecision:

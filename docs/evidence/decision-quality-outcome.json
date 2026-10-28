@@ -1,0 +1,1039 @@
+{
+  "verifiedAt": "2026-10-28T08:45:31.469Z",
+  "qualityAssessment": "not-certified",
+  "goalReady": false,
+  "observedConcern": "Full-range results are diagnostic only; no independently evaluated best-response certificate exists. The prior provider failed reliability review and suit isomorphism alone cannot clear that finding.",
+  "mechanism": "Complete terminal outcome episodes replace passive continuation. Every started update cycle completes, with memory reserved before drawing chance. Full-range information sets remain sparsely trained and sampled estimates can have high variance; no independent best-response certificate exists.",
+  "interpretation": "This diagnostic records an observed failure of validation. It does not assert an externally solved optimal mix for these fixtures. The ten-player fixture represents earlier limps to SB; those ranges remain uniform assumptions, not a derived limping strategy.",
+  "releaseDecision": "Experimental provider hidden by default. Only separately certified matched HU river trees may show production recommendations.",
+  "runs": [
+    {
+      "count": 2,
+      "seed": 19,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.00005551820752105524,
+            "ev": -0.9995248147141003
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.597981777552793,
+            "ev": 31.378183943045627
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.007067853839069911,
+            "ev": 8.352961400848676
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.0015489396235922178,
+            "ev": 13.980023974207377
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.39334591077702385,
+            "ev": 24.84004435914815
+          }
+        ],
+        "recommended": 1,
+        "iterations": 19498,
+        "rootVisits": 9844,
+        "elapsedMs": 595,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 49954,
+          "cachedCardViews": 39418,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 38996,
+          "maximumEpisodeNodes": 25
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 19,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.9772321498386731,
+            "ev": -1.0058479859512022
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.00007156446345433851,
+            "ev": -6.796520505428172
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.012946830235125007,
+            "ev": -9.616443987014545
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.009591880897089719,
+            "ev": -12.242377113915676
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.00015757456565758276,
+            "ev": -37.90497941073137
+          }
+        ],
+        "recommended": 0,
+        "iterations": 30893,
+        "rootVisits": 15536,
+        "elapsedMs": 675,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 49952,
+          "cachedCardViews": 39310,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 61786,
+          "maximumEpisodeNodes": 25
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 395,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.00013502192448934882,
+            "ev": -1.0244604206107335
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.3636915468735589,
+            "ev": 28.394222619581168
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.00623751352765911,
+            "ev": 11.461971821223099
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.007406768713537978,
+            "ev": 11.905284630156657
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.6225291489607546,
+            "ev": 32.246632139450156
+          }
+        ],
+        "recommended": 4,
+        "iterations": 23375,
+        "rootVisits": 11659,
+        "elapsedMs": 593,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 49952,
+          "cachedCardViews": 39497,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 46750,
+          "maximumEpisodeNodes": 25
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 395,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.9741208465115504,
+            "ev": -1.003779087256739
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.0030321604579826517,
+            "ev": -7.10755366506136
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.000014471326157479686,
+            "ev": -13.782305899805285
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.021037982325093994,
+            "ev": -11.968822108958047
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.001794539379215262,
+            "ev": -33.9153657875387
+          }
+        ],
+        "recommended": 0,
+        "iterations": 30198,
+        "rootVisits": 15147,
+        "elapsedMs": 739,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 49953,
+          "cachedCardViews": 39501,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 60396,
+          "maximumEpisodeNodes": 25
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 19,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.005414635254910691,
+            "ev": -0.9691550317356358
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.08174899959107895,
+            "ev": 88.568143979688
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.20729737675848894,
+            "ev": 106.97044752624788
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.005452707413113544,
+            "ev": 17.863036303630345
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.7000862809824079,
+            "ev": 286.8917692655726
+          }
+        ],
+        "recommended": 4,
+        "iterations": 380,
+        "rootVisits": 202,
+        "elapsedMs": 477,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 48846,
+          "cachedCardViews": 22557,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 3800,
+          "maximumEpisodeNodes": 121
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 19,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.40100605016624585,
+            "ev": -0.8490191091054867
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.2710373434172649,
+            "ev": -36.92880735461613
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.21198064406416167,
+            "ev": -53.0901292593871
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.11204122059153569,
+            "ev": -89.119073078642
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.003934741760791813,
+            "ev": -190.1542000989042
+          }
+        ],
+        "recommended": 0,
+        "iterations": 369,
+        "rootVisits": 193,
+        "elapsedMs": 424,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 48845,
+          "cachedCardViews": 23128,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 3690,
+          "maximumEpisodeNodes": 121
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 395,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.0009389671361502328,
+            "ev": -0.7276995305164301
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.004950786554402249,
+            "ev": -10.23905692696234
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.020420014788000963,
+            "ev": 104.78299520316308
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.0038114223688816328,
+            "ev": 67.39363907775787
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.969878809152565,
+            "ev": 342.84759104510334
+          }
+        ],
+        "recommended": 4,
+        "iterations": 401,
+        "rootVisits": 213,
+        "elapsedMs": 455,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 48860,
+          "cachedCardViews": 22669,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 4010,
+          "maximumEpisodeNodes": 121
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 395,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.07523244226562223,
+            "ev": -0.8600646767145222
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.008626747876620702,
+            "ev": -50.57849486259127
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.5919677397727479,
+            "ev": 24.862349286558377
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.13509889435769265,
+            "ev": 8.343501549582928
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.18907417572731663,
+            "ev": -17.510045234540463
+          }
+        ],
+        "recommended": 2,
+        "iterations": 365,
+        "rootVisits": 191,
+        "elapsedMs": 430,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 48881,
+          "cachedCardViews": 22899,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true,
+          "completedEpisodes": 3650,
+          "maximumEpisodeNodes": 121
+        }
+      }
+    }
+  ]
+}

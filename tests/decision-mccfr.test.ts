@@ -3,10 +3,16 @@ import { cardCode } from "phe";
 import {
   informationSetKey,
   regretMatching,
-  solveDecision,
+  solveDecision as solveWithSampling,
 } from "../src/decision/mccfr";
 import { legalActions } from "../src/decision/betting";
-import type { DecisionInput, DecisionStreet } from "../src/decision/types";
+import type {
+  DecisionInput,
+  DecisionStreet,
+  SolveOptions,
+} from "../src/decision/types";
+const solveDecision = (input: DecisionInput, options: SolveOptions = {}) =>
+  solveWithSampling(input, { ...options, sampling: "external" });
 function fixture(n = 2, street: DecisionStreet = "river"): DecisionInput {
   const count = { preflop: 0, flop: 3, turn: 4, river: 5 }[street];
   return {
@@ -135,6 +141,18 @@ describe("external-sampling decision solver", () => {
   it("matches positive cumulative regrets, retaining negative signed regret history", () => {
     expect(regretMatching([-100, 10, 30])).toEqual([0, 0.25, 0.75]);
     expect(regretMatching([-2, 0])).toEqual([0.5, 0.5]);
+  });
+  it("normalizes large finite regrets without overflowing the positive sum", () => {
+    const policy = regretMatching([
+      Number.MAX_VALUE,
+      Number.MAX_VALUE / 2,
+      -Number.MAX_VALUE,
+    ]);
+    expect(policy[0]).toBeCloseTo(2 / 3, 15);
+    expect(policy[1]).toBeCloseTo(1 / 3, 15);
+    expect(policy[2]).toBe(0);
+    expect(() => regretMatching([Infinity, 1])).toThrow(/finite/i);
+    expect(() => regretMatching([NaN, 1])).toThrow(/finite/i);
   });
   it("does not distinguish opponent cards or unrevealed board cards in an information set", () => {
     const input = fixture(3, "flop");
