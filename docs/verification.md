@@ -9,7 +9,7 @@ Den gamla WinUI-skelettkoden har ersatts av en byggbar Windows-app. Leveransen i
 | Kontroll | Resultat |
 |---|---|
 | TypeScript + produktionsbuild | Pass |
-| Vitest | 11 tester passerar, 0 fel |
+| Vitest | 63 tester passerar, 0 fel (version 1.2, threads / maxWorkers 1) |
 | Produktionsberoenden, `npm audit --omit=dev` | 0 rapporterade sårbarheter vid kontrollen |
 | Riktig WASM-solver | Körs lokalt utan API-nycklar |
 | Analytiskt polariserat pottbet | Bluff:värde 0,499869 mot teori 0,5 |
@@ -40,7 +40,7 @@ Råbevis: `docs/evidence/` och aktuella körningar under `artifacts/`. Bilder: `
 
 ## Kvar utanför MVP:n
 
-- Verifierad extern DOM-adapter och komplett live-handhistorik för Svenska Spel/PokerNow.
+- Permanent browserinstallation, komplett live-handhistorik och bredare sajttäckning. Svenska Spel har sessionsbunden DOM-avläsning i 1.1, se [liveverifieringen](live.md).
 - OCR, automatisk kalibrering och skärmanalys.
 - Preflop-, flop- och turnlösning samt range-estimering från en hel spelhistorik.
 - Multiway, turnerings-ICM och rake.

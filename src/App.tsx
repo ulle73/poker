@@ -33,6 +33,7 @@ import { MESSAGE, type TableLoad } from "./table/protocol";
 import { Card } from "./components/Card";
 import { Advisor } from "./components/Advisor";
 import { ConfigLab } from "./components/ConfigLab";
+import { LivePanel } from "./live/LivePanel";
 
 const solver = new SolverClient();
 const fmt = (n: number) =>
@@ -107,8 +108,12 @@ function prefixHistory(c: TrainingConfig): HistoryEntry[] {
   ];
 }
 export function App() {
-  const [view, setView] = useState<"trainer" | "session" | "lab" | "method">(
-    "trainer",
+  const [view, setView] = useState<
+    "trainer" | "session" | "lab" | "method" | "live"
+  >(
+    new URLSearchParams(location.search).get("view") === "live"
+      ? "live"
+      : "trainer",
   );
   const [mode, setMode] = useState<"study" | "practice">("study");
   const [drill, setDrill] = useState<Drill>(DRILLS[0]);
@@ -152,7 +157,7 @@ export function App() {
       ? "Handen saknar nåbar strategi efter den här linjen. Välj en ny övning eller ändra studiens ranger."
       : "");
 
-  const start = useCallback(async (next: Drill) => {
+  const start = useCallback(async (next: Drill, selectView = true) => {
     const seq = ++sequence.current;
     solver.cancel();
     setBusy(true);
@@ -164,7 +169,7 @@ export function App() {
     setFeedback(null);
     setRevealed(false);
     setDrill(next);
-    setView("trainer");
+    if (selectView) setView("trainer");
     lastRevision.current = -1;
     choiceLock.current = false;
     try {
@@ -226,7 +231,7 @@ export function App() {
     }
   }, []);
   useEffect(() => {
-    start(DRILLS[0]);
+    start(DRILLS[0], false);
     const timer = setInterval(() => setClock(Date.now()), 750);
     return () => {
       ++sequence.current;
@@ -455,6 +460,7 @@ export function App() {
           {(
             [
               ["trainer", "Träningsbord"],
+              ["live", "Live · Edge"],
               ["session", "Min session"],
               ["lab", "Egen studie"],
               ["method", "Metod & källor"],
@@ -471,32 +477,38 @@ export function App() {
         </nav>
         <span className="local-indicator">
           <span className="status-dot good" />
-          Lokalt · Offline
+          {view === "live" ? "Lokalt · DOM-avläsning" : "Lokalt · Offline"}
         </span>
       </header>
       <main className="workspace">
         <div className="page-heading">
           <div>
             <div className="section-context">
-              Heads-up no-limit hold’em · Träningsmiljö
+              {view === "live"
+                ? "Texas hold’em · Svenska Spel · Endast avläsning"
+                : "Heads-up no-limit hold’em · Träningsmiljö"}
             </div>
             <h1>
-              {view === "session"
-                ? "Min session"
-                : view === "lab"
-                  ? "Studera en egen river"
-                  : view === "method"
-                    ? "Det här bygger råden på"
-                    : "Ett bättre beslut i taget."}
+              {view === "live"
+                ? "Ditt bord, live."
+                : view === "session"
+                  ? "Min session"
+                  : view === "lab"
+                    ? "Studera en egen river"
+                    : view === "method"
+                      ? "Det här bygger råden på"
+                      : "Ett bättre beslut i taget."}
             </h1>
             <p>
-              {view === "trainer"
-                ? "Läs bordet. Förstå frekvenserna. Träna ditt nästa beslut."
-                : view === "session"
-                  ? "Dina sparade beslut, med den strategi som faktiskt användes."
-                  : view === "lab"
-                    ? "Ändra förutsättningarna och låt solvern räkna om."
-                    : "Tydliga antaganden, riktig solver och mätbar lösningskvalitet."}
+              {view === "live"
+                ? "Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning."
+                : view === "trainer"
+                  ? "Läs bordet. Förstå frekvenserna. Träna ditt nästa beslut."
+                  : view === "session"
+                    ? "Dina sparade beslut, med den strategi som faktiskt användes."
+                    : view === "lab"
+                      ? "Ändra förutsättningarna och låt solvern räkna om."
+                      : "Tydliga antaganden, riktig solver och mätbar lösningskvalitet."}
             </p>
           </div>
           {view === "trainer" && (
@@ -913,6 +925,7 @@ export function App() {
           </>
         )}
         {view === "method" && <Method />}
+        {view === "live" && <LivePanel />}
         <footer className="app-footer">
           <span>
             Poker GTO Advisor <span className="muted">/ 1.0 · River MVP</span>
@@ -978,16 +991,18 @@ function Method() {
             dina blockerare. Ingen verklig spelare profileras.
           </li>
           <li>
-            Inga livekopplingar, OCR eller automatiska klick på pokersajter
-            ingår i MVP:n.
+            Livefliken läser Svenska Spels DOM till denna app. Observern är
+            sessionsbunden och stannar vid omladdning. OCR och automatiska
+            pokerhandlingar ingår inte.
           </li>
         </ul>
         <h3>Research i din Edge-flik</h3>
         <p>
           Den öppna Svenska Spel-klienten hade HTML-element för spelare, pott,
           stackar och kort. Dolda platshållarkort låg kvar i DOM. Möjligheten är
-          lovande, men en hel hand och tillförlitlig historik är ännu inte
-          verifierade.
+          nu använd i livefliken. Två deltagare på river kan analyseras med
+          uttryckliga rangeantaganden. Komplett handhistorik och tidigare
+          gators strategier återstår.
         </p>
         <h3>Öppen källkod</h3>
         <p>

@@ -72,3 +72,7 @@ En framtida OCR-adapter ska lämna samma TableSnapshot-kontrakt och kvalitetsmar
 - [electron-builder Windows](https://www.electron.build/win/): portabel Windows x64-distribution.
 
 Paketversionerna är de faktiskt installerade versionerna i lockfilen. Ändringens risk begränsas genom offlinekörning, explicit riverscope och oberoende matematiska tester.
+
+## Tillägg 1.1: aktivt bord
+
+Den efterföljande avläsningen under pågående spel bekräftade hålkort via rank/suit eller SVG-filnamn, bräda, EUR-belopp, handnummer, sex säten, två och senare tre upptagna säten samt handlingsknapparna Fold/Syna/Höj Till. Authentiserade snapshots kvitterades av den lokala appen. Inga spelhandlingar utfördes. Se docs/live.md för aktuell täckning; tabellen och väntelägesiakttagelserna ovan är historik från den första researchfasen.

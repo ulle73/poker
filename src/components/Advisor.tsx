@@ -11,6 +11,7 @@ export function Advisor({
   busy,
   error,
   onReveal,
+  currency = "bb",
 }: {
   node?: SolvedNode;
   hand: SolvedHand | null;
@@ -20,6 +21,7 @@ export function Advisor({
   busy: boolean;
   error: string;
   onReveal: () => void;
+  currency?: string;
 }) {
   const ready = !!hand && !!node && connected;
   const top = ready
@@ -76,9 +78,9 @@ export function Advisor({
             <strong>
               {actionName(node!.actions[top].label)}
               {node!.actions[top].amount_to !== null
-                ? ` ${node!.actions[top].amount_to} bb`
+                ? ` ${node!.actions[top].amount_to} ${currency}`
                 : node!.actions[top].label === "allin"
-                  ? ` ${actionCost(node!, node!.actions[top], result!.config.stack)} bb`
+                  ? ` ${actionCost(node!, node!.actions[top], result!.config.stack)} ${currency}`
                   : ""}
             </strong>
             <span>
@@ -129,16 +131,16 @@ export function Advisor({
                   <i className={`tiny-dot ${actionGroup(a.label)}`} />
                   {actionName(a.label)}
                   {a.amount_to !== null
-                    ? ` till ${a.amount_to} bb`
+                    ? ` till ${a.amount_to} ${currency}`
                     : a.label === "call" || a.label === "allin"
-                      ? ` ${actionCost(node!, a, result!.config.stack)} bb`
+                      ? ` ${actionCost(node!, a, result!.config.stack)} ${currency}`
                       : ""}
                 </span>
                 <b>{percent(hand!.frequencies[i])}</b>
                 <span>
                   {hand!.actionEvs[i] === null
                     ? "—"
-                    : `${hand!.actionEvs[i]!.toFixed(2)} bb`}
+                    : `${hand!.actionEvs[i]!.toFixed(2)} ${currency}`}
                 </span>
               </div>
             ))}

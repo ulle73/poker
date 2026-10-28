@@ -1,5 +1,7 @@
 # Arkitektur
 
+Version 1.1 lägger till en separat liveväg: Edge DOM-observer → autentiserad HTTP på endast 127.0.0.1 → validerad snapshot i mainprocessen → `poker://app/live-state` → LivePanel → egen WASM-worker. Renderer har fortsatt ingen extern nätverksåtkomst. Servern accepterar bara parningskod och rätt pokerorigin; storlek, tid, sekvens och schema kontrolleras. Token lagras lokalt i appprofilen. Liveinnehåll sparas inte som träningsbeslut. Se [begränsningar och verifiering](live.md).
+
 ```mermaid
 flowchart LR
     T[Separat HTML-träningsbord] -->|MutationObserver läser DOM| D[DOM-adapter]

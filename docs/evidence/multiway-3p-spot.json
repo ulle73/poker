@@ -1,0 +1,52 @@
+{
+  "street": "river",
+  "players": [
+    "BTN",
+    "BB",
+    "CO"
+  ],
+  "board": [
+    "Ah",
+    "Kd",
+    "7c",
+    "4s",
+    "2h"
+  ],
+  "ranges": [
+    "AsAd,QsJs",
+    "AcKh,QcQd",
+    "JcJd,AdQh"
+  ],
+  "gross_pot": 180.0,
+  "rake": 0.0,
+  "contributions": [
+    60.0,
+    60.0,
+    60.0
+  ],
+  "stacks": [
+    90.0,
+    90.0,
+    90.0
+  ],
+  "betting_policy": {
+    "fixed_pot_fractions": [
+      0.5
+    ],
+    "max_raises": 1,
+    "min_bet_increment": 1.0,
+    "all_in_threshold": 1.0
+  },
+  "max_history": 8,
+  "public_state_id": 9,
+  "root_actor": "BTN",
+  "hero_seat": "BTN",
+  "runtime": {
+    "worker_threads": 1,
+    "convergence": {
+      "measure_exploitability": true,
+      "measurement_interval": 50,
+      "max_curve_samples": 8
+    }
+  }
+}

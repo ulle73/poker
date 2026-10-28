@@ -2,11 +2,13 @@
 
 En fungerande Windows-app för **heads-up riverträning** med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
+**Aktuell status 1.2:** Windows-träning, liveavläsning och equity för 2–10 spelare fungerar. Den beställda automatiska GTO-beslutsmotorn för alla gator och antal spelare är **inte färdig**. Equity är tydligt skild från strategi. Se [multiway-utredningen](docs/multiway-research.md).
+
 ## Starta
 
 Dubbelklicka **`Start-Poker.cmd`** i denna mapp, eller kör:
 
-`release/Poker-GTO-Advisor-1.0.0-Windows.exe`
+`release/Poker-GTO-Advisor-1.2.0-Windows.exe`
 
 Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsignerad. En uppackad version finns också i `release/win-unpacked/`. Flytta hela den mappen om du använder dess `.exe`.
 
@@ -18,7 +20,7 @@ Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsign
 4. **Min session** sparar upp till 1 000 beslut lokalt, med export, validerad import och återställbar nollställning.
 5. **Egen studie** låter dig ändra riverbräda, båda rangerna, pott, effektiv stack, sizing och lösningsbudget.
 
-**Bet/Raise visar totalt satsat på river; Call visar ytterligare belopp. Alla belopp är bb.** All-in riskerar återstående effektiva stack. EV anges relativt början av solverns riverträd, med halva startpotten tilldelad respektive spelare.
+**Bet/Raise visar totalt satsat på river; Call visar ytterligare belopp. Träningsbelopp är bb; livebelopp behåller sajtens avlästa valuta.** All-in riskerar återstående effektiva stack. EV anges relativt början av solverns riverträd, med halva startpotten tilldelad respektive spelare.
 
 ## Vad som är klart
 
@@ -33,7 +35,7 @@ MVP:n löser heads-up **river**, chip EV, utan rake, med symmetrisk effektiv sta
 
 Historiken före river är ett tydligt märkt syntetiskt träningsprefix. Den används inte för att låtsas härleda optimala river-ranger. Motståndaren är en träningsmodell, inte en profil av en verklig spelare. Inga fiktiva vinstsiffror räknas.
 
-Svenska Spels öppna Edge-klient undersöktes läsande: HTML-strukturen är lovande för en framtida DOM-adapter. En hel livehand, löpande historik, OCR och anslutning till externa pokersajter ingår inte i den färdiga MVP:n. Läs [researchen](docs/research.md).
+Version 1.1 har liveavläsning av Svenska Spels HTML-klient till fliken **Live · Edge**. Den aktuella Edge-fliken har anslutits med en läsande DOM-observer som stannar vid omladdning. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Historiken är delvis observerad från anslutningstillfället. Se [liveanslutning](docs/live.md). Riveranalysen kräver två deltagare, bekräftad egen tur och explicit angivna ranger. Preflop, flop, turn, multiway och linjer med båda spelarnas riverinsatser ger ännu inga råd. OCR ingår inte.
 
 ## Utveckling och verifiering
 

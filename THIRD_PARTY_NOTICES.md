@@ -51,3 +51,7 @@ Electron and Chromium license notices are shipped by Electron alongside the Wind
 - https://github.com/ulle73/poker — existing project reviewed, replaced by this buildable trainer. Original history is preserved in Git.
 - https://github.com/hellomate2/gto-poker-overlay (MIT) — architectural reference for explicit strategy provenance, action mixtures and local training; no overlay, autoplay, blueprint assets or source copied into this product.
 - https://github.com/LittleHalf/MCPoker — architectural reference for capture/context separation and multi-street history; no source, cloud service or LLM advice copied into this product.
+
+## PHE hand evaluator 0.6.0 (MIT)
+
+Multiway Monte Carlo evaluation uses the published phe npm package: https://github.com/thlorenz/phe . Copyright 2017 Thorsten Lorenz. Complete MIT notice: docs/licenses/PHE-LICENSE.txt.

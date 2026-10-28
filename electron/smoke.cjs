@@ -2,7 +2,7 @@ const fs = require("node:fs/promises");
 const path = require("node:path");
 const assert = require("node:assert/strict");
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-exports.run = async (win) => {
+exports.run = async (win, liveBridge) => {
   const errors = [];
   win.webContents.on("console-message", (event) => {
     if (event.level === "error") errors.push(event.message);
@@ -97,6 +97,145 @@ exports.run = async (win) => {
     );
   }
   win.setContentSize(1440, 900);
+  const fixture = {
+    version: 1,
+    source: "svenskaspel-dom",
+    readerId: "native-smoke",
+    sequence: 1,
+    handId: "123",
+    capturedAt: Date.now(),
+    currency: "EUR",
+    maxSeats: 6,
+    players: [
+      {
+        seat: 4,
+        hero: true,
+        position: "BTN / SB",
+        stack: 0.4,
+        bet: 0,
+        folded: false,
+        inHand: true,
+      },
+      {
+        seat: 6,
+        hero: false,
+        position: "BB",
+        stack: 0.3,
+        bet: 0.1,
+        folded: false,
+        inHand: true,
+      },
+    ],
+    heroCards: ["Th", "Tc"],
+    board: ["Ks", "7d", "2c", "8h", "3d"],
+    pot: 0.2,
+    street: "river",
+    dealerSeat: 4,
+    heroTurn: true,
+    availableActions: ["Fold", "Syna"],
+    valid: true,
+    issues: [],
+    observedActions: [],
+  };
+  const sendLive = async () => {
+    fixture.sequence++;
+    fixture.capturedAt = Date.now();
+    const res = await fetch(liveBridge.state().endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Poker-Token": liveBridge.token,
+      },
+      body: JSON.stringify(fixture),
+    });
+    assert.equal(res.status, 200);
+  };
+  await sendLive();
+  const keepLive = setInterval(() => sendLive().catch(console.error), 500);
+  const multiwayCounts = [];
+  try {
+    await win.webContents.executeJavaScript(
+      `Array.from(document.querySelectorAll('nav button')).find(b=>b.textContent==='Live · Edge').click()`,
+    );
+    await poll(
+      `document.querySelector('.live-status')?.innerText.includes('123')`,
+    );
+    await win.webContents.executeJavaScript(
+      `(()=>{const fields=document.querySelectorAll('.live-ranges input:not([type=checkbox])');['KK,A4s,A5s','TT,JJ'].forEach((value,i)=>{Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(fields[i],value);fields[i].dispatchEvent(new Event('input',{bubbles:true}));});})()`,
+    );
+    await poll(
+      `document.querySelector('.live-advisor .recommendation')?.innerText.includes('Call')`,
+    );
+    const liveText = await win.webContents.executeJavaScript(
+      `document.querySelector('.live-advisor').innerText`,
+    );
+    assert.ok(liveText.includes("EUR"));
+    assert.ok(!liveText.includes(" bb"));
+    for (const width of [1440, 390]) {
+      win.setContentSize(width, 900);
+      await wait(100);
+      assert.equal(
+        await win.webContents.executeJavaScript(
+          `document.documentElement.scrollWidth>innerWidth`,
+        ),
+        false,
+        `live overflow at ${width}`,
+      );
+    }
+    win.setContentSize(1440, 900);
+    await fs.writeFile(
+      path.join(output, "live-smoke.png"),
+      (await win.webContents.capturePage()).toPNG(),
+    );
+    for (const count of [3, 6, 10]) {
+      fixture.maxSeats = Math.max(6, count);
+      fixture.heroCards = ["2c", "3d"];
+      fixture.board = ["As", "Ks", "Qs", "Js", "Ts"];
+      const seats = [
+        4,
+        6,
+        ...Array.from({ length: 10 }, (_, i) => i + 1).filter(
+          (x) => x !== 4 && x !== 6,
+        ),
+      ].slice(0, count);
+      fixture.players = seats.map((seat) => ({
+        seat,
+        hero: seat === 4,
+        position: seat === 4 ? "BTN" : "Övrig",
+        stack: 0.4,
+        bet: 0,
+        inHand: true,
+        folded: false,
+      }));
+      await sendLive();
+      await poll(
+        `document.querySelector('.equity-number strong')?.textContent === '${(100 / count).toFixed(1)} %'`,
+      );
+      assert.equal(
+        await win.webContents.executeJavaScript(
+          `!!document.querySelector('.live-advisor .recommendation')`,
+        ),
+        false,
+        "never mislabel multiway equity as GTO",
+      );
+      multiwayCounts.push(count);
+    }
+    await fs.writeFile(
+      path.join(output, "live-multiway-smoke.png"),
+      (await win.webContents.capturePage()).toPNG(),
+    );
+    console.log("MULTIWAY_NATIVE_VERIFIED", JSON.stringify(multiwayCounts));
+    fixture.valid = false;
+    fixture.issues = ["Avläsningen avvisades."];
+    await sendLive();
+    await poll(`!document.querySelector('.live-advisor .recommendation')`);
+  } finally {
+    clearInterval(keepLive);
+  }
+  await wait(3500);
+  await poll(
+    `document.querySelector('.live-status')?.innerText.includes('inaktuell')`,
+  );
   // Expected CSP failures below are evidence, not runtime defects.
   const runtimeErrors = [...errors];
   errors.length = 0;
@@ -126,6 +265,14 @@ exports.run = async (win) => {
     layouts,
     consoleErrors: runtimeErrors,
     expectedBlockedNetworkErrors: errors,
+    live: {
+      multiwayCounts,
+      authenticatedBridge: true,
+      currency: "EUR",
+      realWasmAdvice: true,
+      invalidCaptureHidesAdvice: true,
+      staleCaptureHidesAdvice: true,
+    },
   };
   await fs.writeFile(
     path.join(output, "desktop-smoke.json"),

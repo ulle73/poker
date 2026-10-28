@@ -45,6 +45,8 @@ const mime = {
   ".ico": "image/x-icon",
 };
 let main;
+let liveBridge;
+let liveError;
 async function createWindow() {
   main = new BrowserWindow({
     width: 1440,
@@ -66,13 +68,46 @@ async function createWindow() {
   main.removeMenu();
   main.webContents.setWindowOpenHandler(() => ({ action: "deny" }));
   main.webContents.on("will-navigate", (e, url) => {
-    if (url !== "poker://app/index.html") e.preventDefault();
+    if (!url.startsWith("poker://app/index.html")) e.preventDefault();
   });
   main.webContents.on("will-attach-webview", (e) => e.preventDefault());
-  await main.loadURL("poker://app/index.html");
+  await main.loadURL(
+    "poker://app/index.html" +
+      (process.argv.includes("--live") ? "?view=live" : ""),
+  );
+  if (process.argv.includes("--live-proof")) {
+    let proofAttempts = 0;
+    const proofTimer = setInterval(async () => {
+      const state = liveBridge?.state();
+      if (!state?.snapshot || Date.now() - state.receivedAt > 3000) return;
+      try {
+        const output = path.resolve("artifacts");
+        await fs.mkdir(output, { recursive: true });
+        await fs.writeFile(
+          path.join(output, "live-current.png"),
+          (await main.webContents.capturePage()).toPNG(),
+        );
+        console.log(
+          "LIVE_PROOF",
+          JSON.stringify({
+            received: true,
+            sequence: state.snapshot.sequence,
+            valid: state.snapshot.valid,
+            street: state.snapshot.street,
+            players: state.snapshot.players.length,
+          }),
+        );
+        clearInterval(proofTimer);
+      } catch (error) {
+        if (++proofAttempts >= 3) clearInterval(proofTimer);
+        console.warn("Live proof capture unavailable", String(error));
+      }
+    }, 1500);
+    proofTimer.unref();
+  }
   if (smoke) {
     try {
-      await require("./smoke.cjs").run(main);
+      await require("./smoke.cjs").run(main, liveBridge);
       app.exit(0);
     } catch (e) {
       console.error(e);
@@ -83,12 +118,55 @@ async function createWindow() {
 app
   .whenReady()
   .then(async () => {
+    try {
+      const savedPair = await fs
+        .readFile(
+          path.join(app.getPath("userData"), "live-connection.json"),
+          "utf8",
+        )
+        .then(JSON.parse)
+        .catch(() => null);
+      liveBridge = await require("./live-bridge.cjs").createLiveBridge({
+        port: smoke ? 0 : 47832,
+        token: /^[a-f0-9]{48}$/.test(savedPair?.token ?? "")
+          ? savedPair.token
+          : undefined,
+      });
+      await fs.mkdir(app.getPath("userData"), { recursive: true });
+      await fs.writeFile(
+        path.join(app.getPath("userData"), "live-connection.json"),
+        JSON.stringify({
+          endpoint: liveBridge.state().endpoint,
+          token: liveBridge.token,
+        }),
+      );
+    } catch (e) {
+      liveError = `Liveanslutningen kunde inte startas: ${e.code || e.message}`;
+    }
     const dist = path.resolve(__dirname, "../dist");
     protocol.handle("poker", async (request) => {
       try {
         const url = new URL(request.url);
         if (url.hostname !== "app" || !["GET", "HEAD"].includes(request.method))
           return new Response("Forbidden", { status: 403 });
+        if (url.pathname === "/live-state")
+          return new Response(
+            JSON.stringify(
+              liveBridge?.state() ?? {
+                available: false,
+                snapshot: null,
+                history: [],
+                error: liveError,
+              },
+            ),
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-store",
+                "Content-Security-Policy": CSP,
+              },
+            },
+          );
         const requested = decodeURIComponent(
           url.pathname === "/" ? "/index.html" : url.pathname,
         );
@@ -139,6 +217,9 @@ app
     app.exit(1);
   });
 app.on("window-all-closed", () => app.quit());
+app.on("before-quit", () => {
+  liveBridge?.close();
+});
 app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
