@@ -1,0 +1,67 @@
+{
+  "verifiedAt": "2026-10-28T01:05:38.545Z",
+  "analytical": {
+    "iterations": 1300,
+    "exploitabilityPct": 0.005825161933898926,
+    "bluffToValue": 0.49986910820007324,
+    "valueMass": 3,
+    "bluffMass": 1.4996073246002197,
+    "wallMs": 14.439899999999994
+  },
+  "trainingTree": {
+    "nodes": 27,
+    "meta": {
+      "board": "Ks 7d 2c 8h 3d",
+      "effective_stack": 40,
+      "engine_version": "0.1.0",
+      "exploitability_chips": 0.0008342638611793518,
+      "exploitability_pct_of_pot": 0.008342638611793518,
+      "format_version": 1,
+      "gain": [
+        -0.09087279438972473,
+        0.09170705825090408
+      ],
+      "ip_range": "TT,JJ",
+      "iterations": 2700,
+      "locks": [],
+      "node_count": 27,
+      "oop_range": "KK,A4s,A5s",
+      "payoff_unit": "chips",
+      "root_combos": [
+        11,
+        12
+      ],
+      "root_evs": {
+        "pot_share": [
+          4.909090042114258,
+          5.090909481048584
+        ],
+        "zero_sum": [
+          -0.09090978652238846,
+          0.09090926498174667
+        ]
+      },
+      "starting_pot": 10,
+      "street": "river",
+      "tournament": null,
+      "wall_seconds": 0.027
+    },
+    "wallMs": 29.116800000000012
+  },
+  "independentOracle": {
+    "ev": [
+      -0.09090931582729171,
+      0.0909093158272915
+    ],
+    "bestResponse": [
+      -0.09087269959557241,
+      0.09170694470487849
+    ],
+    "gains": [
+      0.00003661623171929973,
+      0.0007976288775869839
+    ],
+    "exploitabilityChips": 0.0008342451093060754
+  },
+  "assertions": "polarized equilibrium, actual raises, normalized frequencies, zero sum EV, nonnegative stacks, blocked ranges, independent seven-card evaluator and scalar best response"
+}

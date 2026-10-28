@@ -1,0 +1,7 @@
+{
+  "file": "release/Poker-GTO-Advisor-1.0.0-Windows.exe",
+  "bytes": 111752554,
+  "sha256": "7d0a6a4ef856682668117c603546747a40fd4f9e9addaa54d8abdf0cc77f82ea",
+  "verifiedPortableRuntime": "docs/evidence/portable-smoke.json",
+  "builtAtLocal": "2026-10-28 Europe/Stockholm"
+}

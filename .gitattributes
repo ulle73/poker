@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.wasm binary
+*.png binary
+# Keep pinned upstream assets byte-for-byte; provenance hashes refer to these bytes.
+public/wasm/solver_wasm.js -text
+vendor/** text eol=lf

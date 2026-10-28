@@ -1,38 +1,56 @@
-# Poker HUD & GTO Advisor
+# Poker GTO Advisor
 
-**Strong, optimized MVP is now in the repository.**
+En fungerande Windows-app för **heads-up riverträning** med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
-A Windows application that captures poker tables in real time, detects cards using computer vision (OpenCvSharp), and provides GTO-style recommendations.
+## Starta
 
-## Current Status (Optimized MVP)
+Dubbelklicka **`Start-Poker.cmd`** i denna mapp, eller kör:
 
-- Full CaptureService with working frame-to-Mat conversion
-- VisionService with template matching + card parser
-- DecisionEngine with equity estimation and action recommendations
-- OcrService skeleton (Tesseract ready)
-- Proper FindPokerWindow using Win32
-- Basic WinUI overlay with live updates
-- Good documentation and guides
+`release/Poker-GTO-Advisor-1.0.0-Windows.exe`
 
-The project is now in a state where you can build and test a functional version.
+Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsignerad. En uppackad version finns också i `release/win-unpacked/`. Flytta hela den mappen om du använder dess `.exe`.
 
-## Quick Start
+## Använd appen
 
-1. Create a WinUI 3 Blank App in Visual Studio
-2. Add NuGet packages: OpenCvSharp + Tesseract
-3. Add graphicsCapture capability (see docs)
-4. Create card templates (see docs/Card_Templates_Guide.md)
-5. Copy the src/ files into your project
-6. Update the templates path in MainWindow.xaml.cs
-7. Run and test!
+1. Börja med **Fånga bluffen**. Kort, pott, stackar och historik läses automatiskt från det inbäddade träningsbordets HTML.
+2. I **Studera** visas trafikljus, exakta handlingsfrekvenser, sizing och EV. I **Öva utan facit** väljer du först och får sedan återkoppling.
+3. Klicka Fold, Call, Bet, Raise eller All-in i bordet. **Fortsätt handen** går vidare i samma lösta spelträd. Motståndaren följer en rangevägd strategimix.
+4. **Min session** sparar upp till 1 000 beslut lokalt, med export, validerad import och återställbar nollställning.
+5. **Egen studie** låter dig ändra riverbräda, båda rangerna, pott, effektiv stack, sizing och lösningsbudget.
 
-## Important Notes
-- Card templates are critical for good detection quality.
-- The DecisionEngine is simplified — replace with real TexasSolver JSON for production use.
-- This is for educational/study purposes. Most poker sites prohibit screen reading tools.
+**Bet/Raise visar totalt satsat på river; Call visar ytterligare belopp. Alla belopp är bb.** All-in riskerar återstående effektiva stack. EV anges relativt början av solverns riverträd, med halva startpotten tilldelad respektive spelare.
 
-See the docs/ folder for detailed guides.
+## Vad som är klart
 
----
+- Sex träningsövningar, egna riverscenarier, synlig historik och positions-/stackavläsning.
+- En verklig range-mot-range-solver med kortblockering, blandfrekvenser och separat uppmätt exploaterbarhet.
+- Mätbar avläsning: identitet, revision, kort, pott, stackar och färskhet måste stämma innan råden visas.
+- En sandboxad Windows-app som blockerar externa nätverksanrop och bevarar sessioner mellan starter.
 
-Built iteratively with strong foundations from open-source projects like dickreuter/Poker and TexasSolver.
+## Avgränsning
+
+MVP:n löser heads-up **river**, chip EV, utan rake, med symmetrisk effektiv stack och högst en raise. En blandstrategi gäller bara de angivna rangerna och bettingträdet. Iterationsgräns är inte samma sak som konvergens; appen visar uppmätt fel och om målet nåddes.
+
+Historiken före river är ett tydligt märkt syntetiskt träningsprefix. Den används inte för att låtsas härleda optimala river-ranger. Motståndaren är en träningsmodell, inte en profil av en verklig spelare. Inga fiktiva vinstsiffror räknas.
+
+Svenska Spels öppna Edge-klient undersöktes läsande: HTML-strukturen är lovande för en framtida DOM-adapter. En hel livehand, löpande historik, OCR och anslutning till externa pokersajter ingår inte i den färdiga MVP:n. Läs [researchen](docs/research.md).
+
+## Utveckling och verifiering
+
+Node.js 24 LTS rekommenderas. Låsta paketversioner finns i `package-lock.json`.
+
+```powershell
+npm ci
+npm test
+npm run verify:solver
+npm run build
+npm run smoke:desktop
+npm run desktop
+npm run package
+```
+
+`npm run dev` startar webbläsarversionen på loopback. Ingen backend behövs. `npm run package` bygger den portabla Windows-appen.
+
+`verify:solver` prövar ett analytiskt polariserat riverfall och jämför hela det större trädet med en **oberoende JavaScript-handvärderare och best-response-traversering**. `smoke:desktop` testar den riktiga Electron-appen, DOM-synk, val, sparande, återladdning och nätverksblockering i en separat testprofil.
+
+Rapporter finns i `artifacts/` och en sammanställd [verifieringsrapport](docs/verification.md). Se [arkitekturen](docs/architecture.md), [solverursprung](docs/solver-provenance.json) och [licenser](THIRD_PARTY_NOTICES.md).

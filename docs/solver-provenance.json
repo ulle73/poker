@@ -1,0 +1,22 @@
+{
+  "downloadedAt": "2026-10-28",
+  "reviewedSource": {
+    "repository": "https://github.com/ucsandman/postflop",
+    "revision": "5fc7ee3d92b823b6c58e4f58cbee7d50d5e9e6de"
+  },
+  "locallyRebuiltFromSource": false,
+  "artifacts": [
+    {
+      "path": "public/wasm/solver_wasm.js",
+      "source": "https://postflop-workbench.vercel.app/wasm/solver_wasm.js",
+      "bytes": 29601,
+      "sha256": "5293abaa108819271e8f7919238be7dbe82992633661ba02fe255a4214e12575"
+    },
+    {
+      "path": "public/wasm/solver_wasm_bg.wasm",
+      "source": "https://postflop-workbench.vercel.app/wasm/solver_wasm_bg.wasm",
+      "bytes": 712855,
+      "sha256": "1121f50f5a25dfd21297bb7cd553ba030ebe1653a028720d2c2332b404dcc56a"
+    }
+  ]
+}

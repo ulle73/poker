@@ -1,0 +1,75 @@
+{
+  "verifiedAt": "2026-10-28T01:07:45.389Z",
+  "packaged": true,
+  "electron": "45.1.0",
+  "origin": "poker://app",
+  "nodeIntegrationExposed": "undefined",
+  "dom": "DOM synkroniserad",
+  "frequencies": "Fold\n44,4 %\nCall\n55,6 %\nRaise / All-in\n0 %",
+  "decisionSaved": true,
+  "savedCountBeforeLaunch": 7,
+  "savedCountAfter": 8,
+  "persistedAfterReload": true,
+  "remoteFetchBlocked": true,
+  "iframe": {
+    "height": 400,
+    "scroll": 400
+  },
+  "scenarios": [
+    {
+      "title": "Fånga bluffen",
+      "advice": "Vanligaste handlingen\nCall\n55,6 % av gångerna · en blandstrategi",
+      "actions": 4
+    },
+    {
+      "title": "Ta betalt med set",
+      "advice": "Vanligaste handlingen\nAll-in 40 bb\n100 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "Välj dina bluffar",
+      "advice": "Vanligaste handlingen\nCheck\n70 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "När motståndaren checkar",
+      "advice": "Vanligaste handlingen\nCheck\n100 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "Överpar under press",
+      "advice": "Vanligaste handlingen\nCall\n99,9 % av gångerna · en blandstrategi",
+      "actions": 4
+    },
+    {
+      "title": "Draget som missade",
+      "advice": "Vanligaste handlingen\nBet 20 bb\n73,4 % av gångerna · en blandstrategi",
+      "actions": 4
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "tableHeight": 400,
+      "tableScroll": 400
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "tableHeight": 417,
+      "tableScroll": 417
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "tableHeight": 408,
+      "tableScroll": 408
+    }
+  ],
+  "consoleErrors": [],
+  "expectedBlockedNetworkErrors": [
+    "Connecting to 'https://example.com/' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked.",
+    "Fetch API cannot load https://example.com/. Refused to connect because it violates the document's Content Security Policy."
+  ]
+}
