@@ -64,6 +64,9 @@ Observerade handlingar måste villkora ranger över hela handen. Okänd tidigare
 sidopott och blind måste förbli synliga antaganden tills de kan verifieras.
 Nuvarande experimentmotor är inte ett godkänt substitut för detta.
 
+En efterföljande [källgranskning](strategy-source-audit.md) skiljer faktiska
+solverartefakter från snäv täckning, osäker proveniens och rena databasplaner.
+
 Algoritmdokumentation:
 [OpenSpiel external sampling](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py),
 [Postflop ranges](https://b-inary.github.io/postflop_solver/postflop_solver/struct.Range.html),
