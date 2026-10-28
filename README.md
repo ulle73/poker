@@ -2,13 +2,13 @@
 
 En fungerande Windows-app för **heads-up riverträning** med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
-**Aktuell status 1.2:** Windows-träning, liveavläsning och equity för 2–10 spelare fungerar. Den beställda automatiska GTO-beslutsmotorn för alla gator och antal spelare är **inte färdig**. Equity är tydligt skild från strategi. Se [multiway-utredningen](docs/multiway-research.md).
+**Aktuell status 1.3:** Automatisk beräkning av handlingar, storlekar och frekvenser fungerar från preflop till river för 2–10 aktiva spelare. Den nya MCCFR-modellen har dock **inte klarat kvalitetsgranskningen** och visas bara efter aktivt val av experimentläge. Den beställda tillförlitliga automatiska GTO-beslutsmotorn är **inte färdig**. Matchade heads-up-riverträd kan få separat verifierade DCFR-råd. Se [beslutsmotorns kvalitetsrapport](docs/decision-engine.md).
 
 ## Starta
 
 Dubbelklicka **`Start-Poker.cmd`** i denna mapp, eller kör:
 
-`release/Poker-GTO-Advisor-1.2.0-Windows.exe`
+`release/Poker-GTO-Advisor-1.3.0-Windows.exe`
 
 Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsignerad. En uppackad version finns också i `release/win-unpacked/`. Flytta hela den mappen om du använder dess `.exe`.
 
@@ -35,7 +35,7 @@ MVP:n löser heads-up **river**, chip EV, utan rake, med symmetrisk effektiv sta
 
 Historiken före river är ett tydligt märkt syntetiskt träningsprefix. Den används inte för att låtsas härleda optimala river-ranger. Motståndaren är en träningsmodell, inte en profil av en verklig spelare. Inga fiktiva vinstsiffror räknas.
 
-Version 1.1 har liveavläsning av Svenska Spels HTML-klient till fliken **Live · Edge**. Den aktuella Edge-fliken har anslutits med en läsande DOM-observer som stannar vid omladdning. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Historiken är delvis observerad från anslutningstillfället. Se [liveanslutning](docs/live.md). Riveranalysen kräver två deltagare, bekräftad egen tur och explicit angivna ranger. Preflop, flop, turn, multiway och linjer med båda spelarnas riverinsatser ger ännu inga råd. OCR ingår inte.
+Livefliken läser Svenska Spels HTML-klient genom en sessionsbunden DOM-observer. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Version 1.3 ändrar endast beslutslagret: fulla lagliga ranger är standard, egna ranger är valfria, beräkningar avbryts vid ändrat beslut och experimentella resultat döljs som standard. Alla gator och antal spelare hanteras av experimentmotorn. Matchade riverträd får separat kontroll av exploaterbarhet och lagliga chipbelopp genom hela trädet. Tidigare okänd historik, sidopotter och rangeförändringar går inte att återskapa som verifierade fakta. Se [liveanslutning](docs/live.md).
 
 ## Utveckling och verifiering
 

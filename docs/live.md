@@ -1,6 +1,6 @@
-# Liveanslutning 1.2
+# Liveanslutning 1.3
 
-Avläsning, bordspositioner och lokal showdown-equity hanterar 2–10 spelare. Observerade folds behålls under handen. Två kvarvarande aktiva spelare kan analyseras i en heads-up-modell även på större bord, förutsatt bekräftade deltagare och en stödjad riverlinje. Den heltäckande automatiska beslutsmotorn är inte färdig; se [multiway-arbetet](multiway-research.md).
+Avläsning, bordspositioner och lokal showdown-equity hanterar 2–10 spelare. Version 1.3 lägger till en automatisk MCCFR-beslutsmotor på alla gator. Den har inte klarat strategikvalitetsgranskningen och visas bara som experiment efter aktivt val. Den heltäckande tillförlitliga beslutsmotorn är inte färdig; se [kvalitetsrapporten](decision-engine.md). Avläsningen är oförändrad.
 
 Välj **Live · Edge** i Windows-appen. Den aktuella Svenska Spel-fliken har fått en läsande DOM-observer genom utvecklaranslutningen. Den skickar en begränsad snapshot till appen på `127.0.0.1:47832`, med en lokal parningskod. Inga pokerhandlingar utförs. Ingen extension har installerats.
 
@@ -10,11 +10,11 @@ Kort, pott, valuta, stackar, synliga insatser, dealer och turknappar avläses. S
 
 ## Strategi
 
-Ange två **antagna ranger vid riverstart**. De är modellantaganden som användaren ansvarar för; inga motståndarranger hittas på. Rådet är en riktig DCFR-strategi villkorad på dessa ranger, valt träd och ingen rake. Det är ingen fullständig lösning av den observerade handen från preflop.
+Ranger fylls automatiskt med alla lagliga händer och kan ersättas per spelare. Det är ett uniformt modellantagande, inte en härledd motståndarrange. Context behåller observerad blind, betökningar och handlingar men uppdaterar ännu inte ranger efter varje handling. Den snabba MCCFR-providern är uttryckligen experimentell och spärrad som standard.
 
-Stöder två deltagare, river, bekräftad egen tur samt checklinje eller en första bet/all-in från motståndaren. Båda spelarnas synliga riverinsatser, andra gator eller fler deltagare stoppar rådet. Belopp behåller EUR/SEK; blindstorlek antas aldrig.
+En separat DCFR-provider kan kvalitetsmärka ett matchat heads-up-riverträd vid bekräftad egen tur samt checklinje eller första bet/all-in från motståndaren. Andra lägen går genom den experimentella providern. Belopp behåller EUR/SEK. Blinden lärs från trovärdiga observerade blindposter; annars används ett synligt modellantagande på 0,02. Detta är ingen verifiering av sajtens okända verkliga blind.
 
-Modellen räknar riverstartpotten som totalpott minus aktuella synliga insatser. Detta överensstämde med observerade blinds och insatsändringar, men en komplett separat verifiering av alla sajtens sidepot-/uncalled-betfall återstår. Effektiv stack beräknas vid riverstart. Överflödiga marker hos den större stacken ingår inte i solvern. Trädet innehåller inga sajtens exakta minraise-/chipavrundningsregler; sizing är modellstorlekar och måste granskas mot klientens lagliga handlingar.
+Modellen räknar tidigare pott som totalpott minus aktuella synliga insatser. Tidigare okända sidopotter behandlas som gemensam huvudpott och anges som begränsning. HU-providern använder effektiv stack vid riverstart. Innan ett sådant träd får kvalitetsmärkas kontrolleras alla vägar mot heltalsmarker, antagen/observerad blind, höjningsrätt och stackar. Matchning av aktuella handlingsknappar kontrolleras separat.
 
 Färskhet kräver mottagning inom tre sekunder och capture inom fyra. Hand, kort, valuta, belopp, position, tur och giltighet binder lösningen till snapshoten. Ändringar släcker tidigare råd. Sena workerresultat avvisas.
 
@@ -22,6 +22,7 @@ Färskhet kräver mottagning inom tre sekunder och capture inom fyra. Hand, kort
 
 - Riktig Edge-flik: kort, bräda, EUR, pott, två deltagare på sex säten, turknappar och kvitterade snapshots observerade.
 - Native test: autentiserad loopback → livepanel → riktig WASM → EUR-rekommendation. Ogiltig och för gammal snapshot släcker rådet; 1440/390 px utan overflow.
+- Version 1.3: samtliga gator med 2, 3, 6 och 10 spelare genom riktiga workers; experimentläget är avstängt som standard; kvalitetskontrollerad riveruppgradering fungerar. Tester av funktion är inte bevis för strategikvalitet i breda multiway-lägen.
 - Inga pokerhandlingar utfördes under testningen. Full handslinga med verkliga rangeantaganden och faktiska live-råd har inte verifierats mot en full handhistorik.
 
 Dokumentation: [Chrome content scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts), [cross-origin requests](https://developer.chrome.com/docs/extensions/develop/concepts/network-requests), [Edge sideloading](https://learn.microsoft.com/en-us/microsoft-edge/extensions/getting-started/extension-sideloading). Permanent MV3-tillägg är ett senare steg; aktuell session använder DOM-observern.

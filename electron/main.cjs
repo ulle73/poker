@@ -110,6 +110,15 @@ async function createWindow() {
       await require("./smoke.cjs").run(main, liveBridge);
       app.exit(0);
     } catch (e) {
+      const output = path.resolve(process.env.POKER_SMOKE_OUTPUT || "artifacts");
+      await fs.mkdir(output, { recursive: true });
+      await fs.writeFile(path.join(output, "smoke-failure.json"), JSON.stringify({
+        version: app.getVersion(), packaged: app.isPackaged,
+        message: e.message, stack: e.stack,
+        page: await main.webContents.executeJavaScript('document.body.innerText').catch(() => ''),
+      }, null, 2));
+      await fs.writeFile(path.join(output, "smoke-failure.png"),
+        (await main.webContents.capturePage()).toPNG()).catch(() => {});
       console.error(e);
       app.exit(1);
     }

@@ -1,0 +1,52 @@
+{
+  "version": "1.3.0",
+  "builtAndVerifiedAt": "2026-10-28T07:48:57.729Z",
+  "binary": "release/Poker-GTO-Advisor-1.3.0-Windows.exe",
+  "bytes": 386705092,
+  "sha256": "C0AB647A998A49EA073656B32FCD9767BB30379334CC9877C3A5B54447A29D58",
+  "unitTests": {
+    "passed": 183,
+    "skippedOptInDiagnostics": 1
+  },
+  "portableNative": {
+    "evidence": "decision-portable-smoke.json",
+    "decisionMatrixCases": 16,
+    "verifiedRiverUpgrade": true,
+    "experimentalHiddenByDefault": true
+  },
+  "goalReady": false,
+  "genericStrategyQuality": "failed-reliability-audit",
+  "qualityEvidence": "decision-quality.json",
+  "capturePreserved": [
+    {
+      "file": "src/live/reader.ts",
+      "gitBlob": "fb8e342d7646272ebe0f6c53b67b4fb1e9eca5c3",
+      "unchanged": true
+    },
+    {
+      "file": "src/live/positions.ts",
+      "gitBlob": "0aca4df47580f6d0ba13be60b1eef6249eca592d",
+      "unchanged": true
+    },
+    {
+      "file": "src/live/hand-memory.ts",
+      "gitBlob": "a62f96b6b47eaead99a7e7a3533a4ea59e056e11",
+      "unchanged": true
+    },
+    {
+      "file": "src/live/types.ts",
+      "gitBlob": "32bd7cb19c9371a0e26f8ba5bda759a1f55b79ea",
+      "unchanged": true
+    },
+    {
+      "file": "electron/live-bridge.cjs",
+      "gitBlob": "2dd4dfb482d49849cc1bbc5ee21bf21c1d45d783",
+      "unchanged": true
+    },
+    {
+      "file": "public/live/live-reader.js",
+      "gitBlob": "28344e321044e3e1e7c1eb9f9626eb8c7a81b9e0",
+      "unchanged": true
+    }
+  ]
+}

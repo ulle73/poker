@@ -1,5 +1,12 @@
 # Arkitektur
 
+Version 1.3 kopplar `LivePanel` till `src/decision/`: snapshots → kontext och
+heltalsadapter → avbrytbar MCCFR-worker → kvalitetsgrind → `DecisionAdvisor`.
+En separat HU-riverworker kan uppgradera svaret efter exploaterbarhetskontroll
+och kontroll av hela bettingträdet. Experimentresultat visas bara efter aktivt
+val. Den generella strategikvaliteten har inte godkänts; se
+[kvalitetsrapporten](decision-engine.md). Avläsning och snapshotkontrakt ändras inte.
+
 Version 1.1 lägger till en separat liveväg: Edge DOM-observer → autentiserad HTTP på endast 127.0.0.1 → validerad snapshot i mainprocessen → `poker://app/live-state` → LivePanel → egen WASM-worker. Renderer har fortsatt ingen extern nätverksåtkomst. Servern accepterar bara parningskod och rätt pokerorigin; storlek, tid, sekvens och schema kontrolleras. Token lagras lokalt i appprofilen. Liveinnehåll sparas inte som träningsbeslut. Se [begränsningar och verifiering](live.md).
 
 ```mermaid

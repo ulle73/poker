@@ -1,5 +1,17 @@
 # Third-party notices
 
+## OpenSpiel external-sampling MCCFR (Apache License 2.0)
+
+The traversal and cyclic SIMPLE averaging in `src/decision/mccfr.ts` are adapted
+to TypeScript from Google DeepMind OpenSpiel's `external_sampling_mccfr.py`.
+Copyright 2019 DeepMind Technologies Limited. Source:
+https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py
+
+Changes include integer-chip hold'em states, sampled ranges, importance weighting,
+bounded passive continuation, cancellation and result provenance. These additions
+are application code; this is not a bundled or certified OpenSpiel poker solver.
+The complete Apache License 2.0 is in `docs/licenses/OpenSpiel-APACHE-2.0.txt`.
+
 ## Postflop solver (MIT)
 
 This application bundles the Postflop WebAssembly runtime and JavaScript bindings distributed by the upstream Postflop workbench, and preserves the reviewed Rust engine, CLI and WASM source in `vendor/postflop/`.

@@ -1,5 +1,28 @@
 # Verifiering — 28 oktober 2026
 
+## Beslutsmotor 1.3
+
+Den nya beräkningskedjan har passerat native-funktionstest på alla fyra gatorna
+för 2, 3, 6 och 10 spelare. Den generella strategikvaliteten är samtidigt
+**underkänd**: [rapport](decision-engine.md), [diagnostik](evidence/decision-quality.json).
+Experimentella strategier är därför spärrade som standard. Endast separat
+kontrollerade matchade HU-riverträd får verifierade råd. Den ursprungliga
+beställningen om tillförlitliga automatiska råd överallt är inte slutförd.
+
+Tester verifierar även full riverträds-laglighet med riktig WASM, att en höjd
+BB inte blir en felaktig blind, oklara deltagare, workeravbrott och att gamla
+beslut döljs. Avläsningsfilerna och snapshotkontraktet är oförändrade.
+
+Version 1.3: **183 tester passerar, 1 opt-in-diagnostik är överhoppad** i vanlig
+svit. Diagnostiken kördes separat och sparade en underkänd kvalitetsbedömning.
+Den slutliga portabla 1.3.0-filen kördes också genom hela native-testet med
+16 beslutslägen och noll oväntade konsolfel. Underlag:
+[portabelt test](evidence/decision-portable-smoke.json),
+[SHA-256 och oförändrade avläsningsfiler](evidence/decision-release-manifest.json),
+[visuellt verifierat riverfall](screens/decision-verified-river.png).
+
+Nedanstående 1.2-underlag beskriver den tidigare river-MVP:n.
+
 ## Genomfört
 
 Den gamla WinUI-skelettkoden har ersatts av en byggbar Windows-app. Leveransen innehåller ett portabelt `.exe`, ett uppackat alternativ, en startfil, källkod och dokumentation. Git-utgångspunkten är originalprojektets huvudgren; inget har pushats.

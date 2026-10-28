@@ -3,6 +3,9 @@ const path = require("node:path");
 const assert = require("node:assert/strict");
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 exports.run = async (win, liveBridge) => {
+  // Hidden test windows must still paint current frames for visual evidence.
+  // https://www.electronjs.org/docs/latest/api/web-contents#contentssetbackgroundthrottlingallowed
+  win.webContents.setBackgroundThrottling(false);
   const errors = [];
   win.webContents.on("console-message", (event) => {
     if (event.level === "error") errors.push(event.message);
@@ -153,6 +156,7 @@ exports.run = async (win, liveBridge) => {
   await sendLive();
   const keepLive = setInterval(() => sendLive().catch(console.error), 500);
   const multiwayCounts = [];
+  const decisionMatrix = [];
   try {
     await win.webContents.executeJavaScript(
       `Array.from(document.querySelectorAll('nav button')).find(b=>b.textContent==='Live · Edge').click()`,
@@ -160,11 +164,11 @@ exports.run = async (win, liveBridge) => {
     await poll(
       `document.querySelector('.live-status')?.innerText.includes('123')`,
     );
-    await win.webContents.executeJavaScript(
-      `(()=>{const fields=document.querySelectorAll('.live-ranges input:not([type=checkbox])');['KK,A4s,A5s','TT,JJ'].forEach((value,i)=>{Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(fields[i],value);fields[i].dispatchEvent(new Event('input',{bubbles:true}));});})()`,
-    );
+    await poll(`document.querySelector('.decision-advisor')?.innerText.includes('Strategin saknar kvalitetsgodkännande')`);
+    assert.equal(await win.webContents.executeJavaScript(`!!document.querySelector('.decision-advisor .recommendation')`),false,'uncertified strategy is hidden by default');
+    await win.webContents.executeJavaScript(`document.querySelector('[data-testid=experimental-strategies]').click()`);
     await poll(
-      `document.querySelector('.live-advisor .recommendation')?.innerText.includes('Call')`,
+      `!!document.querySelector('.decision-advisor .recommendation')`,
     );
     const liveText = await win.webContents.executeJavaScript(
       `document.querySelector('.live-advisor').innerText`,
@@ -187,7 +191,29 @@ exports.run = async (win, liveBridge) => {
       path.join(output, "live-smoke.png"),
       (await win.webContents.capturePage()).toPNG(),
     );
+    fixture.handId = '201';
+    fixture.players[0].stack = 20;
+    fixture.players[1].stack = 10;
+    fixture.players[1].bet = 10;
+    fixture.pot = 20;
+    fixture.availableActions = ['Fold','Syna','Höj Till'];
+    await sendLive();
+    await poll(`document.querySelector('.live-status')?.innerText.includes('201')`);
+    await win.webContents.executeJavaScript(
+      `(()=>{const fields=document.querySelectorAll('.live-ranges input:not([type=checkbox])');['KK,A4s,A5s','TT,JJ'].forEach((value,i)=>{Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(fields[i],value);fields[i].dispatchEvent(new Event('input',{bubbles:true}));});})()`,
+    );
+    await poll(`document.querySelector('.decision-advisor .quiet-badge')?.innerText.includes('Verifierad GTO')`);
+    await win.webContents.executeJavaScript(`document.querySelector('[data-testid=experimental-strategies]').click()`);
+    assert.ok(await win.webContents.executeJavaScript(`!!document.querySelector('.decision-advisor .recommendation')`),'certified advice survives experimental toggle off');
+    await wait(300);
+    await poll(`document.querySelector('.decision-advisor .quiet-badge')?.innerText.includes('Verifierad GTO') && !!document.querySelector('.decision-advisor .recommendation')`);
+    await win.webContents.executeJavaScript(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))`);
+    await fs.writeFile(path.join(output,'live-verified-smoke.png'),(await win.webContents.capturePage()).toPNG());
+    await win.webContents.executeJavaScript(`document.querySelector('[data-testid=experimental-strategies]').click()`);
     for (const count of [3, 6, 10]) {
+      fixture.handId = String(300 + count);
+      fixture.pot = .2;
+      fixture.availableActions = ['Check', 'Bet'];
       fixture.maxSeats = Math.max(6, count);
       fixture.heroCards = ["2c", "3d"];
       fixture.board = ["As", "Ks", "Qs", "Js", "Ts"];
@@ -211,13 +237,10 @@ exports.run = async (win, liveBridge) => {
       await poll(
         `document.querySelector('.equity-number strong')?.textContent === '${(100 / count).toFixed(1)} %'`,
       );
-      assert.equal(
-        await win.webContents.executeJavaScript(
-          `!!document.querySelector('.live-advisor .recommendation')`,
-        ),
-        false,
-        "never mislabel multiway equity as GTO",
-      );
+      await poll(`!!document.querySelector('.decision-advisor .recommendation')`);
+      assert.ok(await win.webContents.executeJavaScript(
+        `document.querySelector('.decision-advisor .quiet-badge').textContent.includes('approximation')`),
+        'multiway strategy must be labelled approximation');
       multiwayCounts.push(count);
     }
     await fs.writeFile(
@@ -225,6 +248,35 @@ exports.run = async (win, liveBridge) => {
       (await win.webContents.capturePage()).toPNG(),
     );
     console.log("MULTIWAY_NATIVE_VERIFIED", JSON.stringify(multiwayCounts));
+    // Exercise actual bundled workers through the authenticated native bridge.
+    for (const count of [2, 3, 6, 10]) for (const street of ['preflop', 'flop', 'turn', 'river']) {
+      fixture.handId = String(1000 + count * 10 + ['preflop','flop','turn','river'].indexOf(street));
+      fixture.maxSeats = Math.max(6, count);
+      fixture.dealerSeat = count;
+      fixture.street = street;
+      fixture.heroCards = ['As', 'Kh'];
+      fixture.board = street === 'preflop' ? [] : ['2s','7h','Jd','Qc','3c'].slice(0, street === 'flop' ? 3 : street === 'turn' ? 4 : 5);
+      fixture.players = Array.from({length:count}, (_, i) => ({seat:i+1,hero:i===0,position:i===0?'SB':i===1?'BB':i===count-1?'BTN':'Övrig',stack:2,bet:street==='preflop'?(i===0?.01:i===1?.02:0):0,inHand:true,folded:false}));
+      fixture.pot = street === 'preflop' ? .03 : .2;
+      fixture.availableActions = street === 'preflop' ? ['Fold','Syna','Höj Till'] : ['Fold','Check','Bet'];
+      await sendLive();
+      await poll(`document.querySelector('.live-status')?.innerText.includes(${JSON.stringify(fixture.handId)})`);
+      await poll(`!!document.querySelector('.decision-advisor .recommendation')`, 12000);
+      const decision = await win.webContents.executeJavaScript(`({advice:document.querySelector('.decision-advisor .recommendation').innerText,quality:document.querySelector('.decision-advisor .quiet-badge').innerText,rows:Array.from(document.querySelectorAll('.decision-advisor .sizing-row')).map(r=>({text:r.innerText,pct:parseFloat(r.querySelector('b').innerText)})),inputs:Array.from(document.querySelectorAll('.live-ranges input:not([type=checkbox])')).map(x=>x.value)})`);
+      assert.ok(Math.abs(decision.rows.reduce((sum,r)=>sum+r.pct,0)-100)<.4, 'root frequencies must sum to 100%');
+      assert.ok(decision.inputs.every(x=>x===''), 'automatic decisions cannot require manual ranges');
+      assert.ok(decision.rows.every(r=>street==='preflop'?!r.text.includes('Check'):!r.text.includes('Call')), 'legal root actions for amount to call');
+      decisionMatrix.push({count,street,...decision});
+    }
+    console.log('DECISION_NATIVE_MATRIX', JSON.stringify(decisionMatrix));
+    // Changing turn, cards or validity must immediately remove the old advice.
+    fixture.heroTurn = false;
+    await sendLive();
+    await poll(`!document.querySelector('.decision-advisor .recommendation')`);
+    fixture.heroTurn = true;
+    fixture.heroCards = ['Ah','Kd'];
+    await sendLive();
+    await poll(`!!document.querySelector('.decision-advisor .recommendation')`);
     fixture.valid = false;
     fixture.issues = ["Avläsningen avvisades."];
     await sendLive();
@@ -250,6 +302,7 @@ exports.run = async (win, liveBridge) => {
   const report = {
     verifiedAt: new Date().toISOString(),
     packaged: require("electron").app.isPackaged,
+    version: require("electron").app.getVersion(),
     electron: process.versions.electron,
     origin: before.origin,
     nodeIntegrationExposed: before.node,
@@ -267,9 +320,14 @@ exports.run = async (win, liveBridge) => {
     expectedBlockedNetworkErrors: errors,
     live: {
       multiwayCounts,
+      decisionMatrix,
       authenticatedBridge: true,
       currency: "EUR",
-      realWasmAdvice: true,
+      automaticAllStreetDecisions: decisionMatrix.length === 16,
+      manualRangesRequired: false,
+      experimentalStrategiesHiddenByDefault: true,
+      verifiedRiverUpgrade: true,
+      turnChangeHidesAdvice: true,
       invalidCaptureHidesAdvice: true,
       staleCaptureHidesAdvice: true,
     },

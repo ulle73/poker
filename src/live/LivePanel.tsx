@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import type { LiveState, LiveSnapshot } from "./types";
+import { useEffect, useState } from "react";
+import type { LiveState } from "./types";
 import { Card } from "../components/Card";
-import { Advisor } from "../components/Advisor";
-import { SolverClient } from "../solver/client";
-import type { SolveResult, SolvedNode, SolvedHand } from "../core/types";
-import { prepareLiveSolve, liveKey, liveAdvice } from "./analysis";
+import { DecisionAdvisor } from "../components/DecisionAdvisor";
+import { useDecision } from "../decision/use-decision";
 import { postflopOrder } from "./positions";
 import { MultiwayStats } from "../components/MultiwayStats";
 export function LivePanel() {
@@ -14,27 +12,15 @@ export function LivePanel() {
       history: [],
     }),
     [clock, setClock] = useState(Date.now());
-  const [ranges, setRanges] = useState({ oop: "", ip: "" }),
-    [automatic, setAutomatic] = useState(true);
-  const [solution, setSolution] = useState<{
-      key: string;
-      result: SolveResult;
-      node: SolvedNode;
-      hand: SolvedHand;
-    } | null>(null),
-    [busy, setBusy] = useState(false),
-    [error, setError] = useState("");
-  const solver = useRef(new SolverClient()),
-    latest = useRef<LiveSnapshot | null>(null),
-    generation = useRef(0);
+  const [automatic, setAutomatic] = useState(true);
+  const [experimental, setExperimental] = useState(false);
   const s = state.snapshot;
-  latest.current = s;
   const fresh =
     !!s &&
     clock - (state.receivedAt ?? 0) < 3000 &&
     clock - s.capturedAt < 4000;
-  const identity = s ? liveKey(s) : "";
   const active = s ? postflopOrder(s) : [];
+  const decision = useDecision(s, fresh, automatic);
   useEffect(() => {
     let stopped = false,
       pending = false;
@@ -71,44 +57,12 @@ export function LivePanel() {
     return () => {
       stopped = true;
       clearInterval(timer);
-      solver.current.cancel();
     };
   }, []);
-  useEffect(() => {
-    const seq = ++generation.current;
-    solver.current.cancel();
-    setSolution(null);
-    setBusy(false);
-    setError("");
-    if (!fresh || !s || !automatic) return;
-    let prepared: ReturnType<typeof prepareLiveSolve>;
-    try {
-      prepared = prepareLiveSolve(s, ranges.oop, ranges.ip);
-    } catch (e) {
-      setError((e as Error).message);
-      return;
-    }
-    setBusy(true);
-    solver.current
-      .solve(prepared.config, () => {})
-      .then((result) => {
-        if (seq !== generation.current || !latest.current) return;
-        const answer = liveAdvice(result, prepared, latest.current);
-        setSolution({ key: prepared.key, result, ...answer });
-      })
-      .catch((e) => {
-        if (seq === generation.current) setError(e.message);
-      })
-      .finally(() => {
-        if (seq === generation.current) setBusy(false);
-      });
-  }, [identity, ranges.oop, ranges.ip, automatic, fresh]);
   const money = (v: number | null) =>
     v === null
       ? "—"
       : `${v.toLocaleString("sv-SE", { maximumFractionDigits: 4 })} ${s?.currency ?? ""}`;
-  const adviceCurrent =
-    automatic && fresh && s?.valid && s.heroTurn && solution?.key === identity;
   return (
     <div className="live-grid">
       <div className="live-primary">
@@ -204,8 +158,8 @@ export function LivePanel() {
                   : "Din tur är inte bekräftad."}{" "}
                 Avläst {new Date(s.capturedAt).toLocaleTimeString("sv-SE")} ·{" "}
                 {Math.max(0, clock - (state.receivedAt ?? 0))} ms sedan
-                mottagning. Valutan är avläst direkt; inga antagna blinds eller
-                omräknade bb.
+                mottagning. Beloppen visas i den avlästa valutan, utan omräkning
+                till bb.
               </p>
               {!!s.issues.length && (
                 <p className="inline-error">{s.issues.join(" ")}</p>
@@ -239,7 +193,7 @@ export function LivePanel() {
         </section>
         <section className="panel live-ranges">
           <div className="panel-heading">
-            <h2>Antaganden för heads-up-strategi</h2>
+            <h2>Strategimodell · {active.length} spelare</h2>
             <label>
               <input
                 type="checkbox"
@@ -250,44 +204,37 @@ export function LivePanel() {
             </label>
           </div>
           <p>
-            Ranger är modellantaganden. Dolda motståndarkort eller en komplett
-            tidigare spellinje kan inte avläsas. Inga träningsråd återanvänds på
-            livebordet.
+            Beslut räknas automatiskt från preflop till river för 2–10 aktiva
+            spelare. Tom range använder alla lagliga händer. Egna ranger är
+            valfria modellantaganden; motståndarnas dolda kort är okända.
           </p>
-          {active.length === 2 ? (
-            <div className="form-grid">
-              <label>
-                OOP range {active[0] ? `· Säte ${active[0].seat}` : ""}
+          <div className="form-grid">
+            {active.map((p) => (
+              <label key={p.seat}>
+                {p.hero ? "Du" : "Motståndare"} · Säte {p.seat} · {p.position}
                 <input
-                  value={ranges.oop}
-                  placeholder="Till exempel 22+,A2s+,ATo+,KTs+,QTs+,JTs"
-                  onChange={(e) =>
-                    setRanges({ ...ranges, oop: e.target.value })
-                  }
+                  value={decision.ranges[p.seat] ?? ""}
+                  placeholder="Alla händer · valfritt: 22+,A2s+,ATo+"
+                  onChange={(e) => decision.setRange(p.seat, e.target.value)}
                 />
               </label>
-              <label>
-                IP range {active[1] ? `· Säte ${active[1].seat}` : ""}
-                <input
-                  value={ranges.ip}
-                  placeholder="Ange antagen range vid riverstart"
-                  onChange={(e) => setRanges({ ...ranges, ip: e.target.value })}
-                />
-              </label>
-            </div>
-          ) : (
-            <p>
-              Den inkopplade strategimotorn löser två kvarvarande spelare. En
-              verifierad multiway-GTO-motor är ännu inte integrerad.
-              Bordsläsning och equity hanterar alla synligt aktiva spelare.
-            </p>
-          )}
+            ))}
+          </div>
           <p className="microcopy">
-            Stöder två deltagare och verifierbar riverlinje: ingen satsning,
-            eller en första bet. En raise från båda spelarna kräver full
-            linjemappning och ger ännu inga råd. Totalpotten antas inkludera
-            aktuella synliga insatser. Solverns belopp visas i avläst valuta.
+            MCCFR beräknar en approximation i ett begränsat spelträd. Verifierad
+            GTO visas bara när riversolverns kvalitetskontroll är godkänd för
+            det valda heads-up-trädet. Totalpotten antas inkludera aktuella
+            insatser. Tidigare okända ranger och sidopotter kan påverka råden.
           </p>
+          <label>
+            <input
+              type="checkbox"
+              data-testid="experimental-strategies"
+              checked={experimental}
+              onChange={(e) => setExperimental(e.target.checked)}
+            />{" "}
+            Visa experimentella strategier för studier och test
+          </label>
         </section>
         <details className="panel live-connection">
           <summary>Teknisk anslutning</summary>
@@ -308,18 +255,14 @@ export function LivePanel() {
         </details>
       </div>
       <div className="live-advisor">
-        <MultiwayStats snapshot={s} fresh={fresh} />
-        <Advisor
-          node={adviceCurrent ? solution.node : undefined}
-          hand={adviceCurrent ? solution.hand : null}
-          result={adviceCurrent ? solution.result : null}
-          revealed
-          connected={!!adviceCurrent}
-          busy={busy}
-          error={!fresh ? "Inväntar aktuell avläsning från Edge." : error}
-          onReveal={() => {}}
-          currency={s?.currency}
+        <DecisionAdvisor
+          input={decision.input}
+          result={decision.result}
+          busy={decision.busy}
+          error={decision.error}
+          experimental={experimental}
         />
+        <MultiwayStats snapshot={s} fresh={fresh} />
       </div>
     </div>
   );
