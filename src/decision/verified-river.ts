@@ -7,31 +7,39 @@ import type {
 import { prepareLiveSolve, liveAdvice } from "../live/analysis";
 import { SolverClient } from "../solver/client";
 import { actionCost } from "../core/strategy";
-import { legalRiverTree, legalRiverRoot } from "./river-legality";
+import { legalPostflopTree, legalRiverRoot } from "./river-legality";
 export const FULL_RANGE = [
   "22+",
   ..."3456789TJQKA".split("").flatMap((r) => [`${r}2s+`, `${r}2o+`]),
 ].join(",");
-export async function verifiedRiver(
+export async function verifiedPostflop(
   s: LiveSnapshot,
   input: DecisionInput,
   solver: SolverClient,
 ): Promise<DecisionResult | null> {
-  if (input.board.length !== 5 || input.seats.length !== 2) return null;
+  if (![4, 5].includes(input.board.length) || input.seats.length !== 2)
+    return null;
+  const turn = input.board.length === 4;
   let prepared: ReturnType<typeof prepareLiveSolve>;
   try {
     prepared = prepareLiveSolve(
       s,
       input.ranges[0] || FULL_RANGE,
       input.ranges[1] || FULL_RANGE,
+      { postflop: turn },
     );
   } catch {
     return null;
   }
-  const solved = await solver.solve(prepared.config, () => {});
+  const solved = turn
+    ? await solver.solve(prepared.config, () => {}, {
+        postflop: true,
+        line: prepared.line,
+      })
+    : await solver.solve(prepared.config, () => {});
   if (solved.meta.exploitability_pct_of_pot > solved.config.targetPct)
     return null;
-  if (!legalRiverTree(solved, input)) return null;
+  if (!legalPostflopTree(solved, input)) return null;
   // Fractional chips cannot be presented as a verified legal-client tree.
   if (
     solved.nodes.some((n) =>
@@ -80,7 +88,7 @@ export async function verifiedRiver(
     key: input.key,
     rangeRevision: input.rangeRevision,
     quality: "verified-gto",
-    provider: "postflop-dcfr/river",
+    provider: turn ? "postflop-dcfr/turn" : "postflop-dcfr/river",
     actions,
     recommended: actions.findIndex(
       (a) => a.frequency === Math.max(...actions.map((x) => x.frequency)),
@@ -91,12 +99,13 @@ export async function verifiedRiver(
     cutoffCount: 0,
     assumptions: [
       ...input.assumptions,
-      "DCFR löser de angivna rangerna i det valda riverträdet.",
+      `DCFR löser de angivna rangerna i det valda ${turn ? "turn-/riverträdet" : "riverträdet"}.`,
     ],
     limitations: [
       "GTO-kontrollen gäller det valda heads-up-trädet och rangeantagandena, inte hela no-limit-spelet.",
-      "Ingen rake. EV i denna provider anges relativt riverstart med halva startpotten per spelare.",
+      `Ingen rake. EV i denna provider anges relativt ${turn ? "turnstart" : "riverstart"} med halva startpotten per spelare.`,
     ],
     exploitabilityPct: solved.meta.exploitability_pct_of_pot,
   };
 }
+export const verifiedRiver = verifiedPostflop;

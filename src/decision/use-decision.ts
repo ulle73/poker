@@ -5,7 +5,7 @@ import { DecisionContext } from "./context";
 import { decisionKey } from "./adapter";
 import { DecisionClient } from "./client";
 import { SolverClient } from "../solver/client";
-import { verifiedRiver } from "./verified-river";
+import { verifiedPostflop } from "./verified-river";
 export function useDecision(
   snapshot: LiveSnapshot | null,
   fresh: boolean,
@@ -55,6 +55,14 @@ export function useDecision(
     }
     setBusy(true);
     let certified = false;
+    let pending = 2;
+    let genericFailure = "";
+    const finished = () => {
+      pending--;
+      if (pending || seq !== generation.current) return;
+      setBusy(false);
+      if (genericFailure && !certified) setError(genericFailure);
+    };
     client.current
       .compute(prepared)
       .then((answer) => {
@@ -63,19 +71,18 @@ export function useDecision(
         setError("");
       })
       .catch((e) => {
-        if (seq === generation.current && !certified) setError(e.message);
+        genericFailure = e.message;
       })
-      .finally(() => {
-        if (seq === generation.current) setBusy(false);
-      });
-    verifiedRiver(snapshot, prepared, exact.current)
+      .finally(finished);
+    verifiedPostflop(snapshot, prepared, exact.current)
       .then((answer) => {
         if (seq !== generation.current || !answer) return;
         certified = true;
         setResult(answer);
         setError("");
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(finished);
     return () => {
       client.current.cancel();
       exact.current.cancel();

@@ -209,7 +209,26 @@ exports.run = async (win, liveBridge) => {
     await poll(`document.querySelector('.decision-advisor .quiet-badge')?.innerText.includes('Verifierad GTO') && !!document.querySelector('.decision-advisor .recommendation')`);
     await win.webContents.executeJavaScript(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))`);
     await fs.writeFile(path.join(output,'live-verified-smoke.png'),(await win.webContents.capturePage()).toPNG());
+    // A complete turn solve with automatic full ranges, while experimental
+    // output stays disabled. Both the turn worker and the exact quality gate
+    // must run in this packaged application.
+    fixture.handId = '202';
+    fixture.street = 'turn';
+    fixture.board = ['Ks','7d','2c','8h'];
+    fixture.heroCards = ['Kh','Kd'];
+    fixture.pot = 20;
+    fixture.players = fixture.players.map(player=>({...player,stack:5,bet:0}));
+    fixture.availableActions = ['Check','Bet'];
+    await sendLive();
+    await poll(`document.querySelector('.live-status')?.innerText.includes('202')`);
+    await poll(`document.querySelector('.decision-advisor .quiet-badge')?.innerText.includes('Verifierad GTO') && document.querySelector('.decision-advisor')?.innerText.includes('turn-modellen')`,27000);
+    assert.ok(await win.webContents.executeJavaScript(`Array.from(document.querySelectorAll('.live-ranges input:not([type=checkbox])')).every(field=>field.value==='')`),'turn uses automatic full ranges');
+    assert.equal(await win.webContents.executeJavaScript(`document.querySelector('[data-testid=experimental-strategies]').checked`),false,'verified turn survives the experimental quality gate');
+    await wait(300);
+    await win.webContents.executeJavaScript(`new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))`);
+    await fs.writeFile(path.join(output,'live-verified-turn-smoke.png'),(await win.webContents.capturePage()).toPNG());
     await win.webContents.executeJavaScript(`document.querySelector('[data-testid=experimental-strategies]').click()`);
+    fixture.street = 'river';
     for (const count of [3, 6, 10]) {
       fixture.handId = String(300 + count);
       fixture.pot = .2;
@@ -327,6 +346,8 @@ exports.run = async (win, liveBridge) => {
       manualRangesRequired: false,
       experimentalStrategiesHiddenByDefault: true,
       verifiedRiverUpgrade: true,
+      verifiedTurnUpgrade: true,
+      verifiedTurnAutomaticRanges: true,
       turnChangeHidesAdvice: true,
       invalidCaptureHidesAdvice: true,
       staleCaptureHidesAdvice: true,

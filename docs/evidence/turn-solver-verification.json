@@ -1,0 +1,151 @@
+{
+  "verifiedAt": "2026-10-28T12:38:48.687Z",
+  "wasmSha256": "1121f50f5a25dfd21297bb7cd553ba030ebe1653a028720d2c2332b404dcc56a",
+  "scope": "Heads-up turn through river in the selected no-rake bet-size tree and range assumptions. Does not certify the generic multiway engine.",
+  "goalReady": false,
+  "independentFixture": {
+    "config": {
+      "board": [
+        "Ks",
+        "7d",
+        "2c",
+        "8h"
+      ],
+      "oopRange": "KK,A4s,A5s",
+      "ipRange": "TT,JJ",
+      "pot": 10,
+      "stack": 20,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 0.2
+    },
+    "nodes": 3819,
+    "memoryBytes": 302496,
+    "wallMs": 416.71900000000005,
+    "solver": {
+      "board": "Ks 7d 2c 8h",
+      "effective_stack": 20,
+      "engine_version": "0.1.0",
+      "exploitability_chips": 0.013882577419281006,
+      "exploitability_pct_of_pot": 0.13882577419281006,
+      "format_version": 1,
+      "gain": [
+        0.47272029519081116,
+        -0.45883771777153015
+      ],
+      "ip_range": "TT,JJ",
+      "iterations": 300,
+      "locks": [],
+      "node_count": 3819,
+      "oop_range": "KK,A4s,A5s",
+      "payoff_unit": "chips",
+      "root_combos": [
+        11,
+        12
+      ],
+      "root_evs": {
+        "pot_share": [
+          5.464270114898682,
+          4.535730361938477
+        ],
+        "zero_sum": [
+          0.46427014470100403,
+          -0.46426981687545776
+        ]
+      },
+      "starting_pot": 10,
+      "street": "turn",
+      "tournament": null,
+      "wall_seconds": 0.317
+    },
+    "independent": {
+      "ev": [
+        0.4642704448803595,
+        -0.46427044488036073
+      ],
+      "bestResponse": [
+        0.47272178259159836,
+        -0.4588370524423508
+      ],
+      "gains": [
+        0.008451337711238849,
+        0.005433392438009943
+      ],
+      "exploitabilityChips": 0.01388473014924757
+    },
+    "absoluteEVErrors": [
+      3.00179355483543e-7,
+      6.280049029694368e-7
+    ],
+    "absoluteBestResponseGapError": 0.0000021527299665646815
+  },
+  "fullRangeFixture": {
+    "config": {
+      "board": [
+        "Ks",
+        "7d",
+        "2c",
+        "8h"
+      ],
+      "oopRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "ipRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "pot": 20,
+      "stack": 5,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 0.2
+    },
+    "nodes": 537,
+    "memoryBytes": 3808128,
+    "wallMs": 1005.8068000000001,
+    "solver": {
+      "board": "Ks 7d 2c 8h",
+      "effective_stack": 5,
+      "engine_version": "0.1.0",
+      "exploitability_chips": 0.001522950828075409,
+      "exploitability_pct_of_pot": 0.007614754140377045,
+      "format_version": 1,
+      "gain": [
+        -0.043261636048555374,
+        0.04478458687663078
+      ],
+      "ip_range": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "iterations": 100,
+      "locks": [],
+      "node_count": 537,
+      "oop_range": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "payoff_unit": "chips",
+      "root_combos": [
+        1128,
+        1128
+      ],
+      "root_evs": {
+        "pot_share": [
+          9.955968856811523,
+          10.044034004211426
+        ],
+        "zero_sum": [
+          -0.044030725955963135,
+          0.04403369873762131
+        ]
+      },
+      "starting_pot": 20,
+      "street": "turn",
+      "tournament": null,
+      "wall_seconds": 0.966
+    },
+    "selectedNodeId": 1,
+    "independentScalarWalk": false,
+    "note": "This large fixture uses solver-reported exploitability. The independent scalar best-response walk above validates the smaller chance game. Native tests additionally validate automatic ranges, legal actions and the quality gate."
+  }
+}

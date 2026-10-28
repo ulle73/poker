@@ -222,8 +222,8 @@ export function LivePanel() {
           </div>
           <p className="microcopy">
             MCCFR beräknar en approximation i ett begränsat spelträd. Verifierad
-            GTO visas bara när riversolverns kvalitetskontroll är godkänd för
-            det valda heads-up-trädet. Totalpotten antas inkludera aktuella
+            GTO visas när solvern klarar kvalitetskontrollen för det valda
+            heads-up-trädet på turn eller river. Totalpotten antas inkludera aktuella
             insatser. Tidigare okända ranger och sidopotter kan påverka råden.
           </p>
           <label>

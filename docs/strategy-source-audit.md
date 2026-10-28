@@ -16,14 +16,16 @@ inte en fullständig inventering av allt som kan finnas på marknaden.
 ## Den befintliga solverns verkliga gräns
 
 Upstream-Postflops WASM-källkod har chance-noder och stöd för större postflopträd.
-Riverbegränsningen i den levererade appen ligger också i vår adapter:
-`validateConfig` kräver fem kort och `public/solver-engine.js` avvisar chance-noder.
-Det ska inte beskrivas som att upstream matematiskt bara kan river.
+Till och med 1.3.1 krävde vår konfigurationsvalidator fem kort och JavaScript-
+adaptern avvisade chance-noder. Det var en adapterbegränsning, inte bevis för
+att upstream matematiskt bara kan river.
 
-En utvidgning till HU-turn/flop kräver korrekt chance-/reach-mappning, oberoende
-best-response-kontroll och uppmätta minnes-/tidsbudgetar. Att ta bort nuvarande
-64 MiB-/250-nodsgrind utan sådan verifiering ger inte en användbar realtidsmotor.
-Det löser heller inte multiway eller automatiskt härledda ranger.
+Version 1.4 har en separat begränsad HU-turnväg med korrekt chance-/reach-
+mappning, oberoende best-response-kontroll och uppmätta minnes-/tidsbudgetar.
+64 MiB behålls och den vägen tillåter 5000 publika noder; riverträningslägets
+250-nodsgrind är kvar. Flop avvisas före preflight. Se
+[turn-evidensen](evidence/turn-solver-verification.json). Detta löser inte
+multiway eller automatiskt härledda ranger.
 
 Officiell implementationsreferens för symmetrier och exakta postflopträd:
 [Postflop Solver](https://b-inary.github.io/postflop_solver/postflop_solver/).

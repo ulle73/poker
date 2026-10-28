@@ -47,3 +47,13 @@ tests pass. Capacity is reserved before drawing chance and every started cycle
 finishes, removing the former passive continuation mechanism. Full-range
 reliability still fails: `docs/evidence/decision-quality-outcome.json`. The gate
 remains and neither unchecked task above is complete.
+
+Version 1.4 adds an exact HU turn-to-river path with unchanged 64MiB cap,
+bounded 5000-node public graph and current-node-only strategy export. Independent
+chance enumeration / private-information-correct best response matches the
+actual WASM solver on the small turn fixture. A full-range turn fixture passes
+the real native worker and displays certified advice with experiment mode off.
+The range validator's missing offsuit `o` blocked automatic FULL_RANGE even on
+river; this is fixed. Mandatory future check/fold/call and complete chance
+coverage are now certificate requirements. Generic preflop/flop/multiway
+quality and history-conditioned ranges remain open.

@@ -928,7 +928,7 @@ export function App() {
         {view === "live" && <LivePanel />}
         <footer className="app-footer">
           <span>
-            Poker GTO Advisor <span className="muted">/ 1.3.1 · Träning & strategilabb</span>
+            Poker GTO Advisor <span className="muted">/ 1.4 · Träning & strategilabb</span>
           </span>
           <span>Verklig solver. Synliga antaganden. Träning på din dator.</span>
         </footer>
@@ -944,7 +944,7 @@ function Method() {
         <p>
           Liveflikens nya MCCFR-motor räknar alla gator och 2–10 spelare, men har
           inte klarat kvalitetsgranskningen. Den är avstängd som råd i standardläget
-          och kan visas som experiment för studier. Verifierade river-råd kräver
+          och kan visas som experiment för studier. Verifierade turn-/river-råd kräver
           separat kvalitets- och laglighetskontroll i det valda trädet.
         </p>
         <p>

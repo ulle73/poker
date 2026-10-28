@@ -1,19 +1,22 @@
 import { normalizeCards } from "./cards.ts";
 import type { TrainingConfig } from "./types";
 
-export function validateConfig(value: unknown): TrainingConfig {
+export function validateConfig(
+  value: unknown,
+  options: { postflop?: boolean } = {},
+): TrainingConfig {
   if (!value || typeof value !== "object")
     throw new Error("Konfigurationen saknas.");
   const c = value as TrainingConfig;
   const board = normalizeCards(c.board);
-  if (board.length !== 5)
+  if (board.length !== 5 && !(options.postflop && board.length === 4))
     throw new Error("MVP:n löser river: ange exakt fem bordskort.");
   for (const r of [c.oopRange, c.ipRange]) {
     if (
       typeof r !== "string" ||
       !r.trim() ||
       r.length > 512 ||
-      !/^([2-9TJQKAshdc,:+.\-\s])+$/i.test(r)
+      !/^([2-9TJQKAshdco,:+.\-\s])+$/i.test(r)
     )
       throw new Error(
         "Ogiltig range. Använd standardnotation, till exempel TT+,ATs+,AhKh.",
@@ -55,14 +58,19 @@ export function validateConfig(value: unknown): TrainingConfig {
 export function configKey(c: TrainingConfig): string {
   return JSON.stringify(validateConfig(c));
 }
-export function configToToml(c: TrainingConfig): string {
-  const v = validateConfig(c);
+export function configToToml(
+  c: TrainingConfig,
+  options: { postflop?: boolean } = {},
+): string {
+  const v = validateConfig(c, options);
   return (
     `board = "${v.board.join(" ")}"\noop_range = "${v.oopRange}"\nip_range = "${v.ipRange}"\nstarting_pot = ${v.pot}\neffective_stack = ${v.stack}\nraise_cap = 1\nallin_threshold = 100.0\nmax_iterations = ${v.maxIterations}\ntarget_exploitability = ${v.targetPct}\n\n` +
     ["oop", "ip"]
-      .map(
-        (p) =>
-          `[sizings.${p}.river]\nbet = { percents = [${v.betSizes.join(", ")}], allin = true }\nraise = { percents = [${v.raiseSizes.join(", ")}], allin = true }\n`,
+      .flatMap((p) =>
+        (v.board.length === 4 ? ["turn", "river"] : ["river"]).map(
+          (street) =>
+            `[sizings.${p}.${street}]\nbet = { percents = [${v.betSizes.join(", ")}], allin = true }\nraise = { percents = [${v.raiseSizes.join(", ")}], allin = true }\n`,
+        ),
       )
       .join("\n")
   );

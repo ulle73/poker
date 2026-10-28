@@ -1,4 +1,4 @@
-# Beslutsmotorn 1.3.1 — funktion och kvalitet
+# Beslutsmotorn 1.4 — funktion och kvalitet
 
 Automatisk beslutsberäkning fungerar tekniskt på alla fyra gatorna för 2–10
 spelare. Den generella strategin är **experimentell och underkänd för
@@ -17,9 +17,10 @@ tillförlitliga spelråd**. Målet är fortsatt öppet.
   Frekvenser räknas numeriskt; de kommer inte från en språkmodell.
 - Separat worker, tids- och minnesgränser, avbrott och identitetskontroll för
   hand, kort, insatser, positioner, synliga handlingar och rangerevision.
-- Exakt HU-riverprovider får ersätta experimentresultatet först efter uppmätt
+- Exakt HU-turn-/riverprovider får ersätta experimentresultatet först efter uppmätt
   exploaterbarhet och kontroll av samtliga vägar i trädet mot bettingreglerna.
-  Verifieringen gäller valt träd och antagna ranger/blinds, utan rake.
+  Verifieringen gäller valt träd och antagna ranger/blinds, utan rake. Alla
+  obligatoriska check/fold/call-handlingar måste finnas genom hela trädet.
 - Experimentella råd kräver ett aktivt val och märks tydligt i huvudvyn.
 
 ## Verifierat
@@ -107,6 +108,43 @@ ackumulatorer eller slutresultat avvisas.
 avskärningar men fortfarande instabila fullrangestrategier och otillräcklig
 informationsmängdstäckning. Det gör inte versionen kvalitetsgodkänd. Både
 generella rekommendationer och EV-estimat är fortsatt experimentella.
+
+## Exakt turn och fungerande automatiska ranger i 1.4
+
+Konfigurationskontrollen avvisade tidigare `o` i offsuit-notation som `AKo`.
+Det stoppade den automatiska fullrangen innan den exakta solvern kunde köras.
+Felet är reproducerat och rättat. Fullrangen ger 1326 kombinationer före
+blockering och 1128 per spelare på det testade turnbrädet.
+
+En uttrycklig postflopväg stöder nu HU-turn genom alla riverutfall. Den behåller
+64 MiB-gränsen för solverlagring/chancemappar och tillåter högst 5000 publika
+noder; det gamla riverträningslägets 250-nodsgrind är oförändrad. TOML-brädet
+måste stämma med konfigurationen före preflight. Flop avvisas före trädbygget.
+Endast det aktuella beslutets handstrategier exporteras till livevyn. Alla
+publika noder exporteras för regelkontrollen. Full strategiexport är begränsad
+till små oberoende kontrollfall.
+
+Turn använder normalt 50 % pott samt all-in och högst en raise per gata.
+Ett observerat första bet får sin verkliga procentstorlek i trädet. OOP/IP,
+checklinje och första bet/all-in stöds; redan höjda linjer med båda spelarnas
+insatser kvar godkänns inte som verifierade. Solvern har 300 iterationer och
+25 sekunders workergräns. Råd kräver högst 0,2 % uppmätt fel samt lagliga
+belopp, obligatoriska passiva handlingar, unika handlingar, alla 48 publika
+riverkort, fullständig potthantering och matchning av aktuella turknappar.
+
+`npm run verify:turn` jämför ett riktigt 3819-nodsträd med en separat
+JavaScript-handvärderare och informationskorrekt best-response-traversering.
+Chance väger `1/(52 - antal bordskort - 4)` per kompatibelt privat kortpar;
+blockerade riverkort får noll massa. Den oberoende bästa motstrategin får
+inte se motståndarens kort. Resultatet matchar WASM inom 0,0001 marker.
+[Evidens](evidence/turn-solver-verification.json) skiljer detta lilla oberoende
+kontrollfall från det större fullrangefallets solverrapporterade felmått.
+
+Native-testet visar också verifierat turn-råd med automatiska fulla ranger och
+experimentläget avstängt. Sena exakta svar efter en ny hand avvisas; ett
+ofärdigt exakt svar behåller beräkningsindikeringen även när MCCFR är färdig
+eller misslyckas. Ingen av dessa förbättringar löser den kvarvarande generella
+preflop-, flop- eller multiway-strategikvaliteten.
 
 Algoritmdokumentation:
 [OpenSpiel external sampling](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py),

@@ -1,10 +1,14 @@
 import { initializeSolver, solveTree } from "./solver-engine.js";
 self.onmessage = async ({ data }) => {
-  const { id, toml, config } = data;
+  const { id, toml, config, options } = data;
   try {
     await initializeSolver();
-    const result = solveTree(toml, config, (iterations, chips, pct) =>
-      self.postMessage({ id, kind: "progress", iterations, chips, pct }),
+    const result = solveTree(
+      toml,
+      config,
+      (iterations, chips, pct) =>
+        self.postMessage({ id, kind: "progress", iterations, chips, pct }),
+      options,
     );
     self.postMessage({ id, kind: "done", result });
   } catch (e) {

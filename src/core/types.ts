@@ -28,7 +28,7 @@ export interface SolvedHand {
 }
 export interface SolvedNode {
   id: number;
-  kind: "decision" | "terminal";
+  kind: "decision" | "terminal" | "chance";
   player?: number;
   board: string[];
   street: string;
@@ -37,6 +37,7 @@ export interface SolvedNode {
   actions: TreeAction[];
   hands: SolvedHand[];
   terminal?: { kind: string; folder?: number; pot: number };
+  valid_cards?: { card: string; child: number }[];
 }
 export interface SolveMeta {
   iterations: number;

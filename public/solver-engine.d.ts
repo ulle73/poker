@@ -4,4 +4,5 @@ export function solveTree(
   toml: string,
   config: TrainingConfig,
   onProgress?: (iterations: number, chips: number, pct: number) => void,
-): Omit<SolveResult, "key" | "config">;
+  options?: { postflop?: boolean; line?: string[]; allStrategies?: boolean },
+): Omit<SolveResult, "key" | "config"> & { selectedNodeId?: number };

@@ -14,15 +14,35 @@ export async function initializeSolver(bytes) {
   });
   return boot;
 }
-export function solveTree(toml, config, onProgress = () => {}) {
+export function solveTree(toml, config, onProgress = () => {}, options = {}) {
+  const postflop = options.postflop === true;
+  // Flop preflight itself can build a very large public tree. Do not allocate
+  // that tree through this bounded live path until its resource model is tested.
+  if (postflop && ![4, 5].includes(config.board?.length))
+    throw new Error("Postflop mode currently requires a turn or river board.");
+  if (postflop) {
+    const board = /^\s*board\s*=\s*"([^"\r\n]+)"\s*$/m.exec(toml)?.[1];
+    if (
+      !board ||
+      board.trim().split(/\s+/).join(" ") !== config.board.join(" ")
+    )
+      throw new Error("TOML board does not match postflop configuration.");
+  }
   // Validate range syntax before building a tree. Zero/blocked ranges are then
   // rejected by NlheGame; memory limits are checked before allocating CFR arrays.
   parse_range(config.oopRange);
   parse_range(config.ipRange);
   const stats = JSON.parse(tree_stats(toml));
-  if (stats.total_bytes > 64 * 1024 * 1024 || stats.nodes.total > 250)
+  if (
+    stats.total_bytes > 64 * 1024 * 1024 ||
+    stats.nodes.total > (postflop ? 5000 : 250)
+  )
     throw new Error(
       "Trädet är för stort för träningsläget. Minska ranger eller antal betstorlekar.",
+    );
+  if (postflop && options.allStrategies && stats.strategy_entries > 100000)
+    throw new Error(
+      "Full strategy export exceeds the independent-audit budget.",
     );
   const started = performance.now();
   const handle = solve_spot(
@@ -34,14 +54,37 @@ export function solveTree(toml, config, onProgress = () => {}) {
   );
   try {
     const meta = JSON.parse(handle.meta());
+    let selectedNodeId = 0;
+    if (postflop) {
+      for (const step of options.line ?? []) {
+        const current = JSON.parse(handle.node(selectedNodeId));
+        const [label, size] = step.split(":");
+        const action = current.actions?.find(
+          (a) =>
+            a.label === label &&
+            (size === undefined ||
+              Math.abs(a.percent_of_pot - Number(size)) < 1e-6),
+        );
+        if (!action)
+          throw new Error(
+            "Selected line is absent from the exact betting tree.",
+          );
+        selectedNodeId = action.child;
+      }
+      if (JSON.parse(handle.node(selectedNodeId)).kind !== "decision")
+        throw new Error("Selected line does not end at a decision.");
+    }
     const nodes = [];
     for (let id = 0; id < handle.node_count; id++) {
       const n = JSON.parse(handle.node(id));
-      if (n.kind === "chance")
+      if (n.kind === "chance" && !postflop)
         throw new Error("Endast riverträd stöds i MVP:n.");
       n.actions ??= [];
       n.hands = [];
-      if (n.kind === "decision") {
+      if (
+        n.kind === "decision" &&
+        (!postflop || options.allStrategies || id === selectedNodeId)
+      ) {
         const p = n.player,
           combos = JSON.parse(handle.combos(id, p));
         const strategy = handle.strategy(id),
@@ -73,6 +116,7 @@ export function solveTree(toml, config, onProgress = () => {}) {
       nodes,
       wallMs: performance.now() - started,
       memoryBytes: stats.total_bytes,
+      ...(postflop ? { selectedNodeId } : {}),
       rootRanges: [
         JSON.parse(handle.combos(0, 0)),
         JSON.parse(handle.combos(0, 1)),

@@ -16,10 +16,13 @@ export class SolverClient {
   async solve(
     input: TrainingConfig,
     onProgress: (p: Progress) => void,
+    options: { postflop?: boolean; line?: string[] } = {},
   ): Promise<SolveResult> {
     this.cancel();
-    const config = validateConfig(input),
-      key = configKey(config);
+    const config = validateConfig(input, options),
+      key = options.postflop
+        ? JSON.stringify(["postflop", config, options.line ?? []])
+        : configKey(config);
     const saved = cache.get(key);
     if (saved) return saved;
     return new Promise((resolve, reject) => {
@@ -36,9 +39,11 @@ export class SolverClient {
       this.timer = setTimeout(
         () =>
           fail(
-            "Beräkningen tog över 60 sekunder. Minska rangerna eller iterationsgränsen.",
+            options.postflop
+              ? "Turn-beräkningen överskred 25 sekunder."
+              : "Beräkningen tog över 60 sekunder. Minska rangerna eller iterationsgränsen.",
           ),
-        60000,
+        options.postflop ? 25000 : 60000,
       );
       worker.onerror = (e) => fail(e.message || "Solvern kunde inte starta.");
       worker.onmessage = ({ data }) => {
@@ -69,8 +74,9 @@ export class SolverClient {
       };
       worker.postMessage({
         id: crypto.randomUUID(),
-        toml: configToToml(config),
+        toml: configToToml(config, options),
         config,
+        options,
       });
     });
   }

@@ -34,14 +34,19 @@ export function prepareLiveSolve(
   s: LiveSnapshot,
   oopRange: string,
   ipRange: string,
+  options: { postflop?: boolean } = {},
 ): { config: TrainingConfig; line: string[]; hero: 0 | 1; key: string } {
   if (!s.valid) throw new Error(s.issues.join(" "));
-  if (s.street !== "river" || s.board.length !== 5)
+  if (
+    (s.street !== "river" || s.board.length !== 5) &&
+    !(options.postflop && s.street === "turn" && s.board.length === 4)
+  )
     throw new Error(
       `${s.street === "preflop" ? "Preflop" : s.street === "flop" ? "Flop" : "Turn"} läses live. Solverns verifierade strategitäckning är fortfarande river.`,
     );
   const active = postflopOrder(s);
-  if(!active.some(p=>p.hero))throw new Error('Du är inte bekräftat aktiv i handen.');
+  if (!active.some((p) => p.hero))
+    throw new Error("Du är inte bekräftat aktiv i handen.");
   if (active.length !== 2)
     throw new Error(
       `${active.length} aktiva spelare i potten. Den anslutna GTO-motorn saknar multiway-lösning för detta läge.`,
@@ -52,13 +57,13 @@ export function prepareLiveSolve(
     );
   if (s.players.some((p) => p.folded && (p.bet ?? 0) > 0))
     throw new Error(
-      "En foldad spelares riverinsats kräver en verifierad multiway-linje innan heads-up-strategin kan användas.",
+      "En foldad spelares insats på denna gata kräver en verifierad multiway-linje innan heads-up-strategin kan användas.",
     );
   if (!s.heroTurn)
     throw new Error("Inväntar din tur med synliga handlingsknappar.");
   if (!oopRange.trim() || !ipRange.trim())
     throw new Error(
-      "Ange båda spelarnas antagna riverranger. De går inte att läsa ur motståndarens dolda kort.",
+      "Ange båda spelarnas antagna ranger. De går inte att läsa ur motståndarens dolda kort.",
     );
   const [oop, ip] = active;
   if (
@@ -74,14 +79,14 @@ export function prepareLiveSolve(
     pot = s.pot - bets[0] - bets[1],
     stack = Math.min(oop.stack! + bets[0], ip.stack! + bets[1]);
   if (pot <= 0 || stack <= 0)
-    throw new Error("En positiv riverstartpott och effektiv stack krävs.");
+    throw new Error("En positiv startpott och effektiv stack krävs.");
   if (bets[0] > 0 && bets[1] > 0)
     throw new Error(
-      "Båda spelarna har satsat på river. Den fulla bet/raise-linjen är ännu inte verifierad för detta läge.",
+      "Båda spelarna har satsat på denna gata. Den fulla bet/raise-linjen är ännu inte verifierad för detta läge.",
     );
   const hero: 0 | 1 = oop.hero ? 0 : 1;
   let line: string[] = [],
-    betSizes = [50, 100];
+    betSizes = s.street === "turn" ? [50] : [50, 100];
   if (bets[0] || bets[1]) {
     const bettor = bets[0] > 0 ? 0 : 1;
     if (bettor === hero) throw new Error("Din senaste insats väntar på svar.");
@@ -95,17 +100,20 @@ export function prepareLiveSolve(
     const action = allin ? "allin" : `bet:${pct}`;
     line = bettor === 0 ? [action] : ["check", action];
   } else if (hero === 1) line = ["check"];
-  const config = validateConfig({
-    board: s.board,
-    oopRange,
-    ipRange,
-    pot,
-    stack,
-    betSizes,
-    raiseSizes: [50],
-    maxIterations: 1500,
-    targetPct: 0.2,
-  });
+  const config = validateConfig(
+    {
+      board: s.board,
+      oopRange,
+      ipRange,
+      pot,
+      stack,
+      betSizes,
+      raiseSizes: [50],
+      maxIterations: s.street === "turn" ? 300 : 1500,
+      targetPct: 0.2,
+    },
+    options,
+  );
   return { config, line, hero, key: liveKey(s) };
 }
 export function liveAdvice(

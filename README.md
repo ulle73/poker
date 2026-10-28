@@ -1,14 +1,14 @@
 # Poker GTO Advisor
 
-En fungerande Windows-app för **heads-up riverträning** med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
+En Windows-app för pokerträning med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
-**Aktuell status 1.3.1:** Automatisk beräkning av handlingar, storlekar och frekvenser fungerar från preflop till river för 2–10 aktiva spelare. Den nya MCCFR-modellen har dock **inte klarat kvalitetsgranskningen** och visas bara efter aktivt val av experimentläge. Den beställda tillförlitliga automatiska GTO-beslutsmotorn är **inte färdig**. Matchade heads-up-riverträd kan få separat verifierade DCFR-råd. Se [beslutsmotorns kvalitetsrapport](docs/decision-engine.md).
+**Aktuell status 1.4:** Matchade heads-up-beslut på **turn och river** får verifierade DCFR-råd efter kvalitets- och regelkontroll. Automatiska fulla ranger fungerar nu även med offsuit-notation. Det betyder två kvar i handen, även vid ett större bord. Den generella MCCFR-motorn räknar alla gator för 2–10 aktiva spelare men har **inte klarat kvalitetsgranskningen** och kräver aktivt experimentval. Den beställda heltäckande tillförlitliga beslutsmotorn är **inte färdig**. Se [kvalitetsrapporten](docs/decision-engine.md).
 
 ## Starta
 
 Dubbelklicka **`Start-Poker.cmd`** i denna mapp, eller kör:
 
-`release/Poker-GTO-Advisor-1.3.1-Windows.exe`
+`release/Poker-GTO-Advisor-1.4.0-Windows.exe`
 
 Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsignerad. En uppackad version finns också i `release/win-unpacked/`. Flytta hela den mappen om du använder dess `.exe`.
 
@@ -20,7 +20,7 @@ Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsign
 4. **Min session** sparar upp till 1 000 beslut lokalt, med export, validerad import och återställbar nollställning.
 5. **Egen studie** låter dig ändra riverbräda, båda rangerna, pott, effektiv stack, sizing och lösningsbudget.
 
-**Bet/Raise visar totalt satsat på river; Call visar ytterligare belopp. Träningsbelopp är bb; livebelopp behåller sajtens avlästa valuta.** All-in riskerar återstående effektiva stack. EV anges relativt början av solverns riverträd, med halva startpotten tilldelad respektive spelare.
+**Bet/Raise visar totalt satsat på aktuell gata; Call visar ytterligare belopp. Träningsbelopp är bb; livebelopp behåller sajtens avlästa valuta.** All-in riskerar återstående effektiva stack. Exakt EV anges relativt början av solverns turn- eller riverträd, med halva startpotten tilldelad respektive spelare.
 
 ## Vad som är klart
 
@@ -31,11 +31,11 @@ Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsign
 
 ## Avgränsning
 
-MVP:n löser heads-up **river**, chip EV, utan rake, med symmetrisk effektiv stack och högst en raise. En blandstrategi gäller bara de angivna rangerna och bettingträdet. Iterationsgräns är inte samma sak som konvergens; appen visar uppmätt fel och om målet nåddes.
+Träningsbordets sex övningar och egna scenarier löser heads-up **river**. Livefliken har också exakt **turn till river**, med chip EV, utan rake och högst en raise per gata. En blandstrategi gäller bara de angivna rangerna och bettingträdet. Iterationsgräns är inte samma sak som konvergens; appen visar uppmätt fel och om målet nåddes. För stora, olagliga eller ofullständigt konvergerade träd ger inga verifierade råd.
 
 Historiken före river är ett tydligt märkt syntetiskt träningsprefix. Den används inte för att låtsas härleda optimala river-ranger. Motståndaren är en träningsmodell, inte en profil av en verklig spelare. Inga fiktiva vinstsiffror räknas.
 
-Livefliken läser Svenska Spels HTML-klient genom en sessionsbunden DOM-observer. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Version 1.3 ändrar endast beslutslagret: fulla lagliga ranger är standard, egna ranger är valfria, beräkningar avbryts vid ändrat beslut och experimentella resultat döljs som standard. Alla gator och antal spelare hanteras av experimentmotorn. Matchade riverträd får separat kontroll av exploaterbarhet och lagliga chipbelopp genom hela trädet. Tidigare okänd historik, sidopotter och rangeförändringar går inte att återskapa som verifierade fakta. Se [liveanslutning](docs/live.md).
+Livefliken läser Svenska Spels HTML-klient genom en sessionsbunden DOM-observer. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Beslutslagret använder fulla lagliga ranger som standard; egna ranger är valfria. Beräkningar avbryts vid ändrat beslut och experimentella resultat döljs som standard. Matchade turn-/riverträd får separat kontroll av exploaterbarhet och lagliga chipbelopp genom hela trädet. Tidigare okänd historik, sidopotter och rangeförändringar går inte att återskapa som verifierade fakta. Se [liveanslutning](docs/live.md).
 
 ## Utveckling och verifiering
 
@@ -45,6 +45,7 @@ Node.js 24 LTS rekommenderas. Låsta paketversioner finns i `package-lock.json`.
 npm ci
 npm test
 npm run verify:solver
+npm run verify:turn
 npm run build
 npm run smoke:desktop
 npm run desktop

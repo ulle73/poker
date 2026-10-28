@@ -57,11 +57,22 @@ export function DecisionAdvisor({
         </div>
       ) : blocked ? (
         <div className="advisor-state">
-          <h3>Strategin saknar kvalitetsgodkännande</h3>
+          {busy && <span className="spinner" />}
+          <h3>
+            {busy
+              ? "Beräknar verifierad strategi"
+              : "Strategin saknar kvalitetsgodkännande"}
+          </h3>
           <p>
-            Beräkningen fungerar, men den snabba MCCFR-modellen har visat
-            systematiska strategifel. Experimentella frekvenser kan visas för
-            studier och test via inställningen till vänster.
+            {busy ? (
+              "Solvern räknar på det exakta trädet. Resultatet visas när kvalitets- och regelkontrollen är klar."
+            ) : (
+              <>
+                Beräkningen fungerar, men den snabba MCCFR-modellen har visat
+                systematiska strategifel. Experimentella frekvenser kan visas
+                för studier och test via inställningen till vänster.
+              </>
+            )}
           </p>
         </div>
       ) : !a ? (
@@ -126,7 +137,7 @@ export function DecisionAdvisor({
           <p className="microcopy">
             ¹{" "}
             {result!.quality === "verified-gto"
-              ? "EV relativt den exakta river-modellen."
+              ? `EV relativt den exakta ${result!.provider.endsWith("/turn") ? "turn" : "river"}-modellen.`
               : "Samplad netto-EV under träningspolicyn, inklusive modellens representerade insatser; inte en vinstprognos."}
           </p>
           <div className="solve-certificate">

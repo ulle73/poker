@@ -1,20 +1,27 @@
 {
-  "version": "1.3.1",
-  "builtAndVerifiedAt": "2026-10-28T12:07:55.9777165Z",
-  "binary": "release/Poker-GTO-Advisor-1.3.1-Windows.exe",
-  "bytes": 386709785,
-  "sha256": "1554CF56E9E3B0CDD09A29C33F5C347A810EEFC661C5F94E9142126911929569",
+  "version": "1.4.0",
+  "builtAndVerifiedAt": "2026-10-28T12:47:31.3495537Z",
+  "binary": "release/Poker-GTO-Advisor-1.4.0-Windows.exe",
+  "bytes": 386715302,
+  "sha256": "8227C3B4B212E8D168A366F4FC2BEC7A64CEED7F3CB15F1947B4D596F7109D48",
   "unitTests": {
-    "passed": 237,
+    "passed": 258,
     "skippedOptInDiagnostics": 1
   },
   "portableNative": {
-    "evidence": "decision-portable-smoke-1.3.1.json",
+    "evidence": "decision-portable-smoke-1.4.0.json",
     "decisionMatrixCases": 16,
     "verifiedRiverUpgrade": true,
+    "verifiedTurnUpgrade": true,
+    "verifiedTurnAutomaticRanges": true,
     "experimentalHiddenByDefault": true,
     "unexpectedRendererErrors": 0
   },
+  "independentTurnEvidence": "turn-solver-verification.json",
+  "certifiedCoverage": [
+    "Matched heads-up turn-to-river trees and assumed ranges",
+    "Matched heads-up river trees and assumed ranges"
+  ],
   "goalReady": false,
   "genericStrategyQuality": "not-certified-reliability-failures-persist",
   "qualityEvidence": "decision-quality-outcome.json",

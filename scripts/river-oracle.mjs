@@ -1,4 +1,4 @@
-// Deliberately independent, slow 5-of-7 evaluator and scalar river best response.
+// Deliberately independent, slow 5-of-7 evaluator and scalar postflop best response.
 // This does not call the Rust evaluator, CFR traversal or best-response code.
 const rank = "23456789TJQKA";
 function score5(cards) {
@@ -62,12 +62,14 @@ export function independentRiverReport(result) {
   const parse = (s) => s.match(/../g),
     key = (s) => parse(s).sort().join("");
   const rankCache = new Map();
-  for (const range of result.rootRanges)
-    for (const h of range)
-      rankCache.set(
-        h.cards,
-        evaluate7([...result.nodes[0].board, ...parse(h.cards)]),
-      );
+  const showdownRank = (board, hand) => {
+    if (board.length !== 5)
+      throw new Error("Showdown requires a complete board.");
+    const cacheKey = board.join("") + hand;
+    if (!rankCache.has(cacheKey))
+      rankCache.set(cacheKey, evaluate7([...board, ...parse(hand)]));
+    return rankCache.get(cacheKey);
+  };
   const strategy = new Map(
     result.nodes
       .filter((n) => n.kind === "decision")
@@ -96,20 +98,57 @@ export function independentRiverReport(result) {
         );
       function visit(id, weights) {
         const n = byId.get(id);
+        if (weights.every((w) => w === 0)) return 0;
+        if (n.kind === "chance") {
+          const publicCards = rank
+            .split("")
+            .flatMap((r) => ["s", "h", "d", "c"].map((s) => r + s))
+            .filter((c) => !n.board.includes(c));
+          if (
+            n.valid_cards.length !== publicCards.length ||
+            new Set(n.valid_cards.map((e) => e.card)).size !==
+              publicCards.length ||
+            n.valid_cards.some((e) => !publicCards.includes(e.card))
+          )
+            throw new Error(
+              "Chance node does not cover every remaining public card.",
+            );
+          // For each compatible private pair, four cards are unavailable.
+          // Do not use 1/(52-board.length), which loses probability mass.
+          const probability = 1 / (52 - n.board.length - 4);
+          return n.valid_cards.reduce(
+            (sum, edge) =>
+              cards.includes(edge.card)
+                ? sum
+                : sum +
+                  visit(
+                    edge.child,
+                    weights.map((w, i) =>
+                      parse(opponents[i].cards).includes(edge.card)
+                        ? 0
+                        : w * probability,
+                    ),
+                  ),
+            0,
+          );
+        }
         if (n.kind === "terminal")
           return opponents.reduce(
             (sum, o, i) =>
-              sum +
-              (weights[i] *
-                (n.terminal.kind === "fold"
-                  ? n.terminal.folder === hero
-                    ? -1
-                    : 1
-                  : Math.sign(
-                      rankCache.get(h.cards) - rankCache.get(o.cards),
-                    )) *
-                n.terminal.pot) /
-                2,
+              weights[i] === 0
+                ? sum
+                : sum +
+                  (weights[i] *
+                    (n.terminal.kind === "fold"
+                      ? n.terminal.folder === hero
+                        ? -1
+                        : 1
+                      : Math.sign(
+                          showdownRank(n.board, h.cards) -
+                            showdownRank(n.board, o.cards),
+                        )) *
+                    n.terminal.pot) /
+                    2,
             0,
           );
         if (n.player === hero) {
@@ -123,8 +162,10 @@ export function independentRiverReport(result) {
             sum +
             visit(
               a.child,
-              weights.map(
-                (w, j) => w * strategy.get(id).get(key(opponents[j].cards))[i],
+              weights.map((w, j) =>
+                w === 0
+                  ? 0
+                  : w * strategy.get(id).get(key(opponents[j].cards))[i],
               ),
             ),
           0,

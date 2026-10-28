@@ -1,7 +1,7 @@
 @echo off
 cd /d "%~dp0"
-if exist "release\Poker-GTO-Advisor-1.3.1-Windows.exe" (
-  start "" "release\Poker-GTO-Advisor-1.3.1-Windows.exe" --live
+if exist "release\Poker-GTO-Advisor-1.4.0-Windows.exe" (
+  start "" "release\Poker-GTO-Advisor-1.4.0-Windows.exe" --live
   exit /b
 )
 if exist "release\win-unpacked\Poker GTO Advisor.exe" (

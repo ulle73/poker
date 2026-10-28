@@ -6,7 +6,6 @@ import {
   shufflePrefix,
   type EquityConfig,
 } from "../src/multiway/equity";
-// @ts-expect-error The independent existing JavaScript oracle has no declaration.
 import { evaluate7 } from "../scripts/river-oracle.mjs";
 
 const base: EquityConfig = {
