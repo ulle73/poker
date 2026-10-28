@@ -73,14 +73,14 @@ it.skipIf(process.env.POKER_QUALITY_PROBE !== "1")(
           });
         }
     writeFileSync(
-      "docs/evidence/decision-quality.json",
+      process.env.POKER_QUALITY_OUTPUT || "docs/evidence/decision-quality.json",
       JSON.stringify(
         {
           verifiedAt: new Date().toISOString(),
-          qualityAssessment: "failed-reliability-audit",
+          qualityAssessment: "not-certified",
           goalReady: false,
           observedConcern:
-            "Strong-hand shove frequencies are systematically extreme in this 100bb model; no independently evaluated best-response certificate exists for these full-range results.",
+            "Full-range results are diagnostic only; no independently evaluated best-response certificate exists. The prior provider failed reliability review and suit isomorphism alone cannot clear that finding.",
           mechanism:
             "Full-range private/public information sets receive sparse training. Table/depth/deadline cuts use unconditional check/call continuation. The root can exploit unfinished/artificial responses.",
           interpretation:

@@ -23,6 +23,12 @@ import { createSeededRandom } from "../multiway/equity";
 import { applyAction, legalActions } from "./betting";
 import { settlePayoffs } from "./payoffs";
 import { createDealSampler } from "./sampler";
+import {
+  createCardInformation,
+  cardInformationKey,
+  rootCardOrbit,
+  type CardInformation,
+} from "./card-information";
 import type {
   BettingState,
   DecisionInput,
@@ -42,12 +48,16 @@ export function informationSetKey(
   state: BettingState,
   ownCards: readonly number[],
   runout: readonly number[],
+  cardInformation?: CardInformation,
 ): string {
+  const visible = runout.slice(0, state.boardCount);
   return JSON.stringify([
     rootKey,
     state.actor,
-    [...ownCards].sort((a, b) => a - b),
-    runout.slice(0, state.boardCount),
+    cardInformation
+      ? cardInformationKey(ownCards, visible, cardInformation)
+      : [...ownCards].sort((a, b) => a - b),
+    cardInformation ? state.boardCount : visible,
     state.street,
     state.history,
     state.stacks,
@@ -87,7 +97,7 @@ function boundedInteger(
  * One iteration updates each player; opponent actions follow their own policy,
  * while every updater action is expanded. Chance is sampled jointly in advance
  * but revealed to the policy only as streets advance. Every player's regret
- * update is corrected for the sampler's actual-hand oversampling proposal.
+ * update is corrected for the sampler's equivalent-root-class proposal.
  *
  * The SIMPLE average follows OpenSpiel's cyclic-next-player implementation.
  * It is intentionally identified as an empirical approximation for >2 players.
@@ -146,7 +156,7 @@ export function solveDecision(
   const seed = options.seed ?? 0x4d434346;
   if (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff)
     throw new Error("Seed must be an unsigned 32-bit integer.");
-  const sampleDeal = createDealSampler(input, seed);
+  const cardInformation = createCardInformation(input.ranges, maxInfosets);
   const random = createSeededRandom((seed ^ 0x9e3779b9) >>> 0);
   const ownCards = input.heroCards.map((card) =>
     cardCode(card[0].toUpperCase(), card[1].toLowerCase()),
@@ -154,7 +164,15 @@ export function solveDecision(
   const board = input.board.map((card) =>
     cardCode(card[0].toUpperCase(), card[1].toLowerCase()),
   );
-  const rootKey = informationSetKey(input.key, input.state, ownCards, board);
+  const rootClass = rootCardOrbit(ownCards, board, cardInformation);
+  const sampleDeal = createDealSampler(input, seed, rootClass);
+  const rootKey = informationSetKey(
+    input.key,
+    input.state,
+    ownCards,
+    board,
+    cardInformation,
+  );
   const rootInfo: InformationSet = {
     regrets: rootActions.map(() => 0),
     average: rootActions.map(() => 0),
@@ -230,6 +248,7 @@ export function solveDecision(
           state,
           deal.holes[state.actor],
           deal.runout,
+          cardInformation,
         );
         let info = infosets.get(key);
         if (!info) {
@@ -280,11 +299,11 @@ export function solveDecision(
     }
     iterations++;
   }
-  // An unvisited actual hand must never be presented as a computed mixed
+  // An unvisited root information set must never be presented as a computed mixed
   // decision merely because a uniform information-set entry was allocated.
   if (rootVisits === 0)
     throw new Error(
-      "Undertrained decision: no actual-hand root regret traversal completed within the computation budget. Increase the budget or retry.",
+      "Undertrained decision: no root information-set regret traversal completed within the computation budget. Increase the budget or retry.",
     );
   const averageTotal = rootInfo.average.reduce((sum, value) => sum + value, 0);
   const frequencies =
@@ -309,6 +328,10 @@ export function solveDecision(
     limitations.push(
       "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
     );
+  if (cardInformation.permutations.length > 1)
+    limitations.push(
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+    );
   if (cutoffCount > 0)
     limitations.push(
       `${cutoffCount} bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.`,
@@ -319,7 +342,7 @@ export function solveDecision(
     );
   if (rootVisits < 100)
     limitations.push(
-      `Only ${rootVisits} actual-hand regret traversals; root frequencies may be poorly converged.`,
+      `Only ${rootVisits} root information-set regret traversals; root frequencies may be poorly converged.`,
     );
   if (passes % n !== 0)
     limitations.push(
@@ -329,7 +352,7 @@ export function solveDecision(
     key: input.key,
     rangeRevision: input.rangeRevision,
     quality: "approximation",
-    provider: "external-sampling-mccfr/simple-v1",
+    provider: "external-sampling-mccfr/isomorphic-v3",
     actions,
     recommended,
     iterations,
@@ -339,5 +362,12 @@ export function solveDecision(
     assumptions: [...input.assumptions],
     limitations,
     exploitabilityPct: null,
+    diagnostics: {
+      informationSets: infosets.size,
+      cachedCardViews: cardInformation.cache?.size ?? 0,
+      suitPermutations: cardInformation.permutations.length,
+      rootClassSize: rootClass.length,
+      tableLimited,
+    },
   };
 }

@@ -168,7 +168,9 @@ function draw(distribution: Prior, random: () => number): Combo {
   return distribution.combos[lo];
 }
 /** Samples product range priors conditioned on card uniqueness, plus a uniform
- * runout. The known root hand is oversampled by q(h)=.5*p(h)+.5*I(h=actual).
+ * runout. The root class C is oversampled by q(h)=.5*p(h)+.5*p(h|C).
+ * By default C contains only the actual physical hand. A solver using exact
+ * card isomorphism supplies the whole equivalent root class to reduce variance.
  * Every rejection redraws the ENTIRE proposal, including hero, so p(hero)/q(hero)
  * corrects the joint sample up to a constant acceptance normalizer. Opponent
  * priors never block the actual root hand; they see only the sampled hero hand.
@@ -176,6 +178,7 @@ function draw(distribution: Prior, random: () => number): Combo {
 export function createDealSampler(
   input: DecisionInput,
   seed: number,
+  rootClass?: readonly (readonly number[])[],
 ): () => SampledDeal {
   const count = input.seats.length,
     hero = input.hero;
@@ -208,6 +211,36 @@ export function createDealSampler(
     throw new Error(
       "The actual hero hand must have positive weight in the hero prior.",
     );
+  const rootKeys = new Set<number>();
+  for (const hand of rootClass ?? [actual]) {
+    if (
+      hand.length !== 2 ||
+      hand[0] === hand[1] ||
+      hand.some(
+        (card) =>
+          !Number.isInteger(card) ||
+          card < 0 ||
+          card >= 52 ||
+          board.includes(card),
+      )
+    )
+      throw new Error("Invalid oversampled root class.");
+    rootKeys.add(comboKey(hand));
+  }
+  const representedKeys = new Set(
+    priors[hero].combos.map((combo) => comboKey(combo.cards)),
+  );
+  if (
+    !rootKeys.has(actualKey) ||
+    [...rootKeys].some((key) => !representedKeys.has(key))
+  )
+    throw new Error(
+      "The oversampled root class must contain the actual hand and only positive-weight prior hands.",
+    );
+  const rootPrior = prior(
+    priors[hero].combos.filter((combo) => rootKeys.has(comboKey(combo.cards))),
+  );
+  const rootProbability = rootPrior.total / priors[hero].total;
   const random = createSeededRandom(seed),
     boardSet = new Set(board);
   const publicDeck = Array.from({ length: 52 }, (_, i) => i).filter(
@@ -215,10 +248,14 @@ export function createDealSampler(
   );
   const uniform = input.ranges.every((text) => !text.trim());
   const chooseHero = () =>
-    random() < 0.5 ? actualCombo! : draw(priors[hero], random);
+    random() < 0.5
+      ? rootPrior.combos.length === 1
+        ? rootPrior.combos[0]
+        : draw(rootPrior, random)
+      : draw(priors[hero], random);
   const importance = (combo: Combo) =>
-    comboKey(combo.cards) === actualKey
-      ? actualProbability / (0.5 + 0.5 * actualProbability)
+    rootKeys.has(comboKey(combo.cards))
+      ? rootProbability / (0.5 + 0.5 * rootProbability)
       : 2;
   const complete = (
     holes: number[][],

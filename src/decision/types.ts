@@ -67,6 +67,13 @@ export interface DecisionResult {
   assumptions: string[];
   limitations: string[];
   exploitabilityPct: number | null;
+  diagnostics?: {
+    informationSets: number;
+    cachedCardViews: number;
+    suitPermutations: number;
+    rootClassSize: number;
+    tableLimited: boolean;
+  };
 }
 export interface SampledDeal {
   holes: number[][];

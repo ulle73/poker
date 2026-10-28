@@ -1,0 +1,1027 @@
+{
+  "verifiedAt": "2026-10-28T08:21:41.465Z",
+  "qualityAssessment": "not-certified",
+  "goalReady": false,
+  "observedConcern": "Full-range results are diagnostic only; no independently evaluated best-response certificate exists. The prior provider failed reliability review and suit isomorphism alone cannot clear that finding.",
+  "mechanism": "Full-range private/public information sets receive sparse training. Table/depth/deadline cuts use unconditional check/call continuation. The root can exploit unfinished/artificial responses.",
+  "interpretation": "This diagnostic records an observed failure of validation. It does not assert an externally solved optimal mix for these fixtures. The ten-player fixture represents earlier limps to SB; those ranges remain uniform assumptions, not a derived limping strategy.",
+  "releaseDecision": "Experimental provider hidden by default. Only separately certified matched HU river trees may show production recommendations.",
+  "runs": [
+    {
+      "count": 2,
+      "seed": 19,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.21141215039158492,
+            "ev": 24.504614701705336
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.001112139508747117,
+            "ev": 2.818476689326315
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.004537980710122926,
+            "ev": 3.348383421266245
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.782937729389545,
+            "ev": 26.958603896104037
+          }
+        ],
+        "recommended": 4,
+        "iterations": 5000,
+        "rootVisits": 2464,
+        "elapsedMs": 501,
+        "cutoffCount": 12277,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "12277 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 10585,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 19,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.9695939719807294,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.00010599418452498828,
+            "ev": -2.306003176012843
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.024661766408274926,
+            "ev": -1.1232623644986086
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.004743973701042781,
+            "ev": -2.7873093669124414
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.0008942937254279737,
+            "ev": -35.21869918699333
+          }
+        ],
+        "recommended": 0,
+        "iterations": 5000,
+        "rootVisits": 2460,
+        "elapsedMs": 400,
+        "cutoffCount": 9645,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "9645 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 11989,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 395,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.000992232526350288,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.06746643504214819,
+            "ev": 23.020596696382093
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.0027262861554138615,
+            "ev": 2.4942037566269475
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.0009485831278600139,
+            "ev": 2.4686335859841226
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.9278664631482277,
+            "ev": 29.48986083499039
+          }
+        ],
+        "recommended": 4,
+        "iterations": 5000,
+        "rootVisits": 2515,
+        "elapsedMs": 410,
+        "cutoffCount": 11390,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "11390 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 10322,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 2,
+      "seed": 395,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200
+        ],
+        "bets": [
+          2,
+          1
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.03,\"EUR\",1,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"BTN / SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.952260514756481,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.0013904646863570987,
+            "ev": -2.9887441828221784
+          },
+          {
+            "kind": "raise",
+            "to": 4,
+            "cost": 3,
+            "allIn": false,
+            "id": "raise:4",
+            "frequency": 0.01091469506751068,
+            "ev": -1.1934913290513545
+          },
+          {
+            "kind": "raise",
+            "to": 6,
+            "cost": 5,
+            "allIn": false,
+            "id": "raise:6",
+            "frequency": 0.014851042762572804,
+            "ev": -2.401574629837556
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.020583282727078493,
+            "ev": -39.105928853756595
+          }
+        ],
+        "recommended": 0,
+        "iterations": 5000,
+        "rootVisits": 2530,
+        "elapsedMs": 408,
+        "cutoffCount": 9419,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "9419 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 11957,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 19,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.008264979879458793,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.000626222231987879,
+            "ev": 30.29954229797975
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.00010849025510316347,
+            "ev": 15.226488583754533
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0,
+            "ev": 24.210188254068523
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.9910003076334503,
+            "ev": 144.82878787879173
+          }
+        ],
+        "recommended": 4,
+        "iterations": 1274,
+        "rootVisits": 660,
+        "elapsedMs": 1500,
+        "cutoffCount": 21548,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "21548 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit.",
+          "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 12554,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 19,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.9685258376736757,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.0038226789302649652,
+            "ev": -22.64715657311707
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.0072824196746596416,
+            "ev": -10.479260267930421
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.0032053520896139736,
+            "ev": -16.834913014935385
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.01716371163178577,
+            "ev": -110.87887740029664
+          }
+        ],
+        "recommended": 0,
+        "iterations": 1303,
+        "rootVisits": 677,
+        "elapsedMs": 1500,
+        "cutoffCount": 22804,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "22804 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit.",
+          "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 14984,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 395,
+      "heroCards": [
+        "As",
+        "Kh"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"As\",\"Kh\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.0032350759197268698,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.0014231685431703104,
+            "ev": 29.197881511768696
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.0009884678747940792,
+            "ev": 13.173306886033512
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.004510247844419775,
+            "ev": 14.647759821737814
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.9898430398178889,
+            "ev": 120.65887850467496
+          }
+        ],
+        "recommended": 4,
+        "iterations": 1199,
+        "rootVisits": 642,
+        "elapsedMs": 1500,
+        "cutoffCount": 20403,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "20403 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit.",
+          "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 12539,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    },
+    {
+      "count": 10,
+      "seed": 395,
+      "heroCards": [
+        "7s",
+        "2h"
+      ],
+      "input": {
+        "stacks": [
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200,
+          200
+        ],
+        "bets": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "minBet": 2,
+        "ranges": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "rules": {
+          "betFractions": [
+            0.5,
+            1
+          ],
+          "raiseFractions": [
+            0.5,
+            1
+          ],
+          "maxRaises": 1,
+          "includeAllIn": true
+        },
+        "chipUnit": 0.01
+      },
+      "result": {
+        "key": "[\"quality-probe\",\"1\",\"preflop\",[],[\"7s\",\"2h\"],0.19,\"EUR\",10,true,true,[],[\"Fold\",\"Syna\",\"Höj Till\"],[],[[1,true,\"SB\",2,0.01,false,true],[2,false,\"BB\",2,0.02,false,true],[3,false,\"Övrig\",2,0.02,false,true],[4,false,\"Övrig\",2,0.02,false,true],[5,false,\"Övrig\",2,0.02,false,true],[6,false,\"Övrig\",2,0.02,false,true],[7,false,\"Övrig\",2,0.02,false,true],[8,false,\"Övrig\",2,0.02,false,true],[9,false,\"Övrig\",2,0.02,false,true],[10,false,\"BTN\",2,0.02,false,true]],0]",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "external-sampling-mccfr/isomorphic-v3",
+        "actions": [
+          {
+            "kind": "fold",
+            "to": 1,
+            "cost": 0,
+            "allIn": false,
+            "id": "fold:1",
+            "frequency": 0.5716059288580561,
+            "ev": -1
+          },
+          {
+            "kind": "call",
+            "to": 2,
+            "cost": 1,
+            "allIn": false,
+            "id": "call:2",
+            "frequency": 0.11655390138203324,
+            "ev": -15.918868550834743
+          },
+          {
+            "kind": "raise",
+            "to": 12,
+            "cost": 11,
+            "allIn": false,
+            "id": "raise:12",
+            "frequency": 0.19001816613305572,
+            "ev": -7.791720409711649
+          },
+          {
+            "kind": "raise",
+            "to": 22,
+            "cost": 21,
+            "allIn": false,
+            "id": "raise:22",
+            "frequency": 0.07611157937633611,
+            "ev": -11.708096231664264
+          },
+          {
+            "kind": "raise",
+            "to": 201,
+            "cost": 200,
+            "allIn": true,
+            "id": "raise:201",
+            "frequency": 0.045710424250518904,
+            "ev": -82.45220030349205
+          }
+        ],
+        "recommended": 0,
+        "iterations": 1244,
+        "rootVisits": 659,
+        "elapsedMs": 1500,
+        "cutoffCount": 21169,
+        "assumptions": [
+          "Ranger anges som modellantaganden; tom range betyder jämnt fördelade lagliga händer.",
+          "Återstående turordning och höjningsrätt rekonstrueras från nuvarande insatser."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+          "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+          "21169 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+          "Information-set table reached its 50000 entry limit.",
+          "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 50000,
+          "cachedCardViews": 14416,
+          "suitPermutations": 24,
+          "rootClassSize": 12,
+          "tableLimited": true
+        }
+      }
+    }
+  ]
+}

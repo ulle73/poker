@@ -67,6 +67,48 @@ function oneDecision(heroCards: string[]): DecisionInput {
 }
 const exactOptions = { seed: 713, maxIterations: 400, timeBudgetMs: 4000 };
 describe("external-sampling decision solver", () => {
+  it("shares one information set for suit-equivalent hands when the supplied game symmetry permits it", () => {
+    const state = fixture(2, "preflop").state;
+    const symmetry = {
+      permutations: [
+        [0, 1, 2, 3],
+        [1, 0, 2, 3],
+      ],
+    };
+    const first = Reflect.apply(informationSetKey, null, [
+      "game",
+      state,
+      [48, 45],
+      [],
+      symmetry,
+    ]);
+    const swapped = Reflect.apply(informationSetKey, null, [
+      "game",
+      state,
+      [49, 44],
+      [],
+      symmetry,
+    ]);
+    expect(first).toBe(swapped);
+  });
+  it.each([
+    { ranges: ["", ""], count: 24 },
+    { ranges: ["", "AA,AKs:0.5,AKo:0.25"], count: 24 },
+    { ranges: ["", "AsKs:0.8,AhKh:0.2,AdKd:0.2,AcKc:0.2"], count: 6 },
+  ])(
+    "uses only suit permutations preserving every weighted prior ($count permutations)",
+    ({ ranges, count }) => {
+      const input = fixture(2, "preflop");
+      input.ranges = ranges;
+      const result = solveDecision(input, {
+        seed: 19,
+        maxIterations: 50,
+        maxNodes: 16,
+        timeBudgetMs: 4000,
+      });
+      expect(Reflect.get(result, "diagnostics")?.suitPermutations).toBe(count);
+    },
+  );
   it("updates a hero in the last seat before spending the budget on earlier seats", () => {
     const input = fixture(10, "preflop");
     input.hero = 9;
@@ -88,7 +130,7 @@ describe("external-sampling decision solver", () => {
         timeBudgetMs: 4000,
         maxNodes: 4,
       }),
-    ).toThrow(/undertrained.*actual-hand/i);
+    ).toThrow(/undertrained.*root information-set/i);
   });
   it("matches positive cumulative regrets, retaining negative signed regret history", () => {
     expect(regretMatching([-100, 10, 30])).toEqual([0, 0.25, 0.75]);

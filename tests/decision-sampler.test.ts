@@ -91,6 +91,118 @@ describe("decision range parser", () => {
   });
 });
 describe("decision joint deal sampling", () => {
+  it("corrects importance for the entire oversampled root class instead of one physical hand", () => {
+    const config = input(2, ["2s", "3h", "7d", "9c", "Jc"]);
+    config.heroCards = ["As", "Ah"];
+    config.ranges = ["AsAh:0.25,AcAd:0.25,KsKh:0.5", ""];
+    const orbit = [["As", "Ah"].map(card), ["Ac", "Ad"].map(card)];
+    const sample = Reflect.apply(createDealSampler, null, [
+      config,
+      123,
+      orbit,
+    ]) as ReturnType<typeof createDealSampler>;
+    const classKeys = new Set(orbit.map(key));
+    for (let i = 0; i < 40; i++) {
+      const deal = sample();
+      expect(deal.importance).toBeCloseTo(
+        classKeys.has(key(deal.holes[0])) ? 2 / 3 : 2,
+        12,
+      );
+    }
+  });
+  it("restores the product prior after whole-proposal rejection with a multi-hand root class", () => {
+    const config = input();
+    config.ranges = ["AhKh,QsQd,JsJd", "AhJh,2s3s"];
+    const orbit = [["Ah", "Kh"].map(card), ["Qs", "Qd"].map(card)];
+    const sample = Reflect.apply(createDealSampler, null, [
+      config,
+      431,
+      orbit,
+    ]) as ReturnType<typeof createDealSampler>;
+    const weights = new Map<string, number>();
+    let total = 0;
+    for (let i = 0; i < 16000; i++) {
+      const deal = sample(),
+        k = key(deal.holes[0]);
+      total += deal.importance;
+      weights.set(k, (weights.get(k) ?? 0) + deal.importance);
+    }
+    expect(
+      Math.abs(weights.get(key(["Ah", "Kh"].map(card)))! / total - 0.2),
+    ).toBeLessThan(0.015);
+    expect(
+      Math.abs(weights.get(key(["Qs", "Qd"].map(card)))! / total - 0.4),
+    ).toBeLessThan(0.015);
+    expect(
+      Math.abs(weights.get(key(["Js", "Jd"].map(card)))! / total - 0.4),
+    ).toBeLessThan(0.015);
+  });
+  it("preserves weighted probabilities while oversampling both physical variants of a class", () => {
+    const config = input(2, ["2s", "3h", "7d", "9c", "Jc"]);
+    config.heroCards = ["As", "Ah"];
+    config.ranges = ["AsAh:0.25,AcAd:0.25,KsKh:0.5", ""];
+    const orbit = [["As", "Ah"].map(card), ["Ac", "Ad"].map(card)];
+    const sample = Reflect.apply(createDealSampler, null, [
+      config,
+      644,
+      orbit,
+    ]) as ReturnType<typeof createDealSampler>;
+    let total = 0,
+      first = 0,
+      second = 0,
+      proposalClass = 0;
+    for (let i = 0; i < 16000; i++) {
+      const d = sample(),
+        k = key(d.holes[0]);
+      total += d.importance;
+      if (k === key(orbit[0])) {
+        first += d.importance;
+        proposalClass++;
+      }
+      if (k === key(orbit[1])) {
+        second += d.importance;
+        proposalClass++;
+      }
+    }
+    expect(Math.abs(first / total - 0.25)).toBeLessThan(0.015);
+    expect(Math.abs(second / total - 0.25)).toBeLessThan(0.015);
+    expect(Math.abs(proposalClass / 16000 - 0.75)).toBeLessThan(0.015);
+  });
+  it("deduplicates proposal hands instead of silently multiplying their mass", () => {
+    const config = input(),
+      own = config.heroCards.map(card);
+    const ordinary = createDealSampler(config, 123),
+      duplicated = Reflect.apply(createDealSampler, null, [
+        config,
+        123,
+        [own, own],
+      ]) as ReturnType<typeof createDealSampler>;
+    for (let i = 0; i < 20; i++) expect(duplicated()).toEqual(ordinary());
+  });
+  it.each([
+    { rootClass: [] },
+    { rootClass: [["As", "Ks"].map(card)] },
+    { rootClass: [["Ah", "Kh"].map(card), [52, 3]] },
+    { rootClass: [["Ah", "Kh"].map(card), [2, 2]] },
+  ])(
+    "rejects an empty, unrelated or invalid root proposal class",
+    ({ rootClass }) => {
+      expect(() =>
+        Reflect.apply(createDealSampler, null, [input(), 123, rootClass]),
+      ).toThrow(/root class/i);
+    },
+  );
+  it("rejects proposal hands outside the positive weighted prior", () => {
+    const config = input();
+    config.ranges = ["AhKh", ""];
+    expect(() =>
+      Reflect.apply(createDealSampler, null, [
+        config,
+        123,
+        [config.heroCards.map(card), ["As", "Ks"].map(card)],
+      ]),
+    ).toThrow(/positive-weight prior/);
+  });
   it.each([0, 3, 4, 5])(
     "keeps all cards unique on board length %i for 2-10 players",
     (boardCount) => {

@@ -151,7 +151,7 @@ export function DecisionAdvisor({
                 </div>
               ) : (
                 <div>
-                  <dt>Träningar för dina kort</dt>
+                  <dt>Besök vid ditt beslut</dt>
                   <dd>{result!.rootVisits}</dd>
                 </div>
               )}

@@ -67,6 +67,20 @@ Nuvarande experimentmotor är inte ett godkänt substitut för detta.
 En efterföljande [källgranskning](strategy-source-audit.md) skiljer faktiska
 solverartefakter från snäv täckning, osäker proveniens och rena databasplaner.
 
+## Efterföljande experiment: exakta färgsymmetrier
+
+Arbetsversionen grupperar privata/publika kort under samtidiga färgbyten som
+bevarar varje spelares viktade range och det redan synliga rotbrädet. Detta är
+en exakt spelisomorfi, utan rank- eller styrkebucketing. Prefloptestet återfår
+de 169 kända klasserna av 1326 kombinationer. Importance sampling överviktar
+hela ekvivalensklassen för rotbeslutet och korrigerar för den gemensamma
+kortfördelningens förslagsfördelning. Även mycket små positiva rangevikter
+bevarar exakt support; de jämställs aldrig med frånvarande kombinationer.
+
+Den upprepade [diagnostiken](evidence/decision-quality-isomorphic.json) visar
+fortfarande extrema AKo-frekvenser och full informationsmängdstabell. Ändringen
+har alltså inte löst strategikvaliteten. Experimentspärren gäller fortsatt.
+
 Algoritmdokumentation:
 [OpenSpiel external sampling](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/external_sampling_mccfr.py),
 [Postflop ranges](https://b-inary.github.io/postflop_solver/postflop_solver/struct.Range.html),
