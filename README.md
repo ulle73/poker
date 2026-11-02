@@ -1,5 +1,9 @@
 # Poker GTO Advisor
 
+**Fortsätta arbetet / ansluta en annan AI:** börja med
+[projektloggen och checklistan](PROJECT_LOG.md). Där finns aktuell status,
+testade försök, kända fel, startkommandon och nästa tekniska steg.
+
 En Windows-app för pokerträning med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
 **Aktuell status 1.4:** Matchade heads-up-beslut på **turn och river** får verifierade DCFR-råd efter kvalitets- och regelkontroll. Automatiska fulla ranger fungerar nu även med offsuit-notation. Det betyder två kvar i handen, även vid ett större bord. Den generella MCCFR-motorn räknar alla gator för 2–10 aktiva spelare men har **inte klarat kvalitetsgranskningen** och kräver aktivt experimentval. Den beställda heltäckande tillförlitliga beslutsmotorn är **inte färdig**. Se [kvalitetsrapporten](docs/decision-engine.md).
