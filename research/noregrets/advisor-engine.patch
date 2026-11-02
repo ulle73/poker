@@ -1,0 +1,130 @@
+diff --git a/src/abstraction.rs b/src/abstraction.rs
+index 7624901..262fb40 100644
+--- a/src/abstraction.rs
++++ b/src/abstraction.rs
+@@ -1854,7 +1854,7 @@ mod tests {
+         use rand::Rng;
+         let a = abs();
+         let mut rng = SmallRng::seed_from_u64(11);
+-        for n in 2..=6usize {
++        for n in 2..=crate::engine::MAX_PLAYERS {
+             for _ in 0..500 {
+                 let mut deck = fresh_deck();
+                 deck.shuffle(&mut rng);
+diff --git a/src/engine.rs b/src/engine.rs
+index 8a6f15b..7f421e0 100644
+--- a/src/engine.rs
++++ b/src/engine.rs
+@@ -1,4 +1,4 @@
+-//! No-limit Texas Hold'em hand state machine for 2-6 players.
++//! No-limit Texas Hold'em hand state machine for 2-10 players (Advisor research fork).
+ //!
+ //! Correctness-critical invariants (all covered by tests below):
+ //! - Every hand terminates (the Python predecessor infinite-looped on multi-way all-ins).
+@@ -11,7 +11,7 @@ use crate::eval::eval_hole_board;
+ use rand::rngs::SmallRng;
+ use rand::Rng;
+ 
+-pub const MAX_PLAYERS: usize = 6;
++pub const MAX_PLAYERS: usize = 10;
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+ pub enum Street {
+@@ -235,10 +235,11 @@ impl Hand {
+                     .collect();
+                 debug_assert!(!eligible.is_empty(), "orphaned side-pot layer");
+                 let best = eligible.iter().map(|&p| strength[p]).max().unwrap();
+-                let winners: Vec<usize> = eligible
++                let mut winners: Vec<usize> = eligible
+                     .into_iter()
+                     .filter(|&p| strength[p] == best)
+                     .collect();
++                winners.sort_unstable_by_key(|&p| (p + self.n - self.button - 1) % self.n);
+                 let share = layer / winners.len() as u64;
+                 let mut rem = layer - share * winners.len() as u64;
+                 for &w in &winners {
+@@ -516,6 +517,12 @@ impl Hand {
+     /// raising is impossible (calling would already be all-in or match exactly).
+     pub fn raise_bounds(&self) -> Option<(u32, u32)> {
+         let p = self.to_act;
++        if self.terminal || self.folded[p] || self.allin[p]
++            || !(0..self.n).any(|q| q != p && !self.folded[q] && !self.allin[q])
++            || (self.acted[p] && self.to_call() < self.min_raise_inc)
++        {
++            return None;
++        }
+         let max_to = self.street_commit[p] + self.stacks[p];
+         if max_to <= self.current_bet {
+             return None;
+@@ -562,6 +569,62 @@ mod tests {
+         }
+     }
+ 
++    #[test]
++    fn advisor_short_allin_does_not_reopen_prior_bettor() {
++        let mut h = Hand::new_with_stacks(&cfg(4), 0, fresh_deck(), &[5_000, 5_000, 250, 5_000]);
++        h.apply(RaiseTo(200)); // p3 opens, p0 calls, SB folds, BB short-jams.
++        h.apply(CheckCall);
++        h.apply(Fold);
++        h.apply(RaiseTo(250));
++        assert_eq!(h.to_act(), 3);
++        assert_eq!(h.to_call(), 50);
++        assert_eq!(h.raise_bounds(), None);
++    }
++
++    #[test]
++    fn advisor_two_short_allins_can_cumulatively_reopen() {
++        let mut h = Hand::new_with_stacks(&cfg(5), 0, fresh_deck(), &[250, 300, 5_000, 5_000, 5_000]);
++        h.apply(RaiseTo(200)); // p3 opens, p4 calls.
++        h.apply(CheckCall);
++        h.apply(RaiseTo(250)); // p0 short-jams, SB short-jams again.
++        h.apply(RaiseTo(300));
++        h.apply(Fold); // BB folds; p3 now faces a full cumulative increment.
++        assert_eq!(h.to_act(), 3);
++        assert_eq!(h.raise_bounds(), Some((400, 5_000)));
++    }
++
++    #[test]
++    fn advisor_no_raise_when_all_opponents_are_allin() {
++        let h = Hand::new_with_stacks(&cfg(2), 0, fresh_deck(), &[5_000, 100]);
++        assert_eq!(h.to_act(), 0);
++        assert_eq!(h.to_call(), 50);
++        assert_eq!(h.raise_bounds(), None);
++    }
++
++    #[test]
++    fn advisor_odd_chips_start_left_of_button_for_each_pot() {
++        let deck = deck_with_front("Ks Kh Kd Kc Qs Qh As Ah Ad Ac 2c 3d 7h 9s Jc");
++        let mut h = Hand::new(&cfg(5), 0, deck);
++        h.board.copy_from_slice(&deck[10..15]);
++        h.board_len = 5;
++        h.street = Street::River;
++        h.hand_commit[..5].copy_from_slice(&[2, 2, 2, 1, 1]);
++        h.folded[3] = true;
++        h.folded[4] = true;
++        h.terminal = true;
++        // Main5 split 2/3, side3 split1/2 to tied kings in seats0/1.
++        assert_eq!(&h.utilities()[..5], &[1, 3, -2, -1, -1]);
++    }
++
++    #[test]
++    fn advisor_engine_supports_every_count_through_ten() {
++        for n in 2..=10 {
++            let mut h = Hand::new(&cfg(n), 0, fresh_deck());
++            while !h.is_terminal() { h.apply(CheckCall); }
++            assert_eq!(h.utilities()[..n].iter().sum::<i64>(), 0);
++        }
++    }
++
+     #[test]
+     fn blinds_posted_and_utg_first() {
+         let h = Hand::new(&cfg(6), 0, fresh_deck());
+@@ -822,7 +885,7 @@ mod tests {
+     #[test]
+     fn fuzz_random_playouts_terminate_zero_sum() {
+         let mut rng = rand::rngs::SmallRng::seed_from_u64(7);
+-        for n in 2..=6usize {
++        for n in 2..=MAX_PLAYERS {
+             for _ in 0..2_000 {
+                 let mut deck = fresh_deck();
+                 deck.shuffle(&mut rng);

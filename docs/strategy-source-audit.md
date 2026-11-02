@@ -43,3 +43,20 @@ konvergensgaranti eller ersättning för en validerad fortsättningsmodell.
 
 Källor har endast lästs. Ingen extern modell, osäkert extraherad range eller
 kommersiell tjänst har importerats eller köpts.
+
+## Ny granskning 2 november 2026
+
+Ytterligare primärkällor kontrollerades eftersom kall onlineträning fortfarande
+ger otillräcklig strategitäckning:
+
+| Källa | Aktuell kontrollerad begränsning | Beslut |
+| --- | --- | --- |
+| [NoRegrets](https://github.com/conorarmstrong/noregrets) vid `757f769` | MIT-kod för förträning och sökning, publikt 2–6 spelare. Tränade modeller ingår inte. Granskningen fann regel-, sampling- och artefaktbindningsfel samt grov kortabstraktion. | Isolerad lokal Windows-kandidat med rättade bettingregler och tester för 2–10. Ingen inkoppling i appen eller kvalitetscertifiering. [Detaljer och reproduktion](../research/noregrets/README.md). |
+| [GTO Wizard partner-API](https://developers.gtowizard.com/) | Dokumenterade API:er är handhistorikbedömning och FairPlay för partners; sidan tillhandahåller ingen generell automatiskt tillgänglig strategileverans för detta bord. | Ingen ersättning har identifierats via dessa dokumenterade gränssnitt. |
+| [Pokerai](https://pokerai.bet/docs) | Realtidssolverns dokumenterade indata är OOP/IP-ranger. Flop anges kunna ta cirka 70 sekunder. API-nyckel och kvoter krävs. | Löser inte den granskade flerparts- och latensluckan. Ingen nyckel eller tjänst har beställts. |
+| [pokerapi.ai](https://pokerapi.ai/) | Marknadsför bred täckning men beskriver uttryckligen AI-genererad analys för bland annat flerpartshänder utanför solverdatabasen. | Uppfyller inte kravet på riktiga strategier i dessa lägen. |
+| [MonkerSolver](https://monkerware.com/solver.html) | Leverantören anger alla gator och valfritt spelarantal, GUI samt fullversion för 499 euro; gratisversionen är begränsad till turn/river. | Potentiell separat solver, men automatiserbar integration och faktiska modell-/prestandagränser är fortfarande inte verifierade. Ingen licens har köpts. |
+
+Kandidatens regelrättningar och byggbarhet är verifierade separat från dess
+strategikvalitet. Dess större testsuite har kvar två fallerande strategitester.
+En lyckad kompilering får inte användas som stöd för att visa generella GTO-råd.

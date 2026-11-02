@@ -1,0 +1,69 @@
+{
+  "verifiedAt": "2026-11-02T13:12:06.777Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "scope": "Isolated research candidate, legal betting-state extension and synthetic model IO; no general GTO certificate.",
+  "source": {
+    "url": "https://github.com/conorarmstrong/noregrets",
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "license": "MIT",
+    "patch": "research/noregrets/advisor-engine.patch",
+    "patchSha256": "e03ed5d755f5752a844bd66ba5e83cfd0509345a7204d606f8a56413548a6de1"
+  },
+  "toolchain": {
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-pc-windows-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+    "zig": "0.17.0",
+    "zigExeSha256": "f54b14f02a4d7d8ac62a94a0663486eb166bba3745d85b466238c1b93e723d46",
+    "rustupInstallerSha256": "d2845ad914acf5add202100c0a7ddf19ab1c3e52521e12841bafff13888e49bb",
+    "scope": "Project-local GNU toolchain; rust-lld with self-contained runtime. Zig C/ar/dlltool. No global PATH changes."
+  },
+  "binaries": {
+    "upstream": {
+      "bytes": 4851712,
+      "sha256": "8575d62ff6dcb9a2e62a7346797cd10aff6f168a2bdcbfaaeeabb869916425bb"
+    },
+    "patched": {
+      "bytes": 4864512,
+      "sha256": "e88d6849dbaf98a69903efd4ee9f2e93c850f06c1aafaa6a47a301b3f4eff1dc"
+    }
+  },
+  "red": {
+    "status": "FAILED",
+    "passed": 1,
+    "failed": 4,
+    "sha256": "fbf38f0057c943ec23afd205798cfae1dc9e8970f72ecf2b0482c3697a929bd7"
+  },
+  "engine": {
+    "status": "ok",
+    "passed": 18,
+    "failed": 0,
+    "sha256": "db9acbe4bbfc512d7ac2be0ab10db1dff2688807e183b727db332f6126d59bb7"
+  },
+  "fullSuite": {
+    "status": "FAILED",
+    "passed": 139,
+    "failed": 2,
+    "sha256": "393859c205c7fdb5b5da95cc4ec4b2976318d38f8c3db5014cc44741294d5bf8"
+  },
+  "failureMeasurements": [
+    {
+      "test": "bot::tests::round_rooted_search_calls_the_nuts_three_way",
+      "observedFold": 0.10635373015634762,
+      "observedCall": 0.8936462698436524,
+      "requiredCallGreaterThan": 0.9
+    },
+    {
+      "test": "cfr::tests::multiway_focus_keeps_the_fixed_point",
+      "observedJunkCallRounded": 0.274,
+      "requiredJunkCallLessThan": 0.2
+    }
+  ],
+  "remainingFindings": [
+    "Biased VR correction when combined with off-policy focus/spine sampling",
+    "Artifact formats do not bind all game/training settings",
+    "Strategic checkpoint dependency is not restored/bound",
+    "Current-bucket abstraction forgets earlier private information"
+  ],
+  "applicationOutcome": "Unchanged. No candidate policy, model, experimental toggle or live capture change was deployed."
+}

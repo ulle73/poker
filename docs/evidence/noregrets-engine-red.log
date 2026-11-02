@@ -1,0 +1,45 @@
+
+running 5 tests
+test engine::tests::advisor_engine_supports_every_count_through_ten ... FAILED
+test engine::tests::advisor_no_raise_when_all_opponents_are_allin ... FAILED
+test engine::tests::advisor_odd_chips_start_left_of_button_for_each_pot ... FAILED
+test engine::tests::advisor_short_allin_does_not_reopen_prior_bettor ... FAILED
+test engine::tests::advisor_two_short_allins_can_cumulatively_reopen ... ok
+
+failures:
+
+---- engine::tests::advisor_engine_supports_every_count_through_ten stdout ----
+
+thread 'engine::tests::advisor_engine_supports_every_count_through_ten' (245868) panicked at src\engine.rs:101:9:
+assertion failed: (2..=MAX_PLAYERS).contains(&n)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- engine::tests::advisor_no_raise_when_all_opponents_are_allin stdout ----
+
+thread 'engine::tests::advisor_no_raise_when_all_opponents_are_allin' (243864) panicked at src\engine.rs:594:9:
+assertion `left == right` failed
+  left: Some((200, 5000))
+ right: None
+
+---- engine::tests::advisor_odd_chips_start_left_of_button_for_each_pot stdout ----
+
+thread 'engine::tests::advisor_odd_chips_start_left_of_button_for_each_pot' (36520) panicked at src\engine.rs:609:9:
+assertion `left == right` failed
+  left: [3, 1, -2, -1, -1]
+ right: [1, 3, -2, -1, -1]
+
+---- engine::tests::advisor_short_allin_does_not_reopen_prior_bettor stdout ----
+
+thread 'engine::tests::advisor_short_allin_does_not_reopen_prior_bettor' (230860) panicked at src\engine.rs:574:9:
+assertion `left == right` failed
+  left: Some((350, 5000))
+ right: None
+
+
+failures:
+    engine::tests::advisor_engine_supports_every_count_through_ten
+    engine::tests::advisor_no_raise_when_all_opponents_are_allin
+    engine::tests::advisor_odd_chips_start_left_of_button_for_each_pot
+    engine::tests::advisor_short_allin_does_not_reopen_prior_bettor
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 136 filtered out; finished in 0.00s

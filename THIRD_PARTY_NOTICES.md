@@ -69,3 +69,12 @@ Electron and Chromium license notices are shipped by Electron alongside the Wind
 ## PHE hand evaluator 0.6.0 (MIT)
 
 Multiway Monte Carlo evaluation uses the published phe npm package: https://github.com/thlorenz/phe . Copyright 2017 Thorsten Lorenz. Complete MIT notice: docs/licenses/PHE-LICENSE.txt.
+
+## NoRegrets research patch (MIT; excluded from the application)
+
+The isolated candidate under `research/noregrets` references and patches
+https://github.com/conorarmstrong/noregrets at revision
+`757f7692738069522195d2b486eec60a8b010c0c`, copyright 2026 Conor Armstrong.
+The full notice is in `research/noregrets/LICENSE`. Its source checkout,
+compiled binaries and synthetic smoke models remain under ignored `.research`;
+no engine, pretrained model or advice from it is included in the packaged app.
