@@ -116,6 +116,50 @@ Framtida gators abstraktion, modell-/beroendeidentitet, faktiskt tränade breda
 blueprints och strukturerad appintegration återstår. De nuvarande native-
 rapporterna är märkta `eligibleForAdvice=false` och `goalReady=false`.
 
+## Efterföljande jämförelse: medelstrategi och aktuell policy
+
+`advisor-policy-comparison.patch` är den aktuella kumulativa forskningspatchen.
+Varje exporterad rad innehåller nu både `frequencies` (medelstrategi) och
+`currentFrequencies` (regret-matching från sista träningstillståndet).
+Båda läses efter avslutad träning ur samma tabell; ingen andra träningskörning
+eller nytt slumpfrö skiljer dem åt. Appens standardval har inte ändrats.
+
+De två vyerna kalibrerades med ett analytiskt känt spel där den uniforma
+medelpolicyn har NashConv 1,5 marker och en separat optimal aktuell profil 0.
+En regression som förväxlade vyerna föll före rättningen och passerar nu.
+Native-gettern testades separat mot olika regret-/medelvikter.
+
+Samma 39 fall och budgetar kördes om. Alla **57 024 medelstrategirader** matchar
+föregående profiler inom 1e-12; NashConv matchar inom 1e-10. Medelstrategin gav
+lägre NashConv i **38 av 39** fall. Enstaka aktuell-policy-fördel vid 10p/100k
+motiverar inget generellt metodbyte.
+
+| En miljon uppdateringar | Medelstrategi | Aktuell policy |
+| --- | ---: | ---: |
+| 3p, lika vikter | 0,524–0,634 % | 4,252–7,080 % |
+| 3p, viktad första range | 0,493–0,539 % | 3,176–4,644 % |
+| 10p | 0,618–0,674 % | 1,780–4,265 % |
+
+[Hela jämförelsen](evidence/native-policy-view-summary-2026-11-03.json) och
+[de längre parade körningarna](evidence/native-policy-view-quality-long-2026-11-03.json).
+Intervallen är min/max över de tre fröna och avser samma lilla spel som ovan.
+Detta visar inte att enkel averaging är teoretiskt korrekt för alla
+flerpartsspel; det visar att ett direkt byte till aktuell policy inte löser
+det uppmätta kvalitetsgapet i denna kontrollserie.
+
+Täckningsflaggorna har olika betydelse: `trained` kräver positiv medelmassa,
+medan `currentVisited` bara betyder att regret-noden finns. Det senare är
+inte bevis på konvergens eller tillräcklig träning. Båda vyernas saknade rader
+ingår som uttrycklig uniform policy i orakelvärderingen.
+
+Senaste fulla native-sviten gav **157 pass/1 fel**: det tidigare observerade
+pruningtestet fick AA-call 74,1 % mot kravet över 80 %. Fyra isolerade
+upprepningar med en/fyra Rayon-trådar passerade; den fallerade breda körningen
+behålls. Den online-sökning som jämförs här kör utan pruning. Detta fel får
+inte döljas eller användas för att kvalificera framtida pruning-blueprints.
+Modell-/beroendebindning och en pruning-fri träningspilot prioriteras nu;
+större modellträning ska inte utgå från att den vägen är kvalitetsgodkänd.
+
 Implementationen följer projektets låsta Serde 1.0.228/serde_json 1.0.150 och
 befintliga clap 4.6.1-mönster. Referenser för
 [strikt Serde-inläsning](https://serde.rs/container-attrs.html) och

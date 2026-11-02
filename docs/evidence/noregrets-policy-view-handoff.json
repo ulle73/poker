@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-11-02T23:59:16.086Z",
+  "checkedLocalLinks": 75,
+  "persistedHashesMatch": true,
+  "applicationUnchanged": true,
+  "independentCases": 39,
+  "statsDomVerified": false,
+  "goalReady": false,
+  "evidence": {
+    "path": "docs/evidence/noregrets-policy-view-evidence.json",
+    "sha256": "ece4b640555dfbda0f83dc1b1fd1fdda0d3bebf4879b5011b48c0c6848cfaabd"
+  }
+}

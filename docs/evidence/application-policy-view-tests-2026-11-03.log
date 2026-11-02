@@ -1,0 +1,15 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run --pool=threads --maxWorkers=1
+
+
+ RUN  v5.0.5 C:/Users/rydqv/Documents/ChatGPT/poker
+
+
+ Test Files  23 passed | 2 skipped (25)
+      Tests  306 passed | 4 skipped (310)
+   Start at  00:47:45
+   Duration  31.01s (environment 63%, tests 34%, import 2%, transform 1%)
+
+    Isolate  25 workers spawned · ~806ms startup each (spawn + environment, per file)
+             at least ~19.34s faster with isolate: false — reuses workers across files instead of one per file

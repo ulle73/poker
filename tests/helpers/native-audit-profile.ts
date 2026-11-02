@@ -12,14 +12,14 @@ const decode = (cards: readonly number[]) => cards.map((c) => {
 });
 
 /** Foreign policy rows only: no native payoff, evaluator or CFV is trusted. */
-export function nativeAuditProfile(spot: CheckJamSpot, raw: unknown): DecisionPolicy {
+export function nativeAuditProfile(spot: CheckJamSpot, raw: unknown, view:"average"|"current"="average"): DecisionPolicy {
   const data = raw as {
     protocol: string; eligibleForAdvice: boolean;
     request: {board:string[]; ranges:CheckJamSpot["ranges"]; investment:number; stack:number};
     root: {actor:number; dealer:number; pot:number; stacks:number[]; bets:number[]; invested:number[]};
     nodes: {history:string; actor:number; pot:number; stacks:number[]; bets:number[];
       invested:number[]; folded:boolean[]; actions:BettingAction[];
-      rows:{cards:string[]; frequencies:number[]; trained:boolean}[]}[];
+      rows:{cards:string[]; frequencies:number[]; trained:boolean; currentFrequencies?:number[]; currentVisited?:boolean}[]}[];
   };
   assert.equal(data.protocol, "advisor-native-audit-v1");
   assert.equal(data.eligibleForAdvice, false, "Native report cannot self-certify advice");
@@ -47,12 +47,15 @@ export function nativeAuditProfile(spot: CheckJamSpot, raw: unknown): DecisionPo
     assert.equal(rows.size, node.rows.length, "Duplicate private row");
     for (const hand of spot.ranges[state.actor]) {
       const row = rows.get(key(hand.cards)); assert.ok(row,"Missing private row");
-      assert.equal(typeof row.trained, "boolean");
-      assert.equal(row.frequencies.length, actions.length);
-      assert.ok(row.frequencies.every((p) => Number.isFinite(p) && p >= 0));
-      assert.ok(Math.abs(row.frequencies.reduce((a,b)=>a+b,0)-1)<1e-9);
+      const frequencies=view==="current"?row.currentFrequencies:row.frequencies;
+      const trained=view==="current"?row.currentVisited:row.trained;
+      assert.equal(typeof trained, "boolean", "Missing selected policy coverage flag");
+      assert.ok(Array.isArray(frequencies), "Missing selected policy frequencies");
+      assert.equal(frequencies.length, actions.length);
+      assert.ok(frequencies.every((p) => Number.isFinite(p) && p >= 0));
+      assert.ok(Math.abs(frequencies.reduce((a,b)=>a+b,0)-1)<1e-9);
       policies.set(state.history+"#"+key(hand.cards),{
-        actions:actions.map((a)=>({...a})), frequencies:row.frequencies.slice(), trained:row.trained,
+        actions:actions.map((a)=>({...a})), frequencies:frequencies.slice(), trained:trained as boolean,
       });
     }
   }

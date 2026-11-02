@@ -88,3 +88,9 @@ motstrategi. 39 små river-check/jam-fall täcker 2–10 spelare, flera frön oc
 två budgetar. Miljonuppdateringsfallen gav 0,493–0,634 % NashConv för 3p och
 0,618–0,674 % för 10p. Det certifierar inte generella ranger eller andra gator.
 Se [auditens exakta modell, gränser och kvarvarande brister](native-policy-audit.md).
+
+Senare samma dag jämfördes sista regret-policy med medelstrategin ur samma
+tränade tabell i samtliga 39 fall. Medelstrategin hade lägre NashConv i 38 och
+behålls som standard. Detta är ett avgränsat empiriskt metodval, inte en
+generell multiplayer-konvergensgaranti. Senaste breda native-sviten gav
+157 pass/1 återkommande pruningfel; kandidaten är fortsatt forskning.

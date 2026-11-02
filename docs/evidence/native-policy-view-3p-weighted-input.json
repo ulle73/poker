@@ -1,0 +1,64 @@
+{
+  "board": [
+    "Ah",
+    "Kd",
+    "7c",
+    "4s",
+    "2h"
+  ],
+  "investment": 100,
+  "stack": 90,
+  "ranges": [
+    [
+      {
+        "cards": [
+          "As",
+          "Ad"
+        ],
+        "weight": 0.2
+      },
+      {
+        "cards": [
+          "Qs",
+          "Js"
+        ],
+        "weight": 0.8
+      }
+    ],
+    [
+      {
+        "cards": [
+          "Ac",
+          "Kh"
+        ],
+        "weight": 1
+      },
+      {
+        "cards": [
+          "Qc",
+          "Qd"
+        ],
+        "weight": 1
+      }
+    ],
+    [
+      {
+        "cards": [
+          "Jc",
+          "Jd"
+        ],
+        "weight": 1
+      },
+      {
+        "cards": [
+          "Ad",
+          "Qh"
+        ],
+        "weight": 1
+      }
+    ]
+  ],
+  "seed": 395,
+  "iterations": 100000,
+  "timeBudgetMs": 60000
+}

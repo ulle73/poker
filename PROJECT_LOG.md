@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | 157 native-test; oberoende audit av 39 små riverspel, export och fungerande slumpfrö | Ej integrerad; bred strategitäckning, modellbindning och användbara blueprints saknas |
+| Native forskning | Oberoende audit och parad policyjämförelse i 39 små riverspel; appsvit 306 pass/4 överhoppade | Senaste native-svit 157 pass/1 pruningfel; ej integrerad; bred täckning, modellbindning och användbara blueprints saknas |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -138,6 +138,9 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-03, oberoende best-response | 30 fall för 2–10p, tre frön; nio längre fall för 3/10p | Exakt NashConv i små specificerade river-check/jam-spel |
 | 2026-11-03, större träningsbudget | 1m uppdateringar: 3p 0,493–0,634 % och 10p 0,618–0,674 % NashConv | Lägre avvikelse än 100k i samma spel; fortfarande otränade 10p-rader och ingen bred certifiering |
 | 2026-11-03, ordinarie appsvit | **305 pass, 4 opt-in överhoppade**, TypeScript exit 0 | Tre nya adaptertester och en ny opt-in-probe; ingen ändrad appkärna |
+| 2026-11-03, parad policyjämförelse | Medelstrategi lägre NashConv i **38/39** fall; 57 024 medelrader oförändrade | Byte till aktuell regret-policy löser inte kvalitetsgapet i dessa små spel |
+| 2026-11-03, senaste native-svit | **157 pass/1 fel**, pruningtest AA-call 74,1 %, krav över 80 % | Äldre stokastiskt fel återkom; fyra isolerade gröna upprepningar upphäver inte felet |
+| 2026-11-03, senaste appsvit | **306 pass/4 opt-in överhoppade**, TypeScript exit 0 | Adapter separerar aktuell policy och medelpolicy; ingen produkt- eller liveändring |
 
 Viktiga evidensfiler:
 
@@ -166,6 +169,9 @@ Viktiga evidensfiler:
 - [Ny oberoende native-policy-audit](docs/native-policy-audit.md),
   [sammanställning](docs/evidence/native-policy-quality-summary-2026-11-03.json)
   och [ny app-testlogg](docs/evidence/application-tests-2026-11-03.log).
+- [Senaste policyjämförelse](docs/evidence/native-policy-view-summary-2026-11-03.json),
+  [samlad evidens inklusive felet](docs/evidence/noregrets-policy-view-evidence.json)
+  och [kontrollerad överlämning](docs/evidence/noregrets-policy-view-handoff.json).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -194,8 +200,8 @@ Viktiga evidensfiler:
 
 Upstream: `conorarmstrong/noregrets`, MIT, låst till
 `757f7692738069522195d2b486eec60a8b010c0c`.
-Den aktuella kumulativa `advisor-policy-audit.patch` innehåller motor-, VR-,
-aktuell-gata-, gemensam-kort-sampling- och export/seed-rättningarna.
+Den aktuella kumulativa `advisor-policy-comparison.patch` innehåller motor-, VR-,
+aktuell-gata-, gemensam-kort-sampling-, export/seed-rättningarna och båda policyvyerna.
 Den appliceras ensam mot ren upstream.
 Tidigare patchar och evidens behålls som historik. Motorn utökar 6 till 10
 spelare och rättar höjningsrätt efter kort all-in, höjning utan kvarvarande
@@ -268,6 +274,8 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
   av kortsamplingens vikt i både regret och medelstrategi, med oracle-fall.
 - [x] Exportera faktisk native-policy och mät oberoende bästa ensidiga
   avvikelse i små, fullständigt enumererade spel för varje antal 2–10.
+- [x] Jämför aktuell regret-policy med medelstrategin från samma tabell;
+  behåll medelstrategin efter lägre fel i 38/39 små jämförelsefall.
 - [ ] Verifiera VPIP/PFR/handantal i det faktiska bordets HTML och utvärdera
   modellförslaget i [statsundersökningen](docs/opponent-stats-research.md).
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
@@ -275,6 +283,8 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
 - [ ] Välj/träna faktisk strategi och fortsättningsmodell för preflop, flop,
   turn och river med flera spelare; bind modeller till spelkonfiguration,
   version, träningsdata, seed och beroenden.
+- [ ] Genomför en pruning-fri träningspilot efter modellbindningen; det
+  återkommande pruningtestfelet får inte döljas bakom enstaka gröna upprepningar.
 - [ ] Uppdatera ranger efter observerade handlingar med verifierad
   strategilikelihood; hantera blockerade händer och gemensamma sannolikheter.
 - [ ] Mät oberoende bästa ensidiga avvikelse och stabilitet över flera frön,
@@ -577,6 +587,50 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
   flerpartscaveat för enkel averaging; det är en granskningsfråga, inte ännu
   bevisad orsak till detta felmått. Modellkonfiguration/beroenden, framtida
   gators modell och användbara breda blueprints återstår före appintegration.
+
+### 2026-11-03 00:58 Europe/Stockholm — Codex, jämförelse av två policyvyer
+
+- Hypotes: sista regret-policyn kunde ge bättre råd än den ackumulerade
+  medelstrategin. Exporten läser nu båda ur samma färdigtränade tabell utan
+  extra träning. Standardval och appkod är oförändrade.
+- Native-regressionen `advisor_current_policy_is_regret_matching_not_time_average`
+  gav först 0 pass/1 fel och sedan 1 pass/0 fel. Kommando:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_current_policy -- --test-threads=1`.
+  Evidens: `docs/evidence/noregrets-current-policy-{red,green}.log`.
+- `npx vitest run tests/native-audit-profile.test.ts --maxWorkers=1`:
+  först 3 pass/1 fel, sedan 4 pass/0 fel. En kalibreringsprofil har NashConv
+  1,5 marker i medelvyn och 0 i aktuell vy och avslöjar förväxling av vyerna.
+  Evidens: `docs/evidence/native-current-policy-adapter-{red,green}.log`.
+- Samma `POKER_NATIVE_POLICY_PROBE=1`-kommando som föregående steg, och sedan
+  med `POKER_NATIVE_POLICY_LONG=1`, gav 30 respektive 9 kompletta fall.
+  Samma spel, frön och budgetar; båda vyer värderas av separat best-response.
+  Rapporter: `docs/evidence/native-policy-view-quality*-2026-11-03.json`.
+- Medelstrategin vann 38/39 jämförelser. Vid en miljon uppdateringar blev
+  aktuell policy 3,176–7,080 % NashConv för 3p och 1,780–4,265 % för 10p;
+  medelstrategin var 0,493–0,634 % respektive 0,618–0,674 %.
+  Alla 57 024 medelrader matchar tidigare profiler inom 1e-12 och deras
+  NashConv inom 1e-10. Sammandrag:
+  `docs/evidence/native-policy-view-summary-2026-11-03.json`.
+- `trained` betyder positiv medelmassa; `currentVisited` betyder en befintlig
+  regret-nod. Den senare är inte ett konvergensbevis. Otränade rader ingår i
+  båda kontrollerna som uttrycklig uniform policy.
+- Full native-svit med `-- --test-threads=2`: exit 101, **157 pass/1 fel**,
+  128,12 s. `cfr::tests::pluribus_prune_keeps_the_fixed_point` gav AA-call
+  74,1 %, krav över 80 %. Logg: `docs/evidence/noregrets-policy-view-full-test.log`.
+  Fyra isolerade upprepningar med en/fyra Rayon-trådar passerade, oförändrad
+  tröskel: `docs/evidence/noregrets-policy-view-pruning-repeatability.json`.
+  Detta är diagnostik, inte ett grönt slutresultat för den breda sviten.
+- `npm test -- --pool=threads --maxWorkers=1`: exit 0, **306 pass/4 opt-in
+  överhoppade**, 31,01 s; `npx tsc --noEmit`: exit 0.
+  `node scripts/probe-native-training.mjs`: exit 0, ombyggd binär och enbart
+  syntetisk 20-traversals modell-IO för varje antal 2–10.
+- Aktuell kumulativ patch: `research/noregrets/advisor-policy-comparison.patch`,
+  appliceras ensam mot ren låst upstream. Reproduktion och begränsningar:
+  `docs/native-policy-audit.md` och `research/noregrets/README.md`.
+- Beslut: behåll medelstrategin. Prioritera modell-/beroendebindning och en
+  pruning-fri träningspilot före större blueprintjobb. Ingen ny portable,
+  appintegration eller liveverifiering har genomförts. VPIP/PFR-HTML är ännu
+  inte verifierad; browseråtkomsten var blockerad enligt föregående post.
 
 ### Mall för nästa loggpost
 

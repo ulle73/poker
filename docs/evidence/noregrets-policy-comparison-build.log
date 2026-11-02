@@ -1,0 +1,86 @@
+   Compiling pluribus v0.1.0 (C:\Users\rydqv\Documents\ChatGPT\poker\.research\noregrets)
+warning: variable does not need to be mutable
+   --> src\abstraction.rs:278:9
+    |
+278 |     let mut limp_check = |h: &mut crate::engine::Hand, hist: &mut Vec<u8>| {
+    |         ----^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `menu_mismatch_count` is never used
+  --> src\bot.rs:62:8
+   |
+62 | pub fn menu_mismatch_count() -> u64 {
+   |        ^^^^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `alpha` is never read
+  --> src\distill.rs:31:9
+   |
+27 | pub struct DistillCfg {
+   |            ---------- field in this struct
+...
+31 |     pub alpha: f64,
+   |         ^^^^^
+
+warning: associated function `build` is never used
+   --> src\flop.rs:125:12
+    |
+121 | impl<'a> FlopSolver<'a> {
+    | ----------------------- associated function in this implementation
+...
+125 |     pub fn build(
+    |            ^^^^^
+
+warning: struct `Portfolio` is never constructed
+  --> src\portfolio.rs:16:12
+   |
+16 | pub struct Portfolio {
+   |            ^^^^^^^^^
+
+warning: associated items `new`, `choose`, `update`, and `counts` are never used
+  --> src\portfolio.rs:26:12
+   |
+25 | impl Portfolio {
+   | -------------- associated items in this implementation
+26 |     pub fn new(arms: Vec<Policy>, scale: f64) -> Portfolio {
+   |            ^^^
+...
+38 |     pub fn choose(&self) -> usize {
+   |            ^^^^^^
+...
+54 |     pub fn update(&mut self, arm: usize, mbb: f64) {
+   |            ^^^^^^
+...
+60 |     pub fn counts(&self) -> &[u64] {
+   |            ^^^^^^
+
+warning: function `run_portfolio_eval` is never used
+  --> src\portfolio.rs:68:8
+   |
+68 | pub fn run_portfolio_eval(
+   |        ^^^^^^^^^^^^^^^^^^
+
+warning: method `set_all` is never used
+   --> src\search.rs:212:12
+    |
+166 | impl RangeTracker {
+    | ----------------- method in this implementation
+...
+212 |     pub fn set_all(&mut self, seat: usize, w: f64) {
+    |            ^^^^^^^
+
+warning: method `avg_enter_prob` is never used
+   --> src\turn.rs:354:12
+    |
+123 | impl TurnSolver {
+    | --------------- method in this implementation
+...
+354 |     pub fn avg_enter_prob(&self, ci: usize) -> f64 {
+    |            ^^^^^^^^^^^^^^
+
+warning: `pluribus` (bin "pluribus") generated 9 warnings (run `cargo fix --bin "pluribus" -p pluribus` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 55.06s

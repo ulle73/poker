@@ -17,21 +17,21 @@ function fixture(count:number,weighted:boolean):CheckJamSpot {
 it.skipIf(process.env.POKER_NATIVE_POLICY_PROBE!=="1")(
   "measures the exported native policy with the independent own-information best-response oracle",()=>{
     const exe=resolve(".research/noregrets/target/release/pluribus.exe");
-    const patch="research/noregrets/advisor-policy-audit.patch";
+    const patch="research/noregrets/advisor-policy-comparison.patch";
     const sha=(p:string)=>createHash("sha256").update(readFileSync(p)).digest("hex");
     const dir=resolve("artifacts/native-policy-quality");mkdirSync(dir,{recursive:true});
     const long=process.env.POKER_NATIVE_POLICY_LONG==="1";
     const counts=long?[3,10]:[2,3,4,5,6,7,8,9,10];
     const iterations=long?1_000_000:100_000;
     const expectedCases=long?9:30;
-    const reportPath="docs/evidence/native-policy-quality-"+(long?"long-":"")+"2026-11-03.json";
+    const reportPath="docs/evidence/native-policy-view-quality-"+(long?"long-":"")+"2026-11-03.json";
     const seeds=[395,396,397];
     const results=[];
     for(const count of counts) for(const weighted of (count===3?[false,true]:[false]))
       for(const seed of seeds) {
         const spot=fixture(count,weighted);
         const request={...spot,seed,iterations,timeBudgetMs:60_000};
-        const label=`${count}p-${weighted?"weighted":"uniform"}-${seed}${long?"-long":""}`;
+        const label=`${count}p-${weighted?"weighted":"uniform"}-${seed}-views${long?"-long":""}`;
         const input=resolve(dir,label+"-input.json"),output=resolve(dir,label+"-profile.json");
         writeFileSync(input,JSON.stringify(request,null,2)+"\n");
         const args=["advisor-audit","--input",input,"--output",output];
@@ -40,24 +40,28 @@ it.skipIf(process.env.POKER_NATIVE_POLICY_PROBE!=="1")(
         const data=JSON.parse(readFileSync(output,"utf8"));
         const profile=nativeAuditProfile(spot,data);
         const quality=independentCheckJamReport(spot,profile);
-        expect(Math.abs(quality.ev.reduce((a,b)=>a+b,0))).toBeLessThan(1e-8);
-        expect(quality.gains.every(g=>g>=-1e-8)).toBe(true);
-        expect(Number.isFinite(quality.nashConvPct)).toBe(true);
+        const currentQuality=independentCheckJamReport(spot,nativeAuditProfile(spot,data,"current"));
+        for(const q of [quality,currentQuality]) {
+          expect(Math.abs(q.ev.reduce((a,b)=>a+b,0))).toBeLessThan(1e-8);
+          expect(q.gains.every(g=>g>=-1e-8)).toBe(true);
+          expect(Number.isFinite(q.nashConvPct)).toBe(true);
+        }
         expect(data.iterations).toBeGreaterThan(0);
         expect(data.iterations).toBeLessThanOrEqual(request.iterations);
         const summary={count,weighted,seed,requestedIterations:request.iterations,iterations:data.iterations,
-          elapsedMs:data.elapsedMs,publicNodes:data.nodes.length,rayonThreads:1,quality,
+          elapsedMs:data.elapsedMs,publicNodes:data.nodes.length,rayonThreads:1,quality,currentQuality,
           requestSha256:sha(input),profileSha256:sha(output)};
         results.push(summary);
-        console.log(JSON.stringify({count,weighted,seed,nashConvPct:quality.nashConvPct,untrained:quality.untrainedInformationSets}));
+        console.log(JSON.stringify({count,weighted,seed,nashConvPct:quality.nashConvPct,currentNashConvPct:currentQuality.nashConvPct}));
         if(count===3 && seed===395) {
-          const prefix="docs/evidence/native-policy-3p-"+(long?"long-":"")+(weighted?"weighted":"uniform");
+          const prefix="docs/evidence/native-policy-view-3p-"+(long?"long-":"")+(weighted?"weighted":"uniform");
           writeFileSync(prefix+"-input.json",readFileSync(input));
           writeFileSync(prefix+"-profile.json",readFileSync(output));
         }
         writeFileSync(reportPath,JSON.stringify({
           recordedAt:new Date().toISOString(),goalReady:false,eligibleForAdvice:false,
           expectedCases,completedCases:results.length,complete:results.length===expectedCases,
+          comparison:"Average and current regret policy exported from the same immutable trained table; coverage flags have different definitions.",
           scope:"Independent exact best responses in equal-stack, small-range river check/jam games only; not general NLHE certification.",
           engineSha256:sha(exe),sourcePatch:{path:patch,sha256:sha(patch)},results,
         },null,2)+"\n");

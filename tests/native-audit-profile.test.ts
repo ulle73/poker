@@ -9,7 +9,9 @@ function uniformArtifact() {
     nodes:independentCheckJamPublicNodes(spot).map(({state,actions})=>({
       history:state.history,actor:state.actor,pot:state.invested.reduce((a,b)=>a+b,0),
       stacks:state.stacks,bets:state.bets,invested:state.invested,folded:state.folded,actions,
-      rows:spot.ranges[state.actor].map((h)=>({cards:h.cards,frequencies:[0.5,0.5],trained:false})),
+      rows:spot.ranges[state.actor].map((h)=>({cards:h.cards,frequencies:[0.5,0.5],trained:false,
+        currentFrequencies:actions.map(a=>state.actor===0 ? Number(a.kind==="bet"||a.kind==="call") : Number(a.kind==="fold"||a.kind==="check")),
+        currentVisited:true})),
     }))};
 }
 it("calibrates the foreign policy adapter with the analytically known uniform game",()=>{
@@ -17,6 +19,11 @@ it("calibrates the foreign policy adapter with the analytically known uniform ga
   expect(report.nashConv).toBe(1.5);
   expect(report.nashConvPct).toBe(37.5);
   expect(report.untrainedInformationSets).toBeGreaterThan(0);
+});
+it("evaluates current and average policies separately from the same foreign artifact",()=>{
+  const data=uniformArtifact();
+  expect(independentCheckJamReport(spot,nativeAuditProfile(spot,data,"average")).nashConv).toBe(1.5);
+  expect(independentCheckJamReport(spot,nativeAuditProfile(spot,data,"current")).nashConv).toBe(0);
 });
 it("rejects a missing off-policy node or mandatory action before evaluating quality",()=>{
   const pruned=uniformArtifact();pruned.nodes.pop();

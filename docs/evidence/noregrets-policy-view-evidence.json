@@ -1,0 +1,113 @@
+{
+  "recordedAt": "2026-11-02T23:59:16.016Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patch": {
+      "path": "research/noregrets/advisor-policy-comparison.patch",
+      "sha256": "98976671f0db54d992610515447fde276b78a3392a684355d4d458ba34e4bc1e"
+    }
+  },
+  "nativeBinarySha256": "1fe11100e74d3a76c64486c6ca21dc105059035c91309ec6fd041e130b334e4b",
+  "testBinarySha256": "ce5620b3821bedd37edb5b7270d06967019c645bc5132ccb2d034cb20f918228",
+  "logs": {
+    "nativeRed": {
+      "path": "docs/evidence/noregrets-current-policy-red.log",
+      "sha256": "bef0e04ba174567371198691cd522b7e8778a1d276214c91732c6ad93eceb9ab"
+    },
+    "nativeGreen": {
+      "path": "docs/evidence/noregrets-current-policy-green.log",
+      "sha256": "b145d30acc926192b2a911fbd6da8796b76810f234a4bb8502bae6081c784e07"
+    },
+    "adapterRed": {
+      "path": "docs/evidence/native-current-policy-adapter-red.log",
+      "sha256": "cf7f3dce17e0fcdb4354bbc4c267d78f2859d17d497e25807a4f8646b0c2c686"
+    },
+    "adapterGreen": {
+      "path": "docs/evidence/native-current-policy-adapter-green.log",
+      "sha256": "f5ac503180ee91349434c5f53804baa079f0a874a4591c56b18a5982a69deb21"
+    },
+    "nativeFull": {
+      "path": "docs/evidence/noregrets-policy-view-full-test.log",
+      "sha256": "3cb400be5a5a0b456235b2641939e28bd5e6b2c5d91e1e92e23bf00c73e7460e"
+    },
+    "app": {
+      "path": "docs/evidence/application-policy-view-tests-2026-11-03.log",
+      "sha256": "786b27148bc62810f257415b3ed20d57e504f277f70c00b9f91c8f7b2be877a0"
+    },
+    "base": {
+      "path": "docs/evidence/native-policy-view-quality-2026-11-03.log",
+      "sha256": "42752f1656f22cc9e8b9ab826bcc2f27e911ae97cd8295291dcf29dece053617"
+    },
+    "long": {
+      "path": "docs/evidence/native-policy-view-quality-long-2026-11-03.log",
+      "sha256": "715d1fe9086f343b7fa4514709507869af62439a54961b24a5fed3e2499aa8a3"
+    },
+    "build": {
+      "path": "docs/evidence/noregrets-policy-comparison-build.log",
+      "sha256": "657bb27556a468d415db6bb4342adf51f634ec5ce229fc7d6050845f15819e9b"
+    }
+  },
+  "tests": {
+    "nativeRegressionRed": {
+      "passed": 0,
+      "failed": 1
+    },
+    "nativeRegressionGreen": {
+      "passed": 1,
+      "failed": 0
+    },
+    "adapterRed": {
+      "passed": 3,
+      "failed": 1
+    },
+    "adapterGreen": {
+      "passed": 4,
+      "failed": 0
+    },
+    "nativeFull": {
+      "passed": 157,
+      "failed": 1,
+      "exitCode": 101,
+      "failure": "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+      "observedAACall": 0.741,
+      "requiredAACallGreaterThan": 0.8
+    },
+    "app": {
+      "passed": 306,
+      "skippedOptIn": 4,
+      "exitCode": 0
+    },
+    "typeScript": {
+      "exitCode": 0
+    }
+  },
+  "independentAudit": {
+    "base": {
+      "path": "docs/evidence/native-policy-view-quality-2026-11-03.json",
+      "sha256": "44104fe9549360d6408f58da1a277cec7dabda11ab71cf6c463027286858a8ff",
+      "cases": 30
+    },
+    "long": {
+      "path": "docs/evidence/native-policy-view-quality-long-2026-11-03.json",
+      "sha256": "653b7bfc1ee8d3cbaf488140736b00c6a6bf27163512b2913d94186780b1dfe6",
+      "cases": 9
+    },
+    "summary": {
+      "path": "docs/evidence/native-policy-view-summary-2026-11-03.json",
+      "sha256": "c214a0f83984e17d0f8c16bceeba7c5465a8b2d1082d03e7f091b43202288d22"
+    }
+  },
+  "syntheticModelIO": {
+    "path": "docs/evidence/noregrets-policy-comparison-training-smoke.json",
+    "sha256": "a650877d32cf317899c8828638145f4d6e42f47b288fe97ec9bb5899a70cd072"
+  },
+  "pruningDiagnostic": {
+    "path": "docs/evidence/noregrets-policy-view-pruning-repeatability.json",
+    "sha256": "caae7e3172b9bc6cab5f1d221d3648ab7547fd16d166d791cb44e1ffa82150e3"
+  },
+  "decision": "Keep average policy. Isolated pruning reruns do not erase the failed broad suite. No application, capture or release changes.",
+  "statsDomVerified": false
+}

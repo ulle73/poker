@@ -1,0 +1,54 @@
+{
+  "recordedAt": "2026-11-02T23:54:45.209Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "testBinarySha256": "ce5620b3821bedd37edb5b7270d06967019c645bc5132ccb2d034cb20f918228",
+  "sourcePatchSha256": "98976671f0db54d992610515447fde276b78a3392a684355d4d458ba34e4bc1e",
+  "runs": [
+    {
+      "rayonThreads": 1,
+      "repeat": 1,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 157 filtered out; finished in 2.00s\n"
+    },
+    {
+      "rayonThreads": 1,
+      "repeat": 2,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 157 filtered out; finished in 2.05s\n"
+    },
+    {
+      "rayonThreads": 4,
+      "repeat": 1,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 157 filtered out; finished in 0.65s\n"
+    },
+    {
+      "rayonThreads": 4,
+      "repeat": 2,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 157 filtered out; finished in 0.64s\n"
+    }
+  ],
+  "scope": "Unchanged older pruning test repeated without modifying thresholds or hiding the failed full-suite result."
+}

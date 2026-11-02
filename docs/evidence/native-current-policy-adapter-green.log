@@ -1,0 +1,8 @@
+
+ RUN  v5.0.5 C:/Users/rydqv/Documents/ChatGPT/poker
+
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  00:44:43
+   Duration  676ms (environment 88%, import 5%, transform 4%, tests 2%, worker 1%)

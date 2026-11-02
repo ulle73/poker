@@ -1,0 +1,131 @@
+{
+  "recordedAt": "2026-11-02T23:53:08.532Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "cases": 39,
+  "averageMatchesPriorMeasurements": true,
+  "averageRowsCompared": 57024,
+  "lowerCurrent": 1,
+  "lowerAverage": 38,
+  "rows": [
+    {
+      "iterations": 100000,
+      "players": 2,
+      "weighted": false,
+      "averageMinPct": 0.4752617751748289,
+      "averageMaxPct": 0.9420347805761241,
+      "currentMinPct": 8.526139307426096,
+      "currentMaxPct": 12.816233868164954
+    },
+    {
+      "iterations": 100000,
+      "players": 3,
+      "weighted": false,
+      "averageMinPct": 1.2490875838583488,
+      "averageMaxPct": 1.608849120678395,
+      "currentMinPct": 6.627885442549752,
+      "currentMaxPct": 12.238925367027507
+    },
+    {
+      "iterations": 100000,
+      "players": 3,
+      "weighted": true,
+      "averageMinPct": 1.2247117364223545,
+      "averageMaxPct": 1.338644065479554,
+      "currentMinPct": 5.394135213628324,
+      "currentMaxPct": 11.886767173398349
+    },
+    {
+      "iterations": 100000,
+      "players": 4,
+      "weighted": false,
+      "averageMinPct": 1.6597072840392766,
+      "averageMaxPct": 1.9289096368233152,
+      "currentMinPct": 3.0981840009113757,
+      "currentMaxPct": 7.564224864886937
+    },
+    {
+      "iterations": 100000,
+      "players": 5,
+      "weighted": false,
+      "averageMinPct": 1.5924628730257282,
+      "averageMaxPct": 1.7954449873891491,
+      "currentMinPct": 5.680160746441259,
+      "currentMaxPct": 7.388774785346554
+    },
+    {
+      "iterations": 100000,
+      "players": 6,
+      "weighted": false,
+      "averageMinPct": 1.5566933552773818,
+      "averageMaxPct": 1.8585152965284908,
+      "currentMinPct": 2.514546496896287,
+      "currentMaxPct": 4.669206132376664
+    },
+    {
+      "iterations": 100000,
+      "players": 7,
+      "weighted": false,
+      "averageMinPct": 1.664118580207396,
+      "averageMaxPct": 1.832143193044928,
+      "currentMinPct": 2.348674848305344,
+      "currentMaxPct": 6.679066938126057
+    },
+    {
+      "iterations": 100000,
+      "players": 8,
+      "weighted": false,
+      "averageMinPct": 1.5525087429170523,
+      "averageMaxPct": 1.74432807637084,
+      "currentMinPct": 3.3304751127325076,
+      "currentMaxPct": 6.512795915494044
+    },
+    {
+      "iterations": 100000,
+      "players": 9,
+      "weighted": false,
+      "averageMinPct": 1.6870819901719478,
+      "averageMaxPct": 1.7921014161670474,
+      "currentMinPct": 2.3286598472034195,
+      "currentMaxPct": 9.528030478029365
+    },
+    {
+      "iterations": 100000,
+      "players": 10,
+      "weighted": false,
+      "averageMinPct": 1.8748475390339792,
+      "averageMaxPct": 2.388548672672954,
+      "currentMinPct": 2.3407608770523893,
+      "currentMaxPct": 6.067739085152922
+    },
+    {
+      "iterations": 1000000,
+      "players": 3,
+      "weighted": false,
+      "averageMinPct": 0.5239890663911382,
+      "averageMaxPct": 0.6338117572038204,
+      "currentMinPct": 4.251663570237161,
+      "currentMaxPct": 7.080343684943978
+    },
+    {
+      "iterations": 1000000,
+      "players": 3,
+      "weighted": true,
+      "averageMinPct": 0.4931775083634804,
+      "averageMaxPct": 0.5391560384813303,
+      "currentMinPct": 3.175536095185263,
+      "currentMaxPct": 4.643623659909291
+    },
+    {
+      "iterations": 1000000,
+      "players": 10,
+      "weighted": false,
+      "averageMinPct": 0.6180024038998738,
+      "averageMaxPct": 0.6744889336053262,
+      "currentMinPct": 1.7801332776876906,
+      "currentMaxPct": 4.265001124356642
+    }
+  ],
+  "coverageWarning": "Current coverage means visited regret node; average coverage means positive strategy mass. Do not compare counts as evidence of better training.",
+  "decision": "Keep average policy as default. A current-policy switch is not supported as a general fix by this cohort. No application strategy setting changed."
+}

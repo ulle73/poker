@@ -1,0 +1,2243 @@
+{
+  "recordedAt": "2026-11-02T23:48:24.852Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "expectedCases": 30,
+  "completedCases": 30,
+  "complete": true,
+  "comparison": "Average and current regret policy exported from the same immutable trained table; coverage flags have different definitions.",
+  "scope": "Independent exact best responses in equal-stack, small-range river check/jam games only; not general NLHE certification.",
+  "engineSha256": "1fe11100e74d3a76c64486c6ca21dc105059035c91309ec6fd041e130b334e4b",
+  "sourcePatch": {
+    "path": "research/noregrets/advisor-policy-comparison.patch",
+    "sha256": "98976671f0db54d992610515447fde276b78a3392a684355d4d458ba34e4bc1e"
+  },
+  "results": [
+    {
+      "count": 2,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 44,
+      "publicNodes": 4,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          30.985419299561535,
+          -30.98541929956152
+        ],
+        "bestResponse": [
+          31.57128990116111,
+          -29.75880797466808
+        ],
+        "gains": [
+          0.5858706015995736,
+          1.2266113248934403
+        ],
+        "nashConv": 1.8124819264930139,
+        "nashConvPct": 0.9062409632465068,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 8,
+        "untrainedInformationSets": 0,
+        "visits": 72
+      },
+      "currentQuality": {
+        "ev": [
+          32.71243664588082,
+          -32.71243664588082
+        ],
+        "bestResponse": [
+          34.59446921487687,
+          -16.406777955861763
+        ],
+        "gains": [
+          1.8820325689960455,
+          16.305658690019058
+        ],
+        "nashConv": 18.187691259015104,
+        "nashConvPct": 9.093845629507552,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 7,
+        "untrainedInformationSets": 0,
+        "visits": 55
+      },
+      "requestSha256": "4a5ef9a0e6fb9ed85522ab5422bee0567db731a33e3973da07e27d946adc0498",
+      "profileSha256": "963bc1b4c79ce9500d0525723b838db853624570b225eb181bc925998e8f3e02"
+    },
+    {
+      "count": 2,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 41,
+      "publicNodes": 4,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          31.02544529307565,
+          -31.02544529307565
+        ],
+        "bestResponse": [
+          31.194014211166618,
+          -30.24349066081696
+        ],
+        "gains": [
+          0.16856891809096908,
+          0.7819546322586888
+        ],
+        "nashConv": 0.9505235503496579,
+        "nashConvPct": 0.4752617751748289,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 8,
+        "untrainedInformationSets": 0,
+        "visits": 68
+      },
+      "currentQuality": {
+        "ev": [
+          31.726226289436674,
+          -31.72622628943668
+        ],
+        "bestResponse": [
+          31.9013255174863,
+          -6.268857781156399
+        ],
+        "gains": [
+          0.17509922804962486,
+          25.457368508280283
+        ],
+        "nashConv": 25.632467736329907,
+        "nashConvPct": 12.816233868164954,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 7,
+        "untrainedInformationSets": 0,
+        "visits": 55
+      },
+      "requestSha256": "080b5523e00b4fc7ef72685d73fd43433a86e69da0728d8d6fdb15cba6890276",
+      "profileSha256": "34b4d8b487f3624b3eda3d0efa0aee79317e2f7d1ccbf113911d366f99fac73f"
+    },
+    {
+      "count": 2,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 44,
+      "publicNodes": 4,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          30.99091783746313,
+          -30.990917837463112
+        ],
+        "bestResponse": [
+          31.448283429317677,
+          -29.56421386816541
+        ],
+        "gains": [
+          0.45736559185454695,
+          1.4267039692977015
+        ],
+        "nashConv": 1.8840695611522484,
+        "nashConvPct": 0.9420347805761241,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 8,
+        "untrainedInformationSets": 0,
+        "visits": 71
+      },
+      "currentQuality": {
+        "ev": [
+          26.948407812817607,
+          -26.948407812817603
+        ],
+        "bestResponse": [
+          43.51421554343611,
+          -26.461936928583913
+        ],
+        "gains": [
+          16.565807730618502,
+          0.48647088423368956
+        ],
+        "nashConv": 17.05227861485219,
+        "nashConvPct": 8.526139307426096,
+        "compatibleDeals": 4,
+        "queriedInformationSets": 7,
+        "untrainedInformationSets": 0,
+        "visits": 55
+      },
+      "requestSha256": "b32474edb3b2a215c062b6aa6c1a317b8a9605920545917b7bc2aa3d1ea2759a",
+      "profileSha256": "de9a07785aa5139ca145665ea4fb1b3b44893b0879938b86fc97e3c792871c5d"
+    },
+    {
+      "count": 3,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 65,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          16.096619286812274,
+          37.080412726611435,
+          -53.177032013423734
+        ],
+        "bestResponse": [
+          17.077216132787225,
+          39.09303453042671,
+          -51.80189055544374
+        ],
+        "gains": [
+          0.9805968459749508,
+          2.0126218038152786,
+          1.3751414579799928
+        ],
+        "nashConv": 4.368360107770222,
+        "nashConvPct": 1.4561200359234072,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 300
+      },
+      "currentQuality": {
+        "ev": [
+          16.768462110240808,
+          37.4961561572836,
+          -54.264618267524405
+        ],
+        "bestResponse": [
+          21.539872138028045,
+          45.40560618184995,
+          -42.233489558829284
+        ],
+        "gains": [
+          4.771410027787237,
+          7.909450024566347,
+          12.031128708695121
+        ],
+        "nashConv": 24.711988761048705,
+        "nashConvPct": 8.237329587016234,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 274
+      },
+      "requestSha256": "fc430934cbd07c5a903989a5686041dc77b95239e71a43322ef4ce2d6ec86065",
+      "profileSha256": "4e40e57e8be7f465926af07fc7112b8a25c603fd0316b6ddaf955cad205803c3"
+    },
+    {
+      "count": 3,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 68,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          16.0411077361728,
+          36.8800248179816,
+          -52.92113255415442
+        ],
+        "bestResponse": [
+          16.610451516685714,
+          38.80970230563912,
+          -51.672891070749806
+        ],
+        "gains": [
+          0.5693437805129129,
+          1.9296774876575213,
+          1.2482414834046125
+        ],
+        "nashConv": 3.7472627515750467,
+        "nashConvPct": 1.2490875838583488,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 299
+      },
+      "currentQuality": {
+        "ev": [
+          15.92945331286659,
+          32.25412927006669,
+          -48.183582582933276
+        ],
+        "bestResponse": [
+          16.269169524860256,
+          42.40937850347414,
+          -38.794891700685135
+        ],
+        "gains": [
+          0.3397162119936663,
+          10.155249233407446,
+          9.388690882248142
+        ],
+        "nashConv": 19.883656327649256,
+        "nashConvPct": 6.627885442549752,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 275
+      },
+      "requestSha256": "7b3af927585e089ecdb3aaa8323b76a187e1c4f9615bbc8ff8d6904bf14ff168",
+      "profileSha256": "9f3a8b3a0a1a0b61f49222f75221c692be47931f7ce5e270dc8c9511ca4544aa"
+    },
+    {
+      "count": 3,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 70,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          16.05546611060807,
+          37.02409661073417,
+          -53.079562721342256
+        ],
+        "bestResponse": [
+          16.99866911029083,
+          39.131016502445725,
+          -51.30313825070139
+        ],
+        "gains": [
+          0.9432029996827609,
+          2.1069198917115557,
+          1.776424470640869
+        ],
+        "nashConv": 4.8265473620351855,
+        "nashConvPct": 1.608849120678395,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 297
+      },
+      "currentQuality": {
+        "ev": [
+          12.760282556240108,
+          40.203646547950065,
+          -52.963929104190186
+        ],
+        "bestResponse": [
+          33.46813365951633,
+          43.78506079807332,
+          -40.53641835650714
+        ],
+        "gains": [
+          20.707851103276226,
+          3.5814142501232524,
+          12.427510747683044
+        ],
+        "nashConv": 36.71677610108252,
+        "nashConvPct": 12.238925367027507,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 271
+      },
+      "requestSha256": "64b58dddf10c841d6c2f3905276ade6eee1384204f67b35432300427ec7c9d0e",
+      "profileSha256": "231e173dcfb9855ace516c18f43ef779f884b806f6a77599a34c800ceb66c0da"
+    },
+    {
+      "count": 3,
+      "weighted": true,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 68,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          -61.17484644275397,
+          100.18615968750511,
+          -39.011313244751136
+        ],
+        "bestResponse": [
+          -60.02282229906382,
+          101.47608363317087,
+          -37.77912612483998
+        ],
+        "gains": [
+          1.1520241436901486,
+          1.2899239456657625,
+          1.2321871199111527
+        ],
+        "nashConv": 3.674135209267064,
+        "nashConvPct": 1.2247117364223545,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 299
+      },
+      "currentQuality": {
+        "ev": [
+          -58.24172689676954,
+          99.15565511406629,
+          -40.913928217296736
+        ],
+        "bestResponse": [
+          -58.24172689676954,
+          115.82532847232987,
+          -21.923300055365264
+        ],
+        "gains": [
+          0,
+          16.66967335826358,
+          18.990628161931472
+        ],
+        "nashConv": 35.66030152019505,
+        "nashConvPct": 11.886767173398349,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 21,
+        "untrainedInformationSets": 0,
+        "visits": 236
+      },
+      "requestSha256": "8a70228209da7dc21b1bf327f416ce16164d42676b44548caa2477a43091446b",
+      "profileSha256": "db1726245d5513e5ea00de7aa4e01ae1fc3663b455832b07b89a88fc4719f2d9"
+    },
+    {
+      "count": 3,
+      "weighted": true,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 68,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          -61.04090379335692,
+          100.28989952225909,
+          -39.24899572890221
+        ],
+        "bestResponse": [
+          -60.01196739671998,
+          101.73259844552753,
+          -37.881805215189665
+        ],
+        "gains": [
+          1.0289363966369365,
+          1.4426989232684377,
+          1.3671905137125435
+        ],
+        "nashConv": 3.8388258336179177,
+        "nashConvPct": 1.2796086112059726,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 297
+      },
+      "currentQuality": {
+        "ev": [
+          -62.20830762865618,
+          96.43404071569039,
+          -34.2257330870342
+        ],
+        "bestResponse": [
+          -59.908600217426155,
+          114.89461920781282,
+          -28.35042181103728
+        ],
+        "gains": [
+          2.299707411230024,
+          18.460578492122437,
+          5.875311275996921
+        ],
+        "nashConv": 26.635597179349382,
+        "nashConvPct": 8.87853239311646,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 21,
+        "untrainedInformationSets": 0,
+        "visits": 253
+      },
+      "requestSha256": "b84c80d6846ef4ac5170c192128b684783f930dd8861625f2dae1acdc957ef77",
+      "profileSha256": "34be9d0f7c22e620b98870860e3535af6168e8040a2ef4a1b54cd4242e6a02c7"
+    },
+    {
+      "count": 3,
+      "weighted": true,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 68,
+      "publicNodes": 12,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          -61.10706357253669,
+          100.40359393919503,
+          -39.296530366658345
+        ],
+        "bestResponse": [
+          -60.082302023164836,
+          101.52470096221838,
+          -37.42646674261488
+        ],
+        "gains": [
+          1.0247615493718527,
+          1.1211070230233418,
+          1.8700636240434676
+        ],
+        "nashConv": 4.015932196438662,
+        "nashConvPct": 1.338644065479554,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 298
+      },
+      "currentQuality": {
+        "ev": [
+          -60.70649526745433,
+          100.85660363889531,
+          -40.15010837144097
+        ],
+        "bestResponse": [
+          -60.426878856863446,
+          106.619079039509,
+          -30.009794541760577
+        ],
+        "gains": [
+          0.27961641059088294,
+          5.762475400613695,
+          10.140313829680395
+        ],
+        "nashConv": 16.182405640884973,
+        "nashConvPct": 5.394135213628324,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 274
+      },
+      "requestSha256": "03ba658e09184ad6591f39338e24b9c518848556cd3994a6a4979f71541d41e4",
+      "profileSha256": "0a5919376b976d70a956154c9052f5a075547f8347a3287ddd7a58ecd0b74825"
+    },
+    {
+      "count": 4,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 76,
+      "publicNodes": 32,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          52.36150850359915,
+          84.16386686988442,
+          -36.07728628106231,
+          -100.44808909242123
+        ],
+        "bestResponse": [
+          53.74268719878567,
+          86.9489503081777,
+          -34.05280837080623,
+          -100
+        ],
+        "gains": [
+          1.3811786951865201,
+          2.7850834382932845,
+          2.024477910256074,
+          0.4480890924212275
+        ],
+        "nashConv": 6.638829136157106,
+        "nashConvPct": 1.6597072840392766,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 56,
+        "untrainedInformationSets": 2,
+        "visits": 880
+      },
+      "currentQuality": {
+        "ev": [
+          52.828187820139874,
+          83.40201903569623,
+          -36.2302068558361,
+          -100
+        ],
+        "bestResponse": [
+          54.11466996653837,
+          99.95646459238264,
+          -30.825967410883376,
+          -100
+        ],
+        "gains": [
+          1.2864821463984981,
+          16.554445556686417,
+          5.404239444952726,
+          0
+        ],
+        "nashConv": 23.24516714803764,
+        "nashConvPct": 5.81129178700941,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 50,
+        "untrainedInformationSets": 0,
+        "visits": 547
+      },
+      "requestSha256": "43f2a87f5672079fa97998d7889bea6ee784448062ff65b8cbe84b17cc714d32",
+      "profileSha256": "69125991bce2dee4326c4495d81fc026dad9d4e466ba4f10e94dbc8cc6b86b0e"
+    },
+    {
+      "count": 4,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 87,
+      "publicNodes": 32,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          52.53131087922056,
+          83.87194221285563,
+          -36.02187935760875,
+          -100.38137373446749
+        ],
+        "bestResponse": [
+          54.193520228820525,
+          87.09779266072042,
+          -33.57567434224773,
+          -100
+        ],
+        "gains": [
+          1.6622093495999621,
+          3.2258504478647865,
+          2.4462050153610235,
+          0.3813737344674877
+        ],
+        "nashConv": 7.71563854729326,
+        "nashConvPct": 1.9289096368233152,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 56,
+        "untrainedInformationSets": 4,
+        "visits": 883
+      },
+      "currentQuality": {
+        "ev": [
+          53.18612755372399,
+          82.62881598125328,
+          -35.612084508988396,
+          -100.20285902598887
+        ],
+        "bestResponse": [
+          55.35357348405031,
+          90.16533882730094,
+          -33.12617630770574,
+          -100
+        ],
+        "gains": [
+          2.1674459303263163,
+          7.53652284604766,
+          2.4859082012826548,
+          0.20285902598887162
+        ],
+        "nashConv": 12.392736003645503,
+        "nashConvPct": 3.0981840009113757,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 51,
+        "untrainedInformationSets": 0,
+        "visits": 543
+      },
+      "requestSha256": "d0471708d91b3b4130fb08cb7cf864c160f850edb232addced116903648a4930",
+      "profileSha256": "5c9bb846a7650180abbe0c7be092e103715e801d81e6c856bf0e62b66a283a9c"
+    },
+    {
+      "count": 4,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 80,
+      "publicNodes": 32,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          52.35791115746053,
+          83.58962091014935,
+          -35.401943973261936,
+          -100.5455880943479
+        ],
+        "bestResponse": [
+          53.40365372090323,
+          87.02590465880651,
+          -33.1674760472661,
+          -100
+        ],
+        "gains": [
+          1.0457425634427011,
+          3.4362837486571607,
+          2.234467925995837,
+          0.5455880943479059
+        ],
+        "nashConv": 7.262082332443605,
+        "nashConvPct": 1.8155205831109011,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 56,
+        "untrainedInformationSets": 2,
+        "visits": 870
+      },
+      "currentQuality": {
+        "ev": [
+          51.64515733219114,
+          82.37270364056099,
+          -34.294924044186835,
+          -99.72293692856526
+        ],
+        "bestResponse": [
+          53.2124196887086,
+          93.75728364737095,
+          -21.785231998252183,
+          -94.9275718782796
+        ],
+        "gains": [
+          1.5672623565174604,
+          11.38458000680997,
+          12.509692045934653,
+          4.7953650502856675
+        ],
+        "nashConv": 30.25689945954775,
+        "nashConvPct": 7.564224864886937,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 50,
+        "untrainedInformationSets": 0,
+        "visits": 511
+      },
+      "requestSha256": "c6d8b56efb85f165d3a09e14bd395382f13a9c8814a28ddd8c0b3c3162b86fc7",
+      "profileSha256": "793a305e32dbfae4d1db46836be5675d5d7477c7adca1143f76892f39e8bb36b"
+    },
+    {
+      "count": 5,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 98,
+      "publicNodes": 80,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          87.62030539590522,
+          132.64093383904415,
+          -19.256364816099033,
+          -100.40286552644261,
+          -100.6020088924077
+        ],
+        "bestResponse": [
+          89.2463705853233,
+          135.30425529325774,
+          -16.588311539622556,
+          -99.99999997382982,
+          -100
+        ],
+        "gains": [
+          1.6260651894180853,
+          2.6633214542135875,
+          2.6680532764764777,
+          0.4028655526127949,
+          0.6020088924076958
+        ],
+        "nashConv": 7.962314365128641,
+        "nashConvPct": 1.5924628730257282,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 128,
+        "untrainedInformationSets": 11,
+        "visits": 2529
+      },
+      "currentQuality": {
+        "ev": [
+          85.41245646500407,
+          136.2762225303728,
+          -21.277562397529852,
+          -100.41111659784701,
+          -100
+        ],
+        "bestResponse": [
+          103.41282576277757,
+          150.8655991273291,
+          -17.334550963373896,
+          -100,
+          -100
+        ],
+        "gains": [
+          18.000369297773503,
+          14.5893765969563,
+          3.943011434155956,
+          0.4111165978470126,
+          0
+        ],
+        "nashConv": 36.94387392673277,
+        "nashConvPct": 7.388774785346554,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 90,
+        "untrainedInformationSets": 0,
+        "visits": 928
+      },
+      "requestSha256": "4bfd720ff4570780335177abdb4f56bf5ea65794abe8bcdd4a117c1286493f18",
+      "profileSha256": "df45a5f437c9f99e8580ab0e240183828b7e50af9a4540db676090783f8d3f60"
+    },
+    {
+      "count": 5,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 103,
+      "publicNodes": 80,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          87.66387353058899,
+          132.95726679690642,
+          -19.66876176949985,
+          -100.58466701564095,
+          -100.36771154235463
+        ],
+        "bestResponse": [
+          88.9827588498,
+          136.17095149929526,
+          -16.460769142595506,
+          -99.99998287472657,
+          -100
+        ],
+        "gains": [
+          1.3188853192110201,
+          3.213684702388832,
+          3.2079926269043426,
+          0.5846841409143764,
+          0.3677115423546269
+        ],
+        "nashConv": 8.692958331773198,
+        "nashConvPct": 1.7385916663546397,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 128,
+        "untrainedInformationSets": 6,
+        "visits": 2542
+      },
+      "currentQuality": {
+        "ev": [
+          87.29547719804452,
+          128.04100430475407,
+          -16.453700620296996,
+          -99.35720629409649,
+          -99.52557458840516
+        ],
+        "bestResponse": [
+          88.4912445642489,
+          141.22117232232242,
+          -7.31779676494664,
+          -96.23922654720339,
+          -96.88202025310692
+        ],
+        "gains": [
+          1.1957673662043788,
+          13.180168017568349,
+          9.135903855350357,
+          3.1179797468930985,
+          2.643554335298248
+        ],
+        "nashConv": 29.27337332131443,
+        "nashConvPct": 5.854674664262887,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 104,
+        "untrainedInformationSets": 0,
+        "visits": 958
+      },
+      "requestSha256": "6e8d0c6a0fa14e9b50cd086932a2889c22cc4198c3b1fff08e6f97c34468b36c",
+      "profileSha256": "cc7464365203fd877b479459893e5554f71266dd68d22981d82e5d829abcfb97"
+    },
+    {
+      "count": 5,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 119,
+      "publicNodes": 80,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          87.93166845474518,
+          131.9636710081942,
+          -19.06593981514709,
+          -100.51734991821105,
+          -100.31204972958126
+        ],
+        "bestResponse": [
+          89.79578078364825,
+          135.3401072000465,
+          -16.15866306410814,
+          -99.99999998264089,
+          -100
+        ],
+        "gains": [
+          1.8641123289030759,
+          3.3764361918522923,
+          2.9072767510389497,
+          0.5173499355701665,
+          0.3120497295812612
+        ],
+        "nashConv": 8.977224936945746,
+        "nashConvPct": 1.7954449873891491,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 128,
+        "untrainedInformationSets": 6,
+        "visits": 2503
+      },
+      "currentQuality": {
+        "ev": [
+          87.2437230057958,
+          135.6807327182502,
+          -22.924455724046,
+          -100,
+          -100
+        ],
+        "bestResponse": [
+          90.80762174080992,
+          144.91733083061035,
+          -7.32414883921398,
+          -100,
+          -100
+        ],
+        "gains": [
+          3.5638987350141207,
+          9.236598112360156,
+          15.600306884832019,
+          0,
+          0
+        ],
+        "nashConv": 28.400803732206295,
+        "nashConvPct": 5.680160746441259,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 78,
+        "untrainedInformationSets": 0,
+        "visits": 834
+      },
+      "requestSha256": "3ae3d4cb1017b188816adebf14a1621f57d087ff0f7e4d0dc7e199b539c6c28e",
+      "profileSha256": "f0265019125701a21f68dba3d44f036dd4d90ba32311518db69d9ed0accb1917"
+    },
+    {
+      "count": 6,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 117,
+      "publicNodes": 192,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          122.6405738072034,
+          180.200165582736,
+          -1.290941510158774,
+          -100.64898971517347,
+          -100.57422441634908,
+          -100.32658374825807
+        ],
+        "bestResponse": [
+          124.80782894555682,
+          184.263535325378,
+          2.079722401457777,
+          -99.99999509078033,
+          -99.99999980244134,
+          -100
+        ],
+        "gains": [
+          2.1672551383534255,
+          4.06336974264201,
+          3.370663911616551,
+          0.6489946243931399,
+          0.5742246139077452,
+          0.32658374825807357
+        ],
+        "nashConv": 11.151091779170946,
+        "nashConvPct": 1.8585152965284908,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 288,
+        "untrainedInformationSets": 29,
+        "visits": 5638
+      },
+      "currentQuality": {
+        "ev": [
+          124.18580068104377,
+          182.65579280771908,
+          -1.1405107818655817,
+          -104.67767940886864,
+          -101.02340329802864,
+          -100
+        ],
+        "bestResponse": [
+          125.8889990576533,
+          196.31824388084044,
+          5.807993855766237,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          1.703198376609521,
+          13.66245107312136,
+          6.948504637631819,
+          4.6776794088686415,
+          1.02340329802864,
+          0
+        ],
+        "nashConv": 28.015236794259984,
+        "nashConvPct": 4.669206132376664,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 169,
+        "untrainedInformationSets": 0,
+        "visits": 1446
+      },
+      "requestSha256": "d4dadadbe583326ad588d30e1fa8e1c06be7908a7d276f4b281bddc362637a50",
+      "profileSha256": "a0601a44650d14c88130a935baf0d3de4a259a89c2df841ccc3ce7bb59da982a"
+    },
+    {
+      "count": 6,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 114,
+      "publicNodes": 192,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          122.58007042806996,
+          180.79165577028115,
+          -1.9072880087729611,
+          -100.55004070787793,
+          -100.50249587103383,
+          -100.41190161066633
+        ],
+        "bestResponse": [
+          124.20020647027366,
+          184.16000367129064,
+          1.5489158437331032,
+          -99.9999904179512,
+          -99.99999986811936,
+          -100
+        ],
+        "gains": [
+          1.620136042203697,
+          3.3683479010094857,
+          3.4562038525060643,
+          0.5500502899267303,
+          0.5024960029144694,
+          0.4119016106663338
+        ],
+        "nashConv": 9.90913569922678,
+        "nashConvPct": 1.651522616537797,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 288,
+        "untrainedInformationSets": 38,
+        "visits": 6400
+      },
+      "currentQuality": {
+        "ev": [
+          123.34953687598045,
+          186.35865902428634,
+          -8.787552691227688,
+          -100,
+          -100.0817022482368,
+          -100.83894096080235
+        ],
+        "bestResponse": [
+          123.37147849643497,
+          205.71136695991228,
+          -1.8386868673074825,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0.021941620454526856,
+          19.352707935625943,
+          6.9488658239202055,
+          0,
+          0.08170224823679462,
+          0.838940960802347
+        ],
+        "nashConv": 27.244158589039817,
+        "nashConvPct": 4.5406930981733025,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 148,
+        "untrainedInformationSets": 0,
+        "visits": 1257
+      },
+      "requestSha256": "005d348eeaad9e4e28adbc8c900e258915b7b267756b507eb416a8c259898819",
+      "profileSha256": "5654488b8640aa078af30a551203bc65c77ab757bcd86b2962f7cc0ab445ebec"
+    },
+    {
+      "count": 6,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 112,
+      "publicNodes": 192,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          122.5176235815942,
+          181.02741895648214,
+          -2.1045171517249153,
+          -100.6478523991914,
+          -100.45153762051125,
+          -100.3411353666487
+        ],
+        "bestResponse": [
+          124.35484017474123,
+          184.0257588277988,
+          0.9595607900469835,
+          -99.99999975323317,
+          -99.99999990768947,
+          -100
+        ],
+        "gains": [
+          1.8372165931470334,
+          2.9983398713166594,
+          3.064077941771899,
+          0.6478526459582241,
+          0.451537712821775,
+          0.34113536664870026
+        ],
+        "nashConv": 9.340160131664291,
+        "nashConvPct": 1.5566933552773818,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 288,
+        "untrainedInformationSets": 46,
+        "visits": 6733
+      },
+      "currentQuality": {
+        "ev": [
+          121.94984732684713,
+          178.2968063684616,
+          -0.48614308898807695,
+          -100,
+          -99.8144481083043,
+          -99.94606249801639
+        ],
+        "bestResponse": [
+          125.52535401833097,
+          187.38225410075765,
+          0.7492766527839857,
+          -99.46135129959974,
+          -99.46135129959974,
+          -99.64690319129544
+        ],
+        "gains": [
+          3.575506691483838,
+          9.085447732296046,
+          1.2354197417720627,
+          0.5386487004002589,
+          0.3530968087045636,
+          0.29915930672095215
+        ],
+        "nashConv": 15.087278981377722,
+        "nashConvPct": 2.514546496896287,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 122,
+        "untrainedInformationSets": 0,
+        "visits": 1337
+      },
+      "requestSha256": "9e4ef35a623fc6ba8380b96946a644cb733fc13e0b812f1bc187d6d8c5f91bfa",
+      "profileSha256": "939f009694bf68c6dffca8759355cc5c846659630a132170207d651b6d2d6027"
+    },
+    {
+      "count": 7,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 127,
+      "publicNodes": 448,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          156.8033655070983,
+          229.45013514747816,
+          15.167864541599045,
+          -100.46545923276607,
+          -100.28559215330235,
+          -100.34451157548209,
+          -100.32580223462504
+        ],
+        "bestResponse": [
+          159.02924939595331,
+          234.17801443065977,
+          18.440256441251147,
+          -99.99869089204792,
+          -99.99999935962165,
+          -99.99999995474292,
+          -100
+        ],
+        "gains": [
+          2.2258838888550088,
+          4.727879283181608,
+          3.272391899652103,
+          0.4667683407181471,
+          0.2855927936806921,
+          0.3445116207391692,
+          0.3258022346250442
+        ],
+        "nashConv": 11.648830061451772,
+        "nashConvPct": 1.664118580207396,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 640,
+        "untrainedInformationSets": 70,
+        "visits": 16634
+      },
+      "currentQuality": {
+        "ev": [
+          154.80221823562786,
+          230.07511555362592,
+          14.431411546188334,
+          -99.47966735038608,
+          -100,
+          -100,
+          -99.82907798505607
+        ],
+        "bestResponse": [
+          159.2573370127718,
+          245.3922691979043,
+          26.12851039438807,
+          -96.92966995908569,
+          -97.4500026086996,
+          -97.4500026086996,
+          -97.4500026086996
+        ],
+        "gains": [
+          4.4551187771439515,
+          15.317153644278392,
+          11.697098848199735,
+          2.549997391300394,
+          2.549997391300394,
+          2.549997391300394,
+          2.379075376356468
+        ],
+        "nashConv": 41.49843881987973,
+        "nashConvPct": 5.928348402839961,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 305,
+        "untrainedInformationSets": 0,
+        "visits": 2141
+      },
+      "requestSha256": "1fe5b52f1fa8f134a4131dadd132f81b1c6ef54739cbdf3f9e2f77cff0d6075e",
+      "profileSha256": "719171eb3460e4252d697b737bf4c55084d046b2e7056acb5df70ce12df8cba5"
+    },
+    {
+      "count": 7,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 133,
+      "publicNodes": 448,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          157.39553485451572,
+          231.72057252212107,
+          14.478356757430873,
+          -101.36222662720854,
+          -100.50854981065804,
+          -100.56884928990893,
+          -101.1548384062922
+        ],
+        "bestResponse": [
+          159.4124131442236,
+          234.68053136158588,
+          18.066549221946104,
+          -99.99907474148552,
+          -99.99968039242947,
+          -99.9998539368607,
+          -100
+        ],
+        "gains": [
+          2.0168782897078756,
+          2.9599588394648038,
+          3.588192464515231,
+          1.3631518857230276,
+          0.5088694182285707,
+          0.5689953530482228,
+          1.1548384062921997
+        ],
+        "nashConv": 12.160884656979931,
+        "nashConvPct": 1.7372692367114189,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 640,
+        "untrainedInformationSets": 85,
+        "visits": 17108
+      },
+      "currentQuality": {
+        "ev": [
+          156.94389743903773,
+          228.32773146539776,
+          17.375485090108196,
+          -100.2254501758079,
+          -100,
+          -101.67683738576484,
+          -100.74482643297097
+        ],
+        "bestResponse": [
+          157.69681331741276,
+          236.9821288771775,
+          21.76178174354713,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0.7529158783750347,
+          8.65439741177974,
+          4.386296653438933,
+          0.22545017580789306,
+          0,
+          1.6768373857648413,
+          0.7448264329709673
+        ],
+        "nashConv": 16.44072393813741,
+        "nashConvPct": 2.348674848305344,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 252,
+        "untrainedInformationSets": 0,
+        "visits": 2063
+      },
+      "requestSha256": "002ef9c42f34c858f76b5a2e0ba62449fba3b0b12fdc54dd22c55d0e17d5855f",
+      "profileSha256": "3b34685033fd84355bd667c01268291338d6a604d8f482d4235b0751b462d886"
+    },
+    {
+      "count": 7,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 138,
+      "publicNodes": 448,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          157.1074720600434,
+          229.25682490494023,
+          15.497160069477445,
+          -100.61772984989587,
+          -100.48551457021927,
+          -100.39260936962228,
+          -100.36560324472362
+        ],
+        "bestResponse": [
+          159.5393526561501,
+          234.53255948378015,
+          18.753086712107347,
+          -99.99999780255213,
+          -99.99999904451685,
+          -99.99999965365407,
+          -100
+        ],
+        "gains": [
+          2.4318805961067085,
+          5.275734578839916,
+          3.255926642629902,
+          0.6177320473437362,
+          0.48551552570241086,
+          0.3926097159682058,
+          0.3656032447236157
+        ],
+        "nashConv": 12.825002351314495,
+        "nashConvPct": 1.832143193044928,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 640,
+        "untrainedInformationSets": 86,
+        "visits": 16890
+      },
+      "currentQuality": {
+        "ev": [
+          161.1072385761885,
+          233.1456472311834,
+          13.3359368042721,
+          -103.34246614229436,
+          -100.30878009110377,
+          -102.05088779141444,
+          -101.88668858683145
+        ],
+        "bestResponse": [
+          161.1072385761885,
+          265,
+          20.646229990693882,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0,
+          31.854352768816597,
+          7.310293186421783,
+          3.342466142294356,
+          0.30878009110377036,
+          2.050887791414439,
+          1.886688586831454
+        ],
+        "nashConv": 46.7534685668824,
+        "nashConvPct": 6.679066938126057,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 251,
+        "untrainedInformationSets": 0,
+        "visits": 1880
+      },
+      "requestSha256": "fa9f0eb43fb226c16a3c490e57e9f9899bd421e309475f45a04d2b67014571de",
+      "profileSha256": "949d05803b241ec8faa30519c548c5fb0e90edefea8f32359fcb30ecc000b2fd"
+    },
+    {
+      "count": 8,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 141,
+      "publicNodes": 1024,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          191.29526655836017,
+          279.5016689913802,
+          31.594948501483696,
+          -100.59870648381859,
+          -100.84210826619216,
+          -100.30245235676274,
+          -100.35787686124586,
+          -100.2907400832046
+        ],
+        "bestResponse": [
+          193.5113517397203,
+          284.33576339500945,
+          35.384532432762036,
+          -99.99994207801268,
+          -99.99997404612537,
+          -99.99998778876461,
+          -99.99999442638284,
+          -100
+        ],
+        "gains": [
+          2.2160851813601425,
+          4.834094403629251,
+          3.78958393127834,
+          0.598764405805909,
+          0.8421342200667823,
+          0.30246456799812904,
+          0.35788243486301496,
+          0.29074008320459654
+        ],
+        "nashConv": 13.231749228206166,
+        "nashConvPct": 1.6539686535257707,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1408,
+        "untrainedInformationSets": 343,
+        "visits": 42836
+      },
+      "currentQuality": {
+        "ev": [
+          195.24640684151555,
+          290.2192319546844,
+          21.248409377618334,
+          -102.33288409037341,
+          -102.61514748552479,
+          -100,
+          -101.20957873998994,
+          -100.55643785793018
+        ],
+        "bestResponse": [
+          195.24640684151555,
+          305.2022934109098,
+          33.39152026096078,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0,
+          14.983061456225414,
+          12.143110883342448,
+          2.332884090373412,
+          2.615147485524787,
+          0,
+          1.2095787399899365,
+          0.5564378579301774
+        ],
+        "nashConv": 33.84022051338617,
+        "nashConvPct": 4.230027564173271,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 407,
+        "untrainedInformationSets": 0,
+        "visits": 2695
+      },
+      "requestSha256": "977b85c4b24ab2345a35f64cd6e8a678e01f683657d43f4ff2cdc4ab51c87515",
+      "profileSha256": "5910f8775139bab37ed9b1dba6fdc3ac7267485b5da714a81abe5cdd7a2b20ec"
+    },
+    {
+      "count": 8,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 143,
+      "publicNodes": 1024,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          191.42379313551464,
+          280.5858847535233,
+          31.15996698587482,
+          -100.69028298293055,
+          -100.94745131200189,
+          -100.6983560609159,
+          -100.38507332097122,
+          -100.44848119809338
+        ],
+        "bestResponse": [
+          193.3617070116808,
+          284.091270035679,
+          34.96200398013972,
+          -99.99523247871473,
+          -99.99982117786374,
+          -99.99990562375613,
+          -99.99995180382864,
+          -100
+        ],
+        "gains": [
+          1.9379138761661636,
+          3.5053852821556575,
+          3.802036994264899,
+          0.6950505042158284,
+          0.9476301341381514,
+          0.6984504371597637,
+          0.38512151714257925,
+          0.4484811980933756
+        ],
+        "nashConv": 12.420069943336419,
+        "nashConvPct": 1.5525087429170523,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1408,
+        "untrainedInformationSets": 339,
+        "visits": 41070
+      },
+      "currentQuality": {
+        "ev": [
+          189.25614925021955,
+          278.3251358419506,
+          30.42032818210576,
+          -100,
+          -100,
+          -98.80693488432587,
+          -99.45340775228199,
+          -99.74127063766804
+        ],
+        "bestResponse": [
+          194.03229397136383,
+          289.22057855315353,
+          56.63708520058115,
+          -96.97097358441597,
+          -96.97097358441597,
+          -96.97097358441597,
+          -98.1640387000901,
+          -98.71063094780811
+        ],
+        "gains": [
+          4.776144721144277,
+          10.895442711202918,
+          26.216757018475388,
+          3.0290264155840276,
+          3.0290264155840276,
+          1.835961299909897,
+          1.289369052191887,
+          1.0306396898599246
+        ],
+        "nashConv": 52.10236732395235,
+        "nashConvPct": 6.512795915494044,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 382,
+        "untrainedInformationSets": 0,
+        "visits": 2696
+      },
+      "requestSha256": "caf95103058c3b90ddc7e647b65e47e3ba9d700f29c3c5700832775a71e12258",
+      "profileSha256": "da8e7cb559a6b1b8c7785aba6f2f96ccd6175f89ec60ae8ad68ed3adb9beb120"
+    },
+    {
+      "count": 8,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 139,
+      "publicNodes": 1024,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          191.3687655437625,
+          279.8342549844009,
+          31.55917540665995,
+          -100.7216304912916,
+          -100.943500017782,
+          -100.29877992866722,
+          -100.45755503985436,
+          -100.34073045722816
+        ],
+        "bestResponse": [
+          193.61919253351718,
+          284.2115623378265,
+          36.120147080735684,
+          -99.9970671170094,
+          -99.99948676851686,
+          -99.99972345559102,
+          -99.99999999999534,
+          -100
+        ],
+        "gains": [
+          2.2504269897546862,
+          4.377307353425579,
+          4.560971674075734,
+          0.7245633742822122,
+          0.9440132492651401,
+          0.29905647307619176,
+          0.4575550398590167,
+          0.34073045722816175
+        ],
+        "nashConv": 13.954624610966722,
+        "nashConvPct": 1.74432807637084,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1408,
+        "untrainedInformationSets": 268,
+        "visits": 42239
+      },
+      "currentQuality": {
+        "ev": [
+          191.37693804333682,
+          281.61852924496424,
+          32.31021793168842,
+          -102.00433531509799,
+          -100,
+          -100,
+          -100,
+          -103.30134990489152
+        ],
+        "bestResponse": [
+          192.39849254961965,
+          289.52275721210685,
+          44.722551140133525,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          1.0215545062828255,
+          7.904227967142617,
+          12.412333208445105,
+          2.0043353150979897,
+          0,
+          0,
+          0,
+          3.3013499048915236
+        ],
+        "nashConv": 26.64380090186006,
+        "nashConvPct": 3.3304751127325076,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 464,
+        "untrainedInformationSets": 0,
+        "visits": 2930
+      },
+      "requestSha256": "19c3d917afe3c5a58b81237c8b97738072472ba72558468d6bc7552c7bdbf206",
+      "profileSha256": "2930d5efddcbf0772788f7032fd79483e689975c28b7783f1e63949c78d0386f"
+    },
+    {
+      "count": 9,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 173,
+      "publicNodes": 2304,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          225.66543669494516,
+          330.05650766138433,
+          48.272353507487765,
+          -101.04324116572339,
+          -100.79016533574004,
+          -100.81909341563698,
+          -100.51324753308181,
+          -100.54485242967594,
+          -100.28369798395909
+        ],
+        "bestResponse": [
+          227.8843266966056,
+          335.3853792536307,
+          52.72054151091546,
+          -99.99969568630934,
+          -99.999873201733,
+          -99.99994618742421,
+          -99.99997619977792,
+          -99.99999999838008,
+          -100
+        ],
+        "gains": [
+          2.2188900016604407,
+          5.328871592246344,
+          4.4481880034276955,
+          1.0435454794140497,
+          0.7902921340070463,
+          0.8191472282127705,
+          0.5132713333038907,
+          0.5448524312958654,
+          0.28369798395908674
+        ],
+        "nashConv": 15.99075618752719,
+        "nashConvPct": 1.776750687503021,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 3072,
+        "untrainedInformationSets": 1072,
+        "visits": 91882
+      },
+      "currentQuality": {
+        "ev": [
+          225.30784941298973,
+          333.45592628838926,
+          46.025137863432256,
+          -101.33015252982034,
+          -101.88452066121415,
+          -100.65960697529783,
+          -100.56818253234377,
+          -100,
+          -100.34645086613516
+        ],
+        "bestResponse": [
+          227.49139770337487,
+          344.3329685726735,
+          49.13357234878239,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          2.183548290385147,
+          10.877042284284244,
+          3.1084344853501307,
+          1.3301525298203387,
+          1.8845206612141538,
+          0.6596069752978337,
+          0.5681825323437693,
+          0,
+          0.3464508661351573
+        ],
+        "nashConv": 20.957938624830774,
+        "nashConvPct": 2.3286598472034195,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1042,
+        "untrainedInformationSets": 10,
+        "visits": 4823
+      },
+      "requestSha256": "77336035ffb5917ece467b7866b81d3821ee577ccaf4aeb581847b41b4dc5102",
+      "profileSha256": "6da464e911faec4d1c8165458905ab4a4526d841c44cbf26053556cad2050670"
+    },
+    {
+      "count": 9,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 168,
+      "publicNodes": 2304,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          225.74640632601287,
+          330.9549030635939,
+          47.882937274318614,
+          -101.52190467286397,
+          -100.74510080376149,
+          -100.47226625596124,
+          -100.8257524328958,
+          -100.31995736195138,
+          -100.69926513649148
+        ],
+        "bestResponse": [
+          227.91001724195027,
+          335.57544448700406,
+          52.622585918509664,
+          -99.98855699610583,
+          -99.9944936490977,
+          -99.99735370048613,
+          -99.99873056846904,
+          -99.99999998780181,
+          -100
+        ],
+        "gains": [
+          2.1636109159373973,
+          4.620541423410145,
+          4.73964864419105,
+          1.5333476767581402,
+          0.7506071546637827,
+          0.4749125554751146,
+          0.8270218644267544,
+          0.31995737414956693,
+          0.6992651364914764
+        ],
+        "nashConv": 16.128912745503428,
+        "nashConvPct": 1.7921014161670474,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 3072,
+        "untrainedInformationSets": 1124,
+        "visits": 101840
+      },
+      "currentQuality": {
+        "ev": [
+          222.02251888222824,
+          313.9376495040574,
+          57.98295976500335,
+          -97.61738715449754,
+          -97.8114000127585,
+          -98.79407322951734,
+          -99.72026775451552,
+          -100,
+          -100
+        ],
+        "bestResponse": [
+          226.52917003966513,
+          343.6343141361578,
+          77.60657272013263,
+          -89.52884560246598,
+          -91.91145844796843,
+          -94.10005843520996,
+          -95.30598520569261,
+          -95.5857174511771,
+          -95.5857174511771
+        ],
+        "gains": [
+          4.506651157436892,
+          29.696664632100408,
+          19.623612955129282,
+          8.088541552031558,
+          5.899941564790069,
+          4.694014794307378,
+          4.414282548822911,
+          4.4142825488228965,
+          4.4142825488228965
+        ],
+        "nashConv": 85.75227430226428,
+        "nashConvPct": 9.528030478029365,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 860,
+        "untrainedInformationSets": 0,
+        "visits": 4609
+      },
+      "requestSha256": "0cb96f6f894a48bcbd513e7d31aeb94a6b46670f160c32053c602e7d9cd3695f",
+      "profileSha256": "c6d09c9a7184a4ce0a2d28cbb48ae85362b608749cb1461950b7fa8b770082f0"
+    },
+    {
+      "count": 9,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 166,
+      "publicNodes": 2304,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          225.36906880244467,
+          330.2696074692781,
+          47.496984762104454,
+          -100.83846485065635,
+          -100.36335467765328,
+          -100.41805680800876,
+          -100.5481774578489,
+          -100.36551297859687,
+          -100.60209426106307
+        ],
+        "bestResponse": [
+          227.77037964839064,
+          335.13958516626457,
+          52.16134803824576,
+          -99.94336259898671,
+          -99.97169074481394,
+          -99.98363804358276,
+          -99.99002131885129,
+          -99.99886223511872,
+          -99.99999999999999
+        ],
+        "gains": [
+          2.4013108459459716,
+          4.869977696986439,
+          4.664363276141309,
+          0.8951022516696412,
+          0.39166393283933587,
+          0.4344187644259989,
+          0.5581561389976031,
+          0.3666507434781465,
+          0.6020942610630868
+        ],
+        "nashConv": 15.183737911547531,
+        "nashConvPct": 1.6870819901719478,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 3072,
+        "untrainedInformationSets": 955,
+        "visits": 104529
+      },
+      "currentQuality": {
+        "ev": [
+          226.9919175541472,
+          342.2627897942131,
+          41.768128150928646,
+          -105.51237129028914,
+          -102.04185979090408,
+          -100.12834390397694,
+          -101.5635059720501,
+          -100,
+          -101.77675454206864
+        ],
+        "bestResponse": [
+          226.9919175541472,
+          356.5670106086366,
+          53.22542564676517,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0,
+          14.304220814423502,
+          11.45729749583652,
+          5.512371290289138,
+          2.041859790904084,
+          0.1283439039769405,
+          1.5635059720500948,
+          0,
+          1.7767545420686446
+        ],
+        "nashConv": 36.784353809548925,
+        "nashConvPct": 4.087150423283214,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 712,
+        "untrainedInformationSets": 0,
+        "visits": 3897
+      },
+      "requestSha256": "854204d3b04ac1123c75832e78bf8c0f9e152cb406289ab03f49d13a9b119e25",
+      "profileSha256": "b633e8e4db35bc0902cfa77f0c4c36955d800999882f34748bbafbaeb0ad17bb"
+    },
+    {
+      "count": 10,
+      "weighted": false,
+      "seed": 395,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 199,
+      "publicNodes": 5120,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          260.916249886949,
+          379.32154108388426,
+          64.962993643231,
+          -100.56986079260561,
+          -100.68372001455714,
+          -100.6770775277168,
+          -100.90048810641444,
+          -100.77776865930805,
+          -100.68021299690274,
+          -100.91165651655939
+        ],
+        "bestResponse": [
+          263.7463053802923,
+          387.1938280532663,
+          71.85138048132693,
+          -99.63580254940803,
+          -99.84355424161055,
+          -99.89710215394128,
+          -99.92350558167658,
+          -99.94188837272445,
+          -100,
+          -99.66417428879505
+        ],
+        "gains": [
+          2.830055493343309,
+          7.87228696938206,
+          6.888386838095926,
+          0.9340582431975832,
+          0.840165772946591,
+          0.7799753737755282,
+          0.9769825247378634,
+          0.8358802865836026,
+          0.6802129969027391,
+          1.247482227764337
+        ],
+        "nashConv": 23.88548672672954,
+        "nashConvPct": 2.388548672672954,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 6656,
+        "untrainedInformationSets": 3023,
+        "visits": 252722
+      },
+      "currentQuality": {
+        "ev": [
+          262.404547480547,
+          377.8991562538135,
+          65.7053660985672,
+          -100.87562156469062,
+          -100,
+          -100,
+          -103.62701374784358,
+          -100.48664383509863,
+          -100.39804393546562,
+          -100.62174674982926
+        ],
+        "bestResponse": [
+          265.1164451227853,
+          391.8336778535324,
+          66.4574857942062,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          2.7118976422382843,
+          13.934521599718892,
+          0.7521196956390099,
+          0.8756215646906185,
+          0,
+          0,
+          3.627013747843577,
+          0.48664383509863285,
+          0.39804393546562267,
+          0.6217467498292564
+        ],
+        "nashConv": 23.407608770523893,
+        "nashConvPct": 2.3407608770523893,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1150,
+        "untrainedInformationSets": 7,
+        "visits": 5723
+      },
+      "requestSha256": "bdbb72b8ef8816681f3cb021f21cab6ac20841b635cb358c9cb660a1c88f47ce",
+      "profileSha256": "96291525938a2bb396d4f08d751e34ebfa5b029dcbfabbd92ebf6de7d09ca07f"
+    },
+    {
+      "count": 10,
+      "weighted": false,
+      "seed": 396,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 192,
+      "publicNodes": 5120,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          260.9586993655272,
+          378.54390252583534,
+          64.54189945911021,
+          -100.49898064284928,
+          -100.49332661146902,
+          -101.04434901020674,
+          -100.124362568953,
+          -100.50783412654721,
+          -100.40306703832921,
+          -100.97258135211824
+        ],
+        "bestResponse": [
+          263.5351216609737,
+          386.05812321809634,
+          69.93779078793428,
+          -99.97413028488313,
+          -99.99705927044681,
+          -99.99847755334581,
+          -99.99993969356244,
+          -99.99999629860515,
+          -100,
+          -99.95751684538659
+        ],
+        "gains": [
+          2.5764222954464913,
+          7.514220692261006,
+          5.395891328824064,
+          0.5248503579661445,
+          0.4962673410222038,
+          1.0458714568609366,
+          0.12442287539056451,
+          0.5078378279420548,
+          0.40306703832921187,
+          1.0150645067316475
+        ],
+        "nashConv": 19.603915720774324,
+        "nashConvPct": 1.9603915720774325,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 6656,
+        "untrainedInformationSets": 2238,
+        "visits": 249710
+      },
+      "currentQuality": {
+        "ev": [
+          252.18717552311645,
+          374.4410497272898,
+          63.392384482009184,
+          -95.38592386221698,
+          -100,
+          -100,
+          -100,
+          -100,
+          -96.38144911295694,
+          -98.25323675724144
+        ],
+        "bestResponse": [
+          262.01858878683066,
+          386.45699262911995,
+          81.81462590938744,
+          -87.78371000344767,
+          -98.45899163061056,
+          -100,
+          -100,
+          -100,
+          -92.3977861412307,
+          -90.97232869851986
+        ],
+        "gains": [
+          9.83141326371421,
+          12.015942901830158,
+          18.42224142737826,
+          7.602213858769318,
+          1.541008369389445,
+          0,
+          0,
+          0,
+          3.983662971726247,
+          7.280908058721579
+        ],
+        "nashConv": 60.67739085152922,
+        "nashConvPct": 6.067739085152922,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1551,
+        "untrainedInformationSets": 5,
+        "visits": 6046
+      },
+      "requestSha256": "607703ae131c6d211d6198a8d72ff79593fb59105a6f6337895f2e776b328899",
+      "profileSha256": "dbfc83990913de28e2253a85d61e276b40d3d59a8e3c79e1a4b036e43f65f525"
+    },
+    {
+      "count": 10,
+      "weighted": false,
+      "seed": 397,
+      "requestedIterations": 100000,
+      "iterations": 100000,
+      "elapsedMs": 206,
+      "publicNodes": 5120,
+      "rayonThreads": 1,
+      "quality": {
+        "ev": [
+          261.03529416877694,
+          377.38926613003196,
+          65.90231110740079,
+          -100.51144522371412,
+          -100.73341627055004,
+          -100.6571666483981,
+          -100.57320437463999,
+          -100.58905401469322,
+          -100.38887337649142,
+          -100.8737114977228
+        ],
+        "bestResponse": [
+          263.47552237567,
+          384.86078828859155,
+          70.14913968021868,
+          -99.89332947262146,
+          -99.95086740609081,
+          -99.98720894981697,
+          -99.99456508759404,
+          -99.99747277313692,
+          -100.00000000000001,
+          -99.91353126488019
+        ],
+        "gains": [
+          2.440228206893039,
+          7.471522158559594,
+          4.24682857281789,
+          0.6181157510926596,
+          0.7825488644592298,
+          0.6699576985811291,
+          0.5786392870459451,
+          0.5915812415562982,
+          0.38887337649140363,
+          0.9601802328426032
+        ],
+        "nashConv": 18.74847539033979,
+        "nashConvPct": 1.8748475390339792,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 6656,
+        "untrainedInformationSets": 2486,
+        "visits": 235525
+      },
+      "currentQuality": {
+        "ev": [
+          262.0626299504711,
+          388.64248263325726,
+          58.16636296302021,
+          -100,
+          -100,
+          -102.06082695161469,
+          -100,
+          -103.3243206821286,
+          -100,
+          -103.48632791300521
+        ],
+        "bestResponse": [
+          262.0626299504711,
+          406.3421993708674,
+          68.33745913739514,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100,
+          -100
+        ],
+        "gains": [
+          0,
+          17.699716737610117,
+          10.17109617437493,
+          0,
+          0,
+          2.060826951614686,
+          0,
+          3.324320682128601,
+          0,
+          3.486327913005212
+        ],
+        "nashConv": 36.74228845873355,
+        "nashConvPct": 3.6742288458733547,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 1469,
+        "untrainedInformationSets": 2,
+        "visits": 5496
+      },
+      "requestSha256": "5076095779d5621ee7b49b8236a95a5cf8789ffb6f8911a24d7c061ceab4dbf3",
+      "profileSha256": "3046c7eaba77a7da2357056c17375176ad0141fdf51790e1b21cf0d31112fc65"
+    }
+  ]
+}
