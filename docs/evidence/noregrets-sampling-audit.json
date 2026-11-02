@@ -1,0 +1,114 @@
+{
+  "recordedAt": "2026-11-02T16:22:22.245Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "url": "https://github.com/conorarmstrong/noregrets",
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patches": [
+      {
+        "file": "research/noregrets/advisor-engine.patch",
+        "sha256": "e03ed5d755f5752a844bd66ba5e83cfd0509345a7204d606f8a56413548a6de1"
+      },
+      {
+        "file": "research/noregrets/advisor-sampling.patch",
+        "sha256": "2695bb8c0370dc02d184958477e62ec2125193f5c671578a8c87717117965e9f"
+      }
+    ]
+  },
+  "fixes": [
+    "Apply sigma/q to the entire baseline residual",
+    "Freeze baseline before drawing the local action; release map guard before recursion",
+    "Learn raw conditional child values instead of locally importance-scaled values"
+  ],
+  "tests": {
+    "red": {
+      "path": "docs/evidence/noregrets-vr-red.log",
+      "sha256": "e6939cf7704feca42f635d85b0c2f54a98ca9ad261183586149a952d02193dba",
+      "status": "FAILED",
+      "passed": 0,
+      "failed": 3,
+      "failedTests": [
+        "cfr::tests::advisor_vr_enumerated_expectation_is_unbiased",
+        "cfr::tests::advisor_vr_perfect_baseline_has_zero_variance_off_policy",
+        "cfr::tests::advisor_vr_traversal_preserves_perfect_baseline_under_focus"
+      ]
+    },
+    "targetRed": {
+      "path": "docs/evidence/noregrets-vr-target-red.log",
+      "sha256": "24e108673c6ed585b9f1884aa535479987865fac7759778e462360f6aeae3399",
+      "status": "FAILED",
+      "passed": 2,
+      "failed": 1,
+      "failedTests": [
+        "cfr::tests::advisor_vr_traversal_preserves_perfect_baseline_under_focus"
+      ]
+    },
+    "green": {
+      "path": "docs/evidence/noregrets-vr-green.log",
+      "sha256": "75fdfa56ef225002ec357dfd0296e0631c056d9ea42492e410e9b7814e6aacef",
+      "status": "ok",
+      "passed": 3,
+      "failed": 0,
+      "failedTests": []
+    },
+    "full": {
+      "path": "docs/evidence/noregrets-sampling-full-test.log",
+      "sha256": "22ada09aa4c5b8175b210d27d92921b1754b8af2024b51637a24d70e89ba3606",
+      "status": "FAILED",
+      "passed": 143,
+      "failed": 1,
+      "failedTests": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point"
+      ]
+    }
+  },
+  "fullSuiteConfig": {
+    "rayonThreads": 4,
+    "rustTestThreads": 2
+  },
+  "repeatability": {
+    "path": "docs/evidence/noregrets-sampling-repeatability.json",
+    "sha256": "4a5f6f2c89aaf1a4f5daf635f73885e8a1cdf3e2e56e3592f01b6c752beec889",
+    "rayonThreads": 1,
+    "rustTestThreads": 1,
+    "exitCodes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "smoke": {
+    "path": "docs/evidence/noregrets-training-sampling-smoke.json",
+    "sha256": "7e78146685bb1d9b1785ff35244c6ca4dc5719cba416eed95c4d57f51dedc686",
+    "engineSha256": "48ef112eabfa78fd755ef9132e8cedf915e47c7fb994555f185fd1ced5dc35ba",
+    "players": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "traversalsPerModel": 20,
+    "eligibleForAdvice": false
+  },
+  "formulas": {
+    "old": "sum(sigma*b) + (ratio*child - b_selected)",
+    "corrected": "sum(sigma*b) + ratio*(child-b_selected)",
+    "baselineTarget": "raw child"
+  },
+  "remaining": [
+    "Lossy/imperfect-recall card abstraction and insufficient strategy-quality evidence",
+    "Blueprint/checkpoint configuration binding",
+    "Strategic-checkpoint dependency restoration",
+    "No quality-approved preflop/flop/multiway model or application integration"
+  ],
+  "reference": "https://raw.githubusercontent.com/google-deepmind/open_spiel/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py",
+  "scope": "Local estimator correction validated by exhaustive finite action expectations and real terminal traversal. Does not certify a full multiway poker strategy."
+}

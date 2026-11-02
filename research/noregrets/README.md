@@ -1,6 +1,6 @@
 # Isolerad native-kandidat — inte appens beslutsmotor
 
-Denna katalog innehåller en reproducerbar forskningspatch och lokal
+Denna katalog innehåller reproducerbara forskningspatchar och lokal
 Windows-byggning för [NoRegrets](https://github.com/conorarmstrong/noregrets),
 låst till `757f7692738069522195d2b486eec60a8b010c0c`. Källkodens MIT-licens
 finns i [LICENSE](LICENSE). Inga kommersiella modellfiler har hämtats.
@@ -29,15 +29,37 @@ Fyra nya regressioner fallerade före ändringen. Efteråt passerar samtliga
 
 ## Kvarvarande hinder
 
-Den kompletta kandidatkörningen gav **139 passerade och 2 fallerade testfall**:
+Den första kompletta kandidatkörningen gav **139 passerade och 2 fallerade testfall**:
 trepersonerssökningen foldade den absoluta nutshanden 10,64 % i ett riverfall;
 ett fokus-samplingtest gav 27,4 % call med 72o där testet kräver under 20 %.
 Se [hela körningen](../../docs/evidence/noregrets-full-test.log).
 Trösklarna har inte ändrats för att få ett grönt resultat.
 
+En separat `advisor-sampling.patch` rättar därefter VR-estimatorn när
+fokus-/spinesampling använder en annan fördelning än spelstrategin. Hela
+residualen multipliceras med `sigma/q`, baselinen fryses före dragningen och
+inlärningen använder det oviktade barnvärdet. Tre regressioner föll före
+rättningen; en mellanversion visade att även inlärningsmålet var fel.
+Efter rättningen passerar alla tre. Härledningen följer baselinemetoden i
+[OpenSpiel](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py)
+och [Schmid m.fl.](https://arxiv.org/abs/1809.03057).
+
+Den nya breda körningen gav **143 passerade och 1 fallerat testfall**:
+`pluribus_prune_keeps_the_fixed_point`, AA-call 77,0 % mot kravet över 80 %.
+De två tidigare fallerade fallen passerade nu, men använder inte VR och kan
+inte räknas som lösta av denna ändring. Parallella träningskörningar varierar.
+Se [nya auditen](../../docs/evidence/noregrets-sampling-audit.json) och
+[hela nya körningen](../../docs/evidence/noregrets-sampling-full-test.log).
+Detta är inte ett generellt strategigodkännande.
+
+Pruning- och fokustesten passerade därefter två separata körningar vardera
+med en Rayon-tråd och en testtråd, utan ändrad tröskel. Det är diagnostik av
+känslighet för träningsordning, inte ett bevis för robust konvergens. Exakta
+argument, exitkoder och testbinärens hash finns i
+[upprepningsrapporten](../../docs/evidence/noregrets-sampling-repeatability.json).
+
 Ytterligare granskade brister är ännu inte rättade:
 
-- VR-korrigeringen är biased när den kombineras med fokus-/spinesampling.
 - Checkpoint/blueprint binder inte alla stackar, blinds och träningsinställningar.
 - Strategiska checkpointar saknar återställning av sin beroendemodell.
 - Nyckeln använder aktuell kortbucket och publik handlingstokenhistorik och
@@ -66,12 +88,18 @@ Kontrollera nedladdad `rustup-init.exe` mot dess officiella `.sha256` före kör
 Verktygens observerade versioner och hashvärden sparas i
 [kandidatauditen](../../docs/evidence/noregrets-candidate-audit.json).
 
-[Tränings-/filproben](../../docs/evidence/noregrets-training-smoke.json) skapar
-och läser en syntetisk modell för vart och ett av spelarantalet 2–10. Den
-kontrollerar faktisk sparad spelaridentitet och 20 traversaliterationer.
+[Den första tränings-/filproben](../../docs/evidence/noregrets-training-smoke.json)
+skapade och läste en syntetisk modell för vart och ett av spelarantalet 2–10.
+Den kontrollerade faktisk sparad spelaridentitet och 20 traversaliterationer.
 Modellerna är enbart IO-testdata och får inte användas som råd. Proben binder
 sitt underlag till upstream-revision, forskningspatch och binärens SHA-256.
 Det är inte en rättning av kandidatens generella artefaktformat.
+
+Den [senare IO-proben](../../docs/evidence/noregrets-training-sampling-smoke.json)
+binder båda patcharna, kontrollerar att inga andra spårade källfiler ändrats
+och bygger binären från den kontrollerade källan innan modellerna skapas.
+Det äldre resultatet behålls som historik. Alla modeller är fortfarande enbart
+syntetiska 20-traversals testdata.
 
 I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 
@@ -79,8 +107,10 @@ I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 git clone https://github.com/conorarmstrong/noregrets.git .research/noregrets
 git -C .research/noregrets checkout 757f7692738069522195d2b486eec60a8b010c0c
 git -C .research/noregrets apply ../../research/noregrets/advisor-engine.patch
+git -C .research/noregrets apply ../../research/noregrets/advisor-sampling.patch
 node scripts/native-research-cargo.mjs build --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 engine::tests -- --test-threads=1
+node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2
 node scripts/probe-native-training.mjs
 ```

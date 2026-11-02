@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | NoRegrets byggd isolerat på Windows; spelmotor utökad till 10 | Ej integrerad; två fallerade strategitester och flera öppna granskningsfynd |
+| Native forskning | NoRegrets byggd isolerat på Windows; spelmotor utökad till 10; VR-estimator rättad | Ej integrerad; strategitester varierar/fallerar och flera granskningsfynd är öppna |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -127,6 +127,9 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-02, native-spelmotor efter patch | 18 passerade; 18 000 slumpade händer. Abstraktionssviten omfattar också 4 500 slumpade händer | Regler och tillstånd testade upp till 10 spelare |
 | 2026-11-02, hela native-kandidaten | **139 passerade, 2 föll** | Kandidaten är inte godkänd, även om den går att bygga |
 | 2026-11-02, native modell-IO | En 20-traversals testmodell skapad och inläst för varje spelarantal 2–10 | Filflöde och lagrat spelarantal; **inga användbara tränade råd** |
+| 2026-11-02, native VR-regressioner | Först 0 pass/3 fel; efter enbart estimatorkorrektion 2 pass/1 fel; slutligen 3 pass/0 fel | Reproducerad lokal beräknings- och inlärningsrättning |
+| 2026-11-02, bred svit efter VR-fix | **143 pass/1 fel**, AA-call 77,0 % i pruningtest, krav över 80 % | Bred strategi fortfarande inte godkänd; tidigare två fel varierar |
+| 2026-11-02, upprepning med en tråd | Pruning- och fokustestet passerade två gånger vardera | Samma binär/trösklar men annan träningsordning; inte robusthetsintyg |
 
 Viktiga evidensfiler:
 
@@ -144,6 +147,9 @@ Viktiga evidensfiler:
   [modell-IO](docs/evidence/noregrets-training-smoke.json).
 - [Ny app-testlogg vid överlämningen](docs/evidence/application-tests-2026-11-02.log)
   och [kontroll av överlämningens länkar/hashvärden](docs/evidence/project-handoff-check-2026-11-02.json).
+- [Samplingaudit efter rättning](docs/evidence/noregrets-sampling-audit.json),
+  [upprepning med en tråd](docs/evidence/noregrets-sampling-repeatability.json)
+  och [ny IO-probe med båda patcharna](docs/evidence/noregrets-training-sampling-smoke.json).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -176,20 +182,26 @@ Den sparade patchen utökar 6 till 10 spelare och rättar höjningsrätt efter k
 all-in, höjning utan kvarvarande motståndare med marker samt udda marker per pott.
 Den är **isolerad forskning**, inte en installerad beslutsmotor.
 
-Kända öppna fel/fynd:
+Granskade fel/fynd och aktuell status:
 
 1. `bot::tests::round_rooted_search_calls_the_nuts_three_way`: absoluta nuts på
    river foldades 10,64 %, call 89,36 %, mot testkravet över 90 % call.
    Hypotes: aktuell grov bucket blandar ihop handtyper. Det är inte bevisat att
    enbart fler buckets löser det; aktuell exakt hand måste särskiljas och testas.
 2. `cfr::tests::multiway_focus_keeps_the_fixed_point`: 72o call 27,4 %, krav under
-   20 %. Detta test kör utan VR; det är **inte automatiskt samma fel som punkt 3**.
+  20 %. Detta test kör utan VR; det är **inte automatiskt samma fel som punkt 3**.
+  Både detta fall och nutsfallet passerade i nästa breda körning utan en
+  relevant kodändring i deras väg. Felen är inte robust avhjälpta; mätningarna
+  varierar med parallell träning. I stället föll pruningfallet med AA-call 77 %.
 3. `cfr.rs`, VR kombinerad med fokus/spinesampling: implementationen använder
    `Eσ[b] + (ratio * child - b_selected)`, men korrektionen ska vara
    `Eσ[b] + ratio * (child - b_selected)`. Oberoende tvåhandlingsfall med
    σ=(0,5;0,5), q=(0,25;0,75), b=child=(1;3) har väntevärde 2; aktuell formel
-   ger 1,5. **Nästa avgränsade fix:** röd analytisk regression, rättning,
-   kontroll av baseline-läsning före sampling, riktade tester och ny bred körning.
+   ger 1,5. **Rättat i `advisor-sampling.patch`:** korrekt residual, fryst
+   baseline före dragning samt oviktat inlärningsmål. Tre nya regressioner har
+   verifierad röd/grön-körning. Den nya breda sviten är **143 pass, 1 fel**;
+   ändringen certifierar inte generell strategikvalitet. Se
+   [samplingauditen](docs/evidence/noregrets-sampling-audit.json).
 4. Checkpoint/blueprint binder inte hela spel-/träningskonfigurationen, bland
    annat stackar och blinds. Återanvänd inte en fil för ett annat spel.
 5. Strategiska checkpointar återställer inte beroendemodellen; saknad koppling
@@ -219,6 +231,7 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
 - [x] Oberoende river-/turn- och liten multiway-orakelkontroll.
 - [x] Alla gator/2–10 kan köras tekniskt med experimentworker.
 - [x] Reproducerbar projektlogg, testunderlag och AI-överlämning.
+- [x] Rätta och regressionstesta native-kandidatens lokala VR/fokus-estimator.
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
   förkasta den med tydliga mätningar om arkitekturen inte håller.
 - [ ] Välj/träna faktisk strategi och fortsättningsmodell för preflop, flop,
@@ -335,6 +348,46 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
 - Denna nya körning gör inte native-svitens två tidigare strategifel godkända.
   Ingen ny livehand, modellträning av användbar kvalitet eller portable-release
   har verifierats här. Nästa steg i avsnitt 7 och checklistan står kvar.
+
+### 2026-11-02 17:23 Europe/Stockholm — Codex, VR/fokus-estimator
+
+- Arbetade vidare från `e3b14c5`. Appkod och avläsning är oförändrade.
+  Sparad native-ändring: `research/noregrets/advisor-sampling.patch`, enbart
+  `src/cfr.rs` ovanpå den tidigare separata motorpatchen.
+- Testade exakt väntevärde över alla handlingar för 27 kombinationer av policy,
+  sampling och baseline, perfekt baseline med noll varians samt en faktisk
+  tvåpersoners fold/call-terminal med fokus-sampling över 128 frön.
+- Kommando för de tre regressionerna:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1`.
+  Först exit 101, **0 pass/3 fel**: `noregrets-vr-red.log`.
+  Efter rättning av estimatorkorrektionen men före rättat inlärningsmål:
+  exit 101, **2 pass/1 fel**: `noregrets-vr-target-red.log`.
+  Slutligen exit 0, **3 pass/0 fel**: `noregrets-vr-green.log`.
+  Alla tre loggar ligger i `docs/evidence/`.
+- Rättningen multiplicerar hela residualen med `sigma/q`, fryser baselinen
+  före handlingens dragning, håller ingen map-låsning över rekursion och lär
+  av det oviktade barnvärdet. Den sista mellanregressionen visade att en redan
+  perfekt baseline annars ändrades från 100 till 175 efter ett viktat utfall.
+- Bred kontroll:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2`.
+  Med fyra Rayon-trådar: exit 101, **143 pass/1 fel**, 109,59 sekunder.
+  Pruningtestets AA-call var 77,0 %, krav över 80 %. Tidigare nuts-/fokusfel
+  passerade nu men använder inte VR; de får inte anges som lösta av ändringen.
+- Pruning- och fokustestet upprepades två gånger vardera med samma kompilerade
+  testbinär, `RAYON_NUM_THREADS=1`, `--exact --test-threads=1`: samtliga exit 0.
+  Exakta testnamn, argument och binärhash finns i
+  `docs/evidence/noregrets-sampling-repeatability.json`. Detta styrker ett behov
+  av kontrollerad träningsordning och flera körningar, inte bred strategikvalitet.
+- `node scripts/probe-native-training.mjs`: exit 0. Proben bygger nu själv en
+  aktuell release-binär efter källkontroll och binder båda patcharna. Nya
+  20-traversals IO-modeller för 2–10 skapades/lästes; de är fortfarande inte råd.
+  Äldre IO-underlag har behållits. Nytt resultat:
+  `docs/evidence/noregrets-training-sampling-smoke.json`.
+- Samlad evidens: `docs/evidence/noregrets-sampling-audit.json`. Varken en ny
+  appversion eller en tränad, kvalitetsgodkänd strategi är levererad i detta steg.
+- Nästa steg: exakt handrepresentation på aktuell gata i beslutssökningen,
+  följt av oberoende kvalitetsmätning med kontrollerad träningsordning. Binda
+  spelkonfiguration och beroendemodeller innan större blueprint-träning.
 
 ### Mall för nästa loggpost
 

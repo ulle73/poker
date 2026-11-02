@@ -14,12 +14,36 @@ const upstream = spawnSync("git", ["-C", ".research/noregrets", "rev-parse", "HE
 });
 if (upstream.status !== 0 || upstream.stdout.trim() !== "757f7692738069522195d2b486eec60a8b010c0c")
   throw new Error("Research source revision changed; re-audit before probing.");
-const patch = spawnSync("git", ["-C", ".research/noregrets", "diff", "--no-ext-diff", "--binary"], {
-  cwd: project,
-});
-const patchFile = resolve(project, "research/noregrets/advisor-engine.patch");
-if (patch.status !== 0 || !readFileSync(patchFile).equals(patch.stdout))
-  throw new Error("Research source no longer matches the saved patch.");
+const patches = [
+  { file: "research/noregrets/advisor-engine.patch", paths: ["src/abstraction.rs", "src/engine.rs"] },
+  { file: "research/noregrets/advisor-sampling.patch", paths: ["src/cfr.rs"] },
+];
+const sourcePatches = patches.map(p => ({ file: p.file, sha256: sha(resolve(project, p.file)) }));
+function verifySource() {
+  const changed = spawnSync("git", ["-C", ".research/noregrets", "diff", "--name-only"], {
+    cwd: project, encoding: "utf8",
+  });
+  const expected = patches.flatMap(p => p.paths).sort().join("\n");
+  if (changed.status !== 0 || changed.stdout.trim().split(/\r?\n/).sort().join("\n") !== expected)
+    throw new Error("Unexpected research source changes; re-audit before probing.");
+  for (const [i, p] of patches.entries()) {
+    const diff = spawnSync("git", ["-C", ".research/noregrets", "diff", "--no-ext-diff", "--binary", "--", ...p.paths], {
+      cwd: project,
+    });
+    const saved = resolve(project, p.file);
+    if (diff.status !== 0 || !readFileSync(saved).equals(diff.stdout) || sha(saved) !== sourcePatches[i].sha256)
+      throw new Error("Research source no longer matches the saved patches.");
+  }
+}
+verifySource();
+// Build from the checked source so a stale executable cannot pass this probe.
+const buildArgs = ["scripts/native-research-cargo.mjs", "build", "--manifest-path",
+  ".research/noregrets/Cargo.toml", "--release", "--locked", "-j", "4"];
+const built = spawnSync(process.execPath, buildArgs, {cwd:project, encoding:"utf8", timeout:300000});
+const buildLog = "docs/evidence/noregrets-sampling-build.log";
+writeFileSync(resolve(project, buildLog), (built.stdout + built.stderr).replace(/\r\n/g,"\n").trimEnd() + "\n");
+if (built.status !== 0) throw new Error(`Research build failed: ${built.error?.message || built.stderr || built.status}`);
+verifySource();
 const runs = [];
 for (let players = 2; players <= 10; players++) {
   const model = resolve(output, `smoke-${players}.bin`);
@@ -37,9 +61,10 @@ for (let players = 2; players <= 10; players++) {
     bytes: statSync(model).size, sha256: sha(model), eligibleForAdvice: false });
   console.log(`${players} seats: trained and loaded synthetic smoke model`);
 }
-writeFileSync(resolve(project, "docs/evidence/noregrets-training-smoke.json"), JSON.stringify({
+writeFileSync(resolve(project, "docs/evidence/noregrets-training-sampling-smoke.json"), JSON.stringify({
   verifiedAt: new Date().toISOString(), goalReady: false, eligibleForAdvice: false,
   scope: "Twenty-traversal synthetic file-IO smoke, all seat counts 2-10. No strategy-quality certification; candidate has known failing strategy tests and artifact-binding gaps.",
-  upstreamRevision: upstream.stdout.trim(), sourcePatchSha256: sha(patchFile),
+  upstreamRevision: upstream.stdout.trim(), sourcePatches,
+  build: {args:buildArgs, exitCode:built.status, log:buildLog, logSha256:sha(resolve(project,buildLog))},
   engineSha256: sha(exe), runs,
 }, null, 2) + "\n");

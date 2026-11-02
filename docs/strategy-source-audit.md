@@ -60,3 +60,10 @@ ger otillräcklig strategitäckning:
 Kandidatens regelrättningar och byggbarhet är verifierade separat från dess
 strategikvalitet. Dess större testsuite har kvar två fallerande strategitester.
 En lyckad kompilering får inte användas som stöd för att visa generella GTO-råd.
+
+En senare isolerad samplingpatch rättar VR-korrektion, baseline-tidpunkt och
+inlärningsmål. Tre nya regressioner har verifierad röd/grön-körning. Nästa
+breda svit gav 143 pass och ett pruningfel; de två tidigare fallen passerade
+denna gång utan relevant ändring i deras väg. Detta visar varierande
+träningsresultat och är inte ett kvalitetsgodkännande. Se
+[samplingauditen](evidence/noregrets-sampling-audit.json).

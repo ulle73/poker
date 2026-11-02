@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-02T16:25:12.425Z",
+  "checkedLinks": 46,
+  "applicationUnchanged": true,
+  "samplingPatchSha256": "2695bb8c0370dc02d184958477e62ec2125193f5c671578a8c87717117965e9f",
+  "persistedLogHashesMatch": true,
+  "recordedNativeBinaryHashesMatch": true,
+  "goalReady": false,
+  "eligibleForAdvice": false
+}

@@ -1,0 +1,59 @@
+{
+  "recordedAt": "2026-11-02T16:20:36.582Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "sourceRevision": "757f7692738069522195d2b486eec60a8b010c0c",
+  "samplingPatchSha256": "2695bb8c0370dc02d184958477e62ec2125193f5c671578a8c87717117965e9f",
+  "testBinarySha256": "c29c72f79a39ef551e347103a8ceeafe7872718be1de28a8a166fc1937fd2726",
+  "runs": [
+    {
+      "name": "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+      "repeat": 1,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "rayonThreads": 1,
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 143 filtered out; finished in 2.07s\n"
+    },
+    {
+      "name": "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+      "repeat": 2,
+      "args": [
+        "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "rayonThreads": 1,
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::pluribus_prune_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 143 filtered out; finished in 2.11s\n"
+    },
+    {
+      "name": "cfr::tests::multiway_focus_keeps_the_fixed_point",
+      "repeat": 1,
+      "args": [
+        "cfr::tests::multiway_focus_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "rayonThreads": 1,
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::multiway_focus_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 143 filtered out; finished in 21.71s\n"
+    },
+    {
+      "name": "cfr::tests::multiway_focus_keeps_the_fixed_point",
+      "repeat": 2,
+      "args": [
+        "cfr::tests::multiway_focus_keeps_the_fixed_point",
+        "--exact",
+        "--test-threads=1"
+      ],
+      "rayonThreads": 1,
+      "exitCode": 0,
+      "output": "\nrunning 1 test\ntest cfr::tests::multiway_focus_keeps_the_fixed_point ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 143 filtered out; finished in 23.70s\n"
+    }
+  ],
+  "scope": "Same compiled native tests, one Rayon thread and one Rust test thread; repeated without changing thresholds. Diagnostic only."
+}

@@ -1,0 +1,144 @@
+diff --git a/src/cfr.rs b/src/cfr.rs
+index 7c04677..32f8db8 100644
+--- a/src/cfr.rs
++++ b/src/cfr.rs
+@@ -187,7 +187,8 @@ pub struct Trainer {
+     rnr_opp: Option<Arc<Blueprint>>,
+     /// VR-MCCFR (Schmid et al. 2019): control-variate baselines at sampled
+     /// opponent nodes. The sampled child's value is replaced by
+-    /// sum_a sigma(a) b(a) + (v_sampled - b(a_sampled)); unbiased for any
++    /// sum_a sigma(a) b(a) + sigma(a_sampled)/q(a_sampled) *
++    /// (v_sampled - b(a_sampled)); unbiased for any fixed pre-sample
+     /// b, and the variance of the traverser's regret updates shrinks as b
+     /// learns the expected value. Baselines are keyed by the opponent's
+     /// infoset plus the traverser's seat and card bucket (the traverser's
+@@ -200,6 +201,12 @@ pub struct Trainer {
+ 
+ const BASELINE_ALPHA: f32 = 0.5;
+ 
++// The whole residual, not just the child value, needs the importance ratio.
++fn vr_corrected_value(dist: &[f64], b: &[f32], idx: usize, ratio: f64, child: f64) -> f64 {
++    let expected: f64 = b.iter().zip(dist).map(|(&bi, &d)| bi as f64 * d).sum();
++    expected + ratio * (child - b[idx] as f64)
++}
++
+ /// Baseline key: opponent infoset key, then the traverser's seat and bucket.
+ fn baseline_key(key: &[u8], traverser: usize, bucket: u16) -> InfoKey {
+     let mut k = Vec::with_capacity(key.len() + 3);
+@@ -615,6 +622,17 @@ impl Trainer {
+                     }
+                 }
+             }
++            // Freeze the baseline before sampling. Do not hold a DashMap
++            // guard across recursion, or read concurrent updates afterwards.
++            let baseline = if self.vr {
++                let tb = self.abs.bucket(h.hole(traverser), h.board(), rng);
++                let bkey = baseline_key(key, traverser, tb);
++                let before = self.baselines.entry(bkey.clone())
++                    .or_insert_with(|| vec![0.0f32; acts.len()]).clone();
++                Some((bkey, before))
++            } else {
++                None
++            };
+             // Spine-targeted sampling at an opponent's spine node.
+             // Off-policy sampling (spine targeting, multiway focus) draws
+             // the action from q instead of sigma. Two corrections keep
+@@ -665,19 +683,18 @@ impl Trainer {
+                 hist.push(TOKEN_STREET_SEP);
+             }
+             // No truncation needed: the nearest traverser ancestor restores hist.
+-            let v = ratio * self.traverse(&child, hist, traverser, weight, prune_ok, model_opp, rng);
+-            if !self.vr {
+-                return v;
+-            }
+-            let tb = self.abs.bucket(h.hole(traverser), h.board(), rng);
+-            let bkey = baseline_key(&key, traverser, tb);
++            let child_value = self.traverse(&child, hist, traverser, weight, prune_ok, model_opp, rng);
++            let Some((bkey, before)) = baseline else {
++                return ratio * child_value;
++            };
+             let mut b = self
+                 .baselines
+                 .entry(bkey)
+                 .or_insert_with(|| vec![0.0f32; acts.len()]);
+-            let expected: f64 = b.iter().zip(dist).map(|(&bi, &d)| bi as f64 * d).sum();
+-            let corrected = expected + (v - b[idx] as f64);
+-            b[idx] += BASELINE_ALPHA * (v as f32 - b[idx]);
++            let corrected = vr_corrected_value(dist, &before, idx, ratio, child_value);
++            // Learn the unscaled conditional child value. The local sigma/q
++            // ratio belongs only in the estimator returned to the parent.
++            b[idx] += BASELINE_ALPHA * (child_value as f32 - b[idx]);
+             corrected
+         }
+     }
+@@ -1039,6 +1056,70 @@ mod tests {
+         assert_eq!(out, vec![0.5, 0.5]);
+     }
+ 
++    #[test]
++    fn advisor_vr_perfect_baseline_has_zero_variance_off_policy() {
++        let sigma = [0.5, 0.5];
++        let q = [0.25, 0.75];
++        let child = [1.0, 3.0];
++        let b = [1.0f32, 3.0];
++        let expected = 2.0;
++        for i in 0..2 {
++            let v = vr_corrected_value(&sigma, &b, i, sigma[i] / q[i], child[i]);
++            assert!((v - expected).abs() < 1e-12, "action {i}: {v}, expected {expected}");
++        }
++    }
++
++    #[test]
++    fn advisor_vr_enumerated_expectation_is_unbiased() {
++        // Enumerate every action, rather than relying on convergence or a seed.
++        for sigma in [[0.5, 0.5], [0.1, 0.9], [0.0, 1.0]] {
++            for q in [[0.25, 0.75], [0.8, 0.2], [0.5, 0.5]] {
++                for b in [[1.0f32, 3.0], [-42.0, 70.0], [0.0, 0.0]] {
++                    let child = [-11.0, 23.0];
++                    let exact: f64 = (0..2).map(|i| sigma[i] * child[i]).sum();
++                    let estimate: f64 = (0..2).map(|i|
++                        q[i] * vr_corrected_value(&sigma, &b, i, sigma[i] / q[i], child[i])
++                    ).sum();
++                    assert!((estimate - exact).abs() < 1e-10, "sigma={sigma:?}, q={q:?}, b={b:?}: {estimate} != {exact}");
++                }
++            }
++        }
++    }
++
++    #[test]
++    fn advisor_vr_traversal_preserves_perfect_baseline_under_focus() {
++        let abs = Arc::new(Abstraction::new(AbsConfig::default()));
++        let mut cfg = TrainConfig::default();
++        cfg.hand = HandConfig {num_players: 2, stack: 1_000, sb: 50, bb: 100};
++        cfg.multiway_focus = 0.6;
++        let t = Trainer::new(abs.clone(), cfg).with_vr(true);
++        let mut h = Hand::new(&t.cfg.hand, 0, fresh_deck());
++        h.apply(PlayerAction::RaiseTo(1_000));
++        assert_eq!(h.to_act(), 1);
++        let acts = abs.abstract_actions(&h);
++        assert_eq!(acts, vec![AbsAction::Fold, AbsAction::CheckCall]);
++        let base_hist = vec![AbsAction::AllIn.token()];
++        let key = make_key(preflop_bucket(h.hole(1)), &base_hist);
++        t.nodes.insert(key.clone(), Node {regret: vec![0.0; 2], strat: vec![0.0; 2]});
++        let bkey = baseline_key(&key, 0, preflop_bucket(h.hole(0)));
++        let b: Vec<f32> = acts.iter().map(|&a| {
++            let mut child = h.clone();
++            child.apply(abs.concrete(&h, a));
++            assert!(child.is_terminal());
++            child.utilities()[0] as f32
++        }).collect();
++        let expected = (b[0] as f64 + b[1] as f64) / 2.0;
++        for seed in 0..128 {
++            t.baselines.insert(bkey.clone(), b.clone());
++            let mut hist = base_hist.clone();
++            let v = t.traverse(&h, &mut hist, 0, 1.0, false, false,
++                &mut SmallRng::seed_from_u64(seed));
++            assert!((v - expected).abs() < 1e-9, "seed={seed}: {v} != {expected}");
++            let after = t.baselines.get(&bkey).unwrap();
++            assert_eq!(*after, b, "a perfect baseline must not learn importance-scaled payoffs");
++        }
++    }
++
+     #[test]
+     fn qre_distribution_interpolates_rationality() {
+         let regrets = [900.0, 300.0, -600.0];
