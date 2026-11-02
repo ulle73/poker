@@ -151,3 +151,49 @@ Algoritmdokumentation:
 [OpenSpiel outcome sampling](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py),
 [Postflop ranges](https://b-inary.github.io/postflop_solver/postflop_solver/struct.Range.html),
 [officiellt TDA-exempel om kort öppnings-all-in](https://www.pokertda.com/forum/index.php?topic=736.0).
+
+## Fortsatt kvalitetsarbete 2026-11-02 — inte en ny godkänd liveversion
+
+En valfri `baseline: "learned"` använder kontrollvariater i outcome-samplingen,
+med separata skattningar för varje uppdaterad spelare. Baseline läses före
+handlingsdragningen och uppdateras efteråt. Endast nästa baseline-mål begränsas
+till fysiska utbetalningar; nyttor och regret klipps inte. Standardvalet är
+fortfarande `none`. Metoden bygger på
+[Schmid m.fl.](https://arxiv.org/abs/1809.03057) och
+[OpenSpiels implementation](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py),
+men den lokala inlärningsregeln garanterar ingen variansminskning.
+
+En separat kontroll kan nu fråga den färdiga medelstrategin med endast den
+agerande spelarens kort och publik historik. En oberoende river-orakelmodell
+bygger sitt eget check/all-in-spel, räknar alla kompatibla privata givningar
+och väljer bästa motstrategi efter att dolda givningar aggregerats. Den
+använder varken produktionsmotorns betting-, payoff- eller CFR-kod.
+Kalibreringar täcker känd jämvikt, dold information och udda marker per pott,
+enligt modellens separata pottfördelning och
+[TDA:s regler för delade potter](https://www.pokertda.com/view-poker-tda-rules/).
+
+Den [uppmätta diagnostiken](evidence/multiway-policy-quality-2026-11-02.json)
+med frö 395 gav följande **summa förbättringar vid ensidig avvikelse**, uttryckt
+i procent av startpotten. Det är NashConv, inte samma mått som HU-solverns
+exploaterbarhet. Spelet har små uttryckliga ranger och endast check/all-in;
+resultaten gäller inte generellt no-limit hold'em.
+
+| Spelare | Utan baseline | Inlärd baseline |
+| --- | ---: | ---: |
+| 3 | 4,43 % | 2,69 % |
+| 6 | 4,55 % | 4,44 % |
+| 10 | 21,40 % | 9,33 % |
+
+Tre och sex spelare tränade 10 000 cykler. Tiomannafallen stoppades efter
+4 sekunder med olika antal cykler; jämförelsen är därför ingen kontrollerad
+konvergensstudie. Tusentals frågor till tiomannastrategin saknade tränade
+medelfrekvenser. Kvalitetsgrinden är fortsatt stängd. Ingen uppdaterad
+portable-app eller bred GTO-certifiering har levererats med detta experiment.
+
+Reproducera separat utan annan belastning:
+
+```powershell
+$env:POKER_MULTIWAY_PROBE='1'
+npx vitest run tests/decision-multiway-quality.test.ts --maxWorkers=1
+Remove-Item Env:POKER_MULTIWAY_PROBE
+```

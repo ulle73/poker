@@ -1,7 +1,8 @@
 import { expect, it } from "vitest";
 import { solveDecision } from "../src/decision/mccfr";
 import { legalActions } from "../src/decision/betting";
-import type { DecisionInput, DecisionStreet } from "../src/decision/types";
+import { cardCode } from "phe";
+import type { DecisionInput, DecisionStreet, DecisionPolicy } from "../src/decision/types";
 
 function game(n = 2, street: DecisionStreet = "river"): DecisionInput {
   const count = { preflop: 0, flop: 3, turn: 4, river: 5 }[street];
@@ -58,44 +59,104 @@ it("uses complete terminal outcome episodes rather than passive budget continuat
   expect(result.rootVisits).toBeGreaterThan(0);
 });
 
-it("recovers the independently solved pot-sized river bluff mixture", () => {
-  const input = game();
-  input.heroCards = ["2s", "2h"];
-  input.ranges = ["AsAh,2s2h", "QsQh"];
-  input.state.canRaise = [true, false];
-  input.rules = {
-    betFractions: [1],
-    raiseFractions: [],
-    maxRaises: 0,
-    includeAllIn: false,
-  };
-  const solve = (heroCards: string[]) =>
-    solveDecision(
-      { ...input, heroCards },
-      {
-        sampling: "outcome",
-        seed: 395,
-        maxIterations: 20000,
-        timeBudgetMs: 4000,
-      },
-    );
-  const air = solve(["2s", "2h"]),
-    nuts = solve(["As", "Ah"]);
-  const bluff = air.actions.find((a) => a.kind === "bet")!.frequency;
-  const value = nuts.actions.find((a) => a.kind === "bet")!.frequency;
-  expect(bluff).toBeGreaterThan(0.35);
-  expect(bluff).toBeLessThan(0.65);
-  expect(value).toBeGreaterThan(0.98);
-  const versusFold = 0.5 + 0.5 * (bluff - (1 - bluff));
-  const versusCall =
-    0.5 * (value * 3 + (1 - value)) + 0.5 * (-3 * bluff - (1 - bluff));
-  expect(0.5 - Math.min(versusFold, versusCall)).toBeLessThan(0.15);
-  expect(air.cutoffCount).toBe(0);
+it("learns player-specific control variates from completed outcomes without changing legal action coverage", () => {
+  const input = game(3);
+  const result = solveDecision(input, {
+    sampling: "outcome",
+    baseline: "learned",
+    seed: 395,
+    maxIterations: 300,
+    timeBudgetMs: 4000,
+  });
+  expect(result.provider).toContain("variance-reduced");
+  expect(result.diagnostics?.baselineUpdates).toBeGreaterThan(0);
+  expect(result.diagnostics?.baselineBytes).toBeGreaterThan(0);
+  expect(result.cutoffCount).toBe(0);
+  expect(result.actions.map(({ frequency: _f, ev: _v, ...a }) => a)).toEqual(
+    legalActions(input.state, input.rules),
+  );
 });
 
-it.each([73, 395, 901])(
-  "respects weighted chance priors instead of the oversampled hero proposal (seed %s)",
-  (seed) => {
+it("exposes the completed average policy for independent best-response evaluation", () => {
+  const input = game(3);
+  let captured: unknown;
+  const result = Reflect.apply(solveDecision, null, [
+    input,
+    { sampling: "outcome", seed: 395, maxIterations: 100, timeBudgetMs: 4000 },
+    (profile: unknown) => {
+      captured = profile;
+    },
+  ]);
+  expect(captured).toBeDefined();
+  const query = Reflect.get(captured as object, "query") as (
+    state: unknown,
+    own: number[],
+    board: number[],
+  ) => { frequencies: number[] };
+  const codes = (cards: string[]) => cards.map((c) => cardCode(c[0], c[1]));
+  expect(
+    query(input.state, codes(input.heroCards), codes(input.board)).frequencies,
+  ).toEqual(result.actions.map((a: { frequency: number }) => a.frequency));
+});
+
+it("rejects a policy query for an inactive acting seat", () => {
+  const input = game(3);
+  let profile: DecisionPolicy | undefined;
+  solveDecision(input, { maxIterations: 10, timeBudgetMs: 4000 }, (p) => {
+    profile = p;
+  });
+  const invalid = { ...input.state, pending: [false, true, true] };
+  const codes = (cards: string[]) => cards.map((c) => cardCode(c[0], c[1]));
+  expect(() => profile!.query(invalid, codes(input.heroCards), codes(input.board)))
+    .toThrow(/legal.*decision|no legal/i);
+});
+
+it.each(["none", "learned"] as const)(
+  "recovers the independently solved pot-sized river bluff mixture with %s baselines",
+  (baseline) => {
+    const input = game();
+    input.heroCards = ["2s", "2h"];
+    input.ranges = ["AsAh,2s2h", "QsQh"];
+    input.state.canRaise = [true, false];
+    input.rules = {
+      betFractions: [1],
+      raiseFractions: [],
+      maxRaises: 0,
+      includeAllIn: false,
+    };
+    const solve = (heroCards: string[]) =>
+      solveDecision(
+        { ...input, heroCards },
+        {
+          sampling: "outcome",
+          baseline,
+          seed: 395,
+          maxIterations: 20000,
+          timeBudgetMs: 4000,
+        },
+      );
+    const air = solve(["2s", "2h"]),
+      nuts = solve(["As", "Ah"]);
+    const bluff = air.actions.find((a) => a.kind === "bet")!.frequency;
+    const value = nuts.actions.find((a) => a.kind === "bet")!.frequency;
+    expect(bluff).toBeGreaterThan(0.35);
+    expect(bluff).toBeLessThan(0.65);
+    expect(value).toBeGreaterThan(0.98);
+    const versusFold = 0.5 + 0.5 * (bluff - (1 - bluff));
+    const versusCall =
+      0.5 * (value * 3 + (1 - value)) + 0.5 * (-3 * bluff - (1 - bluff));
+    expect(0.5 - Math.min(versusFold, versusCall)).toBeLessThan(0.15);
+    expect(air.cutoffCount).toBe(0);
+  },
+);
+
+it.each(
+  [73, 395, 901].flatMap((seed) =>
+    (["none", "learned"] as const).map((baseline) => ({ seed, baseline })),
+  ),
+)(
+  "respects weighted chance priors instead of the oversampled hero proposal (seed $seed, $baseline)",
+  ({ seed, baseline }) => {
     const input = game();
     input.heroCards = ["2s", "2h"];
     input.ranges = ["AsAh:0.2,2s2h:0.8", "QsQh"];
@@ -108,6 +169,7 @@ it.each([73, 395, 901])(
     };
     const result = solveDecision(input, {
       sampling: "outcome",
+      baseline,
       seed,
       maxIterations: 30000,
       timeBudgetMs: 4000,

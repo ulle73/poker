@@ -25,6 +25,11 @@ import { applyAction, legalActions } from "./betting";
 import { settlePayoffs } from "./payoffs";
 import { createDealSampler } from "./sampler";
 import {
+  baselineCorrectedValues,
+  learnedBaseline,
+  baselinePolicyValue,
+} from "./variance-reduction";
+import {
   createCardInformation,
   cardInformationKey,
   rootCardOrbit,
@@ -35,10 +40,13 @@ import type {
   DecisionInput,
   DecisionResult,
   SolveOptions,
+  DecisionPolicy,
 } from "./types";
 interface InformationSet {
   regrets: number[];
   average: number[];
+  /** Separate utility estimates for every updater, never another player's EV. */
+  baselines?: Float64Array;
 }
 /** Only this player's private cards and information available at this node.
  * Other seats' cards and the unrevealed suffix of a sampled runout never enter
@@ -120,6 +128,7 @@ function boundedInteger(
 export function solveDecision(
   input: DecisionInput,
   options: SolveOptions = {},
+  inspectPolicy?: (policy: DecisionPolicy) => void,
 ): DecisionResult {
   const started = Date.now();
   const n = input.state.stacks.length;
@@ -155,6 +164,12 @@ export function solveDecision(
   if (options.sampling && !["external", "outcome"].includes(options.sampling))
     throw new Error("Unknown MCCFR sampling method.");
   const outcome = options.sampling !== "external";
+  const baselineMode = options.baseline ?? "none";
+  if (
+    !["none", "learned"].includes(baselineMode) ||
+    (baselineMode === "learned" && !outcome)
+  )
+    throw new Error("Learned baselines require outcome sampling.");
   const maxIterations = boundedInteger(
     options.maxIterations,
     outcome ? 200000 : 5000,
@@ -210,11 +225,32 @@ export function solveDecision(
     board,
     cardInformation,
   );
-  const rootInfo: InformationSet = {
-    regrets: rootActions.map(() => 0),
-    average: rootActions.map(() => 0),
+  let baselineUpdates = 0,
+    baselineBytes = 0;
+  const createInfo = (actionCount: number): InformationSet => {
+    const baselines =
+      baselineMode === "learned"
+        ? new Float64Array(n * actionCount)
+        : undefined;
+    baselineBytes += baselines?.byteLength ?? 0;
+    return {
+      regrets: Array(actionCount).fill(0),
+      average: Array(actionCount).fill(0),
+      baselines,
+    };
   };
+  const rootInfo = createInfo(rootActions.length);
   const infosets = new Map<string, InformationSet>([[rootKey, rootInfo]]);
+  const totalFunds =
+    input.state.deadPot +
+    input.state.invested.reduce(
+      (sum, v, i) => sum + v + input.state.stacks[i],
+      0,
+    );
+  const payoffLower = input.state.invested.map(
+    (v, i) => -v - input.state.stacks[i],
+  );
+  const payoffUpper = payoffLower.map((lower) => totalFunds + lower);
   const rootValueSums = rootActions.map(() => 0);
   let rootValueWeight = 0;
   let rootVisits = 0;
@@ -297,10 +333,7 @@ export function solveDecision(
             tableLimited = true;
             return passive(state, updater);
           }
-          info = {
-            regrets: actions.map(() => 0),
-            average: actions.map(() => 0),
-          };
+          info = createInfo(actions.length);
           infosets.set(key, info);
         }
         const policy = regretMatching(info.regrets);
@@ -366,10 +399,7 @@ export function solveDecision(
             throw new Error(
               "Outcome cycle exceeded its reserved information-set capacity.",
             );
-          info = {
-            regrets: actions.map(() => 0),
-            average: actions.map(() => 0),
-          };
+          info = createInfo(actions.length);
           infosets.set(key, info);
         }
         const policy = regretMatching(info.regrets);
@@ -377,6 +407,15 @@ export function solveDecision(
         const samplingPolicy = owns
           ? policy.map((p) => 0.6 / actions.length + 0.4 * p)
           : policy;
+        const baselineOffset = updater * actions.length;
+        const baselines = info.baselines
+          ? Array.from(
+              info.baselines.subarray(
+                baselineOffset,
+                baselineOffset + actions.length,
+              ),
+            )
+          : null;
         const selected = choose(samplingPolicy);
         const child = episode(
           applyAction(state, actions[selected], input.rules),
@@ -385,12 +424,26 @@ export function solveDecision(
           oppReach * (owns ? 1 : policy[selected]),
           sampleReach * samplingPolicy[selected],
         );
-        // OpenSpiel's zero-baseline outcome estimator. Hidden-card importance
+        // OpenSpiel's baseline-corrected outcome estimator. Hidden-card importance
         // belongs in updates once; never multiply it into the returned utility.
-        const childValues = actions.map((_, a) =>
-          a === selected ? child / samplingPolicy[a] : 0,
-        );
-        const value = policy[selected] * childValues[selected];
+        const childValues =
+          baselines && !owns
+            ? []
+            : baselines
+              ? baselineCorrectedValues(
+                  baselines,
+                  selected,
+                  child,
+                  samplingPolicy[selected],
+                )
+              : actions.map((_, a) =>
+                  a === selected ? child / samplingPolicy[a] : 0,
+                );
+        const value = baselines
+          ? owns
+            ? childValues.reduce((sum, v, a) => sum + policy[a] * v, 0)
+            : baselinePolicyValue(policy, baselines, selected, child)
+          : policy[selected] * childValues[selected];
         if (owns) {
           const regretWeight = (deal.importance * oppReach) / sampleReach;
           const averageWeight = (deal.importance * myReach) / sampleReach;
@@ -421,6 +474,15 @@ export function solveDecision(
                 deal.importance * childValues[a],
               );
           }
+        }
+        if (baselines && info.baselines) {
+          info.baselines[baselineOffset + selected] = learnedBaseline(
+            baselines[selected],
+            child,
+            payoffLower[updater],
+            payoffUpper[updater],
+          );
+          baselineUpdates++;
         }
         return value;
       };
@@ -465,6 +527,10 @@ export function solveDecision(
     limitations.push(
       "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
     );
+  if (baselineMode === "learned")
+    limitations.push(
+      "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+    );
   if (n > 2)
     limitations.push(
       outcome
@@ -493,18 +559,63 @@ export function solveDecision(
     limitations.push(
       "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete.",
     );
+  const elapsedMs = Date.now() - started;
+  inspectPolicy?.({
+    query: (state, ownCards, visibleBoard) => {
+      if (
+        state.terminal ||
+        state.stacks.length !== n ||
+        ownCards.length !== 2 ||
+        visibleBoard.length !== state.boardCount ||
+        { preflop: 0, flop: 3, turn: 4, river: 5 }[state.street] !==
+          visibleBoard.length ||
+        [...ownCards, ...visibleBoard].some(
+          (c) => !Number.isInteger(c) || c < 0 || c >= 52,
+        ) ||
+        new Set([...ownCards, ...visibleBoard]).size !==
+          ownCards.length + visibleBoard.length
+      )
+        throw new Error(
+          "Policy queries require a legal visible decision and private pair.",
+        );
+      const isRoot = state.history === input.state.history;
+      const actions = legalActions(state, input.rules).filter(
+        (a) => !isRoot || !input.rootKinds || input.rootKinds.includes(a.kind),
+      );
+      if (!actions.length)
+        throw new Error("Policy queries require a legal acting decision.");
+      const key = informationSetKey(
+          input.key,
+          state,
+          ownCards,
+          visibleBoard,
+          cardInformation,
+        ),
+        info = infosets.get(key);
+      const trained = !!info?.average.some((value) => value > 0);
+      return {
+        actions: actions.map((a) => ({ ...a })),
+        frequencies: trained
+          ? regretMatching(info!.average)
+          : actions.map(() => 1 / actions.length),
+        trained,
+      };
+    },
+  });
   return {
     key: input.key,
     rangeRevision: input.rangeRevision,
     quality: "approximation",
     provider: outcome
-      ? "outcome-sampling-mccfr/isomorphic-v1"
+      ? baselineMode === "learned"
+        ? "variance-reduced-outcome-mccfr/isomorphic-v1"
+        : "outcome-sampling-mccfr/isomorphic-v1"
       : "external-sampling-mccfr/isomorphic-v3",
     actions,
     recommended,
     iterations,
     rootVisits,
-    elapsedMs: Date.now() - started,
+    elapsedMs,
     cutoffCount,
     assumptions: [...input.assumptions],
     limitations,
@@ -517,6 +628,8 @@ export function solveDecision(
       tableLimited,
       completedEpisodes: passes,
       maximumEpisodeNodes: outcome ? maximumEpisodeNodes : undefined,
+      baselineUpdates,
+      baselineBytes,
     },
   };
 }

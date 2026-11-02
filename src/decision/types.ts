@@ -75,6 +75,8 @@ export interface DecisionResult {
     tableLimited: boolean;
     completedEpisodes?: number;
     maximumEpisodeNodes?: number;
+    baselineUpdates?: number;
+    baselineBytes?: number;
   };
 }
 export interface SampledDeal {
@@ -82,8 +84,23 @@ export interface SampledDeal {
   runout: number[];
   importance: number;
 }
+/** Completed average policy for offline independent quality evaluation.
+ * Queries contain only the acting seat's cards and the visible public state.
+ */
+export interface DecisionPolicy {
+  query(
+    state: BettingState,
+    ownCards: readonly number[],
+    visibleBoard: readonly number[],
+  ): {
+    actions: BettingAction[];
+    frequencies: number[];
+    trained: boolean;
+  };
+}
 export interface SolveOptions {
   sampling?: "external" | "outcome";
+  baseline?: "none" | "learned";
   seed?: number;
   maxIterations?: number;
   timeBudgetMs?: number;
