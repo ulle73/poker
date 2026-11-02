@@ -74,3 +74,10 @@ call blev 58,38 % och 57,58 % i två körningar, mot kravet över 90 %. Den sena
 kontrollen har en foldande blueprint-fallback så att saknad söktäckning inte
 kan ge ett falskt grönt test. Kandidaten är fortsatt underkänd; se
 [aktuell-gata-auditen](evidence/noregrets-current-street-audit.json).
+
+Nästa steg rättade gemensam kortsampling och importance-viktat frågehand-fokus.
+Fem samplingregressioner och hela native-sviten med 153 test passerade.
+Trepersoners-nutsfallet gav nu 99,9997 % call med samma budget, krav och
+foldande blueprint-fallback; fyra upprepningar med en/fyra trådar passerade.
+Detta avhjälper det avgränsade testfelet men är ingen generell strategiaudit.
+Se [senaste samplingauditen](evidence/noregrets-joint-audit.json).

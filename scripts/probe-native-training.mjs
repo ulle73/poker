@@ -15,8 +15,8 @@ const upstream = spawnSync("git", ["-C", ".research/noregrets", "rev-parse", "HE
 if (upstream.status !== 0 || upstream.stdout.trim() !== "757f7692738069522195d2b486eec60a8b010c0c")
   throw new Error("Research source revision changed; re-audit before probing.");
 const patches = [
-  { file: "research/noregrets/advisor-current-street.patch",
-    paths: ["src/abstraction.rs", "src/bot.rs", "src/cfr.rs", "src/engine.rs"] },
+  { file: "research/noregrets/advisor-joint-sampling.patch",
+    paths: ["src/abstraction.rs", "src/bot.rs", "src/cfr.rs", "src/engine.rs", "src/search.rs"] },
 ];
 const sourcePatches = patches.map(p => ({ file: p.file, sha256: sha(resolve(project, p.file)) }));
 function verifySource() {
@@ -40,7 +40,7 @@ verifySource();
 const buildArgs = ["scripts/native-research-cargo.mjs", "build", "--manifest-path",
   ".research/noregrets/Cargo.toml", "--release", "--locked", "-j", "4"];
 const built = spawnSync(process.execPath, buildArgs, {cwd:project, encoding:"utf8", timeout:300000});
-const buildLog = "docs/evidence/noregrets-current-street-build.log";
+const buildLog = "docs/evidence/noregrets-joint-build.log";
 writeFileSync(resolve(project, buildLog), (built.stdout + built.stderr).replace(/\r\n/g,"\n").trimEnd() + "\n");
 if (built.status !== 0) throw new Error(`Research build failed: ${built.error?.message || built.stderr || built.status}`);
 verifySource();
@@ -61,7 +61,7 @@ for (let players = 2; players <= 10; players++) {
     bytes: statSync(model).size, sha256: sha(model), eligibleForAdvice: false });
   console.log(`${players} seats: trained and loaded synthetic smoke model`);
 }
-writeFileSync(resolve(project, "docs/evidence/noregrets-current-street-training-smoke.json"), JSON.stringify({
+writeFileSync(resolve(project, "docs/evidence/noregrets-joint-training-smoke.json"), JSON.stringify({
   verifiedAt: new Date().toISOString(), goalReady: false, eligibleForAdvice: false,
   scope: "Twenty-traversal synthetic file-IO smoke, all seat counts 2-10. No strategy-quality certification; candidate has known failing strategy tests and artifact-binding gaps.",
   upstreamRevision: upstream.stdout.trim(), sourcePatches,

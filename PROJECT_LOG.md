@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | NoRegrets byggd isolerat på Windows; 10p-motor, rättad VR och exakt kortidentitet på aktuell sökgata | Ej integrerad; trepersonersstrategin fallerar och flera granskningsfynd är öppna |
+| Native forskning | 10p-motor, rättad VR, exakt aktuell sökgata och viktad gemensam kortsampling; 153 native-test passerar | Ej integrerad; bred oberoende strategiaudit, modellbindning och tränade blueprints saknas |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -132,6 +132,8 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-02, upprepning med en tråd | Pruning- och fokustestet passerade två gånger vardera | Samma binär/trösklar men annan träningsordning; inte robusthetsintyg |
 | 2026-11-02, aktuell sökgatas identitet | 0 pass/4 fel före; 4 pass/0 fel efter; alla 1176/1128/1081 lagliga privata par hålls isär | Kortrepresentation och exportskydd, inte kvalitet på en tränad strategi |
 | 2026-11-02, bred svit med exakt aktuell gata | 147 pass/1 fel; trepersoners-nuts call 58,38 %, sedan 57,58 % efter skärpt fallback-test | Finare kortidentitet räcker inte med befintlig träning/sampling |
+| 2026-11-02, gemensam viktad kortsampling | 4 röda regressioner före; 5 gröna efter; hela sviten **153 pass/0 fel** | Kortfördelning, fokus och viktens genomslag; inte generell strategikvalitet |
+| 2026-11-02, tidigare trepersoners-nuts efter fokus | 99,9997 % call i riktat test; fyra upprepningar över 99,999 % | Samma budget/krav, foldande blueprint-fallback kvar; bara detta scenario |
 
 Viktiga evidensfiler:
 
@@ -154,6 +156,9 @@ Viktiga evidensfiler:
   och [ny IO-probe med båda patcharna](docs/evidence/noregrets-training-sampling-smoke.json).
 - [Exakt aktuell sökgata](docs/evidence/noregrets-current-street-audit.json)
   och [dess fulla testkörning](docs/evidence/noregrets-current-street-full-test.log).
+- [Aktuell gemensam sampling](docs/evidence/noregrets-joint-audit.json),
+  [153-testkörningen](docs/evidence/noregrets-joint-full-test.log) och
+  [upprepade trepersonerskontroller](docs/evidence/noregrets-joint-repeatability.json).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -182,8 +187,8 @@ Viktiga evidensfiler:
 
 Upstream: `conorarmstrong/noregrets`, MIT, låst till
 `757f7692738069522195d2b486eec60a8b010c0c`.
-Den aktuella kumulativa `advisor-current-street.patch` innehåller motor-,
-sampling- och aktuell-gata-rättningarna. Den appliceras ensam mot ren upstream.
+Den aktuella kumulativa `advisor-joint-sampling.patch` innehåller motor-,
+VR-, aktuell-gata- och gemensam-kort-samplingrättningarna. Den appliceras ensam mot ren upstream.
 Tidigare patchar och evidens behålls som historik. Motorn utökar 6 till 10
 spelare och rättar höjningsrätt efter kort all-in, höjning utan kvarvarande
 motståndare med marker samt udda marker per pott.
@@ -199,6 +204,10 @@ Granskade fel/fynd och aktuell status:
    fortfarande med 58,38 % respektive 57,58 % call i två nya körningar.
    Kortidentiteten är rättad; nästa hypotes är otillräcklig träning av just
    aktuell hand/linje. Frekvens/orsak ska mätas, inte antas.
+   **Senare rättning:** viktad gemensam kortsampling med 50 % frågehand-fokus
+   gav 99,9997 % call utan ändrad budget eller sänkt krav. Fyra upprepningar
+   med 1/4 trådar passerade också. Denna regression är därmed avhjälpt i
+   testmodellen; en generell multiway-strategi är fortfarande inte certifierad.
 2. `cfr::tests::multiway_focus_keeps_the_fixed_point`: 72o call 27,4 %, krav under
   20 %. Detta test kör utan VR; det är **inte automatiskt samma fel som punkt 3**.
   Både detta fall och nutsfallet passerade i nästa breda körning utan en
@@ -247,6 +256,10 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
 - [x] Rätta och regressionstesta native-kandidatens lokala VR/fokus-estimator.
 - [x] Särskilj exakta privata par på aktuell sökgata och blockera export till
   ett format som inte beskriver den kontexten.
+- [x] Inför gemensam rangerestriktion, viktat frågehand-fokus och genomslag
+  av kortsamplingens vikt i både regret och medelstrategi, med oracle-fall.
+- [ ] Verifiera VPIP/PFR/handantal i det faktiska bordets HTML och utvärdera
+  modellförslaget i [statsundersökningen](docs/opponent-stats-research.md).
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
   förkasta den med tydliga mätningar om arkitekturen inte håller.
 - [ ] Välj/träna faktisk strategi och fortsättningsmodell för preflop, flop,
@@ -448,6 +461,64 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
   överföras med separata oracle-tester. Kontrollera även den native
   range-samplerns sekventiella normalisering mot avsedd gemensam rangefördelning.
 - Ingen användbar bred blueprint eller ny liveversion har levererats i steget.
+
+### 2026-11-02 19:27 Europe/Stockholm — Codex, gemensam sampling
+
+- Fortsatte från `ca81d19`. Föregående steg var framsteg: exakt kortidentitet
+  och mätningen 57,58 % nuts-call visade att rätt representation inte räckte.
+- Införde native `JointSampler`: produktpriorer med publika kortblockerare,
+  hel omdragning vid kollision, 50/50-mix mellan prior och frågehand. Samma
+  motståndarmodell tränas med `p/q`; spelarens riktiga kort hålls inte alltid
+  fasta i motståndarnas traverseringar. Foldade spelares viktade döda kort
+  samplas också. Begränsade numeriska/omöjliga ranger ger uttryckligt fel.
+- `RootSampler` returnerar nu en vikt eller fel. `run_subgame` applicerar
+  vikten före regret-/medelstrategiuppdatering och avvisar ogiltiga vikter.
+  Native Policy-omslaget stoppar fortfarande med `expect` vid samplingfel;
+  strukturerad appfelhantering återstår före integration.
+- Röda regressioner visade faktisk bias i legacy-samplern: tre lika viktade
+  kompatibla profiler fick 10092/5010/4898 observationer i stället för 1:1:1.
+  Viktens genomslag saknades också. Ingen tröskel sänktes.
+- Kommando:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_joint_sampler -- --test-threads=1`.
+  Före: exit 101, **0 pass/4 fel** (`docs/evidence/noregrets-joint-red.log`).
+  Efter: exit 0, **5 pass/0 fel** (`docs/evidence/noregrets-joint-green.log`).
+  Ett ytterligare test täcker ojämna vikter med radskalor 1e300/1e-300,
+  publika blockerare och foldade kort. De normaliserade profilvikterna är
+  oberoende räknade 3:2:1; empiriska avvikelser ska vara under 2 procentenheter.
+- Bred svit, samma cargo-kommando utan testfilter och med
+  `-- --test-threads=2`: exit 0, **153 pass/0 fel**, 135,19 sekunder.
+  Evidens: `docs/evidence/noregrets-joint-full-test.log`.
+- Riktat tidigare fall:
+  `... bot::tests::round_rooted_search_calls_the_nuts_three_way -- --exact --test-threads=1 --nocapture`:
+  exit 0, call **0,999997006514**, samma 40 000 iterationer/60 s-gräns och
+  foldande blueprint-fallback. Logg: `docs/evidence/noregrets-joint-nuts-test.log`.
+- Upprepade samma kompilerade fall två gånger med `RAYON_NUM_THREADS=1`
+  och två med `4`, en Rust-testtråd: alla exit 0. Call låg mellan
+  0,999998695676 och 0,999999932189. Exakta argument, resultat och binärhash:
+  `docs/evidence/noregrets-joint-repeatability.json`.
+- `node scripts/probe-native-training.mjs`: exit 0, ombyggd native-binär och
+  IO-modeller för varje antal 2–10. 20 traversaler per modell är bara IO-data.
+  Aktuell kumulativ patch: `research/noregrets/advisor-joint-sampling.patch`,
+  appliceras ensam mot ren upstream. Äldre patchar/resultat behålls.
+- Samlad evidens: `docs/evidence/noregrets-joint-audit.json`. Appkoden,
+  avläsningen och den paketerade versionen ändrades inte.
+- Kvar: oberoende best-response-kontroll av den nya nativepolicyn, framtida
+  gators abstraktion, modellkonfiguration/beroenden och användbara tränade
+  blueprints. En hel grön svit är inte generell GTO-certifiering.
+
+### 2026-11-02 — VPIP/PFR, undersökning på användarens begäran
+
+- Användaren uppger att VPIP/PFR syns och att ett bord har öppnats. Försökte
+  först läsa via anslutna DevTools, som bara visade `about:blank`.
+- Computer Use rapporterade avstängd lokal browseråtkomst i Work och stoppade
+  sedan Edge-läsningen eftersom aktuell URL inte kunde fastställas säkert.
+  Inga försök att kringgå stoppet eller ändra inställningarna gjordes.
+- **HTML-fälten är inte verifierade.** Ingen ny statsavläsning eller
+  rangeheuristik har lagts in. Detta hindrar statsundersökningen, inte det
+  oberoende solverarbetet.
+- Sparade primärkällor, avgränsning av ±5–10 procentenheter, modellförslag och
+  DOM-checklista i `docs/opponent-stats-research.md`. Fortsatt HTML-arbete
+  kräver en fungerande tillåten anslutning till pokerfliken.
 
 ### Mall för nästa loggpost
 

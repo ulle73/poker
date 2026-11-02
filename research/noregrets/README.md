@@ -68,7 +68,7 @@ Ytterligare granskade brister är ännu inte rättade:
 
 ## Senare steg: exakt identitet på aktuell gata
 
-`advisor-current-street.patch` är den **aktuella kumulativa patchen från ren
+`advisor-current-street.patch` var den kumulativa patchen för detta steg från ren
 upstream**. Den innehåller även de tidigare motor- och samplingrättningarna.
 De äldre två patcharna behålls för historik; lägg inte den kumulativa ovanpå dem.
 
@@ -95,9 +95,42 @@ att hålla spelarens faktiska kort fasta i motståndarnas hela modell skulle
 läcka dold information och är ingen acceptabel genväg. Framtida gator har
 fortfarande grov abstraktion och perfekt minne är inte löst generellt.
 
-Ingen av dessa luckor får kringgås genom att låta en kandidatmodell ersätta
-verifierade råd. Nästa kvalitetsarbete behöver bland annat förbättra viktad
-sampling av aktuell hand och binda artefakter till rätt spelkonfiguration.
+## Aktuellt steg: gemensamma ranger och viktad frågehand
+
+**Aktuell kumulativ patch:** `advisor-joint-sampling.patch`, applicerad ensam
+mot ren låst upstream. Alla äldre patchar och mätningar behålls som historik.
+
+MCCFR-sökningen använder nu en produkt av spelarnas ranger, villkorad på att
+alla kort är unika. Vid kollision dras hela förslaget om. Hälften av förslagen
+överviktar frågans faktiska hand; `p/q` följer med till både regret och
+medelstrategi. Övriga traversalvarv håller inte den handen fixerad hos alla
+motståndare. Foldade spelares modellerade döda kort ingår också.
+
+Fyra regressioner föll före ändringen. Fem passerar efteråt, inklusive ett
+ytterligare viktat trepersonersfall med foldade kort. Den gamla samplern gav
+10092/5010/4898 observationer för tre givprofiler som ska vara lika sannolika.
+Ny viktad sampling matchar oberoende enumererade 1:1:1- och 3:2:1-fördelningar
+inom testtoleransen. Uniforma 2–10-personersfall kontrollerar både ökat antal
+besök för frågehanden och rätt korrigerad sannolikhet.
+
+Hela native-sviten passerar nu **153 tester**. Den tidigare fallerade
+trepersoners-nutshanden fick 99,9997 % call i en riktad körning, utan ändrat
+krav eller träningsbudget och med den foldande fallback-fixturen kvar.
+Två upprepningar med en tråd och två med fyra gav samtliga över 99,999 % call.
+Se [samplingauditen](../../docs/evidence/noregrets-joint-audit.json).
+
+Detta är begränsad sampling- och regressionsverifiering. Det finns ännu ingen
+oberoende best-response-audit av denna nativestrategi för generella multiway-
+lägen. Future-street-abstraktionen, modellbindning och tränade blueprints
+återstår. `p/q` kan utelämna en gemensam rotnormaliseringskonstant och ska inte
+användas som ett fristående normaliserat EV-estimat. Ogiltiga/oförenliga ranger
+avvisas; native Policy-omslaget behöver fortfarande strukturerad felhantering
+före appintegration. Äldre `sample_holes` finns kvar hos andra upstream-
+forskningsanvändare; den nya gemensamma lagen används av MCCFR-sökningen.
+
+Ingen kandidatmodell får ersätta verifierade råd utan motsvarande kontroll.
+Nästa kvalitetsarbete är oberoende strategimätning och att binda artefakter
+till spelkonfiguration och beroenden.
 
 ## Windows-byggningen som användes
 
@@ -130,19 +163,23 @@ och bygger binären från den kontrollerade källan innan modellerna skapas.
 Det äldre resultatet behålls som historik. Alla modeller är fortfarande enbart
 syntetiska 20-traversals testdata.
 
-[Den aktuella IO-proben](../../docs/evidence/noregrets-current-street-training-smoke.json)
+[Den föregående IO-proben](../../docs/evidence/noregrets-current-street-training-smoke.json)
 bygger från den kumulativa patchen och bevarar tidigare resultatfiler.
+
+[Aktuell IO-probe](../../docs/evidence/noregrets-joint-training-smoke.json)
+binder den aktuella samplingpatchen. Modellerna är fortfarande endast IO-testdata.
 
 I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 
 ```powershell
 git clone https://github.com/conorarmstrong/noregrets.git .research/noregrets
 git -C .research/noregrets checkout 757f7692738069522195d2b486eec60a8b010c0c
-git -C .research/noregrets apply ../../research/noregrets/advisor-current-street.patch
+git -C .research/noregrets apply ../../research/noregrets/advisor-joint-sampling.patch
 node scripts/native-research-cargo.mjs build --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 engine::tests -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_current_street -- --test-threads=1
+node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_joint_sampler -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2
 node scripts/probe-native-training.mjs
 ```

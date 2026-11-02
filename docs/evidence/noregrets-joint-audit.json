@@ -1,0 +1,124 @@
+{
+  "recordedAt": "2026-11-02T18:25:24.479Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "url": "https://github.com/conorarmstrong/noregrets",
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patches": [
+      {
+        "file": "research/noregrets/advisor-joint-sampling.patch",
+        "sha256": "1ade4d09a335dfcc094b28b55285864bebdad91e87e8a2b4d2ebaf87ea4e0abf"
+      }
+    ],
+    "patchScope": "Cumulative patch from clean pinned upstream."
+  },
+  "changes": [
+    "Immutable public-board-only product priors; no use of opponents original hidden cards",
+    "Whole-mixture rejection on collisions instead of sequential conditional renormalization",
+    "Half prior / half query-hand proposal with p/q carried into regret and strategy averages",
+    "Folded seats retain modeled dead-card priors",
+    "Incompatible or invalid ranges return explicit sampling errors instead of uniform fallback"
+  ],
+  "tests": {
+    "red": {
+      "path": "docs/evidence/noregrets-joint-red.log",
+      "sha256": "eb28315a91596d49eecbeb8283964359c03f78aead7d4b9120fd51ec6164516a",
+      "status": "FAILED",
+      "passed": 0,
+      "failed": 4
+    },
+    "green": {
+      "path": "docs/evidence/noregrets-joint-green.log",
+      "sha256": "181ce7f64deb599f3db19994a8482b508be5e006b4d216a23d46f89550c99430",
+      "status": "ok",
+      "passed": 5,
+      "failed": 0
+    },
+    "full": {
+      "path": "docs/evidence/noregrets-joint-full-test.log",
+      "sha256": "10ac035805bb97c245134f974bc59d498812ef169f1413f4948f7d851f313557",
+      "status": "ok",
+      "passed": 153,
+      "failed": 0
+    },
+    "nuts": {
+      "path": "docs/evidence/noregrets-joint-nuts-test.log",
+      "sha256": "ad6b952ddaa2c4525360df5f0d7fe4103c2aea0e5b109d5dd612a25842b6bd7c",
+      "status": "ok",
+      "passed": 1,
+      "failed": 0
+    }
+  },
+  "fullSuiteConfig": {
+    "rayonThreads": 4,
+    "rustTestThreads": 2
+  },
+  "observedLegacyThreeProfileCounts": [
+    10092,
+    5010,
+    4898
+  ],
+  "expectedCompatibleProfileProbabilities": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "weightedThreeProfileProbabilities": [
+    0.5,
+    0.3333333333333333,
+    0.16666666666666666
+  ],
+  "testProbabilityTolerance": 0.02,
+  "beforeQueryFocus": {
+    "sourceEvidence": "docs/evidence/noregrets-current-street-audit.json",
+    "threeWayNutsCall": 0.5758262595054398
+  },
+  "afterQueryFocus": {
+    "targetRunCall": 0.999997006514,
+    "repeatability": {
+      "path": "docs/evidence/noregrets-joint-repeatability.json",
+      "sha256": "8d8ec751da917fe57e4fd8197358d7a5cffc47c0f32810a4150f1497125b0305",
+      "calls": [
+        0.999999932189,
+        0.999999932189,
+        0.999998719361,
+        0.999998695676
+      ],
+      "threads": [
+        1,
+        1,
+        4,
+        4
+      ]
+    }
+  },
+  "smoke": {
+    "path": "docs/evidence/noregrets-joint-training-smoke.json",
+    "sha256": "2538aa5d30cf61fab8133400065bb7e01e510638bd52383be64d5d466dfb55f9",
+    "players": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "traversalsPerModel": 20,
+    "eligibleForAdvice": false
+  },
+  "limitations": [
+    "Five bounded sampling regressions and the old strategy fixtures do not certify general NLHE",
+    "No independent multiway best-response audit of this native policy yet",
+    "Future-street abstraction and imperfect recall remain",
+    "Model configuration/dependency binding remains",
+    "Legacy sample_holes is retained for other upstream research users; new joint law is used by MCCFR subgame search",
+    "Native Policy wrapper still treats sampling errors as explicit panics; application integration needs structured error handling",
+    "Joint p/q omits a common root normalizer, so it is not a normalized stand-alone EV estimator"
+  ],
+  "scope": "Isolated research engine. Application, capture and quality gate unchanged."
+}

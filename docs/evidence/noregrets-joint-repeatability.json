@@ -1,0 +1,62 @@
+{
+  "recordedAt": "2026-11-02T18:22:42.062Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "sourcePatchSha256": "1ade4d09a335dfcc094b28b55285864bebdad91e87e8a2b4d2ebaf87ea4e0abf",
+  "testBinarySha256": "e9110e9064ef21062022277d09312eeda938965b4234ba95275886fa7dd8a42b",
+  "scope": "Repeated existing three-way nuts fixture at unchanged 40000-iteration/60000ms budget, folding blueprint fallback, one Rust test thread. Not general strategy certification.",
+  "runs": [
+    {
+      "args": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way",
+        "--exact",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "rayonThreads": 1,
+      "repeat": 1,
+      "exitCode": 0,
+      "call": 0.999999932189,
+      "output": "\nrunning 1 test\ntest bot::tests::round_rooted_search_calls_the_nuts_three_way ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 152 filtered out; finished in 0.16s\n\nadvisor-round-rooted-nuts call=0.999999932189\n"
+    },
+    {
+      "args": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way",
+        "--exact",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "rayonThreads": 1,
+      "repeat": 2,
+      "exitCode": 0,
+      "call": 0.999999932189,
+      "output": "\nrunning 1 test\ntest bot::tests::round_rooted_search_calls_the_nuts_three_way ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 152 filtered out; finished in 0.17s\n\nadvisor-round-rooted-nuts call=0.999999932189\n"
+    },
+    {
+      "args": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way",
+        "--exact",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "rayonThreads": 4,
+      "repeat": 1,
+      "exitCode": 0,
+      "call": 0.999998719361,
+      "output": "\nrunning 1 test\ntest bot::tests::round_rooted_search_calls_the_nuts_three_way ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 152 filtered out; finished in 0.06s\n\nadvisor-round-rooted-nuts call=0.999998719361\n"
+    },
+    {
+      "args": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way",
+        "--exact",
+        "--test-threads=1",
+        "--nocapture"
+      ],
+      "rayonThreads": 4,
+      "repeat": 2,
+      "exitCode": 0,
+      "call": 0.999998695676,
+      "output": "\nrunning 1 test\ntest bot::tests::round_rooted_search_calls_the_nuts_three_way ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 152 filtered out; finished in 0.06s\n\nadvisor-round-rooted-nuts call=0.999998695676\n"
+    }
+  ]
+}

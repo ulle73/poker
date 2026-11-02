@@ -1,0 +1,10 @@
+{
+  "checkedAt": "2026-11-02T18:27:02.471Z",
+  "checkedLocalLinks": 58,
+  "applicationUnchanged": true,
+  "cumulativePatchSha256": "1ade4d09a335dfcc094b28b55285864bebdad91e87e8a2b4d2ebaf87ea4e0abf",
+  "persistedLogHashesMatch": true,
+  "statsDomVerified": false,
+  "goalReady": false,
+  "eligibleForAdvice": false
+}
