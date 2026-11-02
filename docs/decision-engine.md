@@ -197,3 +197,66 @@ $env:POKER_MULTIWAY_PROBE='1'
 npx vitest run tests/decision-multiway-quality.test.ts --maxWorkers=1
 Remove-Item Env:POKER_MULTIWAY_PROBE
 ```
+
+## Återanvändning av publika spelträd 2026-11-02
+
+CPU-profilering visade att upprepad serialisering av samma offentliga tillstånd,
+regelkontroll och kopiering av bettingtillstånd tog en stor del av beräkningen.
+Outcome-motorn återanvänder nu lagliga handlingar och övergångar för varje
+komplett publik handlingshistorik. Privata kort och synliga bordskort har egna
+exakta nycklar vid varje publik nod. Varken olika historiker eller händer
+slås ihop till en grövre approximation. Referensvägen kan väljas med
+`publicTreeCache: false`; extern sampling använder den gamla vägen.
+
+Minnesbudgeten omfattar både informationsmängder och publika noder, inklusive
+terminaler. Utrymme för hela nästa uppdateringscykel reserveras innan en giv
+dras. Gränsen är högst två publika noder per tillåten informationsmängd, alltså
+100 000 publika noder vid standardinställningen. Policyauditen jämför alla
+publika fält innan en cachad historik återanvänds.
+
+16 jämförelser över alla gator och 2, 3, 6 och 10 spelare ger identiska
+frekvenser, EV-estimat, rotbesök och antal informationsmängder vid samma frö
+och cykelantal. En separat jämförelse av hela den viktade trepersonerspolicyn
+med inlärd baseline ger också identiskt oberoende best-response-resultat.
+
+[Prestandaproben](evidence/public-tree-performance-2026-11-02.json) kör samma
+2 000 cykler, först efter uppvärmning och sedan i omvänd ordning. Observerade
+tider för referensvägen respektive cachen:
+
+| Spelare | Referens, två körningar | Cache, två körningar |
+| --- | ---: | ---: |
+| 3 | 211 / 169 ms | 101 / 77 ms |
+| 6 | 816 / 713 ms | 254 / 260 ms |
+| 10 | 2 293 / 2 187 ms | 664 / 685 ms |
+
+Fler cykler inom fyra sekunder gav lägre uppmätt NashConv i de små spelen:
+0,85 %, 1,91 % och 6,92 % för 3, 6 respektive 10 spelare utan baseline.
+[Cache-körningen](evidence/multiway-public-cache-quality-2026-11-02.json) och
+[referenskörningen](evidence/multiway-public-cache-reference-2026-11-02.json)
+redovisar exakt cykelantal och tidsbudget. Väggtidskörningarna är känsliga för
+annan datorbelastning och bevisar ingen generell konvergens eller GTO-täckning.
+
+Den [nya fullrange-diagnostiken](evidence/decision-quality-public-cache.json)
+visar nästa konkreta begränsning: alla åtta fallen stannar vid modellens
+50 000 informationsmängder. Tiomannafallen slutför bara 365–401 cykler, med
+191–213 rotbesök, trots att tidsbudgeten inte tagit slut. Återanvändningen löser
+alltså tidsförlusten men inte bristen på tränad strategi över det stora spelet.
+Grinden för experimentella råd är oförändrad och den breda livefunktionen är
+fortfarande inte godkänd.
+
+Efter ändringen passerar 302 vanliga tester; tre diagnostiktester är opt-in
+och har körts separat. TypeScript och produktionsbygget passerar. Det
+[nya native-testet](evidence/decision-native-public-cache-smoke.json) kör den
+byggda Electron-appen med syntetiska snapshots i en separat profil: alla
+16 kombinationer av gata och 2/3/6/10 spelare passerar, grinden behålls,
+verifierad HU-turn/river fungerar och gamla råd försvinner vid ändrad tur,
+ogiltig eller inaktuell snapshot. Detta är funktionstest, inte en kontroll
+av den generella strategins kvalitet. Ingen ny portable-version har paketerats.
+
+Kör prestandaproben separat:
+
+```powershell
+$env:POKER_PUBLIC_CACHE_PERF='1'
+npx vitest run tests/decision-multiway-quality.test.ts --maxWorkers=1
+Remove-Item Env:POKER_PUBLIC_CACHE_PERF
+```

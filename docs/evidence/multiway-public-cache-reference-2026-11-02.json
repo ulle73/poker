@@ -1,0 +1,562 @@
+{
+  "verifiedAt": "2026-11-02T00:40:54.216Z",
+  "goalReady": false,
+  "scope": "Independent exact best responses to learned average policies in finite equal-stack check/jam river games with small private ranges. Does not certify general full-range NLHE.",
+  "runs": [
+    {
+      "count": 3,
+      "baseline": "none",
+      "result": {
+        "key": "quality-check-jam:3",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.292959872872745,
+            "ev": 145.57684041471254
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.707040127127255,
+            "ev": 150.8116650204557
+          }
+        ],
+        "recommended": 1,
+        "iterations": 56226,
+        "rootVisits": 33921,
+        "elapsedMs": 4001,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 24,
+          "cachedCardViews": 6,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 168678,
+          "maximumEpisodeNodes": 25,
+          "baselineUpdates": 0,
+          "baselineBytes": 0,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          9.522343953708528,
+          21.423503817385413,
+          -30.945847771093923
+        ],
+        "bestResponse": [
+          10.361476019942756,
+          24.823595021675587,
+          -29.87482191795566
+        ],
+        "gains": [
+          0.8391320662342281,
+          3.400091204290174,
+          1.0710258531382628
+        ],
+        "nashConv": 5.310249123662665,
+        "nashConvPct": 2.950138402034814,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 289
+      }
+    },
+    {
+      "count": 3,
+      "baseline": "learned",
+      "result": {
+        "key": "quality-check-jam:3",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.3995693759247847,
+            "ev": 147.68256700588861
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.6004306240752154,
+            "ev": 149.08210407803014
+          }
+        ],
+        "recommended": 1,
+        "iterations": 31083,
+        "rootVisits": 18695,
+        "elapsedMs": 4000,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 24,
+          "cachedCardViews": 6,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 93249,
+          "maximumEpisodeNodes": 25,
+          "baselineUpdates": 307498,
+          "baselineBytes": 1152,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          9.851082531120417,
+          21.992232212786337,
+          -31.843314743906763
+        ],
+        "bestResponse": [
+          10.381581193946374,
+          22.497476821069814,
+          -28.397955264643656
+        ],
+        "gains": [
+          0.5304986628259574,
+          0.5052446082834763,
+          3.4453594792631073
+        ],
+        "nashConv": 4.481102750372541,
+        "nashConvPct": 2.489501527984745,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 24,
+        "untrainedInformationSets": 0,
+        "visits": 294
+      }
+    },
+    {
+      "count": 6,
+      "baseline": "none",
+      "result": {
+        "key": "quality-check-jam:6",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.05266001430096039,
+            "ev": 340.9664270990543
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.9473399856990397,
+            "ev": 364.18713704369776
+          }
+        ],
+        "recommended": 1,
+        "iterations": 9418,
+        "rootVisits": 5607,
+        "elapsedMs": 4000,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 248,
+          "cachedCardViews": 9,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 56508,
+          "maximumEpisodeNodes": 49,
+          "baselineUpdates": 0,
+          "baselineBytes": 0,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          77.73459671372682,
+          107.47160120963689,
+          -2.5285611171397497,
+          -60.85725965287406,
+          -60.640008533195356,
+          -61.1803686201545
+        ],
+        "bestResponse": [
+          80.70456498919691,
+          112.04998800341379,
+          2.410961585805547,
+          -59.3867658177671,
+          -59.87535613260231,
+          -60
+        ],
+        "gains": [
+          2.9699682754700945,
+          4.5783867937769,
+          4.939522702945297,
+          1.4704938351069643,
+          0.7646524005930431,
+          1.1803686201545034
+        ],
+        "nashConv": 15.903392628046802,
+        "nashConvPct": 4.417609063346334,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 288,
+        "untrainedInformationSets": 150,
+        "visits": 6893
+      }
+    },
+    {
+      "count": 6,
+      "baseline": "learned",
+      "result": {
+        "key": "quality-check-jam:6",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.24126489465742157,
+            "ev": 340.8039028742801
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.7587351053425784,
+            "ev": 358.7687816885378
+          }
+        ],
+        "recommended": 1,
+        "iterations": 6363,
+        "rootVisits": 3802,
+        "elapsedMs": 4000,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 233,
+          "cachedCardViews": 9,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 38178,
+          "maximumEpisodeNodes": 49,
+          "baselineUpdates": 251189,
+          "baselineBytes": 22368,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          78.03269028417125,
+          105.70866697227042,
+          -1.7314657898262737,
+          -60.59079155955661,
+          -60.83912044935882,
+          -60.57997945769998
+        ],
+        "bestResponse": [
+          81.97243072784318,
+          113.12928384970478,
+          1.6690881166215707,
+          -59.1272427195984,
+          -59.98794098236575,
+          -59.99999999999999
+        ],
+        "gains": [
+          3.9397404436719228,
+          7.420616877434355,
+          3.4005539064478443,
+          1.4635488399582073,
+          0.8511794669930737,
+          0.5799794576999844
+        ],
+        "nashConv": 17.655618992205387,
+        "nashConvPct": 4.904338608945941,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 288,
+        "untrainedInformationSets": 188,
+        "visits": 6900
+      }
+    },
+    {
+      "count": 10,
+      "baseline": "none",
+      "result": {
+        "key": "quality-check-jam:10",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "outcome-sampling-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.7634100710572359,
+            "ev": 653.035583881019
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.2365899289427641,
+            "ev": 632.5861485601266
+          }
+        ],
+        "recommended": 0,
+        "iterations": 2512,
+        "rootVisits": 1509,
+        "elapsedMs": 4000,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 3432,
+          "cachedCardViews": 13,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 25120,
+          "maximumEpisodeNodes": 81,
+          "baselineUpdates": 0,
+          "baselineBytes": 0,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          150.90094849667275,
+          240.91687889176058,
+          72.70268363314169,
+          -62.21446854264165,
+          -67.00764410265056,
+          -67.13737838528999,
+          -65.96294788997875,
+          -69.03723697218638,
+          -69.59383945157934,
+          -63.56699567724832
+        ],
+        "bestResponse": [
+          187.0945396762504,
+          367.7996065687783,
+          103.92548009355943,
+          -45.893903285616155,
+          -57.10322512540432,
+          -59.71372304764247,
+          -59.89293732558189,
+          -59.956164761898286,
+          -60,
+          -54.617853190307954
+        ],
+        "gains": [
+          36.19359117957765,
+          126.88272767701773,
+          31.22279646041774,
+          16.320565257025493,
+          9.904418977246237,
+          7.423655337647524,
+          6.07001056439686,
+          9.081072210288092,
+          9.593839451579342,
+          8.949142486940367
+        ],
+        "nashConv": 261.64181960213705,
+        "nashConvPct": 43.60696993368951,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 6656,
+        "untrainedInformationSets": 5882,
+        "visits": 266155
+      }
+    },
+    {
+      "count": 10,
+      "baseline": "learned",
+      "result": {
+        "key": "quality-check-jam:10",
+        "rangeRevision": 0,
+        "quality": "approximation",
+        "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+        "actions": [
+          {
+            "kind": "check",
+            "to": 0,
+            "cost": 0,
+            "allIn": false,
+            "id": "check:0",
+            "frequency": 0.388208094899923,
+            "ev": 619.8684238326008
+          },
+          {
+            "kind": "bet",
+            "to": 90,
+            "cost": 90,
+            "allIn": true,
+            "id": "bet:90",
+            "frequency": 0.6117919051000771,
+            "ev": 618.055036791781
+          }
+        ],
+        "recommended": 1,
+        "iterations": 2407,
+        "rootVisits": 1430,
+        "elapsedMs": 4002,
+        "cutoffCount": 0,
+        "assumptions": [
+          "Exact small range priors for independent calibration; not full-range poker."
+        ],
+        "limitations": [
+          "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+          "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+          "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+          "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+          "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+          "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+        ],
+        "exploitabilityPct": null,
+        "diagnostics": {
+          "informationSets": 2596,
+          "cachedCardViews": 13,
+          "suitPermutations": 1,
+          "rootClassSize": 1,
+          "tableLimited": false,
+          "completedEpisodes": 24070,
+          "maximumEpisodeNodes": 81,
+          "baselineUpdates": 261679,
+          "baselineBytes": 415360,
+          "publicTreeNodes": 0,
+          "publicTreeLimited": false
+        }
+      },
+      "report": {
+        "ev": [
+          163.88101564463577,
+          228.21431559765892,
+          46.21352663944171,
+          -60.44403017067676,
+          -61.901267168501505,
+          -62.34553434557038,
+          -62.64113766405743,
+          -64.2535737452617,
+          -65.36449408005777,
+          -61.358820707610754
+        ],
+        "bestResponse": [
+          181.64814760026184,
+          277.30100858662655,
+          71.98419218147865,
+          -55.346057675897754,
+          -58.35803746032585,
+          -58.910770558956166,
+          -59.803599614715274,
+          -59.98110822406011,
+          -60.00000000000001,
+          -52.94400082442251
+        ],
+        "gains": [
+          17.76713195562607,
+          49.08669298896763,
+          25.770665542036937,
+          5.0979724947790075,
+          3.5432297081756516,
+          3.4347637866142122,
+          2.8375380493421574,
+          4.272465521201596,
+          5.36449408005776,
+          8.414819883188244
+        ],
+        "nashConv": 125.58977400998927,
+        "nashConvPct": 20.931629001664877,
+        "compatibleDeals": 6,
+        "queriedInformationSets": 6656,
+        "untrainedInformationSets": 6214,
+        "visits": 266240
+      }
+    }
+  ]
+}

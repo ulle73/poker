@@ -1,0 +1,733 @@
+{
+  "verifiedAt": "2026-11-02T00:41:55.943Z",
+  "scope": "Same-seed, same-cycle comparison with alternating order after warmup; no strategy certification.",
+  "goalReady": false,
+  "runs": [
+    {
+      "count": 3,
+      "results": [
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:3",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.03475065042073651,
+                "ev": 151.5004079145843
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.9652493495792634,
+                "ev": 166.55982032252936
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1186,
+            "elapsedMs": 211,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 24,
+              "cachedCardViews": 6,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 6000,
+              "maximumEpisodeNodes": 25,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:3",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.03475065042073651,
+                "ev": 151.5004079145843
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.9652493495792634,
+                "ev": 166.55982032252936
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1186,
+            "elapsedMs": 101,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 24,
+              "cachedCardViews": 6,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 6000,
+              "maximumEpisodeNodes": 25,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 25,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "count": 3,
+      "results": [
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:3",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.03475065042073651,
+                "ev": 151.5004079145843
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.9652493495792634,
+                "ev": 166.55982032252936
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1186,
+            "elapsedMs": 77,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 24,
+              "cachedCardViews": 6,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 6000,
+              "maximumEpisodeNodes": 25,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 25,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:3",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.03475065042073651,
+                "ev": 151.5004079145843
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.9652493495792634,
+                "ev": 166.55982032252936
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1186,
+            "elapsedMs": 169,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 24,
+              "cachedCardViews": 6,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 6000,
+              "maximumEpisodeNodes": 25,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "results": [
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:6",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.19851024443155343,
+                "ev": 362.94502860069656
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.8014897555684467,
+                "ev": 364.5317302222284
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1244,
+            "elapsedMs": 816,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 246,
+              "cachedCardViews": 9,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 12000,
+              "maximumEpisodeNodes": 49,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:6",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.19851024443155343,
+                "ev": 362.94502860069656
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.8014897555684467,
+                "ev": 364.5317302222284
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1244,
+            "elapsedMs": 254,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 246,
+              "cachedCardViews": 9,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 12000,
+              "maximumEpisodeNodes": 49,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 339,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "count": 6,
+      "results": [
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:6",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.19851024443155343,
+                "ev": 362.94502860069656
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.8014897555684467,
+                "ev": 364.5317302222284
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1244,
+            "elapsedMs": 260,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 246,
+              "cachedCardViews": 9,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 12000,
+              "maximumEpisodeNodes": 49,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 339,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:6",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.19851024443155343,
+                "ev": 362.94502860069656
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.8014897555684467,
+                "ev": 364.5317302222284
+              }
+            ],
+            "recommended": 1,
+            "iterations": 2000,
+            "rootVisits": 1244,
+            "elapsedMs": 713,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 246,
+              "cachedCardViews": 9,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 12000,
+              "maximumEpisodeNodes": 49,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "count": 10,
+      "results": [
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:10",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.6958993162055996,
+                "ev": 674.010084270524
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.3041006837944004,
+                "ev": 621.6971875444794
+              }
+            ],
+            "recommended": 0,
+            "iterations": 2000,
+            "rootVisits": 1174,
+            "elapsedMs": 2293,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 3322,
+              "cachedCardViews": 13,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 20000,
+              "maximumEpisodeNodes": 81,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:10",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.6958993162055996,
+                "ev": 674.010084270524
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.3041006837944004,
+                "ev": 621.6971875444794
+              }
+            ],
+            "recommended": 0,
+            "iterations": 2000,
+            "rootVisits": 1174,
+            "elapsedMs": 664,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 3322,
+              "cachedCardViews": 13,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 20000,
+              "maximumEpisodeNodes": 81,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 4526,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "count": 10,
+      "results": [
+        {
+          "publicTreeCache": true,
+          "result": {
+            "key": "quality-check-jam:10",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.6958993162055996,
+                "ev": 674.010084270524
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.3041006837944004,
+                "ev": 621.6971875444794
+              }
+            ],
+            "recommended": 0,
+            "iterations": 2000,
+            "rootVisits": 1174,
+            "elapsedMs": 685,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 3322,
+              "cachedCardViews": 13,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 20000,
+              "maximumEpisodeNodes": 81,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 4526,
+              "publicTreeLimited": false
+            }
+          }
+        },
+        {
+          "publicTreeCache": false,
+          "result": {
+            "key": "quality-check-jam:10",
+            "rangeRevision": 0,
+            "quality": "approximation",
+            "provider": "outcome-sampling-mccfr/isomorphic-v1",
+            "actions": [
+              {
+                "kind": "check",
+                "to": 0,
+                "cost": 0,
+                "allIn": false,
+                "id": "check:0",
+                "frequency": 0.6958993162055996,
+                "ev": 674.010084270524
+              },
+              {
+                "kind": "bet",
+                "to": 90,
+                "cost": 90,
+                "allIn": true,
+                "id": "bet:90",
+                "frequency": 0.3041006837944004,
+                "ev": 621.6971875444794
+              }
+            ],
+            "recommended": 0,
+            "iterations": 2000,
+            "rootVisits": 1174,
+            "elapsedMs": 2187,
+            "cutoffCount": 0,
+            "assumptions": [
+              "Exact small range priors for independent calibration; not full-range poker."
+            ],
+            "limitations": [
+              "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+              "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+              "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+              "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+              "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee."
+            ],
+            "exploitabilityPct": null,
+            "diagnostics": {
+              "informationSets": 3322,
+              "cachedCardViews": 13,
+              "suitPermutations": 1,
+              "rootClassSize": 1,
+              "tableLimited": false,
+              "completedEpisodes": 20000,
+              "maximumEpisodeNodes": 81,
+              "baselineUpdates": 0,
+              "baselineBytes": 0,
+              "publicTreeNodes": 0,
+              "publicTreeLimited": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

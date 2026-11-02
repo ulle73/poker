@@ -190,6 +190,53 @@ function inputFor(spot: CheckJamSpot): DecisionInput {
   };
 }
 
+it("preserves the full learned average policy under public-tree caching", () => {
+  const spot = fixture(3), input = inputFor(spot);
+  input.ranges[0] = "AsAd:0.2,QsJs:0.8";
+  spot.ranges[0][0].weight = 0.2;
+  spot.ranges[0][1].weight = 0.8;
+  const run = (publicTreeCache: boolean) => {
+    let profile: DecisionPolicy | undefined;
+    const result = solveDecision(input, {
+      seed: 395, baseline: "learned", publicTreeCache, maxIterations: 3000, timeBudgetMs: 4000,
+    }, (p) => { profile = p; });
+    return { result, report: independentCheckJamReport(spot, profile!) };
+  };
+  const reference = run(false), cached = run(true);
+  expect(cached.result.actions).toEqual(reference.result.actions);
+  expect(cached.report).toEqual(reference.report);
+});
+
+it.skipIf(process.env.POKER_PUBLIC_CACHE_PERF !== "1")(
+  "compares fixed-cycle throughput without accepting a different strategy",
+  () => {
+    const runs = [];
+    for (const count of [3, 6, 10]) {
+      const input = inputFor(fixture(count));
+      for (const publicTreeCache of [false, true])
+        solveDecision(input, { publicTreeCache, maxIterations: 250, timeBudgetMs: 4000 });
+      for (const order of [[false, true], [true, false]]) {
+        const results = order.map((publicTreeCache) => ({
+          publicTreeCache,
+          result: solveDecision(input, {
+            seed: 395, publicTreeCache, maxIterations: 2000, timeBudgetMs: 4000,
+          }),
+        }));
+        for (const { result } of results) expect(result.iterations).toBe(2000);
+        expect(results[0].result.actions).toEqual(results[1].result.actions);
+        expect(results[0].result.rootVisits).toBe(results[1].result.rootVisits);
+        runs.push({ count, results });
+      }
+    }
+    writeFileSync("docs/evidence/public-tree-performance-2026-11-02.json",
+      JSON.stringify({
+        verifiedAt: new Date().toISOString(),
+        scope: "Same-seed, same-cycle comparison with alternating order after warmup; no strategy certification.",
+        goalReady: false, runs,
+      }, null, 2) + "\n");
+  }, 60000,
+);
+
 it.skipIf(process.env.POKER_MULTIWAY_PROBE !== "1")(
   "measures full-profile unilateral deviation gains for 3, 6 and 10 players",
   () => {
@@ -206,7 +253,8 @@ it.skipIf(process.env.POKER_MULTIWAY_PROBE !== "1")(
             sampling: "outcome",
             baseline,
             timeBudgetMs: 4000,
-            maxIterations: 10000,
+            maxIterations: Number(process.env.POKER_MULTIWAY_ITERATIONS ?? 10000),
+            publicTreeCache: process.env.POKER_PUBLIC_CACHE !== "0",
           },
           (policy) => {
             profile = policy;
@@ -219,7 +267,7 @@ it.skipIf(process.env.POKER_MULTIWAY_PROBE !== "1")(
         runs.push({ count, baseline, result, report });
       }
     writeFileSync(
-      "docs/evidence/multiway-policy-quality-2026-11-02.json",
+      process.env.POKER_MULTIWAY_OUTPUT ?? "docs/evidence/multiway-policy-quality-2026-11-02.json",
       JSON.stringify(
         {
           verifiedAt: new Date().toISOString(),

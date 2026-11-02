@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { solveDecision } from "../src/decision/mccfr";
 import { legalActions } from "../src/decision/betting";
 import { cardCode } from "phe";
-import type { DecisionInput, DecisionStreet, DecisionPolicy } from "../src/decision/types";
+import type { DecisionInput, DecisionStreet, DecisionPolicy, SolveOptions } from "../src/decision/types";
 
 function game(n = 2, street: DecisionStreet = "river"): DecisionInput {
   const count = { preflop: 0, flop: 3, turn: 4, river: 5 }[street];
@@ -110,6 +110,23 @@ it("rejects a policy query for an inactive acting seat", () => {
   expect(() => profile!.query(invalid, codes(input.heroCards), codes(input.board)))
     .toThrow(/legal.*decision|no legal/i);
 });
+
+for (const street of ["preflop", "flop", "turn", "river"] as const)
+  for (const n of [2, 3, 6, 10])
+    it(`reuses public betting transitions without changing the ${n}-player ${street} strategy`, () => {
+      const input = game(n, street), saved = structuredClone(input);
+      const run = (publicTreeCache: boolean) => solveDecision(input, {
+        seed: 395, maxIterations: 50, timeBudgetMs: 4000, publicTreeCache,
+      } as SolveOptions);
+      const reference = run(false), cached = run(true);
+      expect(cached.actions).toEqual(reference.actions);
+      expect(cached.rootVisits).toBe(reference.rootVisits);
+      expect(cached.iterations).toBe(reference.iterations);
+      expect(cached.diagnostics?.informationSets).toBe(reference.diagnostics?.informationSets);
+      expect(input).toEqual(saved);
+      expect(Reflect.get(cached.diagnostics!, "publicTreeNodes")).toBeGreaterThan(0);
+      expect(Reflect.get(reference.diagnostics!, "publicTreeNodes")).toBe(0);
+    });
 
 it.each(["none", "learned"] as const)(
   "recovers the independently solved pot-sized river bluff mixture with %s baselines",

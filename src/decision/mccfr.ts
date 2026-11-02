@@ -23,6 +23,7 @@ import { cardCode, evaluateCardCodes } from "phe";
 import { createSeededRandom } from "../multiway/equity";
 import { applyAction, legalActions } from "./betting";
 import { settlePayoffs } from "./payoffs";
+import { PublicBettingTree, type PublicBettingNode } from "./public-tree";
 import { createDealSampler } from "./sampler";
 import {
   baselineCorrectedValues,
@@ -241,6 +242,16 @@ export function solveDecision(
   };
   const rootInfo = createInfo(rootActions.length);
   const infosets = new Map<string, InformationSet>([[rootKey, rootInfo]]);
+  let informationSetCount = 1;
+  const publicTree =
+    outcome && options.publicTreeCache !== false
+      ? new PublicBettingTree<InformationSet>(
+          input.state, input.rules, 2 * maxInfosets, input.rootKinds,
+        )
+      : null;
+  publicTree?.root.informationSets.set(
+    cardInformationKey(ownCards, board, cardInformation), rootInfo,
+  );
   const totalFunds =
     input.state.deadPot +
     input.state.invested.reduce(
@@ -258,6 +269,7 @@ export function solveDecision(
   let iterations = 0;
   let passes = 0;
   let tableLimited = false;
+  let publicTreeLimited = false;
   const choose = (policy: number[]): number => {
     let draw = random();
     for (let i = 0; i < policy.length - 1; i++) {
@@ -270,7 +282,14 @@ export function solveDecision(
     iterations < maxIterations &&
     (passes === 0 || Date.now() < deadline)
   ) {
-    if (outcome && infosets.size + n * maximumEpisodeNodes > maxInfosets) {
+    // Reserve every new public node, including one terminal per episode, before
+    // drawing chance. A started cycle is never selectively abandoned.
+    publicTreeLimited = !!publicTree &&
+      publicTree.size + n * (maximumEpisodeNodes + 1) > publicTree.capacity;
+    if (
+      outcome &&
+      (informationSetCount + n * maximumEpisodeNodes > maxInfosets || publicTreeLimited)
+    ) {
       tableLimited = true;
       break;
     }
@@ -335,6 +354,7 @@ export function solveDecision(
           }
           info = createInfo(actions.length);
           infosets.set(key, info);
+          informationSetCount++;
         }
         const policy = regretMatching(info.regrets);
         let value: number;
@@ -374,6 +394,7 @@ export function solveDecision(
         myReach: number,
         oppReach: number,
         sampleReach: number,
+        publicNode?: PublicBettingNode<InformationSet>,
       ): number => {
         if (state.terminal) return payoff(state, updater);
         if (++nodes > maximumEpisodeNodes)
@@ -381,26 +402,31 @@ export function solveDecision(
             "Outcome episode exceeded its complete-game path bound.",
           );
         const actions =
-          depth === 0 ? rootActions : legalActions(state, input.rules);
+          publicNode?.actions ??
+          (depth === 0 ? rootActions : legalActions(state, input.rules));
         if (!actions.length)
           throw new Error("Nonterminal state has no legal action.");
-        const key = informationSetKey(
-          input.key,
-          state,
-          deal.holes[state.actor],
-          deal.runout,
-          cardInformation,
-        );
-        let info = infosets.get(key);
+        const key = publicNode
+          ? cardInformationKey(
+              deal.holes[state.actor], deal.runout.slice(0, state.boardCount), cardInformation,
+            )
+          : informationSetKey(
+              input.key, state, deal.holes[state.actor], deal.runout, cardInformation,
+            );
+        let info = publicNode
+          ? publicNode.informationSets.get(key as number)
+          : infosets.get(key as string);
         if (!info) {
           // Capacity for every node in this entire update cycle was reserved
           // before sampling. Reaching this guard is an implementation failure.
-          if (infosets.size >= maxInfosets)
+          if (informationSetCount >= maxInfosets)
             throw new Error(
               "Outcome cycle exceeded its reserved information-set capacity.",
             );
           info = createInfo(actions.length);
-          infosets.set(key, info);
+          if (publicNode) publicNode.informationSets.set(key as number, info);
+          else infosets.set(key as string, info);
+          informationSetCount++;
         }
         const policy = regretMatching(info.regrets);
         const owns = state.actor === updater;
@@ -417,12 +443,16 @@ export function solveDecision(
             )
           : null;
         const selected = choose(samplingPolicy);
+        const childNode = publicNode
+          ? publicTree!.next(publicNode, selected)
+          : undefined;
         const child = episode(
-          applyAction(state, actions[selected], input.rules),
+          childNode?.state ?? applyAction(state, actions[selected], input.rules),
           depth + 1,
           myReach * (owns ? policy[selected] : 1),
           oppReach * (owns ? 1 : policy[selected]),
           sampleReach * samplingPolicy[selected],
+          childNode,
         );
         // OpenSpiel's baseline-corrected outcome estimator. Hidden-card importance
         // belongs in updates once; never multiply it into the returned utility.
@@ -465,7 +495,7 @@ export function solveDecision(
               averageWeight * policy[a],
             );
           }
-          if (depth === 0 && key === rootKey) {
+          if (depth === 0 && info === rootInfo) {
             rootVisits++;
             rootValueWeight = finiteSum(rootValueWeight, deal.importance);
             for (let a = 0; a < actions.length; a++)
@@ -486,7 +516,8 @@ export function solveDecision(
         }
         return value;
       };
-      if (outcome) episode(input.state, 0, 1, 1, 1);
+      if (outcome)
+        episode(publicTree?.root.state ?? input.state, 0, 1, 1, 1, publicTree?.root);
       else visit(input.state, 0);
       passes++;
     }
@@ -547,9 +578,11 @@ export function solveDecision(
     );
   if (tableLimited)
     limitations.push(
-      outcome
-        ? `Training stopped before the ${maxInfosets} entry limit because a complete update cycle could no longer be reserved.`
-        : `Information-set table reached its ${maxInfosets} entry limit.`,
+      publicTreeLimited
+        ? `Training stopped before the ${publicTree!.capacity} public betting-node limit because a complete update cycle could no longer be reserved.`
+        : outcome
+          ? `Training stopped before the ${maxInfosets} entry limit because a complete update cycle could no longer be reserved.`
+          : `Information-set table reached its ${maxInfosets} entry limit.`,
     );
   if (rootVisits < 100)
     limitations.push(
@@ -584,6 +617,7 @@ export function solveDecision(
       );
       if (!actions.length)
         throw new Error("Policy queries require a legal acting decision.");
+      const publicNode = publicTree?.find(state);
       const key = informationSetKey(
           input.key,
           state,
@@ -591,7 +625,9 @@ export function solveDecision(
           visibleBoard,
           cardInformation,
         ),
-        info = infosets.get(key);
+        info = publicTree
+          ? publicNode?.informationSets.get(cardInformationKey(ownCards, visibleBoard, cardInformation))
+          : infosets.get(key);
       const trained = !!info?.average.some((value) => value > 0);
       return {
         actions: actions.map((a) => ({ ...a })),
@@ -621,7 +657,7 @@ export function solveDecision(
     limitations,
     exploitabilityPct: null,
     diagnostics: {
-      informationSets: infosets.size,
+      informationSets: informationSetCount,
       cachedCardViews: cardInformation.cache?.size ?? 0,
       suitPermutations: cardInformation.permutations.length,
       rootClassSize: rootClass.length,
@@ -630,6 +666,8 @@ export function solveDecision(
       maximumEpisodeNodes: outcome ? maximumEpisodeNodes : undefined,
       baselineUpdates,
       baselineBytes,
+      publicTreeNodes: publicTree?.size ?? 0,
+      publicTreeLimited,
     },
   };
 }

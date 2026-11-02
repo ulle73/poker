@@ -77,6 +77,8 @@ export interface DecisionResult {
     maximumEpisodeNodes?: number;
     baselineUpdates?: number;
     baselineBytes?: number;
+    publicTreeNodes?: number;
+    publicTreeLimited?: boolean;
   };
 }
 export interface SampledDeal {
@@ -101,6 +103,8 @@ export interface DecisionPolicy {
 export interface SolveOptions {
   sampling?: "external" | "outcome";
   baseline?: "none" | "learned";
+  /** Diagnostic reference path; outcome sampling caches public transitions by default. */
+  publicTreeCache?: boolean;
   seed?: number;
   maxIterations?: number;
   timeBudgetMs?: number;
