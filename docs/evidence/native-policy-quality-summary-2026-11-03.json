@@ -1,0 +1,153 @@
+{
+  "recordedAt": "2026-11-02T23:33:59.710Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "scope": "Exact independent finite-game NashConv; sum of unilateral improvements as percent of initial pot. Not general NLHE.",
+  "baseCases": 30,
+  "longCases": 9,
+  "rows": [
+    {
+      "iterations": 100000,
+      "players": 2,
+      "weighted": false,
+      "minNashConvPct": 0.4752617751748289,
+      "maxNashConvPct": 0.9420347805761241,
+      "minUntrained": 0,
+      "maxUntrained": 0,
+      "minNativeElapsedMs": 47,
+      "maxNativeElapsedMs": 48
+    },
+    {
+      "iterations": 100000,
+      "players": 3,
+      "weighted": false,
+      "minNashConvPct": 1.2490875838583488,
+      "maxNashConvPct": 1.608849120678395,
+      "minUntrained": 0,
+      "maxUntrained": 0,
+      "minNativeElapsedMs": 68,
+      "maxNativeElapsedMs": 70
+    },
+    {
+      "iterations": 100000,
+      "players": 3,
+      "weighted": true,
+      "minNashConvPct": 1.2247117364223545,
+      "maxNashConvPct": 1.338644065479554,
+      "minUntrained": 0,
+      "maxUntrained": 0,
+      "minNativeElapsedMs": 69,
+      "maxNativeElapsedMs": 71
+    },
+    {
+      "iterations": 100000,
+      "players": 4,
+      "weighted": false,
+      "minNashConvPct": 1.6597072840392766,
+      "maxNashConvPct": 1.9289096368233152,
+      "minUntrained": 2,
+      "maxUntrained": 4,
+      "minNativeElapsedMs": 81,
+      "maxNativeElapsedMs": 84
+    },
+    {
+      "iterations": 100000,
+      "players": 5,
+      "weighted": false,
+      "minNashConvPct": 1.5924628730257282,
+      "maxNashConvPct": 1.7954449873891491,
+      "minUntrained": 6,
+      "maxUntrained": 11,
+      "minNativeElapsedMs": 101,
+      "maxNativeElapsedMs": 140
+    },
+    {
+      "iterations": 100000,
+      "players": 6,
+      "weighted": false,
+      "minNashConvPct": 1.5566933552773818,
+      "maxNashConvPct": 1.8585152965284908,
+      "minUntrained": 29,
+      "maxUntrained": 46,
+      "minNativeElapsedMs": 112,
+      "maxNativeElapsedMs": 116
+    },
+    {
+      "iterations": 100000,
+      "players": 7,
+      "weighted": false,
+      "minNashConvPct": 1.664118580207396,
+      "maxNashConvPct": 1.832143193044928,
+      "minUntrained": 70,
+      "maxUntrained": 86,
+      "minNativeElapsedMs": 126,
+      "maxNativeElapsedMs": 138
+    },
+    {
+      "iterations": 100000,
+      "players": 8,
+      "weighted": false,
+      "minNashConvPct": 1.5525087429170523,
+      "maxNashConvPct": 1.74432807637084,
+      "minUntrained": 268,
+      "maxUntrained": 343,
+      "minNativeElapsedMs": 140,
+      "maxNativeElapsedMs": 146
+    },
+    {
+      "iterations": 100000,
+      "players": 9,
+      "weighted": false,
+      "minNashConvPct": 1.6870819901719478,
+      "maxNashConvPct": 1.7921014161670474,
+      "minUntrained": 955,
+      "maxUntrained": 1124,
+      "minNativeElapsedMs": 167,
+      "maxNativeElapsedMs": 180
+    },
+    {
+      "iterations": 100000,
+      "players": 10,
+      "weighted": false,
+      "minNashConvPct": 1.8748475390339792,
+      "maxNashConvPct": 2.388548672672954,
+      "minUntrained": 2238,
+      "maxUntrained": 3023,
+      "minNativeElapsedMs": 202,
+      "maxNativeElapsedMs": 239
+    },
+    {
+      "iterations": 1000000,
+      "players": 3,
+      "weighted": false,
+      "minNashConvPct": 0.5239890663911382,
+      "maxNashConvPct": 0.6338117572038204,
+      "minUntrained": 0,
+      "maxUntrained": 0,
+      "minNativeElapsedMs": 682,
+      "maxNativeElapsedMs": 699
+    },
+    {
+      "iterations": 1000000,
+      "players": 3,
+      "weighted": true,
+      "minNashConvPct": 0.4931775083634804,
+      "maxNashConvPct": 0.5391560384813303,
+      "minUntrained": 0,
+      "maxUntrained": 0,
+      "minNativeElapsedMs": 703,
+      "maxNativeElapsedMs": 711
+    },
+    {
+      "iterations": 1000000,
+      "players": 10,
+      "weighted": false,
+      "minNashConvPct": 0.6180024038998738,
+      "maxNashConvPct": 0.6744889336053262,
+      "minUntrained": 2211,
+      "maxUntrained": 3008,
+      "minNativeElapsedMs": 1774,
+      "maxNativeElapsedMs": 1789
+    }
+  ]
+}

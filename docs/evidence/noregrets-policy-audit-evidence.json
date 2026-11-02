@@ -1,0 +1,105 @@
+{
+  "recordedAt": "2026-11-02T23:39:17.756Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "url": "https://github.com/conorarmstrong/noregrets",
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patch": {
+      "path": "research/noregrets/advisor-policy-audit.patch",
+      "sha256": "d0937851d535a99a7b45d01c278a5b54972646fe61286407932f6895576b8881"
+    }
+  },
+  "nativeBinarySha256": "d016a050cfe750f6b39f1ce7810954b7d03e2b02f37026059bff8f884cf436c3",
+  "logs": {
+    "red": {
+      "path": "docs/evidence/noregrets-policy-export-red.log",
+      "sha256": "91d9729e752b10aa5c3b330a8fb2f5b7700a6da2bd3f0e910bc67b1cc423a7c6"
+    },
+    "green": {
+      "path": "docs/evidence/noregrets-policy-export-green.log",
+      "sha256": "3b9fb888180bd3ea790daf477149915c7f2e77a37a00fd5c59c0fde25d7c4f37"
+    },
+    "nativeFull": {
+      "path": "docs/evidence/noregrets-policy-audit-full-test.log",
+      "sha256": "91f8876d70fbabdf378c5d0573f3bc39ec91d2997d5975c9498c8a1a11a0e905"
+    },
+    "app": {
+      "path": "docs/evidence/application-tests-2026-11-03.log",
+      "sha256": "5bf515d5254ae86e294a4dca58f86fd35e81d98bbbbe9cf89ff18a6a4cd4204b"
+    },
+    "adapter": {
+      "path": "docs/evidence/native-policy-adapter-tests.log",
+      "sha256": "11a5cd3a94e11e771f6747695336865e3501fdffb7bca6ed11815f00e139070a"
+    },
+    "base": {
+      "path": "docs/evidence/native-policy-quality-2026-11-03.log",
+      "sha256": "1d434983133d3ac0ba6eeb22c8f40a6a2a5a53947b3a42554a7439baea746f65"
+    },
+    "long": {
+      "path": "docs/evidence/native-policy-quality-long-2026-11-03.log",
+      "sha256": "d6497faae97ad8bf012d1fedf9afec9d1d6081859fb1924f4e06b7c835ce9398"
+    },
+    "build": {
+      "path": "docs/evidence/noregrets-policy-export-build.log",
+      "sha256": "2a7adc1609328bdfa21faaf25d3923f63f45eb36a8f1ddf0654268f846ddc0a1"
+    }
+  },
+  "tests": {
+    "nativeRegressionRed": {
+      "passed": 0,
+      "failed": 4
+    },
+    "nativeRegressionGreen": {
+      "passed": 4,
+      "failed": 0
+    },
+    "nativeFull": {
+      "passed": 157,
+      "failed": 0
+    },
+    "app": {
+      "passed": 305,
+      "skippedOptIn": 4
+    },
+    "adapterAndOracle": {
+      "passed": 10,
+      "skippedOptIn": 2
+    }
+  },
+  "independentAudit": {
+    "base": {
+      "path": "docs/evidence/native-policy-quality-2026-11-03.json",
+      "sha256": "5b842b31d9ddfe81eaa671e5bb5bd9217ee13de323e91c93ed349e7a5adc14d4",
+      "cases": 30
+    },
+    "long": {
+      "path": "docs/evidence/native-policy-quality-long-2026-11-03.json",
+      "sha256": "94291a40bdc76a26bc89e657ee7513e1d6cea402940a34b003564357b9997115",
+      "cases": 9
+    },
+    "summary": {
+      "path": "docs/evidence/native-policy-quality-summary-2026-11-03.json",
+      "sha256": "501e07852241b1eb76c40bfa01fe4f85d3d95a937f2048f46fa3da66bc7cec18"
+    }
+  },
+  "syntheticModelIO": {
+    "path": "docs/evidence/noregrets-policy-audit-training-smoke.json",
+    "sha256": "96c38334004efde4f966d4683756e1afe222db2c43e0dbf213a3d0478b716c78",
+    "players": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "traversalsPerModel": 20,
+    "eligibleForAdvice": false
+  },
+  "scope": "Bounded synthetic river check/jam profile and exact independent best responses. No generic strategy or live release approval."
+}

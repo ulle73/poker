@@ -1,0 +1,11 @@
+
+ RUN  v5.0.5 C:/Users/rydqv/Documents/ChatGPT/poker
+
+
+ Test Files  2 passed (2)
+      Tests  10 passed | 2 skipped (12)
+   Start at  19:40:44
+   Duration  1.55s (environment 75%, tests 17%, import 4%, transform 3%, worker 1%)
+
+    Isolate  2 workers spawned · ~600ms startup each (spawn + environment, per file)
+             at least ~600ms faster with isolate: false — reuses workers across files instead of one per file

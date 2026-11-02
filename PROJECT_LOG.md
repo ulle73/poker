@@ -1,6 +1,6 @@
 # Projektlogg och överlämning — Poker GTO Advisor
 
-Senast uppdaterad: **2026-11-02, Europe/Stockholm**, av Codex.
+Senast uppdaterad: **2026-11-03, Europe/Stockholm**, av Codex.
 Läs denna fil först om du tar över projektet. Uppdatera statusen och lägg till
 daterade resultat längst ned efter fortsatt arbete. Historiska resultat ska
 behållas och märkas som ersatta om en senare körning ändrar bilden.
@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | 10p-motor, rättad VR, exakt aktuell sökgata och viktad gemensam kortsampling; 153 native-test passerar | Ej integrerad; bred oberoende strategiaudit, modellbindning och tränade blueprints saknas |
+| Native forskning | 157 native-test; oberoende audit av 39 små riverspel, export och fungerande slumpfrö | Ej integrerad; bred strategitäckning, modellbindning och användbara blueprints saknas |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -134,6 +134,10 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-02, bred svit med exakt aktuell gata | 147 pass/1 fel; trepersoners-nuts call 58,38 %, sedan 57,58 % efter skärpt fallback-test | Finare kortidentitet räcker inte med befintlig träning/sampling |
 | 2026-11-02, gemensam viktad kortsampling | 4 röda regressioner före; 5 gröna efter; hela sviten **153 pass/0 fel** | Kortfördelning, fokus och viktens genomslag; inte generell strategikvalitet |
 | 2026-11-02, tidigare trepersoners-nuts efter fokus | 99,9997 % call i riktat test; fyra upprepningar över 99,999 % | Samma budget/krav, foldande blueprint-fallback kvar; bara detta scenario |
+| 2026-11-03, native export/seed | 4 röda → 4 gröna regressioner; hela sviten **157 pass** | Export, matchat publikt spel och effektivt slumpfrö; inget allmänt GTO-intyg |
+| 2026-11-03, oberoende best-response | 30 fall för 2–10p, tre frön; nio längre fall för 3/10p | Exakt NashConv i små specificerade river-check/jam-spel |
+| 2026-11-03, större träningsbudget | 1m uppdateringar: 3p 0,493–0,634 % och 10p 0,618–0,674 % NashConv | Lägre avvikelse än 100k i samma spel; fortfarande otränade 10p-rader och ingen bred certifiering |
+| 2026-11-03, ordinarie appsvit | **305 pass, 4 opt-in överhoppade**, TypeScript exit 0 | Tre nya adaptertester och en ny opt-in-probe; ingen ändrad appkärna |
 
 Viktiga evidensfiler:
 
@@ -159,6 +163,9 @@ Viktiga evidensfiler:
 - [Aktuell gemensam sampling](docs/evidence/noregrets-joint-audit.json),
   [153-testkörningen](docs/evidence/noregrets-joint-full-test.log) och
   [upprepade trepersonerskontroller](docs/evidence/noregrets-joint-repeatability.json).
+- [Ny oberoende native-policy-audit](docs/native-policy-audit.md),
+  [sammanställning](docs/evidence/native-policy-quality-summary-2026-11-03.json)
+  och [ny app-testlogg](docs/evidence/application-tests-2026-11-03.log).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -187,8 +194,9 @@ Viktiga evidensfiler:
 
 Upstream: `conorarmstrong/noregrets`, MIT, låst till
 `757f7692738069522195d2b486eec60a8b010c0c`.
-Den aktuella kumulativa `advisor-joint-sampling.patch` innehåller motor-,
-VR-, aktuell-gata- och gemensam-kort-samplingrättningarna. Den appliceras ensam mot ren upstream.
+Den aktuella kumulativa `advisor-policy-audit.patch` innehåller motor-, VR-,
+aktuell-gata-, gemensam-kort-sampling- och export/seed-rättningarna.
+Den appliceras ensam mot ren upstream.
 Tidigare patchar och evidens behålls som historik. Motorn utökar 6 till 10
 spelare och rättar höjningsrätt efter kort all-in, höjning utan kvarvarande
 motståndare med marker samt udda marker per pott.
@@ -258,6 +266,8 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
   ett format som inte beskriver den kontexten.
 - [x] Inför gemensam rangerestriktion, viktat frågehand-fokus och genomslag
   av kortsamplingens vikt i både regret och medelstrategi, med oracle-fall.
+- [x] Exportera faktisk native-policy och mät oberoende bästa ensidiga
+  avvikelse i små, fullständigt enumererade spel för varje antal 2–10.
 - [ ] Verifiera VPIP/PFR/handantal i det faktiska bordets HTML och utvärdera
   modellförslaget i [statsundersökningen](docs/opponent-stats-research.md).
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
@@ -519,6 +529,54 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
 - Sparade primärkällor, avgränsning av ±5–10 procentenheter, modellförslag och
   DOM-checklista i `docs/opponent-stats-research.md`. Fortsatt HTML-arbete
   kräver en fungerande tillåten anslutning till pokerfliken.
+
+### 2026-11-03 — Codex, native-policy-export och oberoende audit
+
+- Fortsatte från `0fa3403`. Föregående steg var framsteg: korrigerad sampling,
+  153 gröna native-tester och avhjälpt avgränsat nuts-fel. Ingen bred
+  strategiverifiering hade ännu genomförts.
+- Nytt `advisor-audit --input ... --output ...` exporterar medelstrategin,
+  hela publika trädet, lagliga belopp, egna privata rader och uttrycklig
+  `trained`-status i ett avgränsat riverspel. Otränade rader får uniforma
+  frekvenser som ingår i kontrollen. Det är inte en generell liveadapter.
+- Fann och reproducerade att subgame-sökningen ignorerade konfigurerat seed.
+  `TrainConfig.seed` deltar nu i dess RNG. Enkeltrådstest bekräftar samma
+  dragningar för samma frö och olika för olika frön.
+- Röd/grön-körning:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_audit -- --test-threads=1`.
+  Före exit 101, 0 pass/4 fel; efter exit 0, 4 pass/0 fel. Loggar:
+  `docs/evidence/noregrets-policy-export-red.log` och `-green.log`.
+- Separat TS-adapter jämför samtliga publika noder med orakelns eget spel,
+  även off-policy-grenar. Kalibrering och negativa tester av saknade grenar,
+  fel handlingar/stackar/bräde/privata rader gav 10 pass/2 opt-in överhoppade
+  tillsammans med befintliga oracle-tester. Ingen native EV/CFV används som facit.
+- Körde `POKER_NATIVE_POLICY_PROBE=1` med
+  `npx vitest run tests/native-policy-quality.test.ts --maxWorkers=1`:
+  exit 0, 30 fall, varje antal 2–10, frön 395/396/397, 100k uppdateringar.
+  Viktade ranger ingår vid 3p. Alla publika spel matchade och EV var nollsumma.
+- Ny körning med `POKER_NATIVE_POLICY_LONG=1`: exit 0, nio fall, 1m
+  uppdateringar för 3/10p över samma frön. NashConv blev 0,493–0,634 % vid 3p
+  och 0,618–0,674 % vid 10p. Det är summan av ensidiga förbättringar delad med
+  startpotten. Det är inte HU-exploaterbarhet eller en generell felgräns.
+- Långseriens 10p-profiler hade fortfarande 2211–3008 otränade efterfrågade
+  infosets. De ingår i uppmätt profil som uniform policy; de räknas inte bort.
+  Resultatet visar förbättring med budget, inte heltäckande konvergens.
+- Källor, indata, mätdefinition och reproduktion finns i `docs/native-policy-audit.md`.
+  Aggregatfilerna i `docs/evidence/native-policy-quality*-2026-11-03.json`
+  anger kompletta/delvisa körningar, faktisk budget, binär- och källpatchhash.
+  Fyra par av faktiska trepersonersindata och profiler sparas beständigt; större råprofiler
+  ligger under ignorerade `artifacts/native-policy-quality/`.
+- Hela native-sviten: exit 0, **157 pass**, 109,69 s. Ordinarie appsvit:
+  `npm test -- --pool=threads --maxWorkers=1`, exit 0, **305 pass/4 opt-in
+  överhoppade**, 29,89 s. `npx tsc --noEmit`: exit 0.
+- `node scripts/probe-native-training.mjs`: exit 0, syntetisk modell-IO 2–10.
+  Den aktuella patchen är `research/noregrets/advisor-policy-audit.patch`,
+  kumulativ från ren låst upstream. Appkärna/avläsning och portable är oförändrade.
+- Nästa kvalitetsspår: jämför medelstrategi/current-policy och härled korrekt
+  multiway-averaging med oberoende samma-spel-kontroll. OpenSpiel beskriver
+  flerpartscaveat för enkel averaging; det är en granskningsfråga, inte ännu
+  bevisad orsak till detta felmått. Modellkonfiguration/beroenden, framtida
+  gators modell och användbara breda blueprints återstår före appintegration.
 
 ### Mall för nästa loggpost
 

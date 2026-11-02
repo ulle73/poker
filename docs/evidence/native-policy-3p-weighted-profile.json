@@ -1,0 +1,874 @@
+{
+  "elapsedMs": 71,
+  "eligibleForAdvice": false,
+  "goalReady": false,
+  "iterations": 100000,
+  "nodes": [
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "check:0",
+          "kind": "check",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "bet:90",
+          "kind": "bet",
+          "to": 90
+        }
+      ],
+      "actor": 0,
+      "bets": [
+        0,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "",
+      "invested": [
+        100,
+        100,
+        100
+      ],
+      "pot": 300,
+      "rows": [
+        {
+          "cards": [
+            "As",
+            "Ad"
+          ],
+          "frequencies": [
+            0.045692995079005726,
+            0.9543070049209942
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qs",
+            "Js"
+          ],
+          "frequencies": [
+            0.9517015074494692,
+            0.04829849255053075
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        90,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "check:0",
+          "kind": "check",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "bet:90",
+          "kind": "bet",
+          "to": 90
+        }
+      ],
+      "actor": 1,
+      "bets": [
+        0,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0",
+      "invested": [
+        100,
+        100,
+        100
+      ],
+      "pot": 300,
+      "rows": [
+        {
+          "cards": [
+            "Ac",
+            "Kh"
+          ],
+          "frequencies": [
+            0.5156317687828228,
+            0.48436823121717715
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qc",
+            "Qd"
+          ],
+          "frequencies": [
+            0.8192995451903924,
+            0.1807004548096077
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        90,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "check:0",
+          "kind": "check",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "bet:90",
+          "kind": "bet",
+          "to": 90
+        }
+      ],
+      "actor": 2,
+      "bets": [
+        0,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:check:0",
+      "invested": [
+        100,
+        100,
+        100
+      ],
+      "pot": 300,
+      "rows": [
+        {
+          "cards": [
+            "Jc",
+            "Jd"
+          ],
+          "frequencies": [
+            0.8235915815859748,
+            0.17640841841402521
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Ad",
+            "Qh"
+          ],
+          "frequencies": [
+            0.27769876823461054,
+            0.7223012317653894
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        90,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 0,
+      "bets": [
+        0,
+        0,
+        90
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:check:0|river:2:bet:90",
+      "invested": [
+        100,
+        100,
+        190
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "As",
+            "Ad"
+          ],
+          "frequencies": [
+            3.8654074137368865e-6,
+            0.9999961345925863
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qs",
+            "Js"
+          ],
+          "frequencies": [
+            0.999999994574065,
+            5.42593503720354e-9
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        90,
+        0
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 1,
+      "bets": [
+        0,
+        0,
+        90
+      ],
+      "folded": [
+        true,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:check:0|river:2:bet:90|river:0:fold:0",
+      "invested": [
+        100,
+        100,
+        190
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "Ac",
+            "Kh"
+          ],
+          "frequencies": [
+            2.381808305409211e-8,
+            0.9999999761819169
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qc",
+            "Qd"
+          ],
+          "frequencies": [
+            0.3465022706033915,
+            0.6534977293966084
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        90,
+        0
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 1,
+      "bets": [
+        90,
+        0,
+        90
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:check:0|river:2:bet:90|river:0:call:90",
+      "invested": [
+        190,
+        100,
+        190
+      ],
+      "pot": 480,
+      "rows": [
+        {
+          "cards": [
+            "Ac",
+            "Kh"
+          ],
+          "frequencies": [
+            0.9999940661898498,
+            5.933810150224848e-6
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qc",
+            "Qd"
+          ],
+          "frequencies": [
+            0.9999975197700411,
+            2.4802299589504303e-6
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        0,
+        90,
+        0
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 2,
+      "bets": [
+        0,
+        90,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:bet:90",
+      "invested": [
+        100,
+        190,
+        100
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "Jc",
+            "Jd"
+          ],
+          "frequencies": [
+            0.9999996574756579,
+            3.4252434216281074e-7
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Ad",
+            "Qh"
+          ],
+          "frequencies": [
+            0.08793330688933228,
+            0.9120666931106677
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        0,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 0,
+      "bets": [
+        0,
+        90,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        true
+      ],
+      "history": "river:0:check:0|river:1:bet:90|river:2:fold:0",
+      "invested": [
+        100,
+        190,
+        100
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "As",
+            "Ad"
+          ],
+          "frequencies": [
+            4.15841282364692e-8,
+            0.9999999584158717
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qs",
+            "Js"
+          ],
+          "frequencies": [
+            0.9999999507898766,
+            4.921012338847918e-8
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        0,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 0,
+      "bets": [
+        0,
+        90,
+        90
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:check:0|river:1:bet:90|river:2:call:90",
+      "invested": [
+        100,
+        190,
+        190
+      ],
+      "pot": 480,
+      "rows": [
+        {
+          "cards": [
+            "As",
+            "Ad"
+          ],
+          "frequencies": [
+            0.0,
+            1.0
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qs",
+            "Js"
+          ],
+          "frequencies": [
+            0.9999999581965058,
+            4.180349420609632e-8
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        90,
+        0,
+        0
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 1,
+      "bets": [
+        90,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:bet:90",
+      "invested": [
+        190,
+        100,
+        100
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "Ac",
+            "Kh"
+          ],
+          "frequencies": [
+            0.12549610133592776,
+            0.8745038986640723
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Qc",
+            "Qd"
+          ],
+          "frequencies": [
+            0.6778111710257464,
+            0.3221888289742537
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        0,
+        90,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 2,
+      "bets": [
+        90,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        true,
+        false
+      ],
+      "history": "river:0:bet:90|river:1:fold:0",
+      "invested": [
+        190,
+        100,
+        100
+      ],
+      "pot": 390,
+      "rows": [
+        {
+          "cards": [
+            "Jc",
+            "Jd"
+          ],
+          "frequencies": [
+            0.8355845699006822,
+            0.16441543009931775
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Ad",
+            "Qh"
+          ],
+          "frequencies": [
+            4.7087051656158644e-7,
+            0.9999995291294834
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        0,
+        90,
+        90
+      ]
+    },
+    {
+      "actions": [
+        {
+          "allIn": false,
+          "cost": 0,
+          "id": "fold:0",
+          "kind": "fold",
+          "to": 0
+        },
+        {
+          "allIn": true,
+          "cost": 90,
+          "id": "call:90",
+          "kind": "call",
+          "to": 90
+        }
+      ],
+      "actor": 2,
+      "bets": [
+        90,
+        90,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "history": "river:0:bet:90|river:1:call:90",
+      "invested": [
+        190,
+        190,
+        100
+      ],
+      "pot": 480,
+      "rows": [
+        {
+          "cards": [
+            "Jc",
+            "Jd"
+          ],
+          "frequencies": [
+            0.9999999705897863,
+            2.9410213699318943e-8
+          ],
+          "trained": true
+        },
+        {
+          "cards": [
+            "Ad",
+            "Qh"
+          ],
+          "frequencies": [
+            0.1777489101788689,
+            0.8222510898211312
+          ],
+          "trained": true
+        }
+      ],
+      "stacks": [
+        0,
+        0,
+        90
+      ]
+    }
+  ],
+  "protocol": "advisor-native-audit-v1",
+  "request": {
+    "board": [
+      "Ah",
+      "Kd",
+      "7c",
+      "4s",
+      "2h"
+    ],
+    "investment": 100,
+    "iterations": 100000,
+    "ranges": [
+      [
+        {
+          "cards": [
+            "As",
+            "Ad"
+          ],
+          "weight": 0.2
+        },
+        {
+          "cards": [
+            "Qs",
+            "Js"
+          ],
+          "weight": 0.8
+        }
+      ],
+      [
+        {
+          "cards": [
+            "Ac",
+            "Kh"
+          ],
+          "weight": 1.0
+        },
+        {
+          "cards": [
+            "Qc",
+            "Qd"
+          ],
+          "weight": 1.0
+        }
+      ],
+      [
+        {
+          "cards": [
+            "Jc",
+            "Jd"
+          ],
+          "weight": 1.0
+        },
+        {
+          "cards": [
+            "Ad",
+            "Qh"
+          ],
+          "weight": 1.0
+        }
+      ]
+    ],
+    "seed": 395,
+    "stack": 90,
+    "timeBudgetMs": 60000
+  },
+  "root": {
+    "actor": 0,
+    "bets": [
+      0,
+      0,
+      0
+    ],
+    "dealer": 2,
+    "invested": [
+      100,
+      100,
+      100
+    ],
+    "pot": 300,
+    "stacks": [
+      90,
+      90,
+      90
+    ]
+  },
+  "scope": "Bounded equal-stack river check/jam profile; no generic poker certificate"
+}

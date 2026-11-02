@@ -101,6 +101,20 @@ function step(state: BettingState, action: BettingAction): BettingState {
   return next;
 }
 
+/** Enumerate the independent public game, including every off-policy action. */
+export function independentCheckJamPublicNodes(spot: CheckJamSpot) {
+  const result: {state: BettingState; actions: BettingAction[]}[] = [];
+  const visit = (state: BettingState) => {
+    if (state.terminal) return;
+    if (result.length >= 20000) throw new Error("Independent public tree budget exceeded.");
+    const edges = actions(state);
+    result.push({state, actions: edges});
+    edges.forEach((a) => visit(step(state, a)));
+  };
+  visit(checkJamInitial(spot));
+  return result;
+}
+
 export function independentCheckJamReport(
   spot: CheckJamSpot,
   profile: DecisionPolicy,

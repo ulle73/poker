@@ -81,3 +81,10 @@ Trepersoners-nutsfallet gav nu 99,9997 % call med samma budget, krav och
 foldande blueprint-fallback; fyra upprepningar med en/fyra trådar passerade.
 Detta avhjälper det avgränsade testfelet men är ingen generell strategiaudit.
 Se [senaste samplingauditen](evidence/noregrets-joint-audit.json).
+
+3 november: en faktisk native-policy-export har jämförts med en separat
+handvärderare, full publik spelkontroll och informationskorrekt bästa
+motstrategi. 39 små river-check/jam-fall täcker 2–10 spelare, flera frön och
+två budgetar. Miljonuppdateringsfallen gav 0,493–0,634 % NashConv för 3p och
+0,618–0,674 % för 10p. Det certifierar inte generella ranger eller andra gator.
+Se [auditens exakta modell, gränser och kvarvarande brister](native-policy-audit.md).

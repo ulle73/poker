@@ -1,0 +1,128 @@
+   Compiling pluribus v0.1.0 (C:\Users\rydqv\Documents\ChatGPT\poker\.research\noregrets)
+warning: duplicated attribute
+    --> src\abstraction.rs:1635:5
+     |
+1635 |     #[test]
+     |     ^^^^^^^
+     |
+     = note: `#[warn(duplicate_macro_attributes)]` on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\aivat.rs:311:9
+    |
+311 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\benchmark.rs:370:9
+    |
+370 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\bot.rs:630:9
+    |
+630 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\br.rs:549:9
+    |
+549 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\distill.rs:193:9
+    |
+193 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\lbr.rs:665:9
+    |
+665 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+   --> src\search.rs:353:28
+    |
+353 |     use std::collections::{HashMap, HashSet};
+    |                            ^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\slumbot.rs:562:9
+    |
+562 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\table.rs:526:9
+    |
+526 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> src\abstraction.rs:278:9
+    |
+278 |     let mut limp_check = |h: &mut crate::engine::Hand, hist: &mut Vec<u8>| {
+    |         ----^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> src\bot.rs:962:13
+    |
+962 |         let mut act = |h: &mut Hand, hist: &mut Vec<u8>, a: AbsAction| {
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: `pluribus` (bin "pluribus" test) generated 12 warnings (run `cargo fix --bin "pluribus" -p pluribus --tests` to apply 11 suggestions)
+    Finished `release` profile [optimized] target(s) in 51.00s
+     Running unittests src\main.rs (.research\noregrets\target\release\deps\pluribus-4ca0270d8458f35f.exe)
+
+running 4 tests
+test advisor_audit::tests::advisor_audit_exports_the_real_equal_stack_root_for_all_counts ... FAILED
+test advisor_audit::tests::advisor_audit_rejects_a_different_game_and_duplicate_cards ... FAILED
+test advisor_audit::tests::advisor_audit_untrained_rows_are_explicit_in_a_complete_two_player_tree ... FAILED
+test cfr::tests::advisor_audit_subgame_seed_is_effective_and_repeatable ... FAILED
+
+failures:
+
+---- advisor_audit::tests::advisor_audit_exports_the_real_equal_stack_root_for_all_counts stdout ----
+
+thread 'advisor_audit::tests::advisor_audit_exports_the_real_equal_stack_root_for_all_counts' (60852) panicked at src\advisor_audit.rs:49:41:
+called `Result::unwrap()` on an `Err` value: "audit exporter not implemented"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- advisor_audit::tests::advisor_audit_rejects_a_different_game_and_duplicate_cards stdout ----
+
+thread 'advisor_audit::tests::advisor_audit_rejects_a_different_game_and_duplicate_cards' (55436) panicked at src\advisor_audit.rs:75:9:
+assertion failed: run(&request).unwrap_err().contains("stack must")
+
+---- advisor_audit::tests::advisor_audit_untrained_rows_are_explicit_in_a_complete_two_player_tree stdout ----
+
+thread 'advisor_audit::tests::advisor_audit_untrained_rows_are_explicit_in_a_complete_two_player_tree' (46324) panicked at src\advisor_audit.rs:61:37:
+called `Result::unwrap()` on an `Err` value: "audit exporter not implemented"
+
+---- cfr::tests::advisor_audit_subgame_seed_is_effective_and_repeatable stdout ----
+
+thread 'cfr::tests::advisor_audit_subgame_seed_is_effective_and_repeatable' (50220) panicked at src\cfr.rs:1109:9:
+assertion `left != right` failed: subgame must not ignore the configured seed
+  left: [[23, 0], [23, 27], [51, 21], [2, 37], [40, 49], [31, 6], [24, 7], [51, 31], [35, 13], [47, 42], [42, 6], [26, 25], [45, 11], [25, 34], [16, 8], [41, 17]]
+ right: [[23, 0], [23, 27], [51, 21], [2, 37], [40, 49], [31, 6], [24, 7], [51, 31], [35, 13], [47, 42], [42, 6], [26, 25], [45, 11], [25, 34], [16, 8], [41, 17]]
+
+
+failures:
+    advisor_audit::tests::advisor_audit_exports_the_real_equal_stack_root_for_all_counts
+    advisor_audit::tests::advisor_audit_rejects_a_different_game_and_duplicate_cards
+    advisor_audit::tests::advisor_audit_untrained_rows_are_explicit_in_a_complete_two_player_tree
+    cfr::tests::advisor_audit_subgame_seed_is_effective_and_repeatable
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 153 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--bin pluribus`

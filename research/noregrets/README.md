@@ -97,7 +97,7 @@ fortfarande grov abstraktion och perfekt minne är inte löst generellt.
 
 ## Aktuellt steg: gemensamma ranger och viktad frågehand
 
-**Aktuell kumulativ patch:** `advisor-joint-sampling.patch`, applicerad ensam
+Patchen för detta steg var `advisor-joint-sampling.patch`, applicerad ensam
 mot ren låst upstream. Alla äldre patchar och mätningar behålls som historik.
 
 MCCFR-sökningen använder nu en produkt av spelarnas ranger, villkorad på att
@@ -129,8 +129,28 @@ före appintegration. Äldre `sample_holes` finns kvar hos andra upstream-
 forskningsanvändare; den nya gemensamma lagen används av MCCFR-sökningen.
 
 Ingen kandidatmodell får ersätta verifierade råd utan motsvarande kontroll.
-Nästa kvalitetsarbete är oberoende strategimätning och att binda artefakter
-till spelkonfiguration och beroenden.
+Nästa kvalitetsarbete behöver också binda artefakter till spelkonfiguration
+och beroenden.
+
+## Aktuellt steg: oberoende audit av exporterad policy
+
+**Aktuell kumulativ patch är `advisor-policy-audit.patch`.** Applicera den
+ensam mot ren låst upstream. Den lägger till `advisor-audit` för JSON-export
+av ett begränsat syntetiskt river-check/all-in-spel. Exporten får inte användas
+som appens generella liveadapter. Ett samtidigt rättat seedfel gjorde att
+subgame-koden tidigare ignorerade `TrainConfig.seed`.
+
+Fyra export-/seedregressioner har verifierad röd/grön-körning. Hela native-
+sviten passerar nu 157 tester. En separat TypeScript-modell kontrollerar varje
+publik gren och räknar bästa ensidiga avvikelse med egen handvärderare, utan
+native EV/CFV eller terminalutbetalningar som facit. 30 grundfall täcker varje
+antal 2–10 över tre frön; nio längre fall täcker 3/10 spelare och viktade ranger.
+
+En miljon uppdateringar gav NashConv 0,493–0,634 % av startpotten i de små
+trepersonersspelen och 0,618–0,674 % i tiopersonersspelen. Det är summan av
+möjliga ensidiga förbättringar, inte HU-exploaterbarhet. Många tiopersonersrader
+är fortfarande otränade. Detta är ingen generell strategi- eller livecertifiering.
+Se [audit, exakta modellgränser och reproduktion](../../docs/native-policy-audit.md).
 
 ## Windows-byggningen som användes
 
@@ -166,20 +186,24 @@ syntetiska 20-traversals testdata.
 [Den föregående IO-proben](../../docs/evidence/noregrets-current-street-training-smoke.json)
 bygger från den kumulativa patchen och bevarar tidigare resultatfiler.
 
-[Aktuell IO-probe](../../docs/evidence/noregrets-joint-training-smoke.json)
+[Föregående IO-probe](../../docs/evidence/noregrets-joint-training-smoke.json)
 binder den aktuella samplingpatchen. Modellerna är fortfarande endast IO-testdata.
+
+[Aktuell IO-probe](../../docs/evidence/noregrets-policy-audit-training-smoke.json)
+binder export-/auditpatchen; de syntetiska blueprintarna är fortfarande inte råd.
 
 I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 
 ```powershell
 git clone https://github.com/conorarmstrong/noregrets.git .research/noregrets
 git -C .research/noregrets checkout 757f7692738069522195d2b486eec60a8b010c0c
-git -C .research/noregrets apply ../../research/noregrets/advisor-joint-sampling.patch
+git -C .research/noregrets apply ../../research/noregrets/advisor-policy-audit.patch
 node scripts/native-research-cargo.mjs build --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 engine::tests -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_current_street -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_joint_sampler -- --test-threads=1
+node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_audit -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2
 node scripts/probe-native-training.mjs
 ```
