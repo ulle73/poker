@@ -66,9 +66,38 @@ Ytterligare granskade brister är ännu inte rättade:
   glömmer tidigare privat information. Den är inte en exakt kortisomorfi eller
   ett spel med bevarat perfekt minne.
 
+## Senare steg: exakt identitet på aktuell gata
+
+`advisor-current-street.patch` är den **aktuella kumulativa patchen från ren
+upstream**. Den innehåller även de tidigare motor- och samplingrättningarna.
+De äldre två patcharna behålls för historik; lägg inte den kumulativa ovanpå dem.
+
+Sökningens `Trainer.card_key` använder nu den exakta privata kortkombinationen
+på det fasta publika rotbrädet: 1176 lagliga par på flop, 1128 på turn och 1081
+på river. Kortordning inom ett par eller på samma fasta bräde spelar ingen roll.
+Nyckeln tar bara spelarens egna kort och publika bordskort. Blueprint-träning
+och framtida bräden använder den tidigare abstraktionen.
+
+Söknycklarna får varken exporteras som en generisk blueprint eller sparas i
+det gamla checkpointformatet. Checkpoint avvisas innan en befintlig fil skrivs
+över. Fyra beteenderegressioner föll före rättningen och passerar nu.
+
+Detta har **inte löst strategikvaliteten**. Första breda körningen gav 147 pass
+och ett trepersonersfel: nutshanden synades 58,38 %. Testet skärptes dessutom
+med en avsiktligt foldande blueprint-fallback så en saknad sökstrategi inte
+kan passera via standard-call. Även den körningen gav 147 pass/1 fel, med
+57,58 % call i samma fall. Träningsbudgeten och kravet över 90 % behölls.
+Se [aktuell audit](../../docs/evidence/noregrets-current-street-audit.json).
+
+Finare identitet kräver fler användbara uppdateringar för just frågans hand
+och linje. Nästa arbete är mätning och korrekt importance-viktad sampling;
+att hålla spelarens faktiska kort fasta i motståndarnas hela modell skulle
+läcka dold information och är ingen acceptabel genväg. Framtida gator har
+fortfarande grov abstraktion och perfekt minne är inte löst generellt.
+
 Ingen av dessa luckor får kringgås genom att låta en kandidatmodell ersätta
-verifierade råd. Nästa kvalitetsarbete behöver bland annat särskilja de exakta
-korten på aktuell gata och binda varje artefakt till rätt spelkonfiguration.
+verifierade råd. Nästa kvalitetsarbete behöver bland annat förbättra viktad
+sampling av aktuell hand och binda artefakter till rätt spelkonfiguration.
 
 ## Windows-byggningen som användes
 
@@ -101,16 +130,19 @@ och bygger binären från den kontrollerade källan innan modellerna skapas.
 Det äldre resultatet behålls som historik. Alla modeller är fortfarande enbart
 syntetiska 20-traversals testdata.
 
+[Den aktuella IO-proben](../../docs/evidence/noregrets-current-street-training-smoke.json)
+bygger från den kumulativa patchen och bevarar tidigare resultatfiler.
+
 I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 
 ```powershell
 git clone https://github.com/conorarmstrong/noregrets.git .research/noregrets
 git -C .research/noregrets checkout 757f7692738069522195d2b486eec60a8b010c0c
-git -C .research/noregrets apply ../../research/noregrets/advisor-engine.patch
-git -C .research/noregrets apply ../../research/noregrets/advisor-sampling.patch
+git -C .research/noregrets apply ../../research/noregrets/advisor-current-street.patch
 node scripts/native-research-cargo.mjs build --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 engine::tests -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1
+node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_current_street -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2
 node scripts/probe-native-training.mjs
 ```

@@ -67,3 +67,10 @@ breda svit gav 143 pass och ett pruningfel; de två tidigare fallen passerade
 denna gång utan relevant ändring i deras väg. Detta visar varierande
 träningsresultat och är inte ett kvalitetsgodkännande. Se
 [samplingauditen](evidence/noregrets-sampling-audit.json).
+
+Efterföljande exakt kortidentitet på aktuell sökgata har fyra passerande
+beteenderegressioner, men förbättrade inte det breda trepersoners-nutsfallet:
+call blev 58,38 % och 57,58 % i två körningar, mot kravet över 90 %. Den senare
+kontrollen har en foldande blueprint-fallback så att saknad söktäckning inte
+kan ge ett falskt grönt test. Kandidaten är fortsatt underkänd; se
+[aktuell-gata-auditen](evidence/noregrets-current-street-audit.json).

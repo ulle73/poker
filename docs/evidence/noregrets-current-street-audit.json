@@ -1,0 +1,115 @@
+{
+  "recordedAt": "2026-11-02T18:05:47.503Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "url": "https://github.com/conorarmstrong/noregrets",
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patches": [
+      {
+        "file": "research/noregrets/advisor-current-street.patch",
+        "sha256": "1e5f86cd71da467881ba8ad28a6a3fb24daa615829760ec03e71aebe6d7898e3"
+      }
+    ],
+    "patchScope": "Cumulative patch from pinned upstream, including earlier engine and sampling corrections. Apply this patch alone to clean upstream."
+  },
+  "changes": [
+    "Exact private pair IDs on the fixed current public board",
+    "Future-board and blueprint keying unchanged",
+    "Search query and traversal use the same current-street key",
+    "Reject generic blueprint/checkpoint export of ephemeral search keys",
+    "Three-way nuts test uses a folding blueprint fallback so missing search coverage cannot pass as a call"
+  ],
+  "exactLegalPrivatePairs": {
+    "flop": 1176,
+    "turn": 1128,
+    "river": 1081
+  },
+  "tests": {
+    "red": {
+      "path": "docs/evidence/noregrets-current-street-red.log",
+      "sha256": "152a8ad095a7460e63a7e11500eaa0705e938087e2063824629f91aadc2825d7",
+      "status": "FAILED",
+      "passed": 0,
+      "failed": 4,
+      "failedTests": [
+        "cfr::tests::advisor_current_street_distinguishes_every_legal_pair",
+        "cfr::tests::advisor_current_street_leaves_blueprint_and_future_keys_unchanged",
+        "cfr::tests::advisor_current_street_rejects_blueprint_export - should panic",
+        "cfr::tests::advisor_current_street_rejects_checkpoint_without_overwriting"
+      ],
+      "threeWayNutsFailure": null
+    },
+    "green": {
+      "path": "docs/evidence/noregrets-current-street-green.log",
+      "sha256": "c6ee388e5187d359b33801b462ae85eb848f97b2e7e0b19ca022418e9a2805c6",
+      "status": "ok",
+      "passed": 4,
+      "failed": 0,
+      "failedTests": [],
+      "threeWayNutsFailure": null
+    },
+    "beforeStrict": {
+      "path": "docs/evidence/noregrets-current-street-before-strict-test.log",
+      "sha256": "efa5284dbe7a8b9775180029586a7c01dbf1bad5aa5ba50d11b3e406aa53527b",
+      "status": "FAILED",
+      "passed": 147,
+      "failed": 1,
+      "failedTests": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way"
+      ],
+      "threeWayNutsFailure": [
+        0.4162198540483204,
+        0.5837801459516796
+      ]
+    },
+    "full": {
+      "path": "docs/evidence/noregrets-current-street-full-test.log",
+      "sha256": "6a23c690137c1558c7b10b6563a819ded3a0ccfcd9424821357d33d89ee925c2",
+      "status": "FAILED",
+      "passed": 147,
+      "failed": 1,
+      "failedTests": [
+        "bot::tests::round_rooted_search_calls_the_nuts_three_way"
+      ],
+      "threeWayNutsFailure": [
+        0.4241737404945603,
+        0.5758262595054398
+      ]
+    }
+  },
+  "fullSuiteConfig": {
+    "rayonThreads": 4,
+    "rustTestThreads": 2,
+    "testBinarySha256": "49b0f66c8fc9be0344e27a0849a770e6ffd708e5371cae24cba93e38d42af2ef"
+  },
+  "smoke": {
+    "path": "docs/evidence/noregrets-current-street-training-smoke.json",
+    "sha256": "854066865a92d29e84d6c7b368e550f1a5ee7a999df0ce4a93ae3066de3d42ae",
+    "players": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "traversalsPerModel": 20,
+    "engineSha256": "330b7c0b76109a2802c0beaa5d35e9e6d0f3e8d1e60cfd638cb8ce1bb474d309",
+    "eligibleForAdvice": false
+  },
+  "interpretation": "Correct current-street identity is not a trained strategy or a convergence certificate. Greater granularity needs more useful updates per queried infoset.",
+  "remaining": [
+    "Measure and importance-weight target-hand/public-line sampling without conditioning opponents on known hero cards",
+    "Specify and verify compatible joint range sampling",
+    "Bind model game configuration and strategic dependencies",
+    "Future-street abstraction still has imperfect recall",
+    "No general preflop/flop/multiway strategy quality approval"
+  ],
+  "reference": "https://doi.org/10.1126/science.aay2400",
+  "scope": "Isolated native search representation, export guards and bounded regression/quality probes; application unchanged."
+}

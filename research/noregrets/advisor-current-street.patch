@@ -1,0 +1,515 @@
+diff --git a/src/abstraction.rs b/src/abstraction.rs
+index 7624901..262fb40 100644
+--- a/src/abstraction.rs
++++ b/src/abstraction.rs
+@@ -1854,7 +1854,7 @@ mod tests {
+         use rand::Rng;
+         let a = abs();
+         let mut rng = SmallRng::seed_from_u64(11);
+-        for n in 2..=6usize {
++        for n in 2..=crate::engine::MAX_PLAYERS {
+             for _ in 0..500 {
+                 let mut deck = fresh_deck();
+                 deck.shuffle(&mut rng);
+diff --git a/src/bot.rs b/src/bot.rs
+index 7507bc6..830a447 100644
+--- a/src/bot.rs
++++ b/src/bot.rs
+@@ -92,10 +92,9 @@ pub struct Policy {
+     pub abs: Arc<Abstraction>,
+     /// Belief-state value net: enables ReBeL-style flop solving.
+     pub value_net: Option<Arc<ValueNet>>,
+-    /// Finer card abstraction for the MCCFR subgame solver's own infosets
+-    /// (Pluribus: lossless on the current street). None = the
+-    /// blueprint's. Blueprint lookups (leaf rollouts, fallbacks) always
+-    /// use `abs`.
++    /// Future-street card abstraction for MCCFR search. The current fixed
++    /// board always uses exact private pairs. None = blueprint abstraction
++    /// for future boards. Blueprint lookups always use `abs`.
+     pub search_abs: Option<Arc<Abstraction>>,
+ }
+ 
+@@ -180,9 +179,8 @@ impl Policy {
+         }
+     }
+ 
+-    /// Solve multiway subgames over `buckets` postflop card buckets
+-    /// (equity quantiles; exact per-board on the river) instead of the
+-    /// blueprint's.
++    /// Use `buckets` on future search streets instead of the blueprint's.
++    /// Current-street private pairs remain exact regardless of this setting.
+     pub fn with_search_buckets(mut self, buckets: Option<u16>) -> Self {
+         self.search_abs = buckets.map(|b| {
+             Arc::new(Abstraction::new(AbsConfig {
+@@ -374,7 +372,7 @@ impl Policy {
+             }
+             None => resolve_subgame(sabs, train_cfg, real, hist, params, tracker, leaf, None),
+         };
+-        let bucket = solver.abs.bucket(real.hole(p), real.board(), rng);
++        let bucket = solver.card_key(real.hole(p), real.board(), rng);
+         if let Some(s) = solver.avg_strategy(bucket, hist) {
+             let acts = solver.abs.abstract_actions(real);
+             if s.len() == acts.len() {
+@@ -603,7 +601,8 @@ pub fn resolve_subgame(
+         .with_leaf(leaf)
+         .with_plus(true)
+         .with_qre(params.qre_lambda)
+-        .with_spine(spine);
++        .with_spine(spine)
++        .with_current_board(root.board());
+     match tracker {
+         Some(tr) => {
+             let sampler = move |h: &mut Hand, rng: &mut SmallRng| {
+@@ -801,8 +800,9 @@ mod tests {
+         );
+ 
+         let mut rng = SmallRng::seed_from_u64(2);
+-        let bucket = solver.abs.bucket(h.hole(0), h.board(), &mut rng);
+-        assert_eq!(bucket, 5, "royal flush must be in the top bucket");
++        assert_eq!(solver.abs.bucket(h.hole(0), h.board(), &mut rng), 5,
++            "blueprint abstraction must remain unchanged");
++        let bucket = solver.card_key(h.hole(0), h.board(), &mut rng);
+         let strat = solver
+             .avg_strategy(bucket, &hist)
+             .expect("root infoset must be trained");
+@@ -845,18 +845,15 @@ mod tests {
+             sb: 50,
+             bb: 100,
+         };
+-        // The blueprint's 6 river buckets are too coarse here: against
+-        // the resolved (strong) shoving range the top bucket mixes the
+-        // nuts with hands that correctly fold (~18% fold measured), so
+-        // the solver gets its own finer abstraction (Pluribus: lossless
+-        // on the current street).
++        // The blueprint remains coarse. Search must distinguish every exact
++        // current-street pair, regardless of its future-street bucket count.
+         let abs = Arc::new(Abstraction::new(AbsConfig {
+             postflop_buckets: 6,
+             equity_rollouts: 50,
+             cache_cap: 100_000,
+             ..AbsConfig::default()
+         }));
+-        let policy = Policy::new(
++        let mut policy = Policy::new(
+             Blueprint {
+                 strategies: Default::default(),
+                 iterations: 0,
+@@ -898,6 +895,13 @@ mod tests {
+             max_iters: 40_000,
+             ..SearchParams::default()
+         };
++        // A missing queried infoset must not pass via the default call fallback.
++        // Deliberately make the blueprint fold this hand; only a trained search
++        // policy can satisfy the call assertion below.
++        let base_bucket = abs.bucket(table.real.hole(0), table.real.board(),
++            &mut SmallRng::seed_from_u64(0));
++        Arc::make_mut(&mut policy.blueprint).strategies.insert(
++            crate::cfr::make_key(base_bucket, &table.hist).to_vec(), vec![1.0, 0.0]);
+         let mut rng = SmallRng::seed_from_u64(3);
+         let (acts, probs) = policy.search_dist(
+             &table.real,
+@@ -1471,7 +1475,7 @@ mod tests {
+         );
+         assert!(solver.node_count() > 0, "search must create infosets");
+         let p = h.to_act();
+-        let bucket = solver.abs.bucket(h.hole(p), h.board(), &mut rng);
++        let bucket = solver.card_key(h.hole(p), h.board(), &mut rng);
+         let strat = solver
+             .avg_strategy(bucket, &hist)
+             .expect("root infoset must be trained");
+diff --git a/src/cfr.rs b/src/cfr.rs
+index 7c04677..9a0d1bc 100644
+--- a/src/cfr.rs
++++ b/src/cfr.rs
+@@ -166,6 +166,9 @@ pub struct RnrCfg {
+ pub struct Trainer {
+     pub abs: Arc<Abstraction>,
+     pub cfg: TrainConfig,
++    /// Ephemeral search context: exact private pairs on this fixed public board.
++    /// Future boards still use `abs`; never serialize these keys as a blueprint.
++    current_board: Option<(usize, u64)>,
+     nodes: DashMap<InfoKey, Node, ahash::RandomState>,
+     iters_done: AtomicU64,
+     leaf: Option<LeafCfg>,
+@@ -187,7 +190,8 @@ pub struct Trainer {
+     rnr_opp: Option<Arc<Blueprint>>,
+     /// VR-MCCFR (Schmid et al. 2019): control-variate baselines at sampled
+     /// opponent nodes. The sampled child's value is replaced by
+-    /// sum_a sigma(a) b(a) + (v_sampled - b(a_sampled)); unbiased for any
++    /// sum_a sigma(a) b(a) + sigma(a_sampled)/q(a_sampled) *
++    /// (v_sampled - b(a_sampled)); unbiased for any fixed pre-sample
+     /// b, and the variance of the traverser's regret updates shrinks as b
+     /// learns the expected value. Baselines are keyed by the opponent's
+     /// infoset plus the traverser's seat and card bucket (the traverser's
+@@ -200,6 +204,12 @@ pub struct Trainer {
+ 
+ const BASELINE_ALPHA: f32 = 0.5;
+ 
++// The whole residual, not just the child value, needs the importance ratio.
++fn vr_corrected_value(dist: &[f64], b: &[f32], idx: usize, ratio: f64, child: f64) -> f64 {
++    let expected: f64 = b.iter().zip(dist).map(|(&bi, &d)| bi as f64 * d).sum();
++    expected + ratio * (child - b[idx] as f64)
++}
++
+ /// Baseline key: opponent infoset key, then the traverser's seat and bucket.
+ fn baseline_key(key: &[u8], traverser: usize, bucket: u16) -> InfoKey {
+     let mut k = Vec::with_capacity(key.len() + 3);
+@@ -265,10 +275,29 @@ pub fn make_key(bucket: u16, hist: &[u8]) -> InfoKey {
+ }
+ 
+ impl Trainer {
++    pub fn with_current_board(mut self, board: &[crate::cards::Card]) -> Self {
++        assert!(matches!(board.len(), 0 | 3 | 4 | 5), "invalid current-street board length");
++        assert!(board.iter().all(|&c| c < 52), "invalid board card");
++        let mask = board.iter().fold(0u64, |m, &c| m | (1u64 << c));
++        assert_eq!(mask.count_ones() as usize, board.len(), "duplicate board card");
++        self.current_board = Some((board.len(), mask));
++        self
++    }
++
++    pub fn card_key(&self, hole: [crate::cards::Card; 2], board: &[crate::cards::Card], rng: &mut SmallRng) -> u16 {
++        if let Some((len, mask)) = self.current_board {
++            if board.len() == len && board.iter().fold(0u64, |m, &c| m | (1u64 << c)) == mask {
++                return crate::search::combo_index(hole[0], hole[1]) as u16;
++            }
++        }
++        self.abs.bucket(hole, board, rng)
++    }
++
+     pub fn new(abs: Arc<Abstraction>, cfg: TrainConfig) -> Self {
+         Trainer {
+             abs,
+             cfg,
++            current_board: None,
+             nodes: DashMap::with_hasher(ahash::RandomState::new()),
+             iters_done: AtomicU64::new(0),
+             leaf: None,
+@@ -457,7 +486,7 @@ impl Trainer {
+         let acts = self.abs.abstract_actions(h);
+         let n = acts.len();
+         debug_assert!(n <= MAX_ACTS);
+-        let bucket = self.abs.bucket(h.hole(p), h.board(), rng);
++        let bucket = self.card_key(h.hole(p), h.board(), rng);
+         // Key built on the stack; the map is queried by slice and a heap
+         // key is allocated only on the infoset's first visit.
+         let mut kbuf = [0u8; KEY_BUF];
+@@ -615,6 +644,17 @@ impl Trainer {
+                     }
+                 }
+             }
++            // Freeze the baseline before sampling. Do not hold a DashMap
++            // guard across recursion, or read concurrent updates afterwards.
++            let baseline = if self.vr {
++                let tb = self.card_key(h.hole(traverser), h.board(), rng);
++                let bkey = baseline_key(key, traverser, tb);
++                let before = self.baselines.entry(bkey.clone())
++                    .or_insert_with(|| vec![0.0f32; acts.len()]).clone();
++                Some((bkey, before))
++            } else {
++                None
++            };
+             // Spine-targeted sampling at an opponent's spine node.
+             // Off-policy sampling (spine targeting, multiway focus) draws
+             // the action from q instead of sigma. Two corrections keep
+@@ -665,19 +705,18 @@ impl Trainer {
+                 hist.push(TOKEN_STREET_SEP);
+             }
+             // No truncation needed: the nearest traverser ancestor restores hist.
+-            let v = ratio * self.traverse(&child, hist, traverser, weight, prune_ok, model_opp, rng);
+-            if !self.vr {
+-                return v;
+-            }
+-            let tb = self.abs.bucket(h.hole(traverser), h.board(), rng);
+-            let bkey = baseline_key(&key, traverser, tb);
++            let child_value = self.traverse(&child, hist, traverser, weight, prune_ok, model_opp, rng);
++            let Some((bkey, before)) = baseline else {
++                return ratio * child_value;
++            };
+             let mut b = self
+                 .baselines
+                 .entry(bkey)
+                 .or_insert_with(|| vec![0.0f32; acts.len()]);
+-            let expected: f64 = b.iter().zip(dist).map(|(&bi, &d)| bi as f64 * d).sum();
+-            let corrected = expected + (v - b[idx] as f64);
+-            b[idx] += BASELINE_ALPHA * (v as f32 - b[idx]);
++            let corrected = vr_corrected_value(dist, &before, idx, ratio, child_value);
++            // Learn the unscaled conditional child value. The local sigma/q
++            // ratio belongs only in the estimator returned to the parent.
++            b[idx] += BASELINE_ALPHA * (child_value as f32 - b[idx]);
+             corrected
+         }
+     }
+@@ -810,6 +849,7 @@ impl Trainer {
+ 
+     /// Export the (much smaller) normalized average strategy for play.
+     pub fn to_blueprint(&self) -> Blueprint {
++        assert!(self.current_board.is_none(), "current-street search cannot be exported as a blueprint");
+         let mut strategies =
+             StrategyMap::with_capacity_and_hasher(self.nodes.len(), Default::default());
+         for e in self.nodes.iter() {
+@@ -828,6 +868,10 @@ impl Trainer {
+ 
+     /// Full checkpoint (regrets + strategy sums) for resuming training.
+     pub fn save_checkpoint(&self, path: &str) -> std::io::Result<()> {
++        if self.current_board.is_some() {
++            return Err(std::io::Error::new(std::io::ErrorKind::InvalidInput,
++                "current-street search cannot be saved in the generic checkpoint format"));
++        }
+         let snapshot: Vec<(Vec<u8>, Node)> = self
+             .nodes
+             .iter()
+@@ -1039,6 +1083,137 @@ mod tests {
+         assert_eq!(out, vec![0.5, 0.5]);
+     }
+ 
++    #[test]
++    fn advisor_current_street_distinguishes_every_legal_pair() {
++        let abs = Arc::new(Abstraction::new(AbsConfig {
++            postflop_buckets: 2, equity_rollouts: 2, dist_runouts: 1,
++            runout_rollouts: 2, ..AbsConfig::default()
++        }));
++        for board in ["Qs Js Ts", "Qs Js Ts 3h", "Qs Js Ts 3h 4d"] {
++            let board = crate::cards::parse_cards(board).unwrap();
++            let t = Trainer::new(abs.clone(), TrainConfig::default()).with_current_board(&board);
++            let mut keys = std::collections::HashSet::new();
++            let mut rng = SmallRng::seed_from_u64(17);
++            for hole in crate::search::all_combos() {
++                if hole.iter().any(|c| board.contains(c)) { continue; }
++                let key = t.card_key(hole, &board, &mut rng);
++                assert_eq!(key, t.card_key([hole[1], hole[0]], &board, &mut rng));
++                keys.insert(key);
++            }
++            let n = 52 - board.len();
++            assert_eq!(keys.len(), n * (n - 1) / 2, "current street must be lossless");
++        }
++    }
++
++    #[test]
++    fn advisor_current_street_leaves_blueprint_and_future_keys_unchanged() {
++        let abs = Arc::new(Abstraction::new(AbsConfig {
++            postflop_buckets: 2, equity_rollouts: 2, dist_runouts: 1,
++            runout_rollouts: 2, ..AbsConfig::default()
++        }));
++        let board = crate::cards::parse_cards("Qs Js Ts").unwrap();
++        let future = crate::cards::parse_cards("Qs Js Ts 3h").unwrap();
++        let h = crate::cards::parse_cards("As Ks").unwrap();
++        let hole = [h[0], h[1]];
++        let mut rng = SmallRng::seed_from_u64(2);
++        let offline = Trainer::new(abs.clone(), TrainConfig::default());
++        let search = Trainer::new(abs.clone(), TrainConfig::default()).with_current_board(&board);
++        assert_eq!(offline.card_key(hole, &board, &mut rng), abs.bucket(hole, &board, &mut rng));
++        assert_eq!(search.card_key(hole, &future, &mut rng), abs.bucket(hole, &future, &mut rng));
++        let mut reversed = board.clone(); reversed.reverse();
++        assert_eq!(search.card_key(hole, &board, &mut rng), search.card_key(hole, &reversed, &mut rng));
++        // Fixed board + ordered-independent private pair index, no opponent input.
++        assert_eq!(search.card_key(hole, &board, &mut rng) as usize,
++            crate::search::combo_index(hole[0], hole[1]));
++    }
++
++    #[test]
++    #[should_panic(expected = "current-street search cannot be exported as a blueprint")]
++    fn advisor_current_street_rejects_blueprint_export() {
++        let board = crate::cards::parse_cards("Qs Js Ts 3h 4d").unwrap();
++        Trainer::new(Arc::new(Abstraction::new(AbsConfig::default())), TrainConfig::default())
++            .with_current_board(&board).to_blueprint();
++    }
++
++    #[test]
++    fn advisor_current_street_rejects_checkpoint_without_overwriting() {
++        let board = crate::cards::parse_cards("Qs Js Ts 3h 4d").unwrap();
++        let t = Trainer::new(Arc::new(Abstraction::new(AbsConfig::default())), TrainConfig::default())
++            .with_current_board(&board);
++        let suffix = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap().as_nanos();
++        let path = std::env::temp_dir().join(format!("advisor-current-street-{}-{suffix}.bin", std::process::id()));
++        std::fs::write(&path, b"preserve-existing-checkpoint").unwrap();
++        let result = t.save_checkpoint(path.to_str().unwrap());
++        let after = std::fs::read(&path).unwrap();
++        std::fs::remove_file(&path).unwrap();
++        assert_eq!(result.unwrap_err().kind(), std::io::ErrorKind::InvalidInput);
++        assert_eq!(after, b"preserve-existing-checkpoint");
++    }
++
++    #[test]
++    fn advisor_vr_perfect_baseline_has_zero_variance_off_policy() {
++        let sigma = [0.5, 0.5];
++        let q = [0.25, 0.75];
++        let child = [1.0, 3.0];
++        let b = [1.0f32, 3.0];
++        let expected = 2.0;
++        for i in 0..2 {
++            let v = vr_corrected_value(&sigma, &b, i, sigma[i] / q[i], child[i]);
++            assert!((v - expected).abs() < 1e-12, "action {i}: {v}, expected {expected}");
++        }
++    }
++
++    #[test]
++    fn advisor_vr_enumerated_expectation_is_unbiased() {
++        // Enumerate every action, rather than relying on convergence or a seed.
++        for sigma in [[0.5, 0.5], [0.1, 0.9], [0.0, 1.0]] {
++            for q in [[0.25, 0.75], [0.8, 0.2], [0.5, 0.5]] {
++                for b in [[1.0f32, 3.0], [-42.0, 70.0], [0.0, 0.0]] {
++                    let child = [-11.0, 23.0];
++                    let exact: f64 = (0..2).map(|i| sigma[i] * child[i]).sum();
++                    let estimate: f64 = (0..2).map(|i|
++                        q[i] * vr_corrected_value(&sigma, &b, i, sigma[i] / q[i], child[i])
++                    ).sum();
++                    assert!((estimate - exact).abs() < 1e-10, "sigma={sigma:?}, q={q:?}, b={b:?}: {estimate} != {exact}");
++                }
++            }
++        }
++    }
++
++    #[test]
++    fn advisor_vr_traversal_preserves_perfect_baseline_under_focus() {
++        let abs = Arc::new(Abstraction::new(AbsConfig::default()));
++        let mut cfg = TrainConfig::default();
++        cfg.hand = HandConfig {num_players: 2, stack: 1_000, sb: 50, bb: 100};
++        cfg.multiway_focus = 0.6;
++        let t = Trainer::new(abs.clone(), cfg).with_vr(true);
++        let mut h = Hand::new(&t.cfg.hand, 0, fresh_deck());
++        h.apply(PlayerAction::RaiseTo(1_000));
++        assert_eq!(h.to_act(), 1);
++        let acts = abs.abstract_actions(&h);
++        assert_eq!(acts, vec![AbsAction::Fold, AbsAction::CheckCall]);
++        let base_hist = vec![AbsAction::AllIn.token()];
++        let key = make_key(preflop_bucket(h.hole(1)), &base_hist);
++        t.nodes.insert(key.clone(), Node {regret: vec![0.0; 2], strat: vec![0.0; 2]});
++        let bkey = baseline_key(&key, 0, preflop_bucket(h.hole(0)));
++        let b: Vec<f32> = acts.iter().map(|&a| {
++            let mut child = h.clone();
++            child.apply(abs.concrete(&h, a));
++            assert!(child.is_terminal());
++            child.utilities()[0] as f32
++        }).collect();
++        let expected = (b[0] as f64 + b[1] as f64) / 2.0;
++        for seed in 0..128 {
++            t.baselines.insert(bkey.clone(), b.clone());
++            let mut hist = base_hist.clone();
++            let v = t.traverse(&h, &mut hist, 0, 1.0, false, false,
++                &mut SmallRng::seed_from_u64(seed));
++            assert!((v - expected).abs() < 1e-9, "seed={seed}: {v} != {expected}");
++            let after = t.baselines.get(&bkey).unwrap();
++            assert_eq!(*after, b, "a perfect baseline must not learn importance-scaled payoffs");
++        }
++    }
++
+     #[test]
+     fn qre_distribution_interpolates_rationality() {
+         let regrets = [900.0, 300.0, -600.0];
+diff --git a/src/engine.rs b/src/engine.rs
+index 8a6f15b..7f421e0 100644
+--- a/src/engine.rs
++++ b/src/engine.rs
+@@ -1,4 +1,4 @@
+-//! No-limit Texas Hold'em hand state machine for 2-6 players.
++//! No-limit Texas Hold'em hand state machine for 2-10 players (Advisor research fork).
+ //!
+ //! Correctness-critical invariants (all covered by tests below):
+ //! - Every hand terminates (the Python predecessor infinite-looped on multi-way all-ins).
+@@ -11,7 +11,7 @@ use crate::eval::eval_hole_board;
+ use rand::rngs::SmallRng;
+ use rand::Rng;
+ 
+-pub const MAX_PLAYERS: usize = 6;
++pub const MAX_PLAYERS: usize = 10;
+ 
+ #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
+ pub enum Street {
+@@ -235,10 +235,11 @@ impl Hand {
+                     .collect();
+                 debug_assert!(!eligible.is_empty(), "orphaned side-pot layer");
+                 let best = eligible.iter().map(|&p| strength[p]).max().unwrap();
+-                let winners: Vec<usize> = eligible
++                let mut winners: Vec<usize> = eligible
+                     .into_iter()
+                     .filter(|&p| strength[p] == best)
+                     .collect();
++                winners.sort_unstable_by_key(|&p| (p + self.n - self.button - 1) % self.n);
+                 let share = layer / winners.len() as u64;
+                 let mut rem = layer - share * winners.len() as u64;
+                 for &w in &winners {
+@@ -516,6 +517,12 @@ impl Hand {
+     /// raising is impossible (calling would already be all-in or match exactly).
+     pub fn raise_bounds(&self) -> Option<(u32, u32)> {
+         let p = self.to_act;
++        if self.terminal || self.folded[p] || self.allin[p]
++            || !(0..self.n).any(|q| q != p && !self.folded[q] && !self.allin[q])
++            || (self.acted[p] && self.to_call() < self.min_raise_inc)
++        {
++            return None;
++        }
+         let max_to = self.street_commit[p] + self.stacks[p];
+         if max_to <= self.current_bet {
+             return None;
+@@ -562,6 +569,62 @@ mod tests {
+         }
+     }
+ 
++    #[test]
++    fn advisor_short_allin_does_not_reopen_prior_bettor() {
++        let mut h = Hand::new_with_stacks(&cfg(4), 0, fresh_deck(), &[5_000, 5_000, 250, 5_000]);
++        h.apply(RaiseTo(200)); // p3 opens, p0 calls, SB folds, BB short-jams.
++        h.apply(CheckCall);
++        h.apply(Fold);
++        h.apply(RaiseTo(250));
++        assert_eq!(h.to_act(), 3);
++        assert_eq!(h.to_call(), 50);
++        assert_eq!(h.raise_bounds(), None);
++    }
++
++    #[test]
++    fn advisor_two_short_allins_can_cumulatively_reopen() {
++        let mut h = Hand::new_with_stacks(&cfg(5), 0, fresh_deck(), &[250, 300, 5_000, 5_000, 5_000]);
++        h.apply(RaiseTo(200)); // p3 opens, p4 calls.
++        h.apply(CheckCall);
++        h.apply(RaiseTo(250)); // p0 short-jams, SB short-jams again.
++        h.apply(RaiseTo(300));
++        h.apply(Fold); // BB folds; p3 now faces a full cumulative increment.
++        assert_eq!(h.to_act(), 3);
++        assert_eq!(h.raise_bounds(), Some((400, 5_000)));
++    }
++
++    #[test]
++    fn advisor_no_raise_when_all_opponents_are_allin() {
++        let h = Hand::new_with_stacks(&cfg(2), 0, fresh_deck(), &[5_000, 100]);
++        assert_eq!(h.to_act(), 0);
++        assert_eq!(h.to_call(), 50);
++        assert_eq!(h.raise_bounds(), None);
++    }
++
++    #[test]
++    fn advisor_odd_chips_start_left_of_button_for_each_pot() {
++        let deck = deck_with_front("Ks Kh Kd Kc Qs Qh As Ah Ad Ac 2c 3d 7h 9s Jc");
++        let mut h = Hand::new(&cfg(5), 0, deck);
++        h.board.copy_from_slice(&deck[10..15]);
++        h.board_len = 5;
++        h.street = Street::River;
++        h.hand_commit[..5].copy_from_slice(&[2, 2, 2, 1, 1]);
++        h.folded[3] = true;
++        h.folded[4] = true;
++        h.terminal = true;
++        // Main5 split 2/3, side3 split1/2 to tied kings in seats0/1.
++        assert_eq!(&h.utilities()[..5], &[1, 3, -2, -1, -1]);
++    }
++
++    #[test]
++    fn advisor_engine_supports_every_count_through_ten() {
++        for n in 2..=10 {
++            let mut h = Hand::new(&cfg(n), 0, fresh_deck());
++            while !h.is_terminal() { h.apply(CheckCall); }
++            assert_eq!(h.utilities()[..n].iter().sum::<i64>(), 0);
++        }
++    }
++
+     #[test]
+     fn blinds_posted_and_utg_first() {
+         let h = Hand::new(&cfg(6), 0, fresh_deck());
+@@ -822,7 +885,7 @@ mod tests {
+     #[test]
+     fn fuzz_random_playouts_terminate_zero_sum() {
+         let mut rng = rand::rngs::SmallRng::seed_from_u64(7);
+-        for n in 2..=6usize {
++        for n in 2..=MAX_PLAYERS {
+             for _ in 0..2_000 {
+                 let mut deck = fresh_deck();
+                 deck.shuffle(&mut rng);

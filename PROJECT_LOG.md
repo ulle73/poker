@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | NoRegrets byggd isolerat på Windows; spelmotor utökad till 10; VR-estimator rättad | Ej integrerad; strategitester varierar/fallerar och flera granskningsfynd är öppna |
+| Native forskning | NoRegrets byggd isolerat på Windows; 10p-motor, rättad VR och exakt kortidentitet på aktuell sökgata | Ej integrerad; trepersonersstrategin fallerar och flera granskningsfynd är öppna |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -130,6 +130,8 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-02, native VR-regressioner | Först 0 pass/3 fel; efter enbart estimatorkorrektion 2 pass/1 fel; slutligen 3 pass/0 fel | Reproducerad lokal beräknings- och inlärningsrättning |
 | 2026-11-02, bred svit efter VR-fix | **143 pass/1 fel**, AA-call 77,0 % i pruningtest, krav över 80 % | Bred strategi fortfarande inte godkänd; tidigare två fel varierar |
 | 2026-11-02, upprepning med en tråd | Pruning- och fokustestet passerade två gånger vardera | Samma binär/trösklar men annan träningsordning; inte robusthetsintyg |
+| 2026-11-02, aktuell sökgatas identitet | 0 pass/4 fel före; 4 pass/0 fel efter; alla 1176/1128/1081 lagliga privata par hålls isär | Kortrepresentation och exportskydd, inte kvalitet på en tränad strategi |
+| 2026-11-02, bred svit med exakt aktuell gata | 147 pass/1 fel; trepersoners-nuts call 58,38 %, sedan 57,58 % efter skärpt fallback-test | Finare kortidentitet räcker inte med befintlig träning/sampling |
 
 Viktiga evidensfiler:
 
@@ -150,6 +152,8 @@ Viktiga evidensfiler:
 - [Samplingaudit efter rättning](docs/evidence/noregrets-sampling-audit.json),
   [upprepning med en tråd](docs/evidence/noregrets-sampling-repeatability.json)
   och [ny IO-probe med båda patcharna](docs/evidence/noregrets-training-sampling-smoke.json).
+- [Exakt aktuell sökgata](docs/evidence/noregrets-current-street-audit.json)
+  och [dess fulla testkörning](docs/evidence/noregrets-current-street-full-test.log).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -178,8 +182,11 @@ Viktiga evidensfiler:
 
 Upstream: `conorarmstrong/noregrets`, MIT, låst till
 `757f7692738069522195d2b486eec60a8b010c0c`.
-Den sparade patchen utökar 6 till 10 spelare och rättar höjningsrätt efter kort
-all-in, höjning utan kvarvarande motståndare med marker samt udda marker per pott.
+Den aktuella kumulativa `advisor-current-street.patch` innehåller motor-,
+sampling- och aktuell-gata-rättningarna. Den appliceras ensam mot ren upstream.
+Tidigare patchar och evidens behålls som historik. Motorn utökar 6 till 10
+spelare och rättar höjningsrätt efter kort all-in, höjning utan kvarvarande
+motståndare med marker samt udda marker per pott.
 Den är **isolerad forskning**, inte en installerad beslutsmotor.
 
 Granskade fel/fynd och aktuell status:
@@ -188,6 +195,10 @@ Granskade fel/fynd och aktuell status:
    river foldades 10,64 %, call 89,36 %, mot testkravet över 90 % call.
    Hypotes: aktuell grov bucket blandar ihop handtyper. Det är inte bevisat att
    enbart fler buckets löser det; aktuell exakt hand måste särskiljas och testas.
+   Exakt privat par används nu på aktuell sökgata, men testet fallerar
+   fortfarande med 58,38 % respektive 57,58 % call i två nya körningar.
+   Kortidentiteten är rättad; nästa hypotes är otillräcklig träning av just
+   aktuell hand/linje. Frekvens/orsak ska mätas, inte antas.
 2. `cfr::tests::multiway_focus_keeps_the_fixed_point`: 72o call 27,4 %, krav under
   20 %. Detta test kör utan VR; det är **inte automatiskt samma fel som punkt 3**.
   Både detta fall och nutsfallet passerade i nästa breda körning utan en
@@ -208,6 +219,8 @@ Granskade fel/fynd och aktuell status:
    till tidigare blueprint kan ge postflop-panik.
 6. Infosetnyckeln består av aktuell bucket + publika tokens och glömmer tidigare
    privat information. Det är inte perfekt minne eller exakt kortisomorfi.
+   Den fasta aktuella sökgatan har nu exakta privata par i en separat ephemeral
+   kontext; framtida gator och blueprint har fortfarande denna begränsning.
 
 Trösklar i fallerade tester har inte sänkts. Endast 20-traversals IO-modeller
 finns från proben; inga kvalitetsgodkända breda blueprints har tränats.
@@ -232,6 +245,8 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
 - [x] Alla gator/2–10 kan köras tekniskt med experimentworker.
 - [x] Reproducerbar projektlogg, testunderlag och AI-överlämning.
 - [x] Rätta och regressionstesta native-kandidatens lokala VR/fokus-estimator.
+- [x] Särskilj exakta privata par på aktuell sökgata och blockera export till
+  ett format som inte beskriver den kontexten.
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
   förkasta den med tydliga mätningar om arkitekturen inte håller.
 - [ ] Välj/träna faktisk strategi och fortsättningsmodell för preflop, flop,
@@ -388,6 +403,51 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
 - Nästa steg: exakt handrepresentation på aktuell gata i beslutssökningen,
   följt av oberoende kvalitetsmätning med kontrollerad träningsordning. Binda
   spelkonfiguration och beroendemodeller innan större blueprint-träning.
+
+### 2026-11-02 19:05 Europe/Stockholm — Codex, exakt aktuell sökgata
+
+- Föregående målvarv gav faktisk kod-/testevidens i `920517c`; detta steg
+  fortsatte från den revisionen. Appkod, avläsning och portable är oförändrade.
+- Införde en separat aktuell-brädeskontext i native `Trainer`. På det fasta
+  rotbrädet används exakt privat par-ID; vanlig blueprint-träning och framtida
+  gator behåller sina nycklar. Policyfrågan använder samma nyckel som träningen.
+- Regressioner enumererar alla lagliga privata par på flop/turn/river och
+  provar ordningsinvarians, oförändrad bas-/framtidsmodell och exportskydd.
+  `to_blueprint` avvisar sökkontexten; checkpoint avvisas före filskrivning,
+  med ett regressionstest som bevarar befintligt filinnehåll.
+- Kommando:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_current_street -- --test-threads=1`.
+  Före implementation: exit 101, **0 pass/4 fel**. Efter: exit 0, **4 pass/0 fel**.
+  Loggar: `docs/evidence/noregrets-current-street-red.log` och `-green.log`.
+- Bred körning med `-- --test-threads=2`, fyra Rayon-trådar: **147 pass/1 fel**,
+  exit 101. Trepersoners-nutsfallet gav 58,38 % call, under kravet över 90 %.
+  Sparat i `docs/evidence/noregrets-current-street-before-strict-test.log`.
+- Skärpte samma kvalitetstest med en avsiktligt foldande blueprint-fallback.
+  En saknad sökstrategi kan därmed inte maskeras av standard-call. Ingen
+  kvalitetströskel eller träningsbudget ändrades. Ny bred körning: **147 pass/
+  1 fel**, exit 101, nuts call **57,58 %**. Logg:
+  `docs/evidence/noregrets-current-street-full-test.log`.
+  Den senare sviten rapporterade 5004,53 sekunder mot 114,14 för den första;
+  orsaken till den långa väggtiden är inte fastställd. Ingen prestandacertifiering.
+- `node scripts/probe-native-training.mjs`: exit 0, ombyggd native-binär och
+  skapad/inläst 20-traversals IO-modell för vart och ett av 2–10 spelare. Det
+  verifierar inte tränade råd. Resultat:
+  `docs/evidence/noregrets-current-street-training-smoke.json`.
+- Aktuell patch är **kumulativ**:
+  `research/noregrets/advisor-current-street.patch`. Applicera den ensam mot
+  ren låst upstream. Tidigare två patchar och resultatfiler behålls som historik.
+  Samlad aktuell evidens: `docs/evidence/noregrets-current-street-audit.json`.
+- Slutsats: korrekt kortidentitet är implementerad men löser inte den
+  otillräckligt tränade strategin. Att fler infosets behövs får inte mötas med
+  fabricerade frekvenser, sänkt testkrav eller fallback som döljer täckningsluckan.
+- Nästa avgränsade steg: mät uppdateringar för frågans privata hand/linje och
+  inför korrekt importance-viktad kortsampling. Native `RootSampler` returnerar
+  nu inget viktvärde, medan `run_subgame` alltid använder `t` som rotvikt.
+  `src/decision/sampler.ts:createDealSampler` har redan en mix av full prior och
+  aktuell handklass, gemensam kollisionsrejection och korrektionsvikt som kan
+  överföras med separata oracle-tester. Kontrollera även den native
+  range-samplerns sekventiella normalisering mot avsedd gemensam rangefördelning.
+- Ingen användbar bred blueprint eller ny liveversion har levererats i steget.
 
 ### Mall för nästa loggpost
 
