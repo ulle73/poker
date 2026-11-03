@@ -92,5 +92,11 @@ Se [auditens exakta modell, gränser och kvarvarande brister](native-policy-audi
 Senare samma dag jämfördes sista regret-policy med medelstrategin ur samma
 tränade tabell i samtliga 39 fall. Medelstrategin hade lägre NashConv i 38 och
 behålls som standard. Detta är ett avgränsat empiriskt metodval, inte en
-generell multiplayer-konvergensgaranti. Senaste breda native-sviten gav
+generell multiplayer-konvergensgaranti. Den breda native-sviten i det steget gav
 157 pass/1 återkommande pruningfel; kandidaten är fortsatt forskning.
+
+Nästa steg gav versionsbundna checkpoints med spel-/träningskonfiguration,
+återställda strategiska beroenden och inlärningslägen. Sju regressioner passerar,
+men senaste fulla svit har 164 pass/1 pruningfel. Blueprint-exporten återstår
+att binda innan kandidatens modeller kan laddas i appen. Se
+[checkpointkontrakt och verifieringsgränser](native-checkpoint-format.md).

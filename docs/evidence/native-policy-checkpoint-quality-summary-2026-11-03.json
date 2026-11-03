@@ -1,0 +1,18 @@
+{
+  "recordedAt": "2026-11-03T00:11:48.919Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "cases": 30,
+  "comparedRows": 36912,
+  "averageAndCurrentProfileUnchanged": true,
+  "independentReportsUnchanged": true,
+  "baseline": {
+    "path": "docs/evidence/native-policy-view-quality-2026-11-03.json",
+    "sha256": "44104fe9549360d6408f58da1a277cec7dabda11ab71cf6c463027286858a8ff"
+  },
+  "current": {
+    "path": "docs/evidence/native-policy-checkpoint-quality-2026-11-03.json",
+    "sha256": "3db1434ec335479fbd492d78805cf046de10befab5957d6270b3e14e98a6d3e7"
+  },
+  "scope": "100k small-range river check/jam only. Checkpoint persistence does not qualify broad strategies."
+}

@@ -1,0 +1,119 @@
+{
+  "recordedAt": "2026-11-03T00:11:48.921Z",
+  "goalReady": false,
+  "eligibleForAdvice": false,
+  "integratedInApplication": false,
+  "source": {
+    "revision": "757f7692738069522195d2b486eec60a8b010c0c",
+    "patch": {
+      "path": "research/noregrets/advisor-checkpoint.patch",
+      "sha256": "2249d8802f2a5e30497c0c5c0a41298154aa4322ef8d9e5a08e413b40da64ac2"
+    },
+    "cargoLock": {
+      "path": ".research/noregrets/Cargo.lock",
+      "sha256": "28e0524decce3ae2bdebafb954a14c3038f94650cf05280f7ae217f78c4d8093"
+    }
+  },
+  "engineSha256": "94576849129e89c1e235a8d15b0e1f4bac7bf5a36d946446ef6ddba014e9100c",
+  "testBinarySha256": "da86e497ec027bf31de1210a56598a15dba15a607944581081b004482fe0b83d",
+  "logs": {
+    "red": {
+      "path": "docs/evidence/noregrets-checkpoint-red.log",
+      "sha256": "603a7cbb7a088b08e846cb85a85dea14c946fc1b59511f7e4290a2bef6d1fd63"
+    },
+    "green": {
+      "path": "docs/evidence/noregrets-checkpoint-green.log",
+      "sha256": "5fc79f416a5a76d5d122c535d1718d17dbfa129d8bdcd7dac5f77d01f2370344"
+    },
+    "extended": {
+      "path": "docs/evidence/noregrets-checkpoint-green-extended.log",
+      "sha256": "fb4ac09e5a966b41f951fe66791a3856893feed182f1f5f6b3f4c10363644361"
+    },
+    "full": {
+      "path": "docs/evidence/noregrets-checkpoint-full-test.log",
+      "sha256": "8c9d25b86d0aac7f31c77a6fd54cc1e79de40489a09e479d850550af10e8ce62"
+    },
+    "build": {
+      "path": "docs/evidence/noregrets-checkpoint-build.log",
+      "sha256": "51b75efd3f0bb41bd0481623a474831a4a2f1c58d49cca01bc31385ae8e8fa72"
+    },
+    "quality": {
+      "path": "docs/evidence/native-policy-checkpoint-quality-2026-11-03.log",
+      "sha256": "669449e0453179625e16735632dbfc9efb26ceebcfccd375247004a9a0a37333"
+    }
+  },
+  "tests": {
+    "regressionRed": {
+      "passed": 0,
+      "failed": 4,
+      "exitCode": 101
+    },
+    "regressionGreen": {
+      "passed": 4,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "extended": {
+      "passed": 7,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "nativeFull": {
+      "passed": 164,
+      "failed": 1,
+      "exitCode": 101,
+      "failure": "cfr::tests::pluribus_prune_keeps_the_fixed_point",
+      "observedAACall": 0.63,
+      "requiredAACallGreaterThan": 0.8
+    },
+    "cli": {
+      "players": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "acceptedResumes": 9,
+      "rejectedMismatches": 36,
+      "exitCode": 0
+    },
+    "typeScript": {
+      "exitCode": 0
+    },
+    "probeSyntax": {
+      "exitCode": 0
+    },
+    "policyAudit": {
+      "cases": 30,
+      "exitCode": 0
+    }
+  },
+  "smoke": {
+    "path": "docs/evidence/noregrets-checkpoint-training-smoke.json",
+    "sha256": "a8cce770f7e79a1acb7dd8bc436d34773255f36a68ebc391f2a67a646e04615d"
+  },
+  "cli": {
+    "path": "docs/evidence/noregrets-checkpoint-cli.json",
+    "sha256": "06f9b87d211b989fa0ab5fe78d82c6c6c886054c2ec36aa61c4bb8fd4a5eec18"
+  },
+  "policy": {
+    "path": "docs/evidence/native-policy-checkpoint-quality-2026-11-03.json",
+    "sha256": "3db1434ec335479fbd492d78805cf046de10befab5957d6270b3e14e98a6d3e7"
+  },
+  "policyComparison": {
+    "path": "docs/evidence/native-policy-checkpoint-quality-summary-2026-11-03.json",
+    "sha256": "4a3b4e7beddc7999abf0ccceb3b45fe266efca86497ff8d3279c8e57409f90db"
+  },
+  "limitations": [
+    "Blueprint export is still unbound.",
+    "No app integration or live verification.",
+    "Parallel training is not bit-reproducible.",
+    "Pruning quality remains failed.",
+    "Broad trained strategies and future-street modeling remain incomplete."
+  ]
+}

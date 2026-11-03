@@ -118,7 +118,7 @@ rapporterna är märkta `eligibleForAdvice=false` och `goalReady=false`.
 
 ## Efterföljande jämförelse: medelstrategi och aktuell policy
 
-`advisor-policy-comparison.patch` är den aktuella kumulativa forskningspatchen.
+`advisor-policy-comparison.patch` var den kumulativa forskningspatchen för jämförelsesteget.
 Varje exporterad rad innehåller nu både `frequencies` (medelstrategi) och
 `currentFrequencies` (regret-matching från sista träningstillståndet).
 Båda läses efter avslutad träning ur samma tabell; ingen andra träningskörning
@@ -164,3 +164,9 @@ Implementationen följer projektets låsta Serde 1.0.228/serde_json 1.0.150 och
 befintliga clap 4.6.1-mönster. Referenser för
 [strikt Serde-inläsning](https://serde.rs/container-attrs.html) och
 [JSON från bytebuffer i rätt version](https://docs.rs/serde_json/1.0.150/serde_json/fn.from_slice.html).
+
+Det efterföljande [checkpointsteget](native-checkpoint-format.md) använder den
+nya kumulativa `advisor-checkpoint.patch`. Tidigare mätningar ovan behålls med
+sina egna källhashar. En ny 30-fallsserie för varje antal 2–10 finns i
+[checkpointens policykontroll](evidence/native-policy-checkpoint-quality-2026-11-03.json).
+Det nya checkpointformatet ger inte blueprint-exporten generell spelbindning.

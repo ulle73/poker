@@ -27,7 +27,7 @@ skulle inte lösa det beställda problemet.
 | Generella råd | MCCFR-worker på alla gator, 2–10 spelare, avbrott och skydd mot gamla svar | **Underkänd för tillförlitliga spelråd**, experimentval krävs |
 | Ranger/historik | Uniform fullrange som standard; egna viktade ranger; synliga handlingar samlas | Strategibaserad rangeuppdatering genom hela handen saknas |
 | Equity | Showdown-equity för flera spelare | Är inte en GTO-strategi eller handlingsfrekvens |
-| Native forskning | Oberoende audit och parad policyjämförelse i 39 små riverspel; appsvit 306 pass/4 överhoppade | Senaste native-svit 157 pass/1 pruningfel; ej integrerad; bred täckning, modellbindning och användbara blueprints saknas |
+| Native forskning | 39 små oberoende policykontroller; versionsbunden checkpoint och sju nya regressioner | Senaste native-svit 164 pass/1 pruningfel; blueprintbindning, bred täckning och användbara modeller saknas; ej integrerad |
 
 **Ingen aktuell Edge-anslutning eller pågående hand har verifierats i denna
 logguppdatering.** Tidigare lyckade liveavläsningar är historisk evidens, inte
@@ -141,6 +141,8 @@ Datum är Europe/Stockholm. Ursprungliga JSON/loggar innehåller mer mätdata.
 | 2026-11-03, parad policyjämförelse | Medelstrategi lägre NashConv i **38/39** fall; 57 024 medelrader oförändrade | Byte till aktuell regret-policy löser inte kvalitetsgapet i dessa små spel |
 | 2026-11-03, senaste native-svit | **157 pass/1 fel**, pruningtest AA-call 74,1 %, krav över 80 % | Äldre stokastiskt fel återkom; fyra isolerade gröna upprepningar upphäver inte felet |
 | 2026-11-03, senaste appsvit | **306 pass/4 opt-in överhoppade**, TypeScript exit 0 | Adapter separerar aktuell policy och medelpolicy; ingen produkt- eller liveändring |
+| 2026-11-03, checkpoint | 4 röda → 4 gröna regressioner; utökning till **7 gröna** | Konfigurationsavvisning, beroende-/modeåterställning och exakt enkeltrådig fortsättning i ett litet spel |
+| 2026-11-03, native-svit efter checkpoint | **164 pass/1 fel**, pruningtest AA-call 63,0 %, krav över 80 % | Checkpointförbättringen löser inte det kvarvarande pruningfelet |
 
 Viktiga evidensfiler:
 
@@ -172,6 +174,10 @@ Viktiga evidensfiler:
 - [Senaste policyjämförelse](docs/evidence/native-policy-view-summary-2026-11-03.json),
   [samlad evidens inklusive felet](docs/evidence/noregrets-policy-view-evidence.json)
   och [kontrollerad överlämning](docs/evidence/noregrets-policy-view-handoff.json).
+- [Checkpointkontrakt](docs/native-checkpoint-format.md) och
+  [faktisk CLI-återupptagning för 2–10](docs/evidence/noregrets-checkpoint-cli.json).
+- [Checkpointens samlade evidens](docs/evidence/noregrets-checkpoint-evidence.json)
+  och [kontrollerad överlämning](docs/evidence/noregrets-checkpoint-handoff.json).
 
 ## 6. Undersökt och förkastat eller begränsat
 
@@ -200,8 +206,9 @@ Viktiga evidensfiler:
 
 Upstream: `conorarmstrong/noregrets`, MIT, låst till
 `757f7692738069522195d2b486eec60a8b010c0c`.
-Den aktuella kumulativa `advisor-policy-comparison.patch` innehåller motor-, VR-,
-aktuell-gata-, gemensam-kort-sampling-, export/seed-rättningarna och båda policyvyerna.
+Den aktuella kumulativa `advisor-checkpoint.patch` innehåller motor-, VR-,
+aktuell-gata-, gemensam-kort-sampling-, export/seed-rättningarna, båda policyvyerna
+och versionsbunden återupptagning av träning.
 Den appliceras ensam mot ren upstream.
 Tidigare patchar och evidens behålls som historik. Motorn utökar 6 till 10
 spelare och rättar höjningsrätt efter kort all-in, höjning utan kvarvarande
@@ -236,17 +243,20 @@ Granskade fel/fynd och aktuell status:
    verifierad röd/grön-körning. Den nya breda sviten är **143 pass, 1 fel**;
    ändringen certifierar inte generell strategikvalitet. Se
    [samplingauditen](docs/evidence/noregrets-sampling-audit.json).
-4. Checkpoint/blueprint binder inte hela spel-/träningskonfigurationen, bland
-   annat stackar och blinds. Återanvänd inte en fil för ett annat spel.
-5. Strategiska checkpointar återställer inte beroendemodellen; saknad koppling
-   till tidigare blueprint kan ge postflop-panik.
+4. **Checkpoint rättad:** hela spel-/träningskonfigurationen binds och mismatch
+   avvisas. Blueprint-formatet är ännu obundet. Återanvänd inte exporterade
+   policyfiler för andra stackar/blinds. Se [checkpointkontraktet](docs/native-checkpoint-format.md).
+5. **Strategisk checkpoint rättad:** den faktiska tidigare policyn och dess
+   rolloutinställning lagras och återställs. Blueprint-exporten kräver fortfarande
+   separat beroendebindning innan en sådan modell får integreras.
 6. Infosetnyckeln består av aktuell bucket + publika tokens och glömmer tidigare
    privat information. Det är inte perfekt minne eller exakt kortisomorfi.
    Den fasta aktuella sökgatan har nu exakta privata par i en separat ephemeral
    kontext; framtida gator och blueprint har fortfarande denna begränsning.
 
-Trösklar i fallerade tester har inte sänkts. Endast 20-traversals IO-modeller
-finns från proben; inga kvalitetsgodkända breda blueprints har tränats.
+Trösklar i fallerade tester har inte sänkts. Endast syntetiska 20-traversals
+IO-modeller och 40 + 20-traversals checkpointprober finns; inga
+kvalitetsgodkända breda blueprints har tränats.
 Anslut inte dessa filer till rekommendationsvyn.
 
 Lokala kompilatorer är installerade endast under `.research/tools`: Rust GNU
@@ -276,6 +286,10 @@ Kryss betyder verifierad del, inte att hela målet är färdigt.
   avvikelse i små, fullständigt enumererade spel för varje antal 2–10.
 - [x] Jämför aktuell regret-policy med medelstrategin från samma tabell;
   behåll medelstrategin efter lägre fel i 38/39 små jämförelsefall.
+- [x] Bind checkpoints till spel-/träningskonfiguration, modellrevision och
+  låsta beroenden; återställ strategiskt beroende och inlärningslägen med regressioner.
+- [ ] Ge blueprint-export/laddning samma verifierade spel-/beroendekontrakt
+  och kontrollera faktisk konfigurationsmatchning före policyanvändning.
 - [ ] Verifiera VPIP/PFR/handantal i det faktiska bordets HTML och utvärdera
   modellförslaget i [statsundersökningen](docs/opponent-stats-research.md).
 - [ ] Rätta och granska native-kandidatens öppna estimator-/modellfel, eller
@@ -631,6 +645,58 @@ de följer inte med en Git-checkout. Beständig evidens ligger i `docs/evidence/
   pruning-fri träningspilot före större blueprintjobb. Ingen ny portable,
   appintegration eller liveverifiering har genomförts. VPIP/PFR-HTML är ännu
   inte verifierad; browseråtkomsten var blockerad enligt föregående post.
+
+### 2026-11-03 01:08 Europe/Stockholm — Codex, versionsbunden checkpoint
+
+- Föregående steg gav framsteg: 39 parade jämförelser och bevarad medelpolicy.
+  Nästa hinder för användbar förträning var checkpointens saknade spelidentitet
+  och tappade strategiberoenden. Ingen aktuell liveanslutning verifierades.
+- Fyra nya regressioner reproducerade accepterat fel spelarantal, tappade
+  inlärningslägen, tappat strategiskt beroende och accepterad orphan-export.
+  Exakt kommando:
+  `node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_checkpoint -- --test-threads=1`.
+  Före: exit 101, 0 pass/4 fel. Efter: exit 0, 4 pass/0 fel. Evidens:
+  `docs/evidence/noregrets-checkpoint-red.log` och `-green.log`.
+- Nytt `PGTOCP01`-format lagrar hela TrainConfig, modellrevision, Cargo.lock,
+  abstraktion/centroids, föregående strategiska policy, CFR+/QRE/VR/RNR,
+  VR-baselines, iterationsräknare och regrets/medelvikter. Gamla obundna
+  checkpointar avvisas. Validering sker före skrivning till separat temporär fil.
+- Utökad kontroll: exit 0, 7 pass/0 fel. Täcker även fel schema/dependencies,
+  korrupta/extra bytes, ephemeral sökkontext och exakt enkeltrådig fortsättning
+  efter 500 + 500 traversaler. Alla regrets/medelvikter och baselines matchade.
+  Logg: `docs/evidence/noregrets-checkpoint-green-extended.log`.
+- Full native-svit, samma kommando utan filter och med `-- --test-threads=2`:
+  exit 101, **164 pass/1 fel**, 127,26 s. Det äldre pruningtestet fick AA-call
+  63,0 %, krav över 80 %. Felet bevaras i
+  `docs/evidence/noregrets-checkpoint-full-test.log`; ingen tröskel sänktes.
+- Aktuell kumulativ patch är `research/noregrets/advisor-checkpoint.patch`,
+  appliceras ensam mot ren låst upstream. Format, officiella referenser och
+  reproduktion finns i `docs/native-checkpoint-format.md`.
+- Kvar: blueprint-export/laddning är fortfarande obunden. Ingen appintegration
+  eller bred strategicertifiering följer av säkrare återupptagning. Förträning
+  ska köras utan pruning tills den vägen har egen kvalitetsverifiering.
+- `node scripts/probe-native-training.mjs`: exit 0, ny källkontrollerad binär
+  och syntetisk 20-traversals IO per antal 2–10.
+  `node scripts/probe-native-checkpoint.mjs`: exit 0, nio faktiska CLI-
+  återupptagningar från 40 till 60 traversaler med VR bevarat; 36 felanrop
+  avvisades och befintliga checkpoint-/målbytes bevarades.
+  Rapporter: `docs/evidence/noregrets-checkpoint-{training-smoke,cli}.json`.
+- Ny pruning-fri oberoende policykontroll:
+  `POKER_NATIVE_POLICY_PROBE=1 npx vitest run tests/native-policy-quality.test.ts --maxWorkers=1`
+  (miljövariabel sätts separat i PowerShell enligt reproduktionsavsnittet).
+  Exit 0, 30 kompletta fall, 100k uppdateringar, 2–10p och tre frön, viktad 3p.
+  Rapport: `docs/evidence/native-policy-checkpoint-quality-2026-11-03.json`.
+  `npx tsc --noEmit` och `node --check scripts/probe-native-checkpoint.mjs`: exit 0.
+- Alla **36 912 exporterade policyrader** i den nya 30-fallsserien, både aktuell
+  och medelstrategi, matchar föregående profil exakt. Oberoende kvalitetsrapporter
+  matchar också. Detta avgränsar checkpointändringen från strategiberäkningen;
+  det är inte ett nytt strategigodkännande. Sammandrag:
+  `docs/evidence/native-policy-checkpoint-quality-summary-2026-11-03.json`.
+- Samlad käll-/binär-/loggbindning och överlämning:
+  `docs/evidence/noregrets-checkpoint-evidence.json` och
+  `docs/evidence/noregrets-checkpoint-handoff.json`. Appkärna, avläsning och
+  portable är oförändrade. Nästa steg är blueprintens spel-/beroendekontrakt,
+  därefter pruning-fri träningspilot med verklig kvalitetsmätning.
 
 ### Mall för nästa loggpost
 

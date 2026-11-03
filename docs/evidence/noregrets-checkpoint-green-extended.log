@@ -1,0 +1,97 @@
+   Compiling pluribus v0.1.0 (C:\Users\rydqv\Documents\ChatGPT\poker\.research\noregrets)
+warning: duplicated attribute
+    --> src\abstraction.rs:1683:5
+     |
+1683 |     #[test]
+     |     ^^^^^^^
+     |
+     = note: `#[warn(duplicate_macro_attributes)]` on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\aivat.rs:311:9
+    |
+311 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\benchmark.rs:370:9
+    |
+370 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\bot.rs:630:9
+    |
+630 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\br.rs:549:9
+    |
+549 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\distill.rs:193:9
+    |
+193 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\lbr.rs:665:9
+    |
+665 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+   --> src\search.rs:353:28
+    |
+353 |     use std::collections::{HashMap, HashSet};
+    |                            ^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\slumbot.rs:562:9
+    |
+562 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\table.rs:526:9
+    |
+526 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> src\abstraction.rs:296:9
+    |
+296 |     let mut limp_check = |h: &mut crate::engine::Hand, hist: &mut Vec<u8>| {
+    |         ----^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> src\bot.rs:962:13
+    |
+962 |         let mut act = |h: &mut Hand, hist: &mut Vec<u8>, a: AbsAction| {
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: `pluribus` (bin "pluribus" test) generated 12 warnings (run `cargo fix --bin "pluribus" -p pluribus --tests` to apply 11 suggestions)
+    Finished `release` profile [optimized] target(s) in 46.62s
+     Running unittests src\main.rs (.research\noregrets\target\release\deps\pluribus-4ca0270d8458f35f.exe)
+
+running 7 tests
+test cfr::tests::advisor_checkpoint_rejects_ephemeral_search_contexts_without_overwriting ... ok
+test cfr::tests::advisor_checkpoint_rejects_game_and_training_drift ... ok
+test cfr::tests::advisor_checkpoint_rejects_legacy_version_dependency_and_trailing_bytes ... ok
+test cfr::tests::advisor_checkpoint_rejects_orphan_dependency_without_overwriting ... ok
+test cfr::tests::advisor_checkpoint_restores_learning_modes_and_opponent ... ok
+test cfr::tests::advisor_checkpoint_restores_strategic_dependency ... ok
+test cfr::tests::advisor_checkpoint_single_thread_continuation_matches_uninterrupted_training ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 158 filtered out; finished in 0.18s

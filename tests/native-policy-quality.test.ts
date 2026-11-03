@@ -17,21 +17,21 @@ function fixture(count:number,weighted:boolean):CheckJamSpot {
 it.skipIf(process.env.POKER_NATIVE_POLICY_PROBE!=="1")(
   "measures the exported native policy with the independent own-information best-response oracle",()=>{
     const exe=resolve(".research/noregrets/target/release/pluribus.exe");
-    const patch="research/noregrets/advisor-policy-comparison.patch";
+    const patch="research/noregrets/advisor-checkpoint.patch";
     const sha=(p:string)=>createHash("sha256").update(readFileSync(p)).digest("hex");
     const dir=resolve("artifacts/native-policy-quality");mkdirSync(dir,{recursive:true});
     const long=process.env.POKER_NATIVE_POLICY_LONG==="1";
     const counts=long?[3,10]:[2,3,4,5,6,7,8,9,10];
     const iterations=long?1_000_000:100_000;
     const expectedCases=long?9:30;
-    const reportPath="docs/evidence/native-policy-view-quality-"+(long?"long-":"")+"2026-11-03.json";
+    const reportPath="docs/evidence/native-policy-checkpoint-quality-"+(long?"long-":"")+"2026-11-03.json";
     const seeds=[395,396,397];
     const results=[];
     for(const count of counts) for(const weighted of (count===3?[false,true]:[false]))
       for(const seed of seeds) {
         const spot=fixture(count,weighted);
         const request={...spot,seed,iterations,timeBudgetMs:60_000};
-        const label=`${count}p-${weighted?"weighted":"uniform"}-${seed}-views${long?"-long":""}`;
+        const label=`${count}p-${weighted?"weighted":"uniform"}-${seed}-checkpoint-views${long?"-long":""}`;
         const input=resolve(dir,label+"-input.json"),output=resolve(dir,label+"-profile.json");
         writeFileSync(input,JSON.stringify(request,null,2)+"\n");
         const args=["advisor-audit","--input",input,"--output",output];
@@ -54,7 +54,7 @@ it.skipIf(process.env.POKER_NATIVE_POLICY_PROBE!=="1")(
         results.push(summary);
         console.log(JSON.stringify({count,weighted,seed,nashConvPct:quality.nashConvPct,currentNashConvPct:currentQuality.nashConvPct}));
         if(count===3 && seed===395) {
-          const prefix="docs/evidence/native-policy-view-3p-"+(long?"long-":"")+(weighted?"weighted":"uniform");
+          const prefix="docs/evidence/native-policy-checkpoint-3p-"+(long?"long-":"")+(weighted?"weighted":"uniform");
           writeFileSync(prefix+"-input.json",readFileSync(input));
           writeFileSync(prefix+"-profile.json",readFileSync(output));
         }

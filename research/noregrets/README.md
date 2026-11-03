@@ -60,8 +60,8 @@ argument, exitkoder och testbinärens hash finns i
 
 Ytterligare granskade brister är ännu inte rättade:
 
-- Checkpoint/blueprint binder inte alla stackar, blinds och träningsinställningar.
-- Strategiska checkpointar saknar återställning av sin beroendemodell.
+- Blueprint-formatet binder ännu inte alla stackar, blinds och beroenden.
+  Checkpointformatet har rättats i det senare versionsbundna steget nedan.
 - Nyckeln använder aktuell kortbucket och publik handlingstokenhistorik och
   glömmer tidigare privat information. Den är inte en exakt kortisomorfi eller
   ett spel med bevarat perfekt minne.
@@ -152,11 +152,11 @@ möjliga ensidiga förbättringar, inte HU-exploaterbarhet. Många tiopersonersr
 är fortfarande otränade. Detta är ingen generell strategi- eller livecertifiering.
 Se [audit, exakta modellgränser och reproduktion](../../docs/native-policy-audit.md).
 
-## Aktuellt steg: jämförelse av medelstrategi och aktuell policy
+## Föregående steg: jämförelse av medelstrategi och aktuell policy
 
-**Aktuell kumulativ patch är `advisor-policy-comparison.patch`. Applicera den
-ensam mot ren låst upstream.** Den innehåller alla tidigare rättningar och
-lägger till en skrivskyddad regret-matching-vy i samma exporterade tabell.
+Jämförelsestegets kumulativa patch var `advisor-policy-comparison.patch`.
+Den applicerades ensam mot ren låst upstream och innehåller alla tidigare rättningar.
+Den lägger till en skrivskyddad regret-matching-vy i samma exporterade tabell.
 `frequencies`/`trained` gäller medelstrategin; `currentFrequencies`/
 `currentVisited` gäller aktuell policy. Besökta regret-noder betyder inte
 att en strategi är konvergerad.
@@ -166,11 +166,24 @@ Alla 57 024 medelrader var oförändrade jämfört med tidigare export, så sjä
 träningen ändrades inte. Standardvalet behålls. Se
 [jämförelsen](../../docs/evidence/native-policy-view-summary-2026-11-03.json).
 
-Senaste fulla native-sviten gav **157 pass/1 fel**: det äldre pruningtestet
+Den fulla native-sviten i jämförelsesteget gav **157 pass/1 fel**: det äldre pruningtestet
 fick AA-call 74,1 % mot kravet över 80 %. Fyra isolerade upprepningar passerade;
 det breda felet kvarstår som evidens. Den jämförda onlinesökningen använder
 inte pruning. Före större blueprintjobb ska modell-/beroendebindning lösas
 och en pruning-fri pilot mätas. Ingen native-modell är godkänd för appen.
+
+## Aktuellt steg: versionsbunden återupptagning
+
+**Aktuell kumulativ patch är `advisor-checkpoint.patch`. Applicera den ensam
+mot ren låst upstream.** Sju regressioner verifierar hela spel-/tränings-
+konfigurationen, schema/modellrevision/Cargo.lock, återställda beroenden och
+inlärningslägen samt exakt fortsatt enkeltrådig träning. Fyra ursprungliga
+regressioner har bevarad röd/grön-körning.
+
+Senaste fulla native-sviten gav **164 pass/1 fel**, det äldre pruningtestet
+med AA-call 63,0 % mot kravet över 80 %. Blueprint-formatet är fortfarande
+obundet; checkpointen är inte en licens att använda en modell i appen.
+Se [formatkontrakt, gränser och reproduktion](../../docs/native-checkpoint-format.md).
 
 ## Windows-byggningen som användes
 
@@ -212,15 +225,20 @@ binder den aktuella samplingpatchen. Modellerna är fortfarande endast IO-testda
 [Föregående IO-probe](../../docs/evidence/noregrets-policy-audit-training-smoke.json)
 binder export-/auditpatchen; de syntetiska blueprintarna är fortfarande inte råd.
 
-[Aktuell IO-probe](../../docs/evidence/noregrets-policy-comparison-training-smoke.json)
+[Föregående IO-probe](../../docs/evidence/noregrets-policy-comparison-training-smoke.json)
 binder jämförelsepatchen och den ombyggda binären. Samma IO-begränsning gäller.
+
+[Aktuell IO-probe](../../docs/evidence/noregrets-checkpoint-training-smoke.json)
+binder checkpointpatchen. [CLI-kontrollen](../../docs/evidence/noregrets-checkpoint-cli.json)
+återupptog dessutom 40 + 20 syntetiska traversaler per antal 2–10 med VR
+bevarat och fyra avvisade felanrop per antal. Inga av dessa modeller är råd.
 
 I en ny checkout, från projektroten och med dessa lokala verktyg installerade:
 
 ```powershell
 git clone https://github.com/conorarmstrong/noregrets.git .research/noregrets
 git -C .research/noregrets checkout 757f7692738069522195d2b486eec60a8b010c0c
-git -C .research/noregrets apply ../../research/noregrets/advisor-policy-comparison.patch
+git -C .research/noregrets apply ../../research/noregrets/advisor-checkpoint.patch
 node scripts/native-research-cargo.mjs build --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 engine::tests -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_vr -- --test-threads=1
@@ -229,6 +247,7 @@ node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 advisor_audit -- --test-threads=1
 node scripts/native-research-cargo.mjs test --manifest-path .research/noregrets/Cargo.toml --release --locked -j 4 -- --test-threads=2
 node scripts/probe-native-training.mjs
+node scripts/probe-native-checkpoint.mjs
 ```
 
 Den breda testkörningen ovan är inte ett påstående om att alla tester

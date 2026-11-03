@@ -1,0 +1,267 @@
+warning: duplicated attribute
+    --> src\abstraction.rs:1683:5
+     |
+1683 |     #[test]
+     |     ^^^^^^^
+     |
+     = note: `#[warn(duplicate_macro_attributes)]` on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\aivat.rs:311:9
+    |
+311 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `std::collections::HashMap`
+   --> src\benchmark.rs:370:9
+    |
+370 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\bot.rs:630:9
+    |
+630 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\br.rs:549:9
+    |
+549 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\distill.rs:193:9
+    |
+193 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\lbr.rs:665:9
+    |
+665 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `HashMap`
+   --> src\search.rs:353:28
+    |
+353 |     use std::collections::{HashMap, HashSet};
+    |                            ^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\slumbot.rs:562:9
+    |
+562 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+   --> src\table.rs:526:9
+    |
+526 |     use std::collections::HashMap;
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variable does not need to be mutable
+   --> src\abstraction.rs:296:9
+    |
+296 |     let mut limp_check = |h: &mut crate::engine::Hand, hist: &mut Vec<u8>| {
+    |         ----^^^^^^^^^^
+    |         |
+    |         help: remove this `mut`
+    |
+    = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+warning: variable does not need to be mutable
+   --> src\bot.rs:962:13
+    |
+962 |         let mut act = |h: &mut Hand, hist: &mut Vec<u8>, a: AbsAction| {
+    |             ----^^^
+    |             |
+    |             help: remove this `mut`
+
+warning: `pluribus` (bin "pluribus" test) generated 12 warnings (run `cargo fix --bin "pluribus" -p pluribus --tests` to apply 11 suggestions)
+    Finished `release` profile [optimized] target(s) in 0.12s
+     Running unittests src\main.rs (.research\noregrets\target\release\deps\pluribus-4ca0270d8458f35f.exe)
+
+running 165 tests
+test abstraction::tests::bucket_orders_nuts_above_air ... ok
+test abstraction::tests::bucket_table_roundtrip_matches_lazy_buckets ... ok
+test abstraction::tests::combined_centroids_are_not_strategic_and_bucket_orders_strength ... ok
+test abstraction::tests::combined_feature_shape_and_opponent_relativity ... ok
+test abstraction::tests::draw_distribution_wider_than_made_hand ... ok
+test abstraction::tests::fuzz_abstract_playouts_always_have_actions ... ok
+test abstraction::tests::isomorphic_hands_share_bucket_and_computation ... ok
+test abstraction::tests::kmeans_buckets_separate_monster_from_air ... ok
+test abstraction::tests::kmedians_recovers_separated_clusters ... ok
+test abstraction::tests::map_raise_picks_nearest_in_log_space ... ok
+test abstraction::tests::menus_are_wide ... ok
+test abstraction::tests::no_fold_when_check_is_free ... ok
+test abstraction::tests::pluribus_menus_are_coarse_postflop_and_fine_preflop_is_finer ... ok
+test abstraction::tests::pot_bet_math ... ok
+test abstraction::tests::preflop_bucket_used_when_board_empty ... ok
+test abstraction::tests::preflop_buckets_are_canonical_169 ... ok
+test abstraction::tests::preflop_tiers_rank_premiums_top_and_trash_bottom ... ok
+test abstraction::tests::quantile_vector_sorted_and_bounded ... ok
+test abstraction::tests::river_buckets_are_suit_isomorphic ... ok
+test abstraction::tests::river_table_matches_naive_exact_equity ... ok
+test abstraction::tests::river_table_matches_naive_exact_equity ... ok
+test ablate::tests::gadget_bounds_margin_under_wrong_beliefs ... ok
+test abstraction::tests::strategic_centroids_bucket_hands ... ok
+test abstraction::tests::suit_isomorphism_canonical_keys ... ok
+test abstraction::tests::utg_actions_have_fold_call_bet_allin_no_dupes ... ok
+test advisor_audit::tests::advisor_audit_exports_the_real_equal_stack_root_for_all_counts ... ok
+test advisor_audit::tests::advisor_audit_rejects_a_different_game_and_duplicate_cards ... ok
+test advisor_audit::tests::advisor_audit_untrained_rows_are_explicit_in_a_complete_two_player_tree ... ok
+test abstraction::tests::strategic_fingerprint_shape_and_separation ... ok
+test aivat::tests::alt_hand_swaps_cards_consistently ... ok
+test aivat::tests::v_est_is_exact_on_the_river ... ok
+test benchmark::tests::coverage_and_top1_with_synthetic_blueprint ... ok
+test benchmark::tests::parses_the_sample_hand ... ok
+test benchmark::tests::replays_the_sample_hand_with_exact_chip_accounting ... ok
+test aivat::tests::aivat_is_unbiased_and_low_variance ... ok
+test bot::tests::no_net_flop_search_falls_back_to_the_blueprint ... ok
+test bot::tests::policy_falls_back_to_checkcall_when_unseen ... ok
+test bot::tests::policy_follows_blueprint_when_available ... ok
+test bot::tests::range_tracked_depth_limited_flop_search_smoke ... ok
+test bot::tests::exact_turn_resolve_calls_the_nuts_facing_a_shove ... ok
+test bot::tests::round_rooted_search_calls_the_nuts_three_way ... ok
+test bot::tests::search_calls_the_nuts_on_the_river ... ok
+test bot::tests::safe_resolve_calls_the_nuts_on_the_river ... ok
+test bot::tests::stale_menu_blueprint_is_flagged_not_silently_degraded ... ok
+test bot::tests::search_prices_off_tree_bets_from_the_real_state ... ok
+test br::tests::br_calls_river_shove_with_nuts_and_folds_air ... ok
+test br::tests::br_plans_multistreet_value_extraction_with_the_nuts ... ok
+test br::tests::br_probe_crushes_a_calling_station_and_is_deterministic ... ok
+test br::tests::br_river_values_are_bounded_by_the_pot ... ok
+test br::tests::br_values_made_royal_exactly_facing_turn_shove ... ok
+test br::tests::build_rejects_wrong_streets_and_multiway ... ok
+test cards::tests::parse_examples ... ok
+test cards::tests::roundtrip ... ok
+test cfr::tests::advisor_audit_subgame_seed_is_effective_and_repeatable ... ok
+test cfr::tests::advisor_checkpoint_rejects_ephemeral_search_contexts_without_overwriting ... ok
+test cfr::tests::advisor_checkpoint_rejects_game_and_training_drift ... ok
+test cfr::tests::advisor_checkpoint_rejects_legacy_version_dependency_and_trailing_bytes ... ok
+test cfr::tests::advisor_checkpoint_rejects_orphan_dependency_without_overwriting ... ok
+test cfr::tests::advisor_checkpoint_restores_learning_modes_and_opponent ... ok
+test cfr::tests::advisor_checkpoint_restores_strategic_dependency ... ok
+test cfr::tests::advisor_checkpoint_single_thread_continuation_matches_uninterrupted_training ... ok
+test cfr::tests::advisor_current_policy_is_regret_matching_not_time_average ... ok
+test cfr::tests::advisor_current_street_distinguishes_every_legal_pair ... ok
+test cfr::tests::advisor_current_street_leaves_blueprint_and_future_keys_unchanged ... ok
+test cfr::tests::advisor_current_street_rejects_blueprint_export - should panic ... ok
+test cfr::tests::advisor_current_street_rejects_checkpoint_without_overwriting ... ok
+test cfr::tests::advisor_joint_sampler_chance_weight_reaches_regret_and_average_updates ... ok
+test cfr::tests::advisor_vr_enumerated_expectation_is_unbiased ... ok
+test cfr::tests::advisor_vr_perfect_baseline_has_zero_variance_off_policy ... ok
+test cfr::tests::advisor_vr_traversal_preserves_perfect_baseline_under_focus ... ok
+test cfr::tests::apply_bias_shifts_mass ... ok
+test cfr::tests::blueprint_and_checkpoint_roundtrip ... ok
+test cfr::tests::key_roundtrip_bucket_encoding ... ok
+test bot::tests::turn_resolve_carries_cfvs_into_the_river_gadget ... ok
+test cfr::tests::parallel_training_smoke ... ok
+test cfr::tests::multiway_focus_keeps_the_fixed_point ... ok
+test cfr::tests::pluribus_prune_keeps_the_fixed_point ... FAILED
+test cfr::tests::qre_distribution_interpolates_rationality ... ok
+test cfr::tests::regret_matching_math ... ok
+test cfr::tests::push_fold_convergence ... ok
+test cfr::tests::rnr_exploits_a_blueprint_opponent ... ok
+test cfr::tests::snapshot_avg_fills_postflop_only_from_snapshots ... ok
+test cfr::tests::spine_step_matches_history_and_seat ... ok
+test cfr::tests::subgame_solver_keeps_regrets_nonnegative ... ok
+test cfr::tests::rnr_exploits_the_modeled_opponent ... ok
+test clone::tests::builds_a_normalized_clone_from_a_log_file ... ok
+test clone::tests::replays_a_checked_down_hand_across_streets ... ok
+test clone::tests::replays_a_preflop_raise_fold ... ok
+test cfr::tests::vr_baselines_are_learned_and_unbiased ... ok
+test distill::tests::expand_dist_aligns_by_action_identity ... ok
+test distill::tests::merge_blends_inserts_and_skips_mismatches ... ok
+test engine::tests::advisor_engine_supports_every_count_through_ten ... ok
+test engine::tests::advisor_no_raise_when_all_opponents_are_allin ... ok
+test engine::tests::advisor_odd_chips_start_left_of_button_for_each_pot ... ok
+test engine::tests::advisor_short_allin_does_not_reopen_prior_bettor ... ok
+test engine::tests::advisor_two_short_allins_can_cumulatively_reopen ... ok
+test engine::tests::bb_gets_option_then_flop_order ... ok
+test engine::tests::blinds_posted_and_utg_first ... ok
+test engine::tests::check_down_to_showdown_best_hand_wins ... ok
+test engine::tests::fold_around_bb_wins_blinds ... ok
+test engine::tests::fuzz_random_playouts_terminate_zero_sum ... ok
+test engine::tests::heads_up_blind_order ... ok
+test engine::tests::min_raise_rules_and_clamping ... ok
+test engine::tests::multiway_allin_fast_forwards_to_showdown ... ok
+test engine::tests::resample_hidden_keeps_hero_and_board_no_duplicates ... ok
+test engine::tests::resample_hidden_with_places_requested_holes ... ok
+test engine::tests::short_allin_raise_must_be_called ... ok
+test engine::tests::side_pot_short_stack_only_wins_main_pot ... ok
+test engine::tests::uncalled_bet_is_returned ... ok
+test eval::tests::categories ... ok
+test eval::tests::differential_vs_naive ... ok
+test eval::tests::orderings ... ok
+test flop::tests::builds_with_leaves_and_runout_terminals ... ok
+test flop::tests::flopped_royal_calls_a_shove ... ok
+test distill::tests::distill_smoke_produces_a_valid_blueprint ... ok
+test flop::tests::sampled_leaf_queries_still_normalize ... ok
+test lbr::tests::joint_equity_extremes ... ok
+test lbr::tests::lbr_calls_shove_with_nuts_and_folds_air ... ok
+test lbr::tests::lbr_crushes_a_calling_station ... ok
+test flop::tests::strategies_normalize_and_solve_completes ... ok
+test lbr::tests::observe_concentrates_range_exactly ... ok
+test lbr::tests::range_equity_is_exact_on_the_river ... ok
+test net::tests::gradients_match_finite_differences ... ok
+test lbr::tests::multiway_lbr_crushes_stations_and_is_deterministic ... ok
+test net::tests::save_load_roundtrip ... ok
+test net::tests::overfits_a_tiny_dataset ... ok
+test river::tests::adaptive_solve_exits_early_only_when_pure ... ok
+test river::tests::nuts_call_and_air_folds_facing_shove ... ok
+test river::tests::qre_lambda_changes_hero_response ... ok
+test river::tests::root_strategies_are_normalized ... ok
+test river::tests::showdown_sweep_matches_naive ... ok
+test search::tests::advisor_joint_sampler_focus_increases_visits_without_changing_prior ... ok
+test search::tests::advisor_joint_sampler_matches_enumerated_product_prior ... ok
+test search::tests::advisor_joint_sampler_rejects_invalid_and_incompatible_ranges ... ok
+test search::tests::advisor_joint_sampler_unequal_ranges_include_folded_dead_cards ... ok
+test search::tests::combo_index_is_a_bijection ... ok
+test search::tests::exclude_zeroes_conflicting_combos ... ok
+test search::tests::observe_concentrates_range_on_raising_hands ... ok
+test search::tests::off_model_actions_widen_instead_of_concentrating ... ok
+test search::tests::sample_holes_respects_weights_and_conflicts ... ok
+test slumbot::tests::act_transport_error_counts_desync_and_run_continues ... ok
+test slumbot::tests::incr_encoding_matches_protocol ... ok
+test slumbot::tests::logs_one_json_line_per_completed_hand ... ok
+test slumbot::tests::new_hand_transient_error_is_retried ... ok
+test slumbot::tests::parses_the_documented_action_strings ... ok
+test slumbot::tests::plays_a_scripted_hand_end_to_end ... ok
+test slumbot::tests::small_blind_position_maps_to_the_button ... ok
+test table::tests::apply_abs_degrades_gracefully_when_shadow_cannot_raise ... ok
+test table::tests::concrete_offtree_bets_are_tracked ... ok
+test table::tests::duplicate_eval_cancels_card_luck ... ok
+test table::tests::eval_symmetric_matchup_is_near_zero ... ok
+test table::tests::folding_when_free_records_check ... ok
+test table::tests::round_root_tracks_the_current_betting_round ... ok
+test table::tests::search_eval_smoke ... ok
+test table::tests::shadow_stays_synced_under_abstract_play ... ok
+test turn::tests::builds_a_multi_street_tree ... ok
+test turn::tests::carry_exposes_river_entry_cfvs_by_line ... ok
+test turn::tests::gadget_turn_resolve_calls_the_nuts_and_respects_alternatives ... ok
+test turn::tests::made_royal_calls_shove_and_values_full_pot ... ok
+test turn::tests::root_strategies_are_normalized ... ok
+test turn::tests::root_values_are_zero_sum ... ok
+test valuenet::tests::encoding_has_correct_shape_and_normalization ... ok
+test portfolio::tests::bandit_converges_to_the_exploitative_arm ... ok
+test valuenet::tests::generates_valid_samples ... ok
+test valuenet::tests::training_reduces_loss ... ok
+
+failures:
+
+---- cfr::tests::pluribus_prune_keeps_the_fixed_point stdout ----
+
+thread 'cfr::tests::pluribus_prune_keeps_the_fixed_point' (37192) panicked at src\cfr.rs:1653:9:
+AA should call a shove, got 0.630
+
+
+failures:
+    cfr::tests::pluribus_prune_keeps_the_fixed_point
+
+test result: FAILED. 164 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 127.26s
+
+error: test failed, to rerun pass `--bin pluribus`
