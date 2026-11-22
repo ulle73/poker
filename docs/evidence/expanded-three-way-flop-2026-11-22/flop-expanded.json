@@ -1,0 +1,230 @@
+{
+  "verifiedAt": "2026-11-22T11:45:43.731Z",
+  "revision": "7515ccf",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M"
+  },
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "options": {
+    "seed": 395,
+    "sampling": "outcome",
+    "baseline": "learned",
+    "timeBudgetMs": 9000,
+    "expandedResearchBudget": true,
+    "maxInfosets": 400000,
+    "maxIterations": 400000,
+    "heroOversampling": 0.5
+  },
+  "elapsedMs": 7697.9072,
+  "maxRssAfterSolveKiB": 540504,
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "frequencies": [
+      0.00001773975944623575,
+      0.9235331642009033,
+      0.07644909603965047
+    ],
+    "trained": true
+  },
+  "result": {
+    "key": "raised-postflop-probe:flop",
+    "rangeRevision": 0,
+    "quality": "approximation",
+    "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0",
+        "frequency": 0.00001773975944623575,
+        "ev": 0
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180",
+        "frequency": 0.9235331642009033,
+        "ev": 304.4364960495796
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360",
+        "frequency": 0.07644909603965047,
+        "ev": 260.872991329196
+      }
+    ],
+    "recommended": 1,
+    "iterations": 287644,
+    "rootVisits": 143343,
+    "elapsedMs": 7697,
+    "cutoffCount": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ],
+    "limitations": [
+      "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+      "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+      "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+      "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+      "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+      "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+      "Training stopped before the 400000 entry limit because a complete update cycle could no longer be reserved."
+    ],
+    "exploitabilityPct": null,
+    "diagnostics": {
+      "informationSets": 399854,
+      "cachedCardViews": 141732,
+      "suitPermutations": 24,
+      "rootClassSize": 1,
+      "tableLimited": true,
+      "completedEpisodes": 862932,
+      "maximumEpisodeNodes": 49,
+      "baselineUpdates": 3464411,
+      "baselineBytes": 19244904,
+      "publicTreeNodes": 104,
+      "publicTreeLimited": false
+    }
+  },
+  "rootCombos": 1176,
+  "rootTrained": 1176,
+  "heroRowMatchesResult": true,
+  "auditMs": 19081.9571,
+  "audit": {
+    "fitSeed": 642928,
+    "evaluationSeed": 3758153,
+    "fitSamples": 60000,
+    "evaluationSamples": 160000,
+    "errorProbability": 0.016666666666666666,
+    "fitPrivateCombos": 1176,
+    "deviationActionCounts": {
+      "fold:0": 488,
+      "call:180": 222,
+      "raise:360": 466
+    },
+    "profileEvChips": 79.43898074610482,
+    "possibleGainChips": 10.50020675389853,
+    "errorChips": 8.58476569977293,
+    "lowerBoundChips": 1.9154410541255995,
+    "possibleGainPct": 2.9167240983051475,
+    "lowerBoundPct": 0.5320669594793332,
+    "testedContinuations": 1356412,
+    "trainedContinuations": 992288
+  },
+  "qualityLimitPct": 2.1,
+  "latencyPass": true,
+  "quality": "unverified",
+  "qualifies": false
+}

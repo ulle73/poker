@@ -7,7 +7,9 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
-**Senaste solverprov, 22 november.** Lokal MCCFR gav handrader inom 0,52–3,87 s på flop, turn och river efter trevägs check → bet → raise med fulla ranger. En uppmätt ensidig avvikelse över 2,1 % av rotpotten underkände varje profil. Ett extra riverprov med external sampling underkändes också. Fyra till sex aktiva väntar på godkänd trevägsflop. [Metod, resultat och körkommandon](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md)
+**Senaste solverprov, 22 november.** Utökad outcome-MCCFR med jämn sampling tränade 399 854 informationsmängder på exakt samma trevägsflop efter check → bet → raise. I det fördjupade provet tog handraden 7,42 s. En ändring av hjältens första beslut gav 3,33 % av rotpotten som statistisk undre gräns, över kravet 2,1 %. Den utökade kandidaten är underkänd på flop. Turn och river samt 4–6 aktiva väntar på att floppen klarar kvalitet och tid. [Metod, resultat och körkommandon](docs/evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md)
+
+**Föregående solverprov, 22 november.** Lokal MCCFR gav handrader inom 0,52–3,87 s på flop, turn och river efter trevägs check → bet → raise med fulla ranger. En uppmätt ensidig avvikelse över 2,1 % av rotpotten underkände varje profil. Ett extra riverprov med external sampling underkändes också. [Tidigare prov och körkommandon](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md)
 
 **22 november 2026.** Svenska Spel-vyn använder automatisk efteranalys med tre handbyten i fördröjning. Den senaste frigivna handen analyseras när vyn är öppen. Två kvar matchas mot befintliga HU-flopreferenser och tidigare motorer används för sina stödda lägen. För 3–6 kvar saknas generell vanlig floppstrategi. [Windows-prov och gränser](docs/evidence/hand-review-2026-11-22/RESULTAT.md)
 
@@ -2318,3 +2320,24 @@ Strategierna underkändes i en separat audit. Den statistiska undre gränsen fö
 `npm.cmd test -- --maxWorkers=1 --reporter=default` gav 461 passerade och 35 överhoppade. `./node_modules/.bin/tsc.cmd --noEmit` passerade. Det nya auditprovet körs med miljövariablerna ovan och är överhoppat i standardsviten.
 
 Nästa steg är att kvalificera en kandidat med större trädtäckning eller en kontrollerad förberäkning och mäta bästa ensidiga avvikelse i det definierade spelet. Fortsätt med fyra till sex aktiva först när trevägsfloppen klarar både kvalitet och tid.
+
+### 2026-11-22 · Trevägsflop med större tabell och bredare sampling
+
+Den tidigare floppkörningen stannade vid ungefär 50 000 informationsmängder. Hypotesen var att en uttrycklig forskningsbudget på 9 s och högst 400 000 informationsmängder skulle förbättra strategin genom mer träning av fortsättningarna. Två outcome-varianter provades på samma spel med och utan översampling av hjältens hand. Båda nådde 399 854 informationsmängder utan passiva avkortningar. External sampling provades också och fick 107 328 avkortningar.
+
+```powershell
+$env:POKER_RAISED_POSTFLOP_PROBE='1'
+$env:POKER_RAISED_POSTFLOP_STREET='flop'
+$env:POKER_RAISED_POSTFLOP_EXPANDED='1'
+$env:POKER_RAISED_POSTFLOP_SAMPLING='outcome'
+$env:POKER_RAISED_POSTFLOP_HERO_SHARE='0'
+$env:POKER_RAISED_POSTFLOP_DEEP_AUDIT='1'
+$env:POKER_RAISED_POSTFLOP_OUTPUT='docs/evidence/expanded-three-way-flop-2026-11-22/flop-uniform-deep.json'
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts
+```
+
+Handraden i det fördjupade provet tog 7,42 s. Förbättringen från ett ändrat första beslut uppskattades till 3,64 % av rotpotten, med 3,33 % som ensidig undre gräns. Stickprovet på 240 000 givar var separat från givar som användes för att hitta avvikelsen. Den jämna outcome-samplingen underkändes på strategikvalitet. Bekräftelseproven med 160 000 givar och alla tre säten gav lägre undre gränser och finns sparade. Tiderna avser den lokala solvern. [Övriga kommandon och rådata](docs/evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md)
+
+`./node_modules/.bin/tsc.cmd --noEmit` passerade efter en rättning av typkontrollen i det nya provet. `npm.cmd test -- --maxWorkers=1 --reporter=default` gav 462 passerade och 35 överhoppade. Rårapporterna bevarar alla sju körningar och samma handrad verifierades mellan de jämnt samplade bekräftelse- och fördjupningsproven.
+
+Nästa steg är att prova en förberäknad profil för samma spelmodell och mäta den bästa ensidiga avvikelsen med en oberoende övre gräns över hela trädet. Först efter en godkänd trevägsflop går samma kandidat vidare till trevägsturn och trevägsriver och sedan till 4–6 spelare.

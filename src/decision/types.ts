@@ -111,6 +111,10 @@ export interface DecisionPolicy {
 export interface SolveOptions {
   sampling?: "external" | "outcome";
   baseline?: "none" | "learned";
+  /** Offline profile evaluation can request a larger bounded training run. */
+  expandedResearchBudget?: boolean;
+  /** Share of deals drawn from the requested hero hand's suit orbit. */
+  heroOversampling?: number;
   /** Diagnostic reference path; outcome sampling caches public transitions by default. */
   publicTreeCache?: boolean;
   seed?: number;

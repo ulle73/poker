@@ -14,6 +14,7 @@ export function createDealSampler(
   input: DecisionInput,
   seed: number,
   rootClass?: readonly (readonly number[])[],
+  heroOversampling = 0.5,
 ): () => SampledDeal {
   const count = input.seats.length,
     hero = input.hero;
@@ -28,6 +29,8 @@ export function createDealSampler(
   if (!Array.isArray(input.board) || ![0, 3, 4, 5].includes(input.board.length))
     throw new Error("Board must contain 0, 3, 4 or 5 cards.");
   if (!Number.isFinite(seed)) throw new Error("Invalid random seed.");
+  if (!Number.isFinite(heroOversampling) || heroOversampling < 0 || heroOversampling >= 1)
+    throw new Error("Hero oversampling must be in [0, 1).");
   const actual = input.heroCards.map(parseCard).sort((a, b) => a - b),
     board = input.board.map(parseCard);
   if (new Set([...actual, ...board]).size !== 2 + board.length)
@@ -83,15 +86,15 @@ export function createDealSampler(
   );
   const uniform = input.ranges.every((text) => !text.trim());
   const chooseHero = () =>
-    random() < 0.5
+    random() < heroOversampling
       ? rootPrior.combos.length === 1
         ? rootPrior.combos[0]
         : draw(rootPrior, random)
       : draw(priors[hero], random);
   const importance = (combo: Combo) =>
     rootKeys.has(comboKey(combo.cards))
-      ? rootProbability / (0.5 + 0.5 * rootProbability)
-      : 2;
+      ? rootProbability / (heroOversampling + (1 - heroOversampling) * rootProbability)
+      : 1 / (1 - heroOversampling);
   const complete = (
     holes: number[][],
     used: Set<number>,

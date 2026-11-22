@@ -8,7 +8,7 @@ import { evaluate7 } from "../scripts/river-oracle.mjs";
 import { applyAction, legalActions } from "../src/decision/betting";
 import { solveDecision } from "../src/decision/mccfr";
 import { settlePayoffs } from "../src/decision/payoffs";
-import type { BettingState, DecisionInput, DecisionPolicy } from "../src/decision/types";
+import type { BettingAction, BettingState, DecisionInput, DecisionPolicy, SolveOptions } from "../src/decision/types";
 
 const streets = ["flop", "turn", "river"] as const;
 const fullBoard = ["Qh", "8d", "6h", "2c", "Js"];
@@ -58,17 +58,43 @@ function sampleIndex(next: () => number, choices: number) {
   return draw % choices;
 }
 
-function rootDeviation(input: DecisionInput, policy: DecisionPolicy, external: boolean) {
+function firstDecisionDeviation(
+  input: DecisionInput,
+  policy: DecisionPolicy,
+  seeds: { fit: number; evaluation: number },
+  errorProbability: number,
+  confidenceBound: "hoeffding" | "empirical-bernstein",
+  deviationSeat: number,
+  sampleCounts: { fit: number; evaluation: number },
+) {
   const board = input.board.map(encode);
   const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
   const actions = legalActions(input.state, input.rules);
   const roots = actions.map((action) => applyAction(input.state, action, input.rules));
   const ranks = new Map<number, number>();
   const keyFor = (cards: number[]) => Math.min(...cards) * 52 + Math.max(...cards);
-  const totals = new Map<number, number[]>();
+  const totals = new Map<string, { ids: string[]; sums: number[] }>();
   const successors = new Map<string, BettingState>();
   let testedContinuations = 0;
   let trainedContinuations = 0;
+
+  function advance(state: BettingState, action: BettingAction) {
+    const key = `${state.history}/${action.id}`;
+    let child = successors.get(key);
+    if (!child) {
+      child = applyAction(state, action, input.rules);
+      successors.set(key, child);
+    }
+    return child;
+  }
+
+  function choose(row: ReturnType<DecisionPolicy["query"]>, draw: number) {
+    let index = 0;
+    while (index < row.actions.length - 1 && draw >= row.frequencies[index]) {
+      draw -= row.frequencies[index++];
+    }
+    return row.actions[index];
+  }
 
   function sample(next: () => number) {
     const remaining = deck.slice();
@@ -76,8 +102,14 @@ function rootDeviation(input: DecisionInput, policy: DecisionPolicy, external: b
     const holes = input.seats.map(() => [draw(), draw()]);
     const runout = [...board];
     while (runout.length < 5) runout.push(draw());
-    const key = keyFor(holes[0]);
-    const mix = policy.query(input.state, holes[0], board).frequencies;
+    let reached = input.state;
+    while (!reached.terminal && reached.street === input.state.street && reached.actor !== deviationSeat) {
+      const row = policy.query(reached, holes[reached.actor], board);
+      reached = advance(reached, choose(row, next() / 2 ** 32));
+    }
+    if (reached.terminal || reached.street !== input.state.street) return null;
+    const { actions: choices, frequencies: mix } = policy.query(reached, holes[deviationSeat], board);
+    const key = `${reached.history}/${keyFor(holes[deviationSeat])}`;
     const scores = holes.map((hand) => {
       const handKey = keyFor(hand);
       const cached = ranks.get(handKey);
@@ -87,45 +119,43 @@ function rootDeviation(input: DecisionInput, policy: DecisionPolicy, external: b
       return score;
     });
     const uniforms: number[] = [];
-    const values = roots.map((root) => {
+    const branches = reached === input.state ? roots : choices.map((action) => advance(reached, action));
+    const values = branches.map((root) => {
       let state = root;
       let depth = 0;
       while (!state.terminal) {
         const row = policy.query(state, holes[state.actor], runout.slice(0, state.boardCount));
         testedContinuations++;
         if (row.trained) trainedContinuations++;
-        let draw = uniforms[depth] ?? (uniforms[depth] = next() / 2 ** 32);
+        const draw = uniforms[depth] ?? (uniforms[depth] = next() / 2 ** 32);
         depth++;
-        let index = 0;
-        while (index < row.actions.length - 1 && draw >= row.frequencies[index]) {
-          draw -= row.frequencies[index++];
-        }
-        const action = row.actions[index];
-        const transition = `${state.history}/${action.id}`;
-        let child = successors.get(transition);
-        if (!child) {
-          child = applyAction(state, action, input.rules);
-          successors.set(transition, child);
-        }
-        state = child;
+        state = advance(state, choose(row, draw));
       }
-      return settlePayoffs(state, scores)[0];
+      return settlePayoffs(state, scores)[deviationSeat];
     });
-    return { key, values, mix };
+    return { key, values, mix, choices };
   }
 
-  const fitSamples = 60_000;
-  const evaluationSamples = 160_000;
-  const fitSeed = external ? 741833 : 81013;
-  const evaluationSeed = external ? 2105279 : 240781;
+  const fitSamples = sampleCounts.fit;
+  const evaluationSamples = sampleCounts.evaluation;
+  const fitSeed = seeds.fit;
+  const evaluationSeed = seeds.evaluation;
   const fitRandom = auditRandom(fitSeed);
   for (let i = 0; i < fitSamples; i++) {
-    const { key, values } = sample(fitRandom);
-    const sum = totals.get(key) ?? actions.map(() => 0);
-    values.forEach((value, index) => { sum[index] += value; });
-    totals.set(key, sum);
+    const draw = sample(fitRandom);
+    if (!draw) continue;
+    const { key, values, choices } = draw;
+    const row = totals.get(key) ?? { ids: choices.map((a) => a.id), sums: values.map(() => 0) };
+    values.forEach((value, index) => { row.sums[index] += value; });
+    totals.set(key, row);
   }
-  const deviation = new Map([...totals].map(([key, sum]) => [key, sum.indexOf(Math.max(...sum))]));
+  const deviation = new Map<string, number>();
+  const deviationActionCounts = new Map<string, number>();
+  for (const [key, { ids, sums }] of totals) {
+    const best = sums.indexOf(Math.max(...sums));
+    deviation.set(key, best);
+    deviationActionCounts.set(ids[best], (deviationActionCounts.get(ids[best]) ?? 0) + 1);
+  }
 
   testedContinuations = 0;
   trainedContinuations = 0;
@@ -133,30 +163,39 @@ function rootDeviation(input: DecisionInput, policy: DecisionPolicy, external: b
   const pool = input.state.deadPot + input.state.stacks.reduce((a, b) => a + b, 0)
     + input.state.invested.reduce((a, b) => a + b, 0);
   let gain = 0;
+  let squaredGain = 0;
   let profileEv = 0;
+  let reachedEvaluationSamples = 0;
   for (let i = 0; i < evaluationSamples; i++) {
-    const { key, values, mix } = sample(evaluationRandom);
+    const draw = sample(evaluationRandom);
+    if (!draw) continue;
+    reachedEvaluationSamples++;
+    const { key, values, mix } = draw;
     const profileValue = values.reduce((sum, value, index) => sum + value * mix[index], 0);
-    const difference = values[deviation.get(key) ?? 0] - profileValue;
+    const best = deviation.get(key);
+    const difference = best === undefined ? 0 : values[best] - profileValue;
     if (Math.abs(difference) > pool) throw new Error("Paired payoff outside chip bound");
     gain += difference;
+    squaredGain += difference * difference;
     profileEv += profileValue;
   }
 
   const pot = input.state.deadPot + input.state.invested.reduce((a, b) => a + b, 0);
-  // One-sided Hoeffding bound. The three primary runs share a single 5% error budget.
-  const errorProbability = external ? 0.05 : 0.05 / streets.length;
-  const errorChips = 2 * pool * Math.sqrt(Math.log(1 / errorProbability) / (2 * evaluationSamples));
   const possibleGainChips = gain / evaluationSamples;
+  const variance = Math.max(0, squaredGain - gain * possibleGainChips) / (evaluationSamples - 1);
+  const logEmpirical = Math.log(2 / errorProbability);
+  // Apply Maurer–Pontil theorem 4 to the negative gain for a one-sided lower bound.
+  const errorChips = confidenceBound === "empirical-bernstein"
+    ? Math.sqrt(2 * variance * logEmpirical / evaluationSamples)
+      + 7 * (2 * pool) * logEmpirical / (3 * (evaluationSamples - 1))
+    : 2 * pool * Math.sqrt(Math.log(1 / errorProbability) / (2 * evaluationSamples));
   const lowerBoundChips = Math.max(0, possibleGainChips - errorChips);
   return {
-    fitSeed, evaluationSeed, fitSamples, evaluationSamples, errorProbability,
-    fitPrivateCombos: deviation.size,
-    deviationActionCounts: Object.fromEntries(actions.map(({ id }, index) => [
-      id, [...deviation.values()].filter((chosen) => chosen === index).length,
-    ])),
-    profileEvChips: profileEv / evaluationSamples,
-    possibleGainChips, errorChips, lowerBoundChips,
+    deviationSeat, fitSeed, evaluationSeed, fitSamples, evaluationSamples, reachedEvaluationSamples,
+    errorProbability, confidenceBound, fitDecisionRows: deviation.size,
+    deviationActionCounts: Object.fromEntries(deviationActionCounts),
+    profileEvConditionalOnReachChips: reachedEvaluationSamples ? profileEv / reachedEvaluationSamples : null,
+    possibleGainChips, sampleStdDevChips: Math.sqrt(variance), errorChips, lowerBoundChips,
     possibleGainPct: 100 * possibleGainChips / pot,
     lowerBoundPct: 100 * lowerBoundChips / pot,
     testedContinuations, trainedContinuations,
@@ -174,14 +213,24 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
     const input = raisedSpot(street);
     let policy: DecisionPolicy | undefined;
     const external = process.env.POKER_RAISED_POSTFLOP_SAMPLING === "external";
-    const options = external
-      ? { seed: 395, sampling: "external", maxDepth: 48, maxNodes: 4096, timeBudgetMs: 4000 } as const
-      : { seed: 395, sampling: "outcome", baseline: "learned", timeBudgetMs: 4000 } as const;
+    const expanded = process.env.POKER_RAISED_POSTFLOP_EXPANDED === "1";
+    const options: SolveOptions = external
+      ? { seed: 395, sampling: "external", maxDepth: 48, maxNodes: 4096, timeBudgetMs: 4000 }
+      : { seed: 395, sampling: "outcome", baseline: "learned", timeBudgetMs: 4000 };
+    if (expanded) {
+      options.expandedResearchBudget = true;
+      options.timeBudgetMs = 9000;
+      options.maxInfosets = 400000;
+      options.maxIterations = external ? 300000 : 400000;
+      options.heroOversampling = Number(process.env.POKER_RAISED_POSTFLOP_HERO_SHARE ?? 0.5);
+    }
     const result = solveDecision(input, options, (value) => { policy = value; });
     if (!policy) throw new Error("Missing finalized policy");
+    const frozenPolicy = policy;
     const board = input.board.map(encode);
     const heroRow = policy.query(input.state, input.heroCards.map(encode), board);
     const elapsedMs = performance.now() - started;
+    const maxRssAfterSolveKiB = process.resourceUsage().maxRSS;
     expect(input.state.actor).toBe(input.hero);
     expect(input.state.bets).toEqual([0, 60, 180]);
     expect(heroRow.actions.map((action) => action.id)).toEqual(["fold:0", "call:180", "raise:360"]);
@@ -197,7 +246,18 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       }
     }
     const auditStart = performance.now();
-    const audit = rootDeviation(input, policy, external);
+    const allSeats = process.env.POKER_RAISED_POSTFLOP_ALL_SEATS === "1";
+    const deep = process.env.POKER_RAISED_POSTFLOP_DEEP_AUDIT === "1";
+    const seeds = deep ? { fit: 112581643, evaluation: 81415647 }
+      : allSeats ? { fit: 1132789, evaluation: 7463821 }
+      : expanded ? { fit: 642928, evaluation: 94726381 }
+      : external ? { fit: 741833, evaluation: 2105279 } : { fit: 81013, evaluation: 240781 };
+    const errorProbability = deep || external && !expanded && !allSeats ? 0.05 : 0.05 / streets.length;
+    const confidence = expanded || allSeats || deep ? "empirical-bernstein" : "hoeffding";
+    const samples = deep ? { fit: 360_000, evaluation: 240_000 } : { fit: 60_000, evaluation: 160_000 };
+    const seatAudits = (allSeats ? input.seats : [input.hero]).map((seat) =>
+      firstDecisionDeviation(input, frozenPolicy, seeds, errorProbability, confidence, seat, samples));
+    const [audit] = seatAudits;
     const qualityLimitPct = 2.1;
     writeFileSync(output, JSON.stringify({
       verifiedAt: new Date().toISOString(),
@@ -205,13 +265,13 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       environment: {
         platform: process.platform, node: process.version, cpu: cpus()[0]?.model,
       },
-      input, options, elapsedMs, heroRow, result,
+      input, options, elapsedMs, maxRssAfterSolveKiB, heroRow, result,
       rootCombos: deck.length * (deck.length - 1) / 2, rootTrained,
       heroRowMatchesResult: heroRow.frequencies.every((frequency, index) =>
         Math.abs(frequency - result.actions[index].frequency) < 1e-9),
-      auditMs: performance.now() - auditStart, audit, qualityLimitPct,
+      auditMs: performance.now() - auditStart, audit, seatAudits, qualityLimitPct,
       latencyPass: elapsedMs < 10_000,
-      quality: audit.lowerBoundPct > qualityLimitPct ? "rejected-by-deviation" : "unverified",
+      quality: seatAudits.some((row) => row.lowerBoundPct > qualityLimitPct) ? "rejected-by-deviation" : "unverified",
       qualifies: false,
     }, null, 2) + "\n");
   }, 240_000,

@@ -1,0 +1,233 @@
+{
+  "verifiedAt": "2026-11-22T11:48:24.357Z",
+  "revision": "7515ccf",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M"
+  },
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "options": {
+    "seed": 395,
+    "sampling": "external",
+    "maxDepth": 48,
+    "maxNodes": 4096,
+    "timeBudgetMs": 9000,
+    "expandedResearchBudget": true,
+    "maxInfosets": 400000,
+    "maxIterations": 300000,
+    "heroOversampling": 0
+  },
+  "elapsedMs": 9000.4527,
+  "maxRssAfterSolveKiB": 482324,
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "frequencies": [
+      0,
+      0.9017954964634911,
+      0.09820450353650881
+    ],
+    "trained": true
+  },
+  "result": {
+    "key": "raised-postflop-probe:flop",
+    "rangeRevision": 0,
+    "quality": "approximation",
+    "provider": "external-sampling-mccfr/isomorphic-v3",
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0",
+        "frequency": 0,
+        "ev": 0
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180",
+        "frequency": 0.9017954964634911,
+        "ev": 235.35714285714286
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360",
+        "frequency": 0.09820450353650881,
+        "ev": 221.29032258064515
+      }
+    ],
+    "recommended": 1,
+    "iterations": 112521,
+    "rootVisits": 93,
+    "elapsedMs": 9000,
+    "cutoffCount": 107328,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ],
+    "limitations": [
+      "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+      "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+      "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+      "Cyclic SIMPLE strategy averaging is an empirical multiway approximation, not an unbiased full average; multiplayer CFR has no general Nash-convergence guarantee.",
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+      "107328 bounded traversals used passive check/call continuation to showdown; this can bias strategy and EV.",
+      "Information-set table reached its 400000 entry limit.",
+      "Only 93 root information-set regret traversals; root frequencies may be poorly converged.",
+      "The deadline interrupted a full cyclic iteration; the final player-update cycle is incomplete."
+    ],
+    "exploitabilityPct": null,
+    "diagnostics": {
+      "informationSets": 400000,
+      "cachedCardViews": 156285,
+      "suitPermutations": 24,
+      "rootClassSize": 1,
+      "tableLimited": true,
+      "completedEpisodes": 337561,
+      "baselineUpdates": 0,
+      "baselineBytes": 0,
+      "publicTreeNodes": 0,
+      "publicTreeLimited": false
+    }
+  },
+  "rootCombos": 1176,
+  "rootTrained": 1176,
+  "heroRowMatchesResult": true,
+  "auditMs": 19945.2517,
+  "audit": {
+    "fitSeed": 642928,
+    "evaluationSeed": 94726381,
+    "fitSamples": 60000,
+    "evaluationSamples": 160000,
+    "errorProbability": 0.016666666666666666,
+    "confidenceBound": "empirical-bernstein",
+    "fitPrivateCombos": 1176,
+    "deviationActionCounts": {
+      "fold:0": 493,
+      "call:180": 293,
+      "raise:360": 390
+    },
+    "profileEvChips": 83.34939149982691,
+    "possibleGainChips": 1.7206085001757638,
+    "sampleStdDevChips": 184.9179817191096,
+    "errorChips": 1.598064272862065,
+    "lowerBoundChips": 0.12254422731369874,
+    "possibleGainPct": 0.4779468056043788,
+    "lowerBoundPct": 0.034040063142694095,
+    "testedContinuations": 1333960,
+    "trainedContinuations": 1016982
+  },
+  "qualityLimitPct": 2.1,
+  "latencyPass": true,
+  "quality": "unverified",
+  "qualifies": false
+}

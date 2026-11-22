@@ -1,0 +1,311 @@
+{
+  "verifiedAt": "2026-11-22T11:49:53.454Z",
+  "revision": "7515ccf",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M"
+  },
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "options": {
+    "seed": 395,
+    "sampling": "outcome",
+    "baseline": "learned",
+    "timeBudgetMs": 9000,
+    "expandedResearchBudget": true,
+    "maxInfosets": 400000,
+    "maxIterations": 400000,
+    "heroOversampling": 0
+  },
+  "elapsedMs": 7120.8558,
+  "maxRssAfterSolveKiB": 537924,
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "frequencies": [
+      0.007032273252078854,
+      0.24367676547948341,
+      0.7492909612684376
+    ],
+    "trained": true
+  },
+  "result": {
+    "key": "raised-postflop-probe:flop",
+    "rangeRevision": 0,
+    "quality": "approximation",
+    "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0",
+        "frequency": 0.007032273252078854,
+        "ev": 0
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180",
+        "frequency": 0.24367676547948341,
+        "ev": 95.75575151475987
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360",
+        "frequency": 0.7492909612684376,
+        "ev": 253.4657436556404
+      }
+    ],
+    "recommended": 2,
+    "iterations": 240740,
+    "rootVisits": 200,
+    "elapsedMs": 7120,
+    "cutoffCount": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ],
+    "limitations": [
+      "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+      "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+      "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+      "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+      "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+      "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+      "Training stopped before the 400000 entry limit because a complete update cycle could no longer be reserved."
+    ],
+    "exploitabilityPct": null,
+    "diagnostics": {
+      "informationSets": 399854,
+      "cachedCardViews": 146574,
+      "suitPermutations": 24,
+      "rootClassSize": 1,
+      "tableLimited": true,
+      "completedEpisodes": 722220,
+      "maximumEpisodeNodes": 49,
+      "baselineUpdates": 2708277,
+      "baselineBytes": 19244904,
+      "publicTreeNodes": 104,
+      "publicTreeLimited": false
+    }
+  },
+  "rootCombos": 1176,
+  "rootTrained": 1176,
+  "heroRowMatchesResult": true,
+  "auditMs": 50187.6676,
+  "audit": {
+    "deviationSeat": 0,
+    "fitSeed": 1132789,
+    "evaluationSeed": 7463821,
+    "fitSamples": 60000,
+    "evaluationSamples": 160000,
+    "reachedEvaluationSamples": 160000,
+    "errorProbability": 0.016666666666666666,
+    "confidenceBound": "empirical-bernstein",
+    "fitDecisionRows": 1176,
+    "deviationActionCounts": {
+      "call:180": 284,
+      "raise:360": 384,
+      "fold:0": 508
+    },
+    "profileEvConditionalOnReachChips": 78.27877290304772,
+    "possibleGainChips": 7.799727096952975,
+    "sampleStdDevChips": 200.97154274988273,
+    "errorChips": 1.722252494736865,
+    "lowerBoundChips": 6.07747460221611,
+    "possibleGainPct": 2.1665908602647153,
+    "lowerBoundPct": 1.6881873895044752,
+    "testedContinuations": 1362265,
+    "trainedContinuations": 1010880
+  },
+  "seatAudits": [
+    {
+      "deviationSeat": 0,
+      "fitSeed": 1132789,
+      "evaluationSeed": 7463821,
+      "fitSamples": 60000,
+      "evaluationSamples": 160000,
+      "reachedEvaluationSamples": 160000,
+      "errorProbability": 0.016666666666666666,
+      "confidenceBound": "empirical-bernstein",
+      "fitDecisionRows": 1176,
+      "deviationActionCounts": {
+        "call:180": 284,
+        "raise:360": 384,
+        "fold:0": 508
+      },
+      "profileEvConditionalOnReachChips": 78.27877290304772,
+      "possibleGainChips": 7.799727096952975,
+      "sampleStdDevChips": 200.97154274988273,
+      "errorChips": 1.722252494736865,
+      "lowerBoundChips": 6.07747460221611,
+      "possibleGainPct": 2.1665908602647153,
+      "lowerBoundPct": 1.6881873895044752,
+      "testedContinuations": 1362265,
+      "trainedContinuations": 1010880
+    },
+    {
+      "deviationSeat": 1,
+      "fitSeed": 1132789,
+      "evaluationSeed": 7463821,
+      "fitSamples": 60000,
+      "evaluationSamples": 160000,
+      "reachedEvaluationSamples": 160000,
+      "errorProbability": 0.016666666666666666,
+      "confidenceBound": "empirical-bernstein",
+      "fitDecisionRows": 3528,
+      "deviationActionCounts": {
+        "call:360": 579,
+        "call:180": 903,
+        "fold:60": 1051,
+        "raise:360": 995
+      },
+      "profileEvConditionalOnReachChips": 53.385785328004715,
+      "possibleGainChips": 5.003152171994225,
+      "sampleStdDevChips": 216.23343282783506,
+      "errorChips": 1.8403164549757396,
+      "lowerBoundChips": 3.1628357170184858,
+      "possibleGainPct": 1.389764492220618,
+      "lowerBoundPct": 0.8785654769495794,
+      "testedContinuations": 737494,
+      "trainedContinuations": 412748
+    },
+    {
+      "deviationSeat": 2,
+      "fitSeed": 1132789,
+      "evaluationSeed": 7463821,
+      "fitSamples": 60000,
+      "evaluationSamples": 160000,
+      "reachedEvaluationSamples": 105734,
+      "errorProbability": 0.016666666666666666,
+      "confidenceBound": "empirical-bernstein",
+      "fitDecisionRows": 4704,
+      "deviationActionCounts": {
+        "fold:180": 1470,
+        "call:360": 3234
+      },
+      "profileEvConditionalOnReachChips": -31.982417261913863,
+      "possibleGainChips": 1.223180667319686,
+      "sampleStdDevChips": 156.21241015249703,
+      "errorChips": 1.3760017732133036,
+      "lowerBoundChips": 0,
+      "possibleGainPct": 0.33977240758880173,
+      "lowerBoundPct": 0,
+      "testedContinuations": 45810,
+      "trainedContinuations": 45662
+    }
+  ],
+  "qualityLimitPct": 2.1,
+  "latencyPass": true,
+  "quality": "unverified",
+  "qualifies": false
+}
