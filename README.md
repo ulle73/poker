@@ -1,12 +1,12 @@
 # Poker GTO Advisor
 
-**Fortsätta arbetet / ansluta en annan AI:** börja med
-[projektloggen och checklistan](PROJECT_LOG.md). Där finns aktuell status,
-testade försök, kända fel, startkommandon och nästa tekniska steg.
+**Fortsätta arbetet med en annan AI?** Börja i [leveransplanen](docs/CHECKLISTA.md).
+Där finns målet, prioriterad nästa uppgift och kriterier för avbockning.
+[Projektloggen](PROJECT_LOG.md) har tidigare försök, testkommandon och resultat.
 
 En Windows-app för pokerträning med automatisk DOM-avläsning och riktiga DCFR-strategier från [Postflop](https://github.com/ucsandman/postflop). Allt körs lokalt, även solvern och typsnitten. Ingen API-nyckel behövs.
 
-**Aktuell status 1.4:** Matchade heads-up-beslut på **turn och river** får verifierade DCFR-råd efter kvalitets- och regelkontroll. Automatiska fulla ranger fungerar nu även med offsuit-notation. Det betyder två kvar i handen, även vid ett större bord. Den generella MCCFR-motorn räknar alla gator för 2–10 aktiva spelare men har **inte klarat kvalitetsgranskningen** och kräver aktivt experimentval. Den beställda heltäckande tillförlitliga beslutsmotorn är **inte färdig**. Se [kvalitetsrapporten](docs/decision-engine.md).
+**Aktuell täckning:** Se [lägesmatrisen](docs/CHECKLISTA.md#flop--täckning-per-beslut). Vid Svenska Spels bord finns råden i **Live · Edge → Automatisk efteranalys**. Standard är tre observerade handbyten.
 
 ## Starta
 
@@ -35,11 +35,11 @@ Den portabla Windows x64-appen behöver ingen installation. Den är inte kodsign
 
 ## Avgränsning
 
-Träningsbordets sex övningar och egna scenarier löser heads-up **river**. Livefliken har också exakt **turn till river**, med chip EV, utan rake och högst en raise per gata. En blandstrategi gäller bara de angivna rangerna och bettingträdet. Iterationsgräns är inte samma sak som konvergens; appen visar uppmätt fel och om målet nåddes. För stora, olagliga eller ofullständigt konvergerade träd ger inga verifierade råd.
+Träningsbordets sex övningar och egna scenarier löser heads-up **river**. Efteranalysens heads-up-motor stöder också matchande **turn- och riverbeslut** i begränsade bettingträd. En blandstrategi gäller för modellens ranger, storlekar och pottregler. [Aktuell täckning och kvalitetskrav](docs/CHECKLISTA.md)
 
 Historiken före river är ett tydligt märkt syntetiskt träningsprefix. Den används inte för att låtsas härleda optimala river-ranger. Motståndaren är en träningsmodell, inte en profil av en verklig spelare. Inga fiktiva vinstsiffror räknas.
 
-Livefliken läser Svenska Spels HTML-klient genom en sessionsbunden DOM-observer. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Beslutslagret använder fulla lagliga ranger som standard; egna ranger är valfria. Beräkningar avbryts vid ändrat beslut och experimentella resultat döljs som standard. Matchade turn-/riverträd får separat kontroll av exploaterbarhet och lagliga chipbelopp genom hela trädet. Tidigare okänd historik, sidopotter och rangeförändringar går inte att återskapa som verifierade fakta. Se [liveanslutning](docs/live.md).
+Livefliken läser Svenska Spels HTML-klient genom en sessionsbunden DOM-observer. Kort, valuta, pott, säten, positioner, stackar, insatser och observerade handlingar visas. Strategin i efteranalysen hämtas för den frigivna handen med de ranger, satsningsstorlekar och regler som respektive källa stöder. Vid otillräcklig historik kan ett beslut sakna analys. Se [liveanslutning](docs/live.md).
 
 ## Utveckling och verifiering
 
