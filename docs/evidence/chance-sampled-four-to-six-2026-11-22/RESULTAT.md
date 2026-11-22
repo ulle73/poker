@@ -28,7 +28,7 @@ Gränser och tider är avrundade uppåt. På turn användes 128 dolda givar per 
 
 | Aktiva | Gata | Noder | Träningsgivar | Första bildruta i Windows | Kvalitetsgräns för alla säten |
 |---:|---|---:|---:|---:|---|
-| 4 | [Flop](4-flop/) | 404 | 1 237 624 | 0,140 s | Öppen |
+| 4 | [Flop](4-flop/) | 404 | 1 237 624 | 0,140 s | [Klar i senare omprov](../four-way-flop-verification-2026-11-22/RESULTAT.md) |
 | 4 | [Turn](4-turn/) | 244 | 2 049 181 | 0,127 s | Klar |
 | 4 | [River](4-river/) | 84 | 5 952 381 | 0,142 s | Klar |
 | 5 | [Flop](5-flop/) | 1 460 | 342 466 | 0,155 s | Öppen |
@@ -40,7 +40,7 @@ Gränser och tider är avrundade uppåt. På turn användes 128 dolda givar per 
 
 Alla nio har sparade funktionsprov för samtliga lagliga kombinationer vid roten och första kompletta handraden under tio sekunder i forskningsfönstret.
 
-- Fyrvägsfloppen kontrollerades med fyra kompatibla motståndargivar per eget hålkortspar och ordnad bräda. Övre gränser avrundade uppåt blev 2,011 %, 3,853 %, 2,646 % och 1,633 %. Sätena som satsade och höjde behöver snävare oberoende gränser. [Säte 0](4-flop/card-grid-seat-0.json) · [Säte 1](4-flop/card-grid-seat-1.json) · [Säte 2](4-flop/card-grid-seat-2.json) · [Säte 3](4-flop/card-grid-seat-3.json) · [Profil för omprov](4-flop/profile.zip)
+- Fyrvägsfloppen kontrollerades först med fyra kompatibla motståndargivar per eget hålkortspar och ordnad bräda. De ursprungliga övre gränserna avrundade uppåt blev 2,011 %, 3,853 %, 2,646 % och 1,633 %. Tätare oberoende prov kvalificerade senare den sparade profilen för alla fyra säten. [Säte 0](4-flop/card-grid-seat-0.json) · [Säte 1](4-flop/card-grid-seat-1.json) · [Säte 2](4-flop/card-grid-seat-2.json) · [Säte 3](4-flop/card-grid-seat-3.json) · [Profil](4-flop/profile.zip) · [Senare omprov](../four-way-flop-verification-2026-11-22/RESULTAT.md)
 - Femvägsturn provades först med 64 dragningar per eget hålkortspar och riverkort för sätet som checkade. Tätare omprov med 128 och justering för omprov gav 2,020 % för det sätet och 3,583 % för sätet som höjde. [Första provet](5-turn/card-grid-seat-0.json) · [Sätet som checkade](5-turn/card-grid-deep-seat-0.json) · [Sätet som höjde](5-turn/card-grid-deep-seat-2.json)
 - Sexvägsriver provades först med 2 048 dragningar per eget hålkortspar för sätet som checkade. Tätare omprov med 4 096 och justering för omprov gav 2,325 % för det sätet och 2,690 % för sätet som satsade. [Första provet](6-river/card-grid-seat-0.json) · [Sätet som checkade](6-river/card-grid-deep-seat-0.json) · [Sätet som satsade](6-river/card-grid-deep-seat-1.json) · [Profil för omprov](6-river/profile.zip)
 

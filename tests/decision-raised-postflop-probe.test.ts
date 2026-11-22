@@ -12,7 +12,7 @@ import { settlePayoffs } from "../src/decision/payoffs";
 import type { BettingAction, BettingState, DecisionInput, DecisionPolicy, SolveOptions } from "../src/decision/types";
 import { openPrecomputedPolicy, savePrecomputedPolicy } from "./helpers/precomputed-policy";
 import { continuationEncoding, pairKey, strengthBucketKey, trainChanceSampled } from "./helpers/chance-sampled-training";
-import { completePublicTree, fitContinuationResponse, sampledGameSeatUpper, terminalPayoffTables } from "./helpers/sampled-game-upper";
+import { compactSampledGameSeatUpper, completePublicTree, fitContinuationResponse, sampledGameSeatUpper, terminalPayoffTables } from "./helpers/sampled-game-upper";
 import type { ContinuationChoices, VisibleHandKey } from "./helpers/sampled-game-upper";
 
 const streets = ["flop", "turn", "river"] as const;
@@ -142,6 +142,7 @@ function firstDecisionDeviation(
   confidenceBound: "hoeffding" | "empirical-bernstein",
   deviationSeat: number,
   sampleCounts: { fit: number; evaluation: number },
+  randomForSeed: (seed: number) => () => number = auditRandom,
 ) {
   const board = input.board.map(encode);
   const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
@@ -212,7 +213,7 @@ function firstDecisionDeviation(
   const evaluationSamples = sampleCounts.evaluation;
   const fitSeed = seeds.fit;
   const evaluationSeed = seeds.evaluation;
-  const fitRandom = auditRandom(fitSeed);
+  const fitRandom = randomForSeed(fitSeed);
   for (let i = 0; i < fitSamples; i++) {
     const draw = sample(fitRandom);
     if (!draw) continue;
@@ -231,7 +232,7 @@ function firstDecisionDeviation(
 
   testedContinuations = 0;
   trainedContinuations = 0;
-  const evaluationRandom = auditRandom(evaluationSeed);
+  const evaluationRandom = randomForSeed(evaluationSeed);
   const pool = totalChips(input);
   let gain = 0;
   let squaredGain = 0;
@@ -427,6 +428,39 @@ it("recovers the analytic one-sided bound for a constant gain sample", () => {
   expect(bettingMeanUpper(Array(count).fill(observed), maxGain, alpha)).toBeCloseTo(expected, 8);
 });
 
+it.each(streets)("matches the dense verifier on %s with board groups and zero-reach actions", (street) => {
+  const input = raisedSpot(street, 4);
+  const board = input.board.map(encode);
+  const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
+  const next = auditRandom(5176829);
+  const key = (own: readonly number[], visible: readonly number[]) =>
+    (own[0] + own[1] + visible[visible.length - 1]) % 3;
+  const bind = (state: BettingState) => {
+    const actions = legalActions(state, input.rules);
+    return [
+      actions.map(() => 1 / actions.length),
+      actions.map((_, i) => Number(i === 0)),
+      actions.map((_, i) => Number(i === actions.length - 1)),
+    ];
+  };
+  const policy: DecisionPolicy = { query: (state, own, visible) => ({
+    actions: legalActions(state, input.rules), trained: true, frequencies: bind(state)[key(own, visible)],
+  }) };
+  for (const seat of input.seats) {
+    const cards = input.heroCards.map(encode);
+    const worlds = Array.from({ length: 36 }, () => {
+      const { holes, runout } = sampledWorld(deck, board, input.seats, next, { seat, cards });
+      return { holes, runout, scores: holes.map((hand) => evaluateCardCodes([...runout, ...hand])) };
+    });
+    const dense = sampledGameSeatUpper(input, policy, seat, 1, worlds.length, () => worlds, { key, bind });
+    const compact = compactSampledGameSeatUpper(input, seat, 1, worlds.length, () => worlds, { key, bind });
+    expect(compact.publicNodes).toBe(dense.publicNodes);
+    expect(compact.mean).toBeCloseTo(dense.mean, 9);
+    const withCutoff = compactSampledGameSeatUpper(input, seat, 1, worlds.length, () => worlds, { key, bind }, 0.2);
+    expect(withCutoff.mean + 1e-9).toBeGreaterThanOrEqual(dense.mean);
+  }
+});
+
 it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
   "times a full-range check / bet / raise and audits the frozen policy",
   () => {
@@ -491,6 +525,30 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       const upper = perfectInformationUpper(input, policy, 0.05 / players, 16_384, bindBucketPolicy);
       writeFileSync(output, JSON.stringify({ manifestSha256, elapsedMs: performance.now() - started,
         ...upper, qualityLimitPct: 2.1, passesUpperGate: upper.seats.every((seat) => seat.upperBoundPct < 2.1) }, null, 2) + "\n");
+      return;
+    }
+    if (offlineMode === "first-decision-response" && profileDir) {
+      const { policy, manifestSha256 } = openPrecomputedPolicy(profileDir, input, "all");
+      const evaluationDeals = Number(process.env.POKER_RAISED_POSTFLOP_RESPONSE_EVALUATION_DEALS ?? 160_000);
+      if (!Number.isSafeInteger(evaluationDeals) || evaluationDeals < 2) throw new Error("Invalid response sample count");
+      const selectedSeat = process.env.POKER_RAISED_POSTFLOP_AUDIT_SEAT;
+      const auditedSeats = selectedSeat === undefined ? input.seats : input.seats.filter((seat) => seat === Number(selectedSeat));
+      if (!auditedSeats.length) throw new Error("Choose an audit seat");
+      const familySize = Number(process.env.POKER_RAISED_POSTFLOP_AUDIT_FAMILY ?? players);
+      if (!Number.isSafeInteger(familySize) || familySize < players) throw new Error("Invalid audit family size");
+      const errorProbability = 0.05 / familySize;
+      const seeds = { fit: 66280139, evaluation: 450757193 };
+      const seats = auditedSeats.map((seat) => {
+        const label = `first-decision/${players}/${street}/${seat}`;
+        return firstDecisionDeviation(input, policy, seeds, errorProbability, "empirical-bernstein", seat,
+          { fit: 160_000, evaluation: evaluationDeals },
+          (seed) => wideAuditRandom(seed === seeds.evaluation && evaluationDeals !== 160_000
+            ? `${label}/evaluation/${evaluationDeals}` : label, seed));
+      });
+      const qualityLimitPct = 2.1;
+      writeFileSync(output, JSON.stringify({ manifestSha256, elapsedMs: performance.now() - started,
+        ...(familySize !== players ? { familySize } : {}),
+        qualityLimitPct, seats, disprovesQualityGate: seats.some(({ lowerBoundPct }) => lowerBoundPct >= qualityLimitPct) }, null, 2) + "\n");
       return;
     }
     if (offlineMode === "train" && profileDir) {
@@ -643,12 +701,15 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       const errorProbability = 0.05 / familySize;
       const scoreWorld = cachedOracleScores();
       let nextPair = 0;
-      const report = sampledGameSeatUpper(input, policy, seat, batchCount, batchSize, () => {
+      const compact = process.env.POKER_RAISED_POSTFLOP_AUDIT_ENGINE === "compact";
+      const cutoff = Number(process.env.POKER_RAISED_POSTFLOP_AUDIT_CUTOFF ?? 0);
+      if (!Number.isFinite(cutoff) || cutoff < 0 || cutoff >= 1 || (cutoff > 0 && !compact))
+        throw new Error("Choose a compact cutoff in [0, 1)");
+      function* drawBatch() {
         const remaining = deck.slice();
         const heroCards = ownPairs?.[nextPair++]
           ?? [0, 1].map(() => remaining.splice(sampleIndex(random, remaining.length), 1)[0]);
         if (ownPairs) for (const card of heroCards) remaining.splice(remaining.indexOf(card), 1);
-        const worlds = [];
         const turns = board.length >= 4 ? [board[3]] : remaining;
         const rivers = board.length === 5 ? [board[4]] : remaining;
         for (const turn of turns) {
@@ -660,12 +721,13 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
               const available = hidden.slice();
               const draw = () => available.splice(sampleIndex(random, available.length), 1)[0];
               const holes = input.seats.map((player) => player === seat ? heroCards : [draw(), draw()]);
-              worlds.push({ holes, runout, scores: scoreWorld(holes, runout) });
+              yield { holes, runout, scores: scoreWorld(holes, runout) };
             }
           }
         }
-        return worlds;
-      }, bindBucketPolicy);
+      }
+      const report = compact ? compactSampledGameSeatUpper(input, seat, batchCount, batchSize, drawBatch, bindBucketPolicy, cutoff)
+        : sampledGameSeatUpper(input, policy, seat, batchCount, batchSize, () => Array.from(drawBatch()), bindBucketPolicy);
       // The exact private-card grid removes the random choice of conditional game.
       // A single opponent deal changes any fixed policy's paired gain by at most
       // 2 * pool / N. Taking a maximum over those same policies preserves this bound.
@@ -676,6 +738,8 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       writeFileSync(output, JSON.stringify({ manifestSha256, seat, seed, batchCount, batchSize, dealsPerRunout,
         ...(!reproduceArchivedStream ? { random: "aes-256-ctr" } : {}),
         ...(familySize !== players ? { familySize } : {}),
+        ...(compact ? { auditEngine: "reach-weighted-depth-first", processPeakRssKiB: process.resourceUsage().maxRSS } : {}),
+        ...(cutoff ? { opponentReachCutoff: cutoff } : {}),
         errorProbability, publicNodes: report.publicNodes, elapsedMs: performance.now() - started,
         ...(cardGrid ? { exhaustiveOwnPairs: batchCount, confidenceBound: "bounded-differences", confidenceMarginPct: 100 * boundedDifferenceMargin / pot } : {}),
         estimatePct: 100 * report.mean / pot, upperBoundPct, qualityLimitPct: 2.1, passesSeat: upperBoundPct < 2.1 }, null, 2) + "\n");
@@ -773,5 +837,5 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       quality: seatAudits.some((row) => row.lowerBoundPct > qualityLimitPct) ? "rejected-by-deviation" : "unverified",
       qualifies: false,
     }, null, 2) + "\n");
-  }, 900_000,
+  }, Number(process.env.POKER_RAISED_POSTFLOP_TIMEOUT_MS ?? 900_000),
 );

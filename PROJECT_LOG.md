@@ -11,7 +11,11 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Turn och river, 22 november.** Färdigtränade trevägsprofiler klarade 2,1 % för varje säte med övre gränser på högst 0,298 % för turn och 0,380 % för river. Svaren visades på 0,14 och 0,20 s i Windows-forskningsfönstret. Turn och river testades som egna modeller med likaviktade ranger vid beslutet. [Oberoende verifiering, rådata och profiler](docs/evidence/chance-sampled-three-way-turn-2026-11-22/RESULTAT.md)
 
-**Prov för 4–6 aktiva, 22 november.** Samtliga nio sparade modeller över flop, turn och river gav hela handraden på högst 0,155 s i Windows-forskningsfönstret. Fyrvägsturn, fyrvägsriver och femvägsriver klarade 2,1 % för samtliga säten. Kvalitetsverifieringen återstår för de övriga modellerna. [Täckning, rådata och omprov](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md)
+**Godkänd fyrvägsflop, 22 november.** Den sparade modellen efter check → bet → raise på `Qh 8d 6h` klarade 2,1 % för varje säte. De oberoende övre gränserna blev 2,08548 %, 1,86720 %, 2,09720 % och 1,70790 % av rotpotten, avrundat uppåt. Den uppackade profilen visade hela handraden efter 0,43 s i Windows-forskningsfönstret. [Verifiering, körkommando och bildruta](docs/evidence/four-way-flop-verification-2026-11-22/RESULTAT.md)
+
+**Fem- och sexvägsflop, 22 november.** Femvägsfloppen med 1,6 miljoner träningsgivar klarade fyra av fem säten. Höjarens gräns är 2,16816 % i senaste slutförda provet. En laglig avvikelse underkände den äldre sexvägsprofilen. Profilen med 460 000 träningsgivar förbättrade den övre gränsen för sätet som satsade till 6,01241 %. De två nya profilerna visade hela handraden på 0,166 respektive 0,844 s i Windows-forskningsfönstret. [Oberoende prov, arkiv och bildrutor](docs/evidence/five-six-way-flop-verification-2026-11-22/RESULTAT.md)
+
+**Tidigare prov för 4–6 aktiva, 22 november.** Samtliga nio sparade modeller över flop, turn och river gav hela handraden på högst 0,155 s i den första mätningen i Windows-forskningsfönstret. Fyrvägsturn, fyrvägsriver och femvägsriver klarade 2,1 % för samtliga säten. Femvägsflop, femvägsturn och alla tre sexvägsgator behöver vidare verifiering. [Täckning, tidigare rådata och omprov](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md)
 
 **Föregående sparade profil, 22 november.** Den tidigare trevägsfloppen efter check → bet → raise underkändes. En laglig motstrategi på nya givar gav ensidiga undre gränser på 5,99 %, 7,06 % och 6,59 % av potten. De då uppmätta övre gränserna var 12,81 %, 15,88 % och 15,55 %. Ett första lokalt uppslag från nyuppackad kopia tog 7,98 ms. Resultaten kvarstår för den tidigare profilen. [Omprov, rådata och kommando](docs/evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md)
 
@@ -2401,3 +2405,32 @@ Det riktade testkommandot kördes bland annat med `train-chance`, `tight-stratif
 Efter godkända trevägsprofiler testades 4, 5 och 6 aktiva på varje postflopgata. Noderna varierade från 84 på fyrvägsriver till 5 084 på sexvägsflop. Alla nio hade full täckning av lagliga rotkombinationer och komplett första bildruta inom 0,155 s. Den snävare oberoende kontrollen kvalificerade fyrvägsturn, fyrvägsriver och femvägsriver. Fyrvägsfloppens tätaste gräns låg på 3,853 % i det svåraste sätet. Arbetet fortsätter med tätare prov på de öppna modellerna, vidare satsningslinjer och exakt modellmatchning i ordinarie efteranalys.
 
 Typkontrollen passerade. Standardsviten gav 467 passerade och 35 överhoppade. Modellhash, binärtabellernas hashar, sätesgränser och Windows-tider kontrollerades mot de sparade rapporterna. Tre separata offlinekontroller träffade testets tidsgräns efter ett långt Windows-uppehåll. Samtliga passerade vid omkörning och gav identiska kvalitetsresultat. [Historiska råfiler och omprov](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md)
+
+### 2026-11-22 · Den arkiverade fyrvägsfloppen klarade kvalitetsgränsen
+
+Hypotesen var att samma frysta strategi kunde kvalificera med tätare dolda givar per kortpar och bräda. Den oberoende verifieringen använder nu en minnessnål djupgenomgång. Tre kalibreringsprov jämförde den med den tidigare verifieraren per säte på alla tre gator, med både jämna och deterministiska motståndarstrategier. Prov med konservativa betalningsgränser kontrollerade att tidig avkortning bara ökade den övre skattningen.
+
+```powershell
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts --environment node
+npx.cmd tsc --noEmit --pretty false
+npm.cmd test
+```
+
+Det oberoende kortprovet gick över cirka 50,85 miljoner givar för sätet som satsade och 30,51 miljoner för höjaren. Båda fick övre gränser under 2,1 %. De två tidigare godkända sätena kontrollerades med samma gemensamma felbudget. Alla fyra klarade gränsen med den ursprungliga profilen, och den nyuppackade kopian visade hela handraden i Windows efter 0,430 s. Typkontrollen passerade. Standardsviten gav 470 passerade och 35 överhoppade. [Rågränser, spelmodell, Windows-bildruta och exakta miljövariabler](docs/evidence/four-way-flop-verification-2026-11-22/RESULTAT.md)
+
+Nästa steg blev att mäta och verifiera de sparade profilerna för fem och sex aktiva. Modellmatchning i ordinarie efteranalys är en separat öppen punkt.
+
+### 2026-11-22 · Fem- och sexvägsflop med tätare verifiering och fler träningsgivar
+
+Efter godkänd fyrvägsflop återspelades de sparade fem- och sexvägsprofilerna i Windows från nyuppackade arkiv. Femvägsfloppens första fulla kortprov gav en övre gräns på 5,17614 % för sätet som satsade. Det större lagliga avvikelseprovet underkände den äldre sexvägsprofilen med undre gräns 2,52945 %. Hypotesen för fortsatt arbete var att fler träningsgivar och tätare oberoende kortprov skulle ge bättre kvalitet.
+
+```powershell
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts --environment node
+npx.cmd tsc --noEmit --pretty false
+npm.cmd test
+```
+
+Det riktade kommandot kördes med lägena `first-decision-response`, `tight-card-grid`, `train-chance` och `lookup`. Femvägsmodellen fick 1,6 miljoner träningsgivar och fyra säten klarade gränsen. Sexvägsmodellen med 460 000 givar förbättrade sätet som satsade från 10,19458 % till 6,01241 % vid samma stickprovsstorlek. Rottestet verifierade 1 176 tränade rotkombinationer och avvisade en avvikande pott för bägge profilerna. Första kompletta Windows-bildrutan tog 0,166 respektive 0,844 s. Standardsviten gav 470 passerade och 35 överhoppade och typkontrollen passerade.
+
+En tidigare sexvägsträning skrev ut sin rapport efter ett uppehåll i Windows och testköraren rapporterade timeout. Omkörningen passerade med exakt samma manifest. Körningens uppslagstid mättes separat. Status för femvägshöjaren och de sex aktiva är fortsatt öppen. Nästa uppsättning körningar ökar stickprovet för höjaren till 96 dolda givar per eget kortpar och ordnad bräda och tränar sexvägsprofilen på 1,6 miljoner givar. [Rådata, testkommandon och Windows-bildrutor](docs/evidence/five-six-way-flop-verification-2026-11-22/RESULTAT.md)

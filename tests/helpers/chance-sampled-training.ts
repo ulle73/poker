@@ -65,14 +65,18 @@ export function trainChanceSampled(input: DecisionInput, key: BoardHandKey, iter
       state !== input.state || !input.rootKinds || input.rootKinds.includes(action.kind));
     const rows = encodingRows(state.boardCount, input.board.length);
     const cells = actions.length * rows;
+    const liveMask = state.folded.reduce((mask, folded, seat) => folded ? mask : mask + (1 << seat), 0);
     return { state, actions, children, node, rows, offset: node * playerCount,
       regret: new Float64Array(cells), average: new Float64Array(cells), mix: new Float64Array(actions.length),
-      row: 0 };
+      liveMask, row: 0 };
   });
   const nodeByHistory = new Map(nodes.filter(({ state }) => !state.terminal).map((node) => [node.state.history, node]));
   const reach = new Float64Array(nodes.length * playerCount);
   const values = new Float64Array(reach.length);
   const terminalPayoffs = terminalPayoffTables(publicTree);
+  const rankingPatterns = new Int32Array(1 << playerCount);
+  const playerIndices = Array.from({ length: playerCount }, (_, seat) => seat);
+  const survivors = Array.from(rankingPatterns, (_, mask) => playerIndices.filter((seat) => mask & (1 << seat)));
   const root = nodes.at(-1)!;
   reach.fill(1, root.offset);
 
@@ -80,16 +84,24 @@ export function trainChanceSampled(input: DecisionInput, key: BoardHandKey, iter
     const { holes, runout, scores } = nextWorld();
     const visible = [runout.slice(0, 3), runout.slice(0, 4), runout];
     const keys = holes.map((hand) => visible.map((board) => key(hand, board)));
-    let pattern = 0;
-    for (let a = 0; a < playerCount; a++) {
-      for (let b = a + 1; b < playerCount; b++) pattern = 3 * pattern + Math.sign(scores[a] - scores[b]) + 1;
-    }
+    rankingPatterns.fill(-1);
     const weight = 1 + (i >>> 16);
     for (let node = root.node; node >= 0; node--) {
       const entry = nodes[node];
-      const { state, actions, children, offset, regret, average, mix } = entry;
+      const { state, actions, children, offset, regret, average, mix, liveMask } = entry;
       const count = actions.length;
       if (state.terminal) {
+        let pattern = rankingPatterns[liveMask];
+        if (pattern === -1) {
+          pattern = 0;
+          const alive = survivors[liveMask];
+          for (let a = 0; a < alive.length; a++) {
+            for (let b = a + 1; b < alive.length; b++) {
+              pattern = 3 * pattern + Math.sign(scores[alive[a]] - scores[alive[b]]) + 1;
+            }
+          }
+          rankingPatterns[liveMask] = pattern;
+        }
         const cache = terminalPayoffs[node]!;
         let payoff = cache.get(pattern);
         if (!payoff) {
