@@ -1,15 +1,16 @@
 # Projektlogg och överlämning — Poker GTO Advisor
 
 Senast uppdaterad: **2026-11-22, Europe/Stockholm**, av Codex.
-Läs denna fil först om du tar över projektet. Uppdatera statusen och lägg till
-daterade resultat längst ned efter fortsatt arbete. Historiska resultat ska
-behållas och märkas som ersatta om en senare körning ändrar bilden.
+Läs [leveransplanen](docs/CHECKLISTA.md) när du tar över. Där finns mål,
+**Nästa uppgift**, öppna delmål och kriterier för avbockning. Den här loggen
+sparar testkommandon och resultat i datumordning. Historiska resultat behålls
+och märks som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
 **Ordinarie efteranalys, 22 november.** De arkiverade flopprofilerna för tre och fyra aktiva är anslutna som modellreferenser efter check → bet → raise. Matchning kräver rätt bräda, sittordning, full avläst satsningsföljd och exakta chipbelopp. Färskt Windows-prov visade råden efter 176 ms i EUR och 107 ms i SEK. [Test och täckningsgränser](docs/evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
 
-**Senaste solverprov, 22 november.** En ny sparad trevägsprofil efter check → bet → raise klarade 2,1 % för varje säte på `Qh 8d 6h`. De oberoende övre gränserna är 1,967 %, 0,624 % och 1,731 % av rotpotten, avrundat uppåt med justering för omprov. Första kompletta handraden visades på 0,17 s i ett separat Windows-forskningsfönster. Den ordinarie efteranalysens historik, ranger och satsningsregler behöver matchas före användning i appen. [Floppens verifiering, rådata och profil](docs/evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md)
+**Solverprov för den trevägsprofil som senare anslöts, 22 november.** En ny sparad trevägsprofil efter check → bet → raise klarade 2,1 % för varje säte på `Qh 8d 6h`. De oberoende övre gränserna är 1,967 %, 0,624 % och 1,731 % av rotpotten, avrundat uppåt med justering för omprov. Första kompletta handraden visades på 0,17 s i ett separat Windows-forskningsfönster. [Floppens verifiering, rådata och profil](docs/evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md)
 
 **Turn och river, 22 november.** Färdigtränade trevägsprofiler klarade 2,1 % för varje säte med övre gränser på högst 0,298 % för turn och 0,380 % för river. Svaren visades på 0,14 och 0,20 s i Windows-forskningsfönstret. Turn och river testades som egna modeller med likaviktade ranger vid beslutet. [Oberoende verifiering, rådata och profiler](docs/evidence/chance-sampled-three-way-turn-2026-11-22/RESULTAT.md)
 
@@ -2450,3 +2451,12 @@ python -X utf8 scripts/verify-hand-review.py 'artifacts/ten-second-windows/Poker
 ```
 
 [Observerade frekvenser, tider, modellantaganden och rådata](docs/evidence/qualified-flops-review-2026-11-22/RESULTAT.md).
+
+### 2026-11-22 · Prioriterad leveransplan och avbockning
+
+Checklistan har fått en tydlig startpunkt för nästa AI, stabila uppgifts-ID:n,
+en flopmatris och kriterier för när ett delmål får bockas av. README och
+AGENTS pekar dit. Dokumentationsändringen kontrollerades med
+`git diff --check` och kontroll av länkar och uppgifts-ID:n. Täckningen
+bygger på de länkade app- och kvalitetsproven ovan. Nästa uppgift är
+FL-01, trevägsflop efter check till hjälten. [Leveransplan](docs/CHECKLISTA.md)

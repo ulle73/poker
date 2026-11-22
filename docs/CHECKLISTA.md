@@ -1,21 +1,67 @@
-# Checklista för Poker GTO Advisor
+# Leveransplan för Poker GTO Advisor
 
-Uppdaterad 22 november 2026 för No-Limit Texas Hold’em med 52 kort och **2, 3, 4, 5 eller 6 spelare inklusive hjälten**. Med aktiv menas kvar i potten. En pott med två kvar efter fyra foldar behöver annan historik och andra ranger än en giv där bara två spelare fick kort.
+Uppdaterad 22 november 2026. Det här är arbetslistan för nästa AI och för granskning av vad appen faktiskt klarar. [Projektloggen](../PROJECT_LOG.md) sparar testkommandon och tidigare försök.
 
-Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → Automatisk efteranalys**. Grundinställningen är tre observerade handbyten. Medan hand 4 pågår visas analysen av hand 1. En ny läsare eller ett mottagningsavbrott på minst fem sekunder startar en ny kö. Avslutade händer sparas i minnet under sessionen. [Windows-prov 22 november](evidence/hand-review-2026-11-22/RESULTAT.md)
+## Målet
 
-## Checklista för full täckning
+En Windows-app för träning i vanlig No-Limit Texas Hold’em med låtsaspengar. Efteranalysen ska automatiskt visa det bäst underbyggda beslutet för varje komplett och giltigt läge med **2–6 spelare**, från preflop till river. Vid Svenska Spels bord frigörs handen som standard efter tre observerade handbyten. Analysen av hand 1 blir tillgänglig när hand 4 börjar.
 
-- [ ] **Bordsläsning och historik.** Återskapa turordning, stackar, blinds, insatser, foldar och minsta lagliga återhöjning genom hela handen. Avstäm startpott, huvudpott, sidopotter, återlämnade marker och rake där det gäller. Prova anslutning från ny giv och mitt i en hand, samt omstart och avbrott.
-- [ ] **Preflop för 2–6 utdelade.** Kvalificera strategier för varje antal och position, med både lika och olika stackar. Täck oöppnat, limp, syn, öppning, 3-bet, 4-bet och senare återhöjningar inklusive squeeze och all-in. Dagens referenstabeller täcker valda djup och linjer.
-- [ ] **Flop för 2–6 aktiva.** Utöka tvåspelartäckningen bortom befintlig BTN–BB-modell. Kvalificera vanlig flervägsflop separat för 3, 4, 5 och 6 aktiva. Prova första beslut, checkat fram, bet, bet–raise, reraise och all-in med beslut kvar.
-- [ ] **Turn och river för 2–6 aktiva.** Kvalificera samma bettinglinjer som på floppen, inklusive flera syner, check–raise, reraise och stackberoende storlekar. Visa en mätbar felgräns för flervägsstrategin. Matcha ranger från den föregående linjen genom alla gator.
-- [x] **Avslutande all-in efter preflop i entydig pott.** Matematiskt avgjord syn eller fold på flop, turn och river när samma val är strikt bättre för alla kompatibla motståndarhänder. Täckning och gränser framgår nedan.
-- [ ] **Övriga all-in.** Prova korta all-in och när flera korta höjningar återöppnar satsningen, olika stackar, tidigare foldar, potter med flera behörighetsnivåer och situationer där andra spelare fortfarande kan agera. Lös rangeberoende syn/fold och strategi för egna all-in i det matchande spelet.
-- [ ] **Strategikvalitet och storlekar.** Bind varje svar till exakt giv, spelare, ranger, pottregler och satsningsträd. Mät bästa ensidiga avvikelse oberoende. Redovisa förenklingar av kort och satsningsstorlekar, särskilt utanför modellens storleksmeny. Dagens HU-grind på 2 % av startpotten gäller det valda trädet. Ett tränat flervägssvar med okänd felgräns uppfyller inte kvalitetskravet.
-- [ ] **Slutprov i Windows.** Återspela `2/3/4/5/6 × preflop/flop/turn/river × varje laglig bettinglinje` med både små och djupa stackar samt EUR och SEK. Kontrollera att handling och belopp matchar historiken, att svar visas inom tio sekunder från frigivet beslut och att gamla svar avvisas. Bekräfta efteranalys av nya verkliga avslutade händer separat.
+- Läs SEK- och EUR-bord och återskapa kort, positioner, stackar, pott och exakt satsningsföljd. Preflop räknas efter antal utdelade. Postflop räknas efter antal kvar, med hänsyn till vem som foldade och när.
+- Täck första beslut, check till hjälten, satsning, höjning, återhöjning och avslutande samt övriga all-in-lägen. Prioritera vanliga floppar och relevanta korta cashgamestackar.
+- Visa lagliga drag, insatsbelopp, frekvenser, källa och kvalitetsstatus. Visa gjord hand, starkare/lika/svagare lagliga tvåkortskombinationer och equity mot märkta ranger när underlaget räcker.
+- Visa komplett råd inom **10 sekunder** från att det kompletta beslutet är tillgängligt i efteranalysen. Om källa, underlag eller tid saknas ska appen ge ett tydligt besked och dölja inaktuella råd. Använd kostnadsfria, tillåtna källor.
 
-### Flervägsprov för check → bet → raise
+## Nästa uppgift
+
+**FL-01 — Trevägsflop när det checkats till hjälten.** Börja med att frysa ett representativt, komplett läge från en avläst eller syntetiskt återspelad hand. Använd ett läge där check och bet är lagliga. Kontrollera om en tillåten källa täcker samma bräda, pott, stackar, turordning, actionhistorik, ranger och regler. Vid träff, anslut källan till efteranalysen och återspela den matchande och en avvikande hand i Windows. Dokumentera det konkreta hindret om källan saknas. Gå då vidare till FL-02 eller ED-01, beroende på vilket underlag som finns.
+
+**ED-01 kan köras parallellt** när en ny avslutad Edgehand finns. Syntetiska återspelningar räcker för att fortsätta utveckla och prova mottagaren under tiden.
+
+## Prioriterad checklista
+
+| ID | Delmål att leverera | Läget nu och vad som krävs |
+|---|---|---|
+| FL-01 | Trevägsflop efter check | **Nästa.** Visa check och modellens betstorlekar med frekvenser för ett matchande läge. |
+| FL-02 | Trevägsflop mot första bet | **Öppen.** Visa hur fold, syn och eventuell höjning fördelas i källan, med exakta belopp. |
+| FL-03 | Samma check- och betlägen för fyra, fem och sex aktiva | **Öppen.** Prova och dokumentera varje spelarantal och linje för sig. |
+| FL-04 | Flop efter bet → raise, därefter reraise | **Delvis.** Tre och fyra aktiva har ett matchat beslut efter check → bet → raise. Kvalificera fem och sex separat. Lägg till fler roller, brädor, stackdjup och en verifierad fortsättning efter återhöjning för varje relevant spelarantal. |
+| FL-05 | Första floppbeslutet samt fler tvåmannapotter | **Delvis.** Befintlig BTN–BB-modell täcker vissa 100 BB-lägen. Utöka till 2–6 aktiva för första beslutet och fler positioner, historiker och stackdjup för heads-up. |
+| ED-01 | Nya verkliga avslutade Edgehänder i EUR och SEK | **Öppen.** Bekräfta att händer frigörs vid rätt handbyte, att underlaget matchar indatan och att täckta lägen ger rätt råd. Dokumentera även avbrott, omstart och anslutning mitt i handen. |
+| PF-01 | Komplett preflop för 2–6 utdelade | **Delvis.** Referenstabeller finns för valda positioner, stackar och linjer. Prioritera vanlig kortstack, limps, öppning, syn, squeeze, 3-bet, 4-bet och all-in med lika och olika stackar. |
+| PO-01 | Turn och river för 2–6 aktiva | **Delvis.** Matchande heads-up-träd finns. Verifiera flervägsprofiler, bind ranger till tidigare handlingar och återspela check, bet, raise och reraise på båda gatorna. |
+| AI-01 | Övriga all-in och sidopotter | **Delvis.** Den entydiga avslutande synen eller folden är klar inom villkoren nedan. Återstår korta all-in, återöppnad satsning, spelare med beslut kvar, sidopotter och olika behörigheter. |
+| UI-01 | Läsbar efteranalys och handstyrka för hela flödet | **Delvis.** Kontrollera lagliga drag, belopp, frekvenser, antaganden, gjord hand, kombinationer och equity på varje relevant gata. |
+| QA-01 | Sammanhängande Windows-slutprov | **Öppen.** Återspela varje spelarantal, gata och stödd bettinglinje med korta och djupa stackar. Mät kallt och varmt i SEK och EUR. Prova ogiltig historik, gammalt läge, timeout och handbyte. |
+
+### Bekräftade delmål
+
+- [x] Automatisk frigivning efter tre handbyten i den paketerade Windows-appen. [Syntetiskt Windows-prov](evidence/hand-review-2026-11-22/RESULTAT.md)
+- [x] En trevägs- och en fyrvägsflop efter check → bet → raise ger matchade handlingsfrekvenser i ordinarie efteranalys inom 10 sekunder. [EUR- och SEK-proven](evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
+- [x] Matematiskt avgjord avslutande syn eller fold på flop, turn och river i entydig pott när samma val är strikt bättre för alla kompatibla motståndarhänder. [Villkor och prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
+
+## Flop – täckning per beslut
+
+**Modellträff** betyder att appen har viss täckning och att bräda, stackar och historik behöver matcha. **Öppen** betyder att ett generellt svar för den beslutstypen fortfarande saknas.
+
+| Läget på floppen | 2 kvar | 3 kvar | 4 kvar | 5 kvar | 6 kvar |
+|---|---|---|---|---|---|
+| Första beslutet | BTN–BB-modell | Öppen | Öppen | Öppen | Öppen |
+| Checkat till mig | BTN–BB-modell | Öppen | Öppen | Öppen | Öppen |
+| Jag möter första bet | BTN–BB-modell | Öppen | Öppen | Öppen | Öppen |
+| Jag möter en höjning | BTN–BB-modell | En modellträff | En modellträff | Öppen | Öppen |
+| Jag möter en återhöjning | Öppen | Öppen | Öppen | Öppen | Öppen |
+| Avslutande all-in | Avgörbara fall | Avgörbara fall | Avgörbara fall | Avgörbara fall | Avgörbara fall |
+
+De två flervägsträffarna gäller Q♥ 8♦ 6♥ och färgisomorfa brädor, med 36 BB bakom vid floppstart, 12 BB i startpotten, bet 6 BB och raise till 18 BB. Trevägsprovet tog 176 ms och fyrvägsprovet 107 ms från frigivning i den paketerade appen. [Modeller, villkor och Windows-prov](evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
+
+## När ett delmål får bockas av
+
+1. **Modell och kvalitet.** Spara källa och villkor för kort, säten, stackar, pott, ranger, rake och satsningsträd. Märk tabellreferens och strategi med okänd felgräns enligt deras kvalitet. För verifierade strategier gäller projektets oberoende gräns i det matchade trädet, 2 % för heads-up och 2,1 % per säte för flerväg.
+2. **Funktion och tid.** Kör ett positivt och ett relevant negativt prov genom paketerad efteranalys. Kontrollera full handrad, korrekt belopp, källa och kvalitetsmärkning. Mät från frigivet komplett läge till synligt svar och spara kallt och varmt utfall med hårdvara och indata.
+3. **Täckning och evidens.** Bocka av exakt det delmål som provet täcker. En profil i ett forskningsfönster kan markeras som kvalificerad modell. Ett syntetiskt Windows-prov kan markeras som fungerande appflöde. Markera en verklig Edgehand först efter ett separat sådant prov.
+4. **Överlämning.** Uppdatera denna plan och projektloggen i samma ändring. Spara rådata och reproduktionskommando i `docs/evidence/`. Flytta **Nästa uppgift** när delmålet är uppnått. Vid delvis täckning, skriv vad som återstår på rätt rad och bryt ut ett avbockat delmål vid behov.
+
+## Tidigare flervägsprov för check → bet → raise
 
 - [x] Återspela linjen och hämta rätt handrad med alla lagliga kombinationer i tre ranger på flop, turn och river.
 - [x] Mät solverns svarstid. Flop 0,78 s, turn 0,52 s och river 3,87 s. Windows-kedjan återstår för en kvalificerad lösning.
@@ -31,7 +77,7 @@ Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → A
 - [ ] Kvalificera femvägsfloppen för alla säten. Profilen med 1,6 miljoner träningsgivar klarade fyra av fem säten. Höjarens övre gräns i tätaste slutförda provet är 2,16816 %. Första hela handraden visades efter 0,166 s i Windows-forskningsfönstret. [Träning och omprov](evidence/five-six-way-flop-verification-2026-11-22/RESULTAT.md)
 - [ ] Kvalificera sexvägsfloppen. Den äldre profilen underkändes när en laglig avvikelse gav en undre gräns på 2,52945 %. Profilen med 460 000 givar visades efter 0,844 s i Windows-forskningsfönstret. Två oberoende övre gränser var 6,01241 % och 3,65137 %. [Träning och omprov](evidence/five-six-way-flop-verification-2026-11-22/RESULTAT.md)
 - [ ] Få oberoende övre gräns under 2,1 % för varje säte på femvägsturn, sexvägsturn och sexvägsriver. Femvägsturn har ett godkänt säte i tätare prov. Sexvägsriver behöver en snävare gräns eller en starkare profil.
-- [ ] Matcha kvalificerade profiler mot den ordinarie Windows-appens exakta bettinghistorik, storlekar och ranger. Mät från att en avslutad hand frigörs till att den kompletta handraden syns i efteranalysen.
+- [x] Matcha tre- och fyrvägsfloppens kvalificerade profiler i ordinarie efteranalys. Windows-proven gav 176 ms respektive 107 ms från frigivning. Kvarvarande turn- och riverprofiler följs under PO-01. [Windows-prov](evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
 - [ ] Utöka till andra bettinglinjer, flera stackdjup och olika stackar. Verifiera hur ranger följer en och samma hand genom alla gator.
 
 [Ny profil med träning över hela trädet](evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md) · [Oberoende omprov av föregående profil](evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md) · [Förberäknad profil och arkiv](evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md) · [Flop med större tabell](evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md) · [Tidigare trevägsprov](evidence/raised-postflop-2026-11-22/RESULTAT.md) · [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
