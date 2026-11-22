@@ -7,7 +7,9 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
-**Senaste solverprov, 22 november.** Utökad outcome-MCCFR med jämn sampling tränade 399 854 informationsmängder på exakt samma trevägsflop efter check → bet → raise. I det fördjupade provet tog handraden 7,42 s. En ändring av hjältens första beslut gav 3,33 % av rotpotten som statistisk undre gräns, över kravet 2,1 %. Den utökade kandidaten är underkänd på flop. Turn och river samt 4–6 aktiva väntar på att floppen klarar kvalitet och tid. [Metod, resultat och körkommandon](docs/evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md)
+**Senaste solverprov, 22 november.** En förberäknad strategi för samma trevägsflop efter check → bet → raise sparades i 514 532 strategirader. Uppslaget tog 1,48 ms i separat process. De snävare övre gränserna för bästa ensidiga avvikelse var 15,76 %, 20,98 % och 18,95 %. Kvaliteten under 2,1 % är fortfarande obekräftad. Turn och river samt 4–6 aktiva väntar på att floppen klarar kvalitetskravet. [Arkiv, metod och prov](docs/evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md)
+
+**Föregående större solverprov, 22 november.** Utökad outcome-MCCFR med jämn sampling tränade 399 854 informationsmängder. Handraden tog 7,42 s. En ändring av hjältens första beslut gav 3,33 % av rotpotten som statistisk undre gräns, över kravet 2,1 %. Den kandidaten underkändes på flop. [Metod, resultat och körkommandon](docs/evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md)
 
 **Föregående solverprov, 22 november.** Lokal MCCFR gav handrader inom 0,52–3,87 s på flop, turn och river efter trevägs check → bet → raise med fulla ranger. En uppmätt ensidig avvikelse över 2,1 % av rotpotten underkände varje profil. Ett extra riverprov med external sampling underkändes också. [Tidigare prov och körkommandon](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md)
 
@@ -2341,3 +2343,24 @@ Handraden i det fördjupade provet tog 7,42 s. Förbättringen från ett ändrat
 `./node_modules/.bin/tsc.cmd --noEmit` passerade efter en rättning av typkontrollen i det nya provet. `npm.cmd test -- --maxWorkers=1 --reporter=default` gav 462 passerade och 35 överhoppade. Rårapporterna bevarar alla sju körningar och samma handrad verifierades mellan de jämnt samplade bekräftelse- och fördjupningsproven.
 
 Nästa steg är att prova en förberäknad profil för samma spelmodell och mäta den bästa ensidiga avvikelsen med en oberoende övre gräns över hela trädet. Först efter en godkänd trevägsflop går samma kandidat vidare till trevägsturn och trevägsriver och sedan till 4–6 spelare.
+
+### 2026-11-22 · Förberäknad trevägsflop och övre gränser per spelare
+
+Förberäknade den tidigare `Qh 8d 6h`-floppen efter check → bet 60 → raise till 180 med fulla likaviktade ranger. Träningen tog 50,33 s och exporten 0,90 s. En separat process öppnade den frysta filen, verifierade modell och hash och återgav handraden på 1,48 ms. Alla 1 176 fysiska rotkombinationer verifierades dessutom från det sparade arkivet. [Träningsdata, modellarkiv och exakta körkommandon](docs/evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md)
+
+```powershell
+$env:POKER_RAISED_POSTFLOP_PROBE='1'
+$env:POKER_RAISED_POSTFLOP_STREET='flop'
+$env:POKER_RAISED_POSTFLOP_PROFILE='artifacts/precomputed-three-way-flop-2026-11-22'
+$evidence='docs/evidence/precomputed-three-way-flop-2026-11-22'
+foreach ($probe in @(@{Mode='train';File='training'},@{Mode='audit';File='audit'},@{Mode='tight';File='tight-upper'})) {
+  $env:POKER_RAISED_POSTFLOP_OFFLINE=$probe.Mode
+  $env:POKER_RAISED_POSTFLOP_OUTPUT="$evidence/$($probe.File).json"
+  npm.cmd test -- tests/decision-raised-postflop-probe.test.ts
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
+```
+
+De granskade lagliga avvikelserna gav undre gränser på 0,31 %, 0,52 % och 0,00 %. Det helt informationsöppna provet gav för grova övre gränser. Den snävare, stickprovsoptimerade kontrollen gav 15,76 %, 20,98 % och 18,95 %. Ingen av dessa gränser uppfyller 2,1 %-kravet. Resultatet är obekräftad kvalitet, och nya gat- eller spelarprov väntar på godkänd trevägsflop. Lokalt uppslag har mätts medan Windows- och livekedjan behöver separat prov. Nästa steg är en snävare oberoende verifiering av den arkiverade profilen eller en starkare laglig motstrategi som kan avgöra om profilen behöver mer träning.
+
+`npm.cmd test -- --maxWorkers=1 --reporter=default` gav 464 passerade och 35 överhoppade. `./node_modules/.bin/tsc.cmd --noEmit` passerade. De två kalibreringsproven kontrollerade att bara avvikarens handlingar maximeras och att stickprovsprovet väljer samma handling i givar med identisk synlig information.

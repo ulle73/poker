@@ -9,6 +9,8 @@ import { applyAction, legalActions } from "../src/decision/betting";
 import { solveDecision } from "../src/decision/mccfr";
 import { settlePayoffs } from "../src/decision/payoffs";
 import type { BettingAction, BettingState, DecisionInput, DecisionPolicy, SolveOptions } from "../src/decision/types";
+import { openPrecomputedPolicy, savePrecomputedPolicy } from "./helpers/precomputed-policy";
+import { completePublicTree, sampledGameSeatUpper } from "./helpers/sampled-game-upper";
 
 const streets = ["flop", "turn", "river"] as const;
 const fullBoard = ["Qh", "8d", "6h", "2c", "Js"];
@@ -58,6 +60,29 @@ function sampleIndex(next: () => number, choices: number) {
   return draw % choices;
 }
 
+function sampledWorld(deck: number[], board: number[], seats: number[], next: () => number,
+  fixed?: { seat: number; cards: number[] }) {
+  const remaining = fixed ? deck.filter((card) => !fixed.cards.includes(card)) : deck.slice();
+  const draw = () => remaining.splice(sampleIndex(next, remaining.length), 1)[0];
+  const holes = seats.map((seat) => fixed?.seat === seat ? fixed.cards : [draw(), draw()]);
+  const runout = [...board];
+  while (runout.length < 5) runout.push(draw());
+  return { holes, runout };
+}
+
+function empiricalBernsteinMargin(count: number, variance: number, width: number, alpha: number) {
+  const log = Math.log(2 / alpha);
+  return Math.sqrt(2 * variance * log / count) + 7 * width * log / (3 * (count - 1));
+}
+
+function decisionPot(input: DecisionInput) {
+  return input.state.deadPot + input.state.invested.reduce((a, b) => a + b, 0);
+}
+
+function totalChips(input: DecisionInput) {
+  return decisionPot(input) + input.state.stacks.reduce((a, b) => a + b, 0);
+}
+
 function firstDecisionDeviation(
   input: DecisionInput,
   policy: DecisionPolicy,
@@ -97,11 +122,7 @@ function firstDecisionDeviation(
   }
 
   function sample(next: () => number) {
-    const remaining = deck.slice();
-    const draw = () => remaining.splice(sampleIndex(next, remaining.length), 1)[0];
-    const holes = input.seats.map(() => [draw(), draw()]);
-    const runout = [...board];
-    while (runout.length < 5) runout.push(draw());
+    const { holes, runout } = sampledWorld(deck, board, input.seats, next);
     let reached = input.state;
     while (!reached.terminal && reached.street === input.state.street && reached.actor !== deviationSeat) {
       const row = policy.query(reached, holes[reached.actor], board);
@@ -160,8 +181,7 @@ function firstDecisionDeviation(
   testedContinuations = 0;
   trainedContinuations = 0;
   const evaluationRandom = auditRandom(evaluationSeed);
-  const pool = input.state.deadPot + input.state.stacks.reduce((a, b) => a + b, 0)
-    + input.state.invested.reduce((a, b) => a + b, 0);
+  const pool = totalChips(input);
   let gain = 0;
   let squaredGain = 0;
   let profileEv = 0;
@@ -180,14 +200,12 @@ function firstDecisionDeviation(
     profileEv += profileValue;
   }
 
-  const pot = input.state.deadPot + input.state.invested.reduce((a, b) => a + b, 0);
+  const pot = decisionPot(input);
   const possibleGainChips = gain / evaluationSamples;
   const variance = Math.max(0, squaredGain - gain * possibleGainChips) / (evaluationSamples - 1);
-  const logEmpirical = Math.log(2 / errorProbability);
   // Apply Maurer–Pontil theorem 4 to the negative gain for a one-sided lower bound.
   const errorChips = confidenceBound === "empirical-bernstein"
-    ? Math.sqrt(2 * variance * logEmpirical / evaluationSamples)
-      + 7 * (2 * pool) * logEmpirical / (3 * (evaluationSamples - 1))
+    ? empiricalBernsteinMargin(evaluationSamples, variance, 2 * pool, errorProbability)
     : 2 * pool * Math.sqrt(Math.log(1 / errorProbability) / (2 * evaluationSamples));
   const lowerBoundChips = Math.max(0, possibleGainChips - errorChips);
   return {
@@ -202,6 +220,96 @@ function firstDecisionDeviation(
   };
 }
 
+/** Reveal the complete deal only to the deviating seat. This enlarged strategy
+ * space bounds the legal best response from above, with no maximization at opponents. */
+function perfectInformationUpper(input: DecisionInput, policy: DecisionPolicy, errorProbability: number, samples = 40_000) {
+  const tree = completePublicTree(input);
+  const root = tree.length - 1;
+  const players = input.seats.length;
+  const profile = new Float64Array(players * tree.length);
+  const upper = new Float64Array(players * tree.length);
+  const sums = new Float64Array(players);
+  const squares = new Float64Array(players);
+  const seed = 78319942;
+  const next = auditRandom(seed);
+  const board = input.board.map(encode);
+  const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
+  const pool = totalChips(input);
+  for (let sample = 0; sample < samples; sample++) {
+    const { holes, runout } = sampledWorld(deck, board, input.seats, next);
+    const scores = holes.map((hand) => -evaluate7([...runout, ...hand].map((code) => cardsByCode[code])));
+    const boards = [board, runout.slice(0, 4), runout];
+    tree.forEach(({ state, children }, node) => {
+      const offset = node * players;
+      if (state.terminal) {
+        const payoff = settlePayoffs(state, scores);
+        profile.set(payoff, offset);
+        upper.set(payoff, offset);
+        return;
+      }
+      const mix = policy.query(state, holes[state.actor], boards[state.boardCount - 3]).frequencies;
+      for (let seat = 0; seat < players; seat++) {
+        let baseline = 0, best = seat === state.actor ? -Infinity : 0;
+        for (let a = 0; a < children.length; a++) {
+          const child = children[a] * players + seat;
+          baseline += mix[a] * profile[child];
+          best = seat === state.actor ? Math.max(best, upper[child]) : best + mix[a] * upper[child];
+        }
+        profile[offset + seat] = baseline;
+        upper[offset + seat] = best;
+      }
+    });
+    for (let seat = 0; seat < players; seat++) {
+      const index = root * players + seat;
+      const delta = upper[index] - profile[index];
+      if (delta < -1e-9 || delta > pool + 1e-9) throw new Error("Impossible perfect-information gain");
+      sums[seat] += delta;
+      squares[seat] += delta * delta;
+    }
+  }
+  const pot = decisionPot(input);
+  return { seed, samples, errorProbability, publicNodes: tree.length, seats: input.seats.map((seat) => {
+    const mean = sums[seat] / samples;
+    const variance = Math.max(0, squares[seat] - sums[seat] * mean) / (samples - 1);
+    const margin = empiricalBernsteinMargin(samples, variance, pool, errorProbability);
+    return { seat, relaxedGainPct: 100 * mean / pot, upperBoundPct: 100 * Math.min(pool, mean + margin) / pot };
+  }) };
+}
+
+it("optimizes only the deviating seat in the perfect-information upper bound", () => {
+  const input = raisedSpot("river");
+  const foldingProfile: DecisionPolicy = {
+    query: (state) => {
+      const actions = legalActions(state, input.rules);
+      return { actions, frequencies: actions.map((_, index) => Number(index === 0)), trained: true };
+    },
+  };
+  // The first two seats can win the 360-chip pot by jamming against folds.
+  // The third wins it uncontested and never acts when both opponents keep folding.
+  const report = perfectInformationUpper(input, foldingProfile, 0.05, 24);
+  expect(report.seats.map((seat) => seat.relaxedGainPct)).toEqual([100, 100, 0]);
+});
+
+it("requires the same sampled response to indistinguishable hidden hands", () => {
+  const sample = raisedSpot("river");
+  const input: DecisionInput = {
+    ...sample, seats: [0, 1], ranges: ["", ""],
+    state: { ...sample.state, dealer: 1, actor: 0, history: "audit-river-bet",
+      stacks: [10, 0], bets: [0, 10], invested: [0, 10], currentBet: 10,
+      pending: [true, false], canRaise: [false, false], folded: [false, false], deadPot: 0 },
+  };
+  const fold: DecisionPolicy = {
+    query: (state) => ({ actions: legalActions(state, input.rules), frequencies: [1, 0], trained: true }),
+  };
+  const runout = input.board.map(encode);
+  const worlds = [
+    { holes: [[11, 12], [13, 14]], runout, scores: [0, 1] },
+    { holes: [[11, 12], [17, 18]], runout, scores: [1, 0] },
+  ];
+  expect(sampledGameSeatUpper(input, fold, 0, 2, 2, () => worlds).mean).toBe(0);
+  expect(sampledGameSeatUpper(input, fold, 0, 2, 2, () => [worlds[0], worlds[0]]).mean).toBe(10);
+});
+
 it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
   "times a full-range three-way check / bet / raise and audits the frozen policy",
   () => {
@@ -211,6 +319,9 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
     if (!output) throw new Error("Set POKER_RAISED_POSTFLOP_OUTPUT to the evidence file");
     const started = performance.now();
     const input = raisedSpot(street);
+    const offlineMode = process.env.POKER_RAISED_POSTFLOP_OFFLINE;
+    const profileDir = process.env.POKER_RAISED_POSTFLOP_PROFILE;
+    if (offlineMode && !profileDir) throw new Error("Set POKER_RAISED_POSTFLOP_PROFILE to the profile directory");
     let policy: DecisionPolicy | undefined;
     const external = process.env.POKER_RAISED_POSTFLOP_SAMPLING === "external";
     const expanded = process.env.POKER_RAISED_POSTFLOP_EXPANDED === "1";
@@ -224,6 +335,106 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       options.maxIterations = external ? 300000 : 400000;
       options.heroOversampling = Number(process.env.POKER_RAISED_POSTFLOP_HERO_SHARE ?? 0.5);
     }
+    if (offlineMode === "train" && profileDir) {
+      const offlineOptions: SolveOptions = {
+        seed: 395, sampling: "outcome", baseline: "learned", heroOversampling: 0,
+        offlinePrecomputation: true, timeBudgetMs: 90000, maxInfosets: 1250000, maxIterations: 5000000,
+      };
+      const result = solveDecision(input, offlineOptions, (value) => { policy = value; });
+      if (!policy) throw new Error("Missing finalized profile");
+      const trainedRoot = policy.query(input.state, input.heroCards.map(encode), input.board.map(encode));
+      const exportStarted = performance.now();
+      const artifact = savePrecomputedPolicy(profileDir, input, policy);
+      const exportMs = performance.now() - exportStarted;
+      const reopened = openPrecomputedPolicy(profileDir, input, "root");
+      expect(reopened.policy.query(input.state, input.heroCards.map(encode), input.board.map(encode)))
+        .toEqual(trainedRoot);
+      expect(reopened.manifestSha256).toBe(artifact.manifestSha256);
+      writeFileSync(output, JSON.stringify({ input, offlineOptions, result, trainedRoot, artifact,
+        exportMs, processPeakRssKiB: process.resourceUsage().maxRSS }, null, 2) + "\n");
+      return;
+    }
+    if ((offlineMode === "audit" || offlineMode === "lookup") && profileDir) {
+      const root = openPrecomputedPolicy(profileDir, input, "root");
+      const board = input.board.map(encode);
+      const hand = input.heroCards.map(encode);
+      const heroRow = root.policy.query(input.state, hand, board);
+      const lookupMs = performance.now() - started;
+      expect(heroRow.trained).toBe(true);
+      expect(heroRow.actions.map((a) => a.id)).toEqual(["fold:0", "call:180", "raise:360"]);
+      expect(heroRow.frequencies.reduce((sum, frequency) => sum + frequency, 0)).toBeCloseTo(1, 12);
+      const warmSamplesMs = Array.from({ length: 25 }, () => {
+        const request = performance.now();
+        openPrecomputedPolicy(profileDir, input, "root").policy.query(input.state, hand, board);
+        return performance.now() - request;
+      });
+      const { policy, manifestSha256 } = openPrecomputedPolicy(profileDir, input, "all");
+      expect(manifestSha256).toBe(root.manifestSha256);
+      expect(policy.query(input.state, hand, board)).toEqual(heroRow);
+      if (offlineMode === "lookup") {
+        const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
+        let rootTrained = 0;
+        for (let a = 0; a < deck.length; a++) {
+          for (let b = a + 1; b < deck.length; b++) {
+            if (root.policy.query(input.state, [deck[a], deck[b]], board).trained) rootTrained++;
+          }
+        }
+        const rootCombos = deck.length * (deck.length - 1) / 2;
+        expect(rootTrained).toBe(rootCombos);
+        expect(() => openPrecomputedPolicy(profileDir, {
+          ...input, state: { ...input.state, deadPot: input.state.deadPot + 1 },
+        }, "root")).toThrow(/requested model/);
+        writeFileSync(output, JSON.stringify({ manifestSha256, heroRow, lookupMs,
+          warmSamplesMs, rootTrained, rootCombos, mismatchedPotRejected: true }, null, 2) + "\n");
+        return;
+      }
+      const controlStarted = performance.now();
+      const alpha = 0.05 / (2 * input.seats.length);
+      const upper = perfectInformationUpper(input, policy, alpha);
+      const lower = input.seats.map((seat) => firstDecisionDeviation(input, policy,
+        { fit: 19026487, evaluation: 83752619 }, alpha, "empirical-bernstein", seat,
+        { fit: 240_000, evaluation: 160_000 }));
+      const auditMs = performance.now() - controlStarted;
+      const qualityLimitPct = 2.1;
+      const latencyPass = lookupMs <= 10_000 && warmSamplesMs.every((ms) => ms <= 10_000);
+      const quality = lower.some((seat) => seat.lowerBoundPct >= qualityLimitPct) ? "rejected-by-deviation"
+        : upper.seats.every((seat) => seat.upperBoundPct < qualityLimitPct) ? "verified" : "unverified";
+      writeFileSync(output, JSON.stringify({ manifestSha256, input, heroRow, lookupMs, warmSamplesMs,
+        qualityLimitPct, latencyPass, auditMs, upper, lower, quality,
+        qualifies: latencyPass && quality === "verified" }, null, 2) + "\n");
+      return;
+    }
+    if (offlineMode === "tight" && profileDir) {
+      const { policy, manifestSha256 } = openPrecomputedPolicy(profileDir, input, "all");
+      const batchCount = 768, batchSize = 256;
+      const baseSeed = 59172869;
+      const errorProbability = 0.05 / input.seats.length;
+      const board = input.board.map(encode);
+      const deck = cardsByCode.map((_, code) => code).filter((code) => !board.includes(code));
+      const pot = decisionPot(input), pool = totalChips(input);
+      const seats = input.seats.map((seat) => {
+        const seed = baseSeed + 17_019_479 * seat;
+        const random = auditRandom(seed);
+        const report = sampledGameSeatUpper(input, policy, seat, batchCount, batchSize, () => {
+          const remaining = deck.slice();
+          const cards = [0, 1].map(() => remaining.splice(sampleIndex(random, remaining.length), 1)[0]);
+          return Array.from({ length: batchSize }, () => {
+            const { holes, runout } = sampledWorld(deck, board, input.seats, random, { seat, cards });
+            const scores = holes.map((hand) => -evaluate7([...runout, ...hand].map((code) => cardsByCode[code])));
+            return { holes, runout, scores };
+          });
+        });
+        const margin = empiricalBernsteinMargin(batchCount, report.variance, pool, errorProbability);
+        return { seat, seed, publicNodes: report.publicNodes, estimatePct: 100 * report.mean / pot,
+          upperBoundPct: 100 * Math.min(pool, report.mean + margin) / pot };
+      });
+      const qualityLimitPct = 2.1;
+      writeFileSync(output, JSON.stringify({ manifestSha256, batchCount, batchSize, errorProbability,
+        elapsedMs: performance.now() - started, qualityLimitPct, seats,
+        passesUpperGate: seats.every((seat) => seat.upperBoundPct < qualityLimitPct) }, null, 2) + "\n");
+      return;
+    }
+    if (offlineMode) throw new Error("Set POKER_RAISED_POSTFLOP_OFFLINE to train, lookup, audit or tight");
     const result = solveDecision(input, options, (value) => { policy = value; });
     if (!policy) throw new Error("Missing finalized policy");
     const frozenPolicy = policy;
@@ -274,5 +485,5 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       quality: seatAudits.some((row) => row.lowerBoundPct > qualityLimitPct) ? "rejected-by-deviation" : "unverified",
       qualifies: false,
     }, null, 2) + "\n");
-  }, 240_000,
+  }, 360_000,
 );

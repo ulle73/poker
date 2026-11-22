@@ -20,10 +20,11 @@ Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → A
 - [x] Återspela linjen och hämta rätt handrad med alla lagliga kombinationer i tre ranger på flop, turn och river.
 - [x] Mät solverns svarstid. Flop 0,78 s, turn 0,52 s och river 3,87 s. Windows-kedjan återstår för en kvalificerad lösning.
 - [x] Prova en trevägsflop med större solvertabell. Outcome med jämn sampling tränade 399 854 informationsmängder och gav handrad på 6,38 s i jämförelsen. Andelen tränade beslut i de simulerade fortsättningarna ökade från 60,69 % till 74,18 %.
-- [ ] Klara strategikvaliteten på trevägsfloppen. Den större outcome-profilen med jämn sampling underkändes i det fördjupade oberoende provet. Undre gräns 3,33 % av potten efter att bara hjältens första beslut ändrats. Handraden tog 7,42 s. En kvalificerad kandidat behöver en oberoende övre gräns för bästa ensidiga avvikelse under 2,1 % för var och en av de tre spelarna.
+- [x] Förberäkna samma trevägsflop och läs in den sparade modellen i en separat process. Alla 1 176 hålkortskombinationer går att slå upp och första uppslaget tog 1,48 ms i den lokala mätningen.
+- [ ] Verifiera bästa ensidiga avvikelse under 2,1 % för var och en av de tre spelarna. Den förberäknade profilen har övre gränser på 15,76 %, 20,98 % och 18,95 %. De lagliga avvikelser som provades räckte inte för att underkänna profilen. Den tidigare, mindre profilen underkändes med en undre gräns på 3,33 % för hjälten.
 - [ ] Kör den kvalificerade kandidaten på trevägsturn och trevägsriver, sedan för fyra, fem och sex aktiva. Tidigare, enklare körningar underkändes på kvalitet på båda de senare gatorna. Utöka därefter till andra bettinglinjer, flera stackdjup och olika stackar. Verifiera också hur ranger följer en och samma hand genom alla gator.
 
-[Flop med större tabell](evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md) · [Tidigare trevägsprov](evidence/raised-postflop-2026-11-22/RESULTAT.md) · [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
+[Förberäknad trevägsflop och kvalitetsgränser](evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md) · [Flop med större tabell](evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md) · [Tidigare trevägsprov](evidence/raised-postflop-2026-11-22/RESULTAT.md) · [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
 ## Täckning i befintliga modeller
 

@@ -107,12 +107,19 @@ export interface DecisionPolicy {
     frequencies: number[];
     trained: boolean;
   };
+  trainedTables?(): Iterable<{
+    history: string;
+    actionIds: readonly string[];
+    rows: Iterable<readonly [number, readonly number[]]>;
+  }>;
 }
 export interface SolveOptions {
   sampling?: "external" | "outcome";
   baseline?: "none" | "learned";
   /** Offline profile evaluation can request a larger bounded training run. */
   expandedResearchBudget?: boolean;
+  /** Bounded batch training for a profile to be exported before any request. */
+  offlinePrecomputation?: boolean;
   /** Share of deals drawn from the requested hero hand's suit orbit. */
   heroOversampling?: number;
   /** Diagnostic reference path; outcome sampling caches public transitions by default. */

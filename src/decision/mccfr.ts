@@ -162,7 +162,8 @@ export function solveDecision(
   if (!Number.isFinite(budget) || budget <= 0)
     throw new Error("Time budget must be positive.");
   const expanded = options.expandedResearchBudget === true;
-  const deadline = started + Math.min(expanded ? 9000 : 4000, budget);
+  const offline = options.offlinePrecomputation === true;
+  const deadline = started + Math.min(offline ? 90_000 : expanded ? 9000 : 4000, budget);
   if (options.sampling && !["external", "outcome"].includes(options.sampling))
     throw new Error("Unknown MCCFR sampling method.");
   const outcome = options.sampling !== "external";
@@ -175,7 +176,7 @@ export function solveDecision(
   const maxIterations = boundedInteger(
     options.maxIterations,
     outcome ? 200000 : 5000,
-    outcome ? (expanded ? 400000 : 200000) : (expanded ? 300000 : 5000),
+    offline && outcome ? 5_000_000 : outcome ? (expanded ? 400000 : 200000) : (expanded ? 300000 : 5000),
     "Iteration limit",
   );
   const maxNodes = boundedInteger(
@@ -193,7 +194,7 @@ export function solveDecision(
   const maxInfosets = boundedInteger(
     options.maxInfosets,
     50000,
-    expanded ? 400000 : 50000,
+    offline ? 1_250_000 : expanded ? 400000 : 50000,
     "Information-set limit",
   );
   // A street has an initial round, at most one opening bet and maxRaises raises;
@@ -595,6 +596,20 @@ export function solveDecision(
     );
   const elapsedMs = Date.now() - started;
   inspectPolicy?.({
+    trainedTables: publicTree ? function* () {
+      for (const node of publicTree.nodes()) {
+        if (!node.informationSets.size) continue;
+        yield {
+          history: node.state.history,
+          actionIds: node.actions.map((action) => action.id),
+          rows: (function* () {
+            for (const [key, info] of node.informationSets) {
+              if (info.average.some((value) => value > 0)) yield [key, regretMatching(info.average)] as const;
+            }
+          })(),
+        };
+      }
+    } : undefined,
     query: (state, ownCards, visibleBoard) => {
       if (
         state.terminal ||
