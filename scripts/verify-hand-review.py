@@ -25,23 +25,31 @@ def opening(number, count, hero):
                 heroTurn=False, observedActions=[], availableActions=[])
 
 
-def qualified_flop(number, count, currency):
-    snapshot = opening(number, count, 1 if count == 3 else 4)
+def qualified_flop(number, count, currency, checked=False, stack=None):
+    behind = stack if stack is not None else .6 if checked else 3.6
+    snapshot = opening(number, count, count if checked else 1 if count == 3 else 4)
     snapshot.update(currency=currency, heroCards=["Ah", "Kh"], pot=.15)
     players = snapshot["players"]
     target = 1.2 / count
     for p, bet in zip(players, [.05, .10, 0, 0]):
-        p.update(bet=bet, stack=round(3.6 + target - bet, 2))
+        p.update(bet=bet, stack=round(behind + target - bet, 2))
     yield deepcopy(snapshot)
     for i in [*range(2, count), 0, 1]:
         p = players[i]
         snapshot["pot"] = round(snapshot["pot"] + target - p["bet"], 2)
-        p.update(bet=target, stack=3.6)
+        p.update(bet=target, stack=behind)
         yield deepcopy(snapshot)
     for p in players:
-        p.update(bet=0, stack=3.6)
+        p.update(bet=0, stack=behind)
     snapshot.update(street="flop", board=["Qh", "8d", "6h"])
     yield deepcopy(snapshot)
+    if checked:
+        snapshot["observedActions"] = [dict(seat=1, street="flop", action="check", amount=0)]
+        yield deepcopy(snapshot)
+        snapshot["observedActions"].append(dict(seat=2, street="flop", action="check", amount=0))
+        snapshot.update(heroTurn=True, availableActions=["Check", "Satsa"])
+        yield deepcopy(snapshot)
+        return
     for i, bet in [(1, .6), (2, 1.8)]:
         players[i].update(bet=bet, stack=round(3.6-bet, 2))
         snapshot["pot"] = round(1.2 + sum(p["bet"] for p in players), 2)
@@ -50,14 +58,48 @@ def qualified_flop(number, count, currency):
         yield deepcopy(snapshot)
 
 
-def replay(exe, out):
+def verify_checked_flop(page, send, out):
+    results = []
+    for i in range(6):
+        number = 2100+i
+        frames = list(qualified_flop(number, 3, "SEK" if i == 1 else "EUR", checked=True,
+                                    stack=.61 if i == 2 else .6))
+        if i == 1:
+            suits = str.maketrans("hd", "sc")
+            for frame in frames:
+                frame["board"] = [card.translate(suits) for card in frame["board"]]
+                frame["heroCards"] = [card.translate(suits) for card in frame["heroCards"]]
+                frame["observedActions"] = []
+        start = time.perf_counter()
+        send(frames[0])
+        if i < 3:
+            assert page.locator("[data-reviewed-hand]").count() == 0
+            status = page.evaluate("fetch('/hand-review?id=2100&reader=review-replay').then(r=>r.status)")
+            assert status == 404
+            for frame in frames[1:]:
+                send(frame)
+            continue
+        hand = page.locator(f'[data-reviewed-hand="{number-3}"]')
+        hand.wait_for(timeout=10000)
+        hand.get_by_text("Ingen matchande strategi för öppet flopspel med 3 aktiva", exact=False).wait_for()
+        assert hand.locator(".flop-actions").count() == 0
+        page.evaluate("new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))")
+        ms = round((time.perf_counter()-start)*1000)
+        assert ms < 10000
+        results.append(dict(hand=number-3, releaseHand=number, mode=("EUR-6bb", "SEK-6bb", "EUR-6.1bb")[i-3],
+                            ms=ms, review=hand.inner_text()))
+    (out/"checked-flop-windows.json").write_text(json.dumps(results, indent=2, ensure_ascii=False), encoding="utf8")
+
+
+def replay(exe, out, checked_flop=False):
     out.mkdir(parents=True, exist_ok=True)
     results = []
     with tempfile.TemporaryDirectory(dir="artifacts", ignore_cleanup_errors=True) as tmp, sync_playwright() as pw:
         profile = Path(tmp).resolve()
-        (profile/"flop-study").mkdir()
-        library = Path(os.environ["APPDATA"])/"Poker GTO Advisor/flop-study"
-        os.link(library/"AcKdJc.json.gz", profile/"flop-study/AcKdJc.json.gz")
+        if not checked_flop:
+            (profile/"flop-study").mkdir()
+            library = Path(os.environ["APPDATA"])/"Poker GTO Advisor/flop-study"
+            os.link(library/"AcKdJc.json.gz", profile/"flop-study/AcKdJc.json.gz")
         with socket.socket() as sock:
             sock.bind(("127.0.0.1",0))
             port = sock.getsockname()[1]
@@ -86,6 +128,9 @@ def replay(exe, out):
                     headers={"Content-Type":"application/json","X-Poker-Token":pair["token"]})
                 with urllib.request.urlopen(request,timeout=3) as r:
                     assert r.status == 200
+            if checked_flop:
+                verify_checked_flop(page, send, out)
+                return
             for i in range(12):
                 count = i+1 if 2 <= i <= 5 else 6
                 profile_frames = list(qualified_flop(2000+i, 3 if i==6 else 4, "EUR" if i==6 else "SEK")) if 6<=i<=8 else []
@@ -110,7 +155,7 @@ def replay(exe, out):
                     elif old < 8:
                         expected = "Verifierad flopprofil · modellreferens"
                     else:
-                        expected = "En källstrategi för öppet flopspel med 4 aktiva saknas."
+                        expected = "Ingen matchande strategi för öppet flopspel med 4 aktiva."
                     hand.get_by_text(expected,exact=old<8).first.wait_for(timeout=10000)
                     page.evaluate("new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))")
                     ms=round((time.perf_counter()-start)*1000)
@@ -119,12 +164,12 @@ def replay(exe, out):
                         hand.get_by_text("87,16 %",exact=True).wait_for()
                         hand.get_by_text("Syna 9,14 BB",exact=True).wait_for()
                     if old==1: hand.get_by_text("Höj till 10,96 BB",exact=True).wait_for()
-                    if 2<=old<6: hand.get_by_text(f"En källstrategi för öppet flopspel med {old+1} aktiva",exact=False).first.wait_for()
+                    if 2<=old<6: hand.get_by_text(f"Ingen matchande strategi för öppet flopspel med {old+1} aktiva",exact=False).first.wait_for()
                     if 6<=old<=7:
                         bound, currency = ("1,967", "EUR") if old == 6 else ("2,098", "SEK")
                         hand.get_by_text(f"{bound} % av potten",exact=False).wait_for()
-                        hand.get_by_text(f"Syna 1,8 {currency}",exact=True).wait_for()
-                        hand.get_by_text(f"Höj till 3,6 {currency} (all-in)",exact=True).wait_for()
+                        hand.get_by_text(f"Syna 18 BB (1,8 {currency})",exact=True).wait_for()
+                        hand.get_by_text(f"Höj till 36 BB (3,6 {currency}) (all-in)",exact=True).wait_for()
                         hand.get_by_text("96,54 %" if old==6 else "29,96 %",exact=True).wait_for()
                     if old==8: assert hand.get_by_text("Verifierad flopprofil · modellreferens").count()==0
                     results.append(dict(hand=2000+old,active=2 if old<2 else old+1 if old<6 else 3 if old==6 else 4,
@@ -171,4 +216,4 @@ def replay(exe, out):
 
 
 if __name__=="__main__":
-    replay(Path(sys.argv[1]),Path(sys.argv[2]))
+    replay(Path(sys.argv[1]),Path(sys.argv[2]), "--checked-flop" in sys.argv[3:])

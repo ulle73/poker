@@ -2460,3 +2460,25 @@ AGENTS pekar dit. Dokumentationsändringen kontrollerades med
 `git diff --check` och kontroll av länkar och uppgifts-ID:n. Täckningen
 bygger på de länkade app- och kvalitetsproven ovan. Nästa uppgift är
 FL-01, trevägsflop efter check till hjälten. [Leveransplan](docs/CHECKLISTA.md)
+
+### 2026-11-22 · FL-01 · Trevägsflop efter check till knappen
+
+Frös ett trevägsläge med Q♥ 8♦ 6♥, pott 12 BB och två checkar. Hypotesen
+var att en sparad profil skulle ge check- och betfrekvenser med en
+oberoende övre gräns på 2,1 % per säte. Vid 8 BB respektive 6 BB blev
+de högsta övre gränserna 5,424 % och 4,579 %. Ingendera strategin
+aktiverades. Windows återspelade frigivningen i EUR och SEK och
+bekräftade att täckningsbesked visas utan frekvenser. Befintliga
+kvalificerade flopprofiler visade beloppen i BB med bordsvalutan bredvid.
+
+```powershell
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts --environment node
+npm.cmd run build
+npm.cmd test -- tests/hand-review.test.ts tests/decision-providers.test.ts tests/decision-raised-postflop-probe.test.ts --maxWorkers=2
+python -X utf8 scripts/verify-hand-review.py 'artifacts/ten-second-windows/Poker GTO Advisor.exe' docs/evidence/fl-01-2026-11-22 --checked-flop
+python -X utf8 scripts/verify-hand-review.py 'artifacts/ten-second-windows/Poker GTO Advisor.exe' docs/evidence/fl-01-2026-11-22
+```
+
+Exakta miljövariabler, tidsgränser, källdata och råresultat finns i
+evidensen. FL-01 står kvar som öppen. Nästa uppgift är FL-02, första
+satsningen i en trevägsflop. [Evidens](docs/evidence/fl-01-2026-11-22/RESULTAT.md)

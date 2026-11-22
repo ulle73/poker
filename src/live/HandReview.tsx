@@ -21,8 +21,11 @@ const actionLabel = {check:"Check",bet:"Satsa",raise:"Höj till",call:"Syna",fol
 
 function actionName(a: import("../decision/types").BettingAction, input: DecisionInput) {
   const amount = a.kind === "call" ? a.cost : a.to;
-  return actionLabel[a.kind] + (["call", "bet", "raise"].includes(a.kind)
-    ? " " + (amount * input.chipUnit).toLocaleString("sv-SE") + " " + input.currency : "") +
+  const format = (value: number) => value.toLocaleString("sv-SE", {maximumFractionDigits: 2});
+  const money = format(amount * input.chipUnit) + " " + input.currency;
+  const blind = input.preflop?.error ? undefined : input.preflop?.bigBlind;
+  const size = blind ? `${format(amount / blind)} BB (${money})` : money;
+  return actionLabel[a.kind] + (["call", "bet", "raise"].includes(a.kind) ? " " + size : "") +
     (a.allIn ? " (all-in)" : "");
 }
 
@@ -90,7 +93,7 @@ function ReviewedHand({id, reader}:{id:string;reader:string}) {
           if (signal.aborted || expired) throw Error("Avbruten.");
           const outcome = await engine.compute(s,input);
           if (outcome.status !== "ready") throw Error(reason || (s.street==="flop" && input.seats.length>2 && outcome.status==="unsupported"
-            ? "En källstrategi för öppet flopspel med "+input.seats.length+" aktiva saknas. Bara vissa avslutande all-in-beslut kan avgöras matematiskt."
+            ? "Ingen matchande strategi för öppet flopspel med "+input.seats.length+" aktiva. Bara vissa avslutande all-in-beslut kan avgöras matematiskt."
             : "message" in outcome ? outcome.message : "Avbruten."));
           const r = outcome.result;
           return {source:outcome.provider.name, detail:r.quality === "solver-unverified" ? "Beräknad strategi · okänd felgräns" :

@@ -13,7 +13,7 @@ En Windows-app för träning i vanlig No-Limit Texas Hold’em med låtsaspengar
 
 ## Nästa uppgift
 
-**FL-01 — Trevägsflop när det checkats till hjälten.** Börja med att frysa ett representativt, komplett läge från en avläst eller syntetiskt återspelad hand. Använd ett läge där check och bet är lagliga. Kontrollera om en tillåten källa täcker samma bräda, pott, stackar, turordning, actionhistorik, ranger och regler. Vid träff, anslut källan till efteranalysen och återspela den matchande och en avvikande hand i Windows. Dokumentera det konkreta hindret om källan saknas. Gå då vidare till FL-02 eller ED-01, beroende på vilket underlag som finns.
+**FL-02 — Trevägsflop mot första bet.** Frys ett komplett exempel där en motståndare satsar och hjälten har fold och syn som lagliga val. Välj ett läge med höjningsrätt om källan täcker det. Kontrollera källans bräda, pott, stackar, turordning, ranger, regler och den faktiska betstorleken. Visa uppmätta frekvenser och belopp för matchande lägen och återspela en träff samt ett avvikande läge i Windows.
 
 **ED-01 kan köras parallellt** när en ny avslutad Edgehand finns. Syntetiska återspelningar räcker för att fortsätta utveckla och prova mottagaren under tiden.
 
@@ -21,8 +21,8 @@ En Windows-app för träning i vanlig No-Limit Texas Hold’em med låtsaspengar
 
 | ID | Delmål att leverera | Läget nu och vad som krävs |
 |---|---|---|
-| FL-01 | Trevägsflop efter check | **Nästa.** Visa check och modellens betstorlekar med frekvenser för ett matchande läge. |
-| FL-02 | Trevägsflop mot första bet | **Öppen.** Visa hur fold, syn och eventuell höjning fördelas i källan, med exakta belopp. |
+| FL-01 | Trevägsflop efter check | **Öppen efter kvalitetskontroll.** Två sparade flopprofiler nådde inte den oberoende gränsen på 2,1 %. En kvalificerad källa för check och bet återstår. [Modeller och prov](evidence/fl-01-2026-11-22/RESULTAT.md) |
+| FL-02 | Trevägsflop mot första bet | **Nästa.** Visa hur fold, syn och eventuell höjning fördelas i källan, med exakta belopp. |
 | FL-03 | Samma check- och betlägen för fyra, fem och sex aktiva | **Öppen.** Prova och dokumentera varje spelarantal och linje för sig. |
 | FL-04 | Flop efter bet → raise, därefter reraise | **Delvis.** Tre och fyra aktiva har ett matchat beslut efter check → bet → raise. Kvalificera fem och sex separat. Lägg till fler roller, brädor, stackdjup och en verifierad fortsättning efter återhöjning för varje relevant spelarantal. |
 | FL-05 | Första floppbeslutet samt fler tvåmannapotter | **Delvis.** Befintlig BTN–BB-modell täcker vissa 100 BB-lägen. Utöka till 2–6 aktiva för första beslutet och fler positioner, historiker och stackdjup för heads-up. |
@@ -37,6 +37,7 @@ En Windows-app för träning i vanlig No-Limit Texas Hold’em med låtsaspengar
 
 - [x] Automatisk frigivning efter tre handbyten i den paketerade Windows-appen. [Syntetiskt Windows-prov](evidence/hand-review-2026-11-22/RESULTAT.md)
 - [x] En trevägs- och en fyrvägsflop efter check → bet → raise ger matchade handlingsfrekvenser i ordinarie efteranalys inom 10 sekunder. [EUR- och SEK-proven](evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
+- [x] FL-01:s Windows-prov bekräftar att trevägsflop efter två checkar visar ett täckningsbesked utan strategifrekvenser. Befintliga kvalificerade strategier visar BB och bordsvaluta. [FL-01-proven](evidence/fl-01-2026-11-22/RESULTAT.md)
 - [x] Matematiskt avgjord avslutande syn eller fold på flop, turn och river i entydig pott när samma val är strikt bättre för alla kompatibla motståndarhänder. [Villkor och prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
 ## Flop – täckning per beslut
