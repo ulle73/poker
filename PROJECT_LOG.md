@@ -7,7 +7,13 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
-**Senaste solverprov, 22 november.** Den sparade trevägsfloppen efter check → bet → raise underkändes. En laglig motstrategi på nya givar gav ensidiga undre gränser på 5,99 %, 7,06 % och 6,59 % av potten, över kravet 2,1 % för alla tre. De nya oberoende övre gränserna var 12,81 %, 15,88 % och 15,55 %. Ett första lokalt uppslag från nyuppackad kopia tog 7,98 ms. Separata trevägsprov på turn och river samt 4–6 aktiva väntar på en starkare flopprofil. [Omprov, rådata och kommando](docs/evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md)
+**Senaste solverprov, 22 november.** En ny sparad trevägsprofil efter check → bet → raise klarade 2,1 % för varje säte på `Qh 8d 6h`. De oberoende övre gränserna är 1,967 %, 0,624 % och 1,731 % av rotpotten, avrundat uppåt med justering för omprov. Första kompletta handraden visades på 0,17 s i ett separat Windows-forskningsfönster. Den ordinarie efteranalysens historik, ranger och satsningsregler behöver matchas före användning i appen. [Floppens verifiering, rådata och profil](docs/evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md)
+
+**Turn och river, 22 november.** Färdigtränade trevägsprofiler klarade 2,1 % för varje säte med övre gränser på högst 0,298 % för turn och 0,380 % för river. Svaren visades på 0,14 och 0,20 s i Windows-forskningsfönstret. Turn och river testades som egna modeller med likaviktade ranger vid beslutet. [Oberoende verifiering, rådata och profiler](docs/evidence/chance-sampled-three-way-turn-2026-11-22/RESULTAT.md)
+
+**Prov för 4–6 aktiva, 22 november.** Samtliga nio sparade modeller över flop, turn och river gav hela handraden på högst 0,155 s i Windows-forskningsfönstret. Fyrvägsturn, fyrvägsriver och femvägsriver klarade 2,1 % för samtliga säten. Kvalitetsverifieringen återstår för de övriga modellerna. [Täckning, rådata och omprov](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md)
+
+**Föregående sparade profil, 22 november.** Den tidigare trevägsfloppen efter check → bet → raise underkändes. En laglig motstrategi på nya givar gav ensidiga undre gränser på 5,99 %, 7,06 % och 6,59 % av potten. De då uppmätta övre gränserna var 12,81 %, 15,88 % och 15,55 %. Ett första lokalt uppslag från nyuppackad kopia tog 7,98 ms. Resultaten kvarstår för den tidigare profilen. [Omprov, rådata och kommando](docs/evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md)
 
 **Föregående större solverprov, 22 november.** Utökad outcome-MCCFR med jämn sampling tränade 399 854 informationsmängder. Handraden tog 7,42 s. En ändring av hjältens första beslut gav 3,33 % av rotpotten som statistisk undre gräns, över kravet 2,1 %. Den kandidaten underkändes på flop. [Metod, resultat och körkommandon](docs/evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md)
 
@@ -2378,3 +2384,20 @@ npm.cmd test -- --maxWorkers=1 --reporter=default
 ```
 
 Det riktade kommandot kördes i lägena `tight-large`, `response` och `lookup` med [exakta miljövariabler, arkivhash och rådata](docs/evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md). Ett extra `tight-large` från den nyuppackade kopian gav identiska gränser och skattningar. Ett kalibreringsprov kontrollerar att respektive motstrategi utvärderas på nya givar medan övriga två spelare följer samma fasta profil. Typkontrollen passerade. Standardsviten gav 465 passerade och 35 överhoppade. En starkare flopprofil för samma spelmodell är nästa steg. De separata turn- och riverproven och 4–6 spelare väntar på en godkänd trevägsflop.
+
+### 2026-11-22 · Träning över hela bettingträdet och separat Windows-prov
+
+Sex miljoner givar tränade en starkare profil för samma trevägsflop. Satsningsträdet är oförändrat och alla 1 176 rotkombinationer fick en tränad rad. Den fasta profilen kontrollerades mot den bästa tillåtna ensidiga responsen i stickprovet. Kortprovet ersatte ett omprov vars slumptalsräknare överlappade träningens. Slutligt, med justering för flera prov, är floppens övre gränser 1,967 %, 0,624 % och 1,731 %. Efter kvalificerad flop tränades och kontrollerades turn och river som egna breda rotmodeller. Högsta gräns per gata var 0,298 % på turn och 0,380 % på river.
+
+```powershell
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts
+./node_modules/.bin/rolldown.cmd tests/helpers/measure-precomputed-flop.ts -p node -f cjs -e electron -o artifacts/measure-precomputed-flop.cjs
+./node_modules/.bin/tsc.cmd --noEmit
+npm.cmd test
+```
+
+Det riktade testkommandot kördes bland annat med `train-chance`, `tight-stratified`, `tight-card-grid`, `model-size` och `omniscient-upper`. Kommando med miljövariabler, modellarkiv och rådata finns för [trevägsfloppen](docs/evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md), [trevägsturn och trevägsriver](docs/evidence/chance-sampled-three-way-turn-2026-11-22/RESULTAT.md) och [fyra till sex aktiva](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md). I det separata Windows-fönstret tog första kompletta handraden 0,17 s på flop, 0,14 s på turn och 0,20 s på river. Faktisk liveanslutning och ordinarie efteranalys ingår i fortsatta prov.
+
+Efter godkända trevägsprofiler testades 4, 5 och 6 aktiva på varje postflopgata. Noderna varierade från 84 på fyrvägsriver till 5 084 på sexvägsflop. Alla nio hade full täckning av lagliga rotkombinationer och komplett första bildruta inom 0,155 s. Den snävare oberoende kontrollen kvalificerade fyrvägsturn, fyrvägsriver och femvägsriver. Fyrvägsfloppens tätaste gräns låg på 3,853 % i det svåraste sätet. Arbetet fortsätter med tätare prov på de öppna modellerna, vidare satsningslinjer och exakt modellmatchning i ordinarie efteranalys.
+
+Typkontrollen passerade. Standardsviten gav 467 passerade och 35 överhoppade. Modellhash, binärtabellernas hashar, sätesgränser och Windows-tider kontrollerades mot de sparade rapporterna. Tre separata offlinekontroller träffade testets tidsgräns efter ett långt Windows-uppehåll. Samtliga passerade vid omkörning och gav identiska kvalitetsresultat. [Historiska råfiler och omprov](docs/evidence/chance-sampled-four-to-six-2026-11-22/RESULTAT.md)

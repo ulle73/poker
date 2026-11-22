@@ -1,0 +1,19 @@
+{
+  "manifestSha256": "6e8325526fc34976339fe5e1bb0b66c7f5d0a2d310da4bc6d93f2a098a02ddaf",
+  "seat": 1,
+  "seed": 1651680488,
+  "batchCount": 1081,
+  "batchSize": 16384,
+  "dealsPerRunout": 16384,
+  "random": "aes-256-ctr",
+  "errorProbability": 0.016666666666666666,
+  "publicNodes": 24,
+  "elapsedMs": 41604.867099999996,
+  "exhaustiveOwnPairs": 1081,
+  "confidenceBound": "bounded-differences",
+  "confidenceMarginPct": 0.22665386048629366,
+  "estimatePct": 0.15268646062023727,
+  "upperBoundPct": 0.3793403211065308,
+  "qualityLimitPct": 2.1,
+  "passesSeat": true
+}

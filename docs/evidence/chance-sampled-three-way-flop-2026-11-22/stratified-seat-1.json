@@ -1,0 +1,15 @@
+{
+  "manifestSha256": "48bd40329b7d854829373d302edf2ae870f9436823c035481cc1dad4ca778d3c",
+  "seat": 1,
+  "seed": 102407310,
+  "batchCount": 2048,
+  "batchSize": 8648,
+  "dealsPerRunout": 4,
+  "errorProbability": 0.016666666666666666,
+  "publicNodes": 104,
+  "elapsedMs": 110952.6296,
+  "estimatePct": 3.5844925640752168,
+  "upperBoundPct": 4.291078195819864,
+  "qualityLimitPct": 2.1,
+  "passesSeat": false
+}

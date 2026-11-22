@@ -1,0 +1,42 @@
+{
+  "platform": "win32",
+  "windows": "10.0.26200",
+  "electron": "45.1.0",
+  "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+  "standaloneResearchWindow": true,
+  "manifestSha256": "6e8325526fc34976339fe5e1bb0b66c7f5d0a2d310da4bc6d93f2a098a02ddaf",
+  "qualityGateEvaluatedByWindow": false,
+  "runs": [
+    {
+      "mode": "cold-in-process",
+      "lookupMs": 21.687299999999993,
+      "renderedMs": 194.125
+    },
+    {
+      "mode": "warm",
+      "lookupMs": 0.48320000000001073,
+      "renderedMs": 45.3168
+    },
+    {
+      "mode": "warm",
+      "lookupMs": 1.4016000000000304,
+      "renderedMs": 46.804700000000025
+    },
+    {
+      "mode": "warm",
+      "lookupMs": 0.9179000000000315,
+      "renderedMs": 30.788400000000024
+    },
+    {
+      "mode": "warm",
+      "lookupMs": 0.7711000000000467,
+      "renderedMs": 31.019999999999982
+    },
+    {
+      "mode": "warm",
+      "lookupMs": 0.6044000000000551,
+      "renderedMs": 31.495300000000043
+    }
+  ],
+  "underTenSeconds": true
+}
