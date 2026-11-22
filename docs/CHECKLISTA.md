@@ -1,8 +1,23 @@
 # Checklista för Poker GTO Advisor
 
-Uppdaterad 22 november 2026 för vanlig 52-korts Hold’em i Windows. Med aktiv menas kvar i potten. Före floppen behövs dessutom uppgifter om alla som fick kort. En pott med två kvar efter fyra foldar har en annan historik än ett bord där bara två spelare fick kort.
+Uppdaterad 22 november 2026 för No-Limit Texas Hold’em med 52 kort och **2, 3, 4, 5 eller 6 spelare inklusive hjälten**. Med aktiv menas kvar i potten. En pott med två kvar efter fyra foldar behöver annan historik och andra ranger än en giv där bara två spelare fick kort.
 
 Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → Automatisk efteranalys**. Grundinställningen är tre observerade handbyten. Medan hand 4 pågår visas analysen av hand 1. En ny läsare eller ett mottagningsavbrott på minst fem sekunder startar en ny kö. Avslutade händer sparas i minnet under sessionen. [Windows-prov 22 november](evidence/hand-review-2026-11-22/RESULTAT.md)
+
+## Checklista för full täckning
+
+- [ ] **Bordsläsning och historik.** Återskapa turordning, stackar, blinds, insatser, foldar och minsta lagliga återhöjning genom hela handen. Avstäm startpott, huvudpott, sidopotter, återlämnade marker och rake där det gäller. Prova anslutning från ny giv och mitt i en hand, samt omstart och avbrott.
+- [ ] **Preflop för 2–6 utdelade.** Kvalificera strategier för varje antal och position, med både lika och olika stackar. Täck oöppnat, limp, syn, öppning, 3-bet, 4-bet och senare återhöjningar inklusive squeeze och all-in. Dagens referenstabeller täcker valda djup och linjer.
+- [ ] **Flop för 2–6 aktiva.** Utöka tvåspelartäckningen bortom befintlig BTN–BB-modell. Kvalificera vanlig flervägsflop separat för 3, 4, 5 och 6 aktiva. Prova första beslut, checkat fram, bet, bet–raise, reraise och all-in med beslut kvar.
+- [ ] **Turn och river för 2–6 aktiva.** Kvalificera samma bettinglinjer som på floppen, inklusive flera syner, check–raise, reraise och stackberoende storlekar. Visa en mätbar felgräns för flervägsstrategin. Matcha ranger från den föregående linjen genom alla gator.
+- [x] **Avslutande all-in efter preflop i entydig pott.** Matematiskt avgjord syn eller fold på flop, turn och river när samma val är strikt bättre för alla kompatibla motståndarhänder. Täckning och gränser framgår nedan.
+- [ ] **Övriga all-in.** Prova korta all-in och när flera korta höjningar återöppnar satsningen, olika stackar, tidigare foldar, potter med flera behörighetsnivåer och situationer där andra spelare fortfarande kan agera. Lös rangeberoende syn/fold och strategi för egna all-in i det matchande spelet.
+- [ ] **Strategikvalitet och storlekar.** Bind varje svar till exakt giv, spelare, ranger, pottregler och satsningsträd. Mät bästa ensidiga avvikelse oberoende. Redovisa förenklingar av kort och satsningsstorlekar, särskilt utanför modellens storleksmeny. Dagens HU-grind på 2 % av startpotten gäller det valda trädet. Ett tränat flervägssvar med okänd felgräns uppfyller inte kvalitetskravet.
+- [ ] **Slutprov i Windows.** Återspela `2/3/4/5/6 × preflop/flop/turn/river × varje laglig bettinglinje` med både små och djupa stackar samt EUR och SEK. Kontrollera att handling och belopp matchar historiken, att svar visas inom tio sekunder från frigivet beslut och att gamla svar avvisas. Bekräfta efteranalys av nya verkliga avslutade händer separat.
+
+Första blockeraren för bred strategitäckning är en kvalificerad källa för öppet flervägsspel på floppen. Börja kvalificeringen med en exakt matchad trevägsflop, breda ranger och en check följd av bet och raise. Kräv maskinläsbara handrader, kontroll av bästa ensidiga avvikelse och uppmätt svarstid innan samma prov utökas till fyra, fem och sex spelare. [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Aktuell källgranskning och Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
+
+## Täckning i befintliga modeller
 
 | Situation | Fungerar nu | Kvar |
 |---|---|---|
@@ -12,7 +27,7 @@ Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → A
 | Kort stack | HU push/fold för två utdelade vid 4–20 BB. Sex utdelade med lika stackar vid 4, 6, 8, 10, 12, 15 eller 20 BB och högst en synare i modellen. | Vanligt spel med små höjningar och syn, olika stackar samt 3–5 utdelade med kort stack har ingen generell kortstackstrategi. |
 | Flop, två kvar i potten | Matchar automatiskt dina hålkort, bräda, position, synliga insatser och prefloplinje mot de 74 publicerade flopparna. Sex utdelade vid 100 BB, knappen öppnar till 2,5 BB och BB synar. | Andra modeller och oberoende verifiering av källans fulla strategi. |
 | Vanlig flop, 3–6 aktiva | Den avslutade handen visar deltagande och handstyrka. Equity visas för den första analyserade floppen med kända indata. | Kvalificerad strategi efter vanlig check, satsning eller höjning. |
-| Avslutande all-in på floppen, 2–6 | Syn eller fold när samma val är strikt bättre för varje möjlig fördelning av hålkort. Med 3–6 måste alla utdelade vara kvar och alla motståndare all-in för samma belopp på floppen. | Ojämna flervägsinsatser, tidigare foldar, oklar pott och händer där gränserna tillåter båda valen. |
+| Avslutande all-in på flop, turn eller river, 2–6 | Vid känd pott och alla utdelade kvar kan syn eller fold bevisas oberoende av ranger. Med 3–6 måste motståndarna vara all-in för samma belopp på gatan. En kortare syn räknar bara beloppet som hjälten kan vinna. | Ojämna flervägsinsatser, tidigare foldar, oklar pott och händer där gränserna tillåter båda valen. |
 | Turn och river, 2 aktiva | Solverbeslut i matchande begränsade satsningsträd med 2 % felmål av modellens startpott. Färska Windows-exempel på båda gatorna. | Fler höjningslinjer, storlekar och sidoinsatser. Resultatet beror på antagna ranger och modellen utan rake. |
 | Turn och river, 3, 4, 5 eller 6 aktiva | Monker visade beräknade träningsråd på båda gatorna för vart och ett av de fyra spelarantal som testades. | Oberoende felgräns för breda ranger och fler bettinglinjer. Hero utanför sin valda range eller oklar sidopott kan stoppa modellen. |
 | Jag agerar först | Preflop finns öppningstabeller. I flopstudien kan du välja BB:s första beslut. På turn/river finns modeller för första beslutet. | Första beslut på flop utanför studiens modell. |

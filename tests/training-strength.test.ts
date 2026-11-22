@@ -2,9 +2,8 @@ import { describe, expect, it } from "vitest";
 import { currentStrength } from "../src/multiway/hand-strength";
 import { calculateEquity } from "../src/multiway/equity";
 import { prepareDecision } from "../src/decision/adapter";
-import { allInPrice, provenChoice } from "../src/decision/flop-all-in";
+import { allInPrice, provenChoice, PostflopAllInProvider } from "../src/decision/postflop-all-in";
 import { monkerSnapshot } from "./helpers/monker";
-import { FlopAllInProvider } from "../src/decision/flop-all-in";
 
 describe("made hand versus single opponent", () => {
   it("counts kickers and suits on board quads and removes exposed dead cards", () => {
@@ -48,7 +47,7 @@ it.each([3,4,5,6])("proves only closing, range-independent choices for %i dealt 
   snapshot.players[0].stack = .4;
   const input = prepareDecision(snapshot);
   expect(allInPrice(input)).toEqual({cost:40,pot:100+40*count});
-  const provider = new FlopAllInProvider();
+  const provider = new PostflopAllInProvider();
   expect(provider.unsupportedReason(snapshot,input)).toBeNull();
   const royal = {minimum:1980, maximum:1980, denominator:1980, combinations:1081};
   expect(provenChoice(input,royal)).toBe("call");
@@ -60,4 +59,37 @@ it.each([3,4,5,6])("proves only closing, range-independent choices for %i dealt 
   input.state.bets[1] = 100;
   input.state.stacks[1] = 1;
   expect(allInPrice(input)).toBeNull();
+});
+
+it.each([
+  ["turn", ["Qh", "Jh", "Th", "2c"], 1035, 88],
+  ["river", ["Qh", "Jh", "Th", "2c", "3d"], 990, 2],
+] as const)("proves closing calls on %s for every player count", (street, board, combinations, denominator) => {
+  const hero = ["Ah", "Kh"];
+  const result = calculateEquity({hero, board: [...board], playerCount: 2, exactHeadsUp: true});
+  expect(result.bounds).toEqual({minimum: denominator, maximum: denominator, combinations, denominator});
+  for (const count of [2, 3, 4, 5, 6]) {
+    const snapshot = monkerSnapshot(count);
+    Object.assign(snapshot, {street, board: [...board], heroCards: hero, pot: count, availableActions: ["Fold", "Syna"]});
+    for (const player of snapshot.players.filter(p => !p.hero)) Object.assign(player, {bet: 1, stack: 0});
+    const input = prepareDecision(snapshot);
+    const provider = new PostflopAllInProvider();
+    expect(provider.info.streets).toContain(street);
+    expect(provider.unsupportedReason(snapshot, input)).toBeNull();
+    expect(provenChoice(input, result.bounds)).toBe("call");
+    expect(provenChoice(input, {...result.bounds!, denominator: 1980})).toBeNull();
+    input.rootKinds!.push("raise");
+    expect(provenChoice(input, result.bounds)).toBeNull();
+  }
+});
+
+it("requires a strict chip gain when everyone plays the river board", () => {
+  const snapshot = monkerSnapshot(6);
+  Object.assign(snapshot, {street: "river", board: ["Ah", "Kh", "Qh", "Jh", "Th"],
+    heroCards: ["3s", "4d"], pot: 5.01, availableActions: ["Fold", "Syna"]});
+  for (const player of snapshot.players.filter(p => !p.hero)) Object.assign(player, {bet: 1, stack: 0});
+  const {bounds} = calculateEquity({hero: snapshot.heroCards, board: snapshot.board, playerCount: 2, exactHeadsUp: true});
+  expect(provenChoice(prepareDecision(snapshot), bounds)).toBeNull();
+  snapshot.pot = 5.06;
+  expect(provenChoice(prepareDecision(snapshot), bounds)).toBe("call");
 });

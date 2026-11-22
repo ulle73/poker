@@ -5,6 +5,8 @@ Läs denna fil först om du tar över projektet. Uppdatera statusen och lägg ti
 daterade resultat längst ned efter fortsatt arbete. Historiska resultat ska
 behållas och märkas som ersatta om en senare körning ändrar bilden.
 
+**Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
+
 **22 november 2026.** Svenska Spel-vyn använder automatisk efteranalys med tre handbyten i fördröjning. Den senaste frigivna handen analyseras när vyn är öppen. Två kvar matchas mot befintliga HU-flopreferenser och tidigare motorer används för sina stödda lägen. För 3–6 kvar saknas generell vanlig floppstrategi. [Windows-prov och gränser](docs/evidence/hand-review-2026-11-22/RESULTAT.md)
 
 **Senaste flopstatus, 21 november.** Egen studie har 74 färdiglösta floppar och tio beslutslägen per bräda för BB mot knappen, 100 BB i ett sexmaxspel. Den automatiska motorn har också fått matematiskt avgjorda slutbeslut mot all-in för 3–6 utdelade under villkoren i [flopprovet](docs/evidence/flop-study-2026-11-21/RESULTAT.md). Vanliga flervägsfloppar och en allmän oberoende GTO-verifiering återstår.
@@ -2288,3 +2290,15 @@ Se [metod, exempel, källor och tidsmätningar](docs/evidence/flop-study-2026-11
 - [ ] Verifiera kedjan mot nya verkliga avslutade händer och utöka täckningen för andra stackdjup, historiker och flervägspotter.
 
 En skrivning till LivePanel.tsx avbröts när C: fick slut på utrymme. Bordsvyn återställdes före bygge och Windows-prov. Den reproducerbara temporära kopian av provarkivet och ett temporärt index togs bort. Installerade brädor finns kvar. Automatisk efteranalys kräver ingen handinmatning. Ny läsare, omstart eller fem sekunders avbrott tömmer kön. Se [riktade prov](docs/evidence/hand-review-2026-11-22/tests.log) och [Windows-resultat med körkommandon](docs/evidence/hand-review-2026-11-22/RESULTAT.md).
+
+### 2026-11-22 · Avslutande all-in på turn och river
+
+Fortsatte från `6db8f96` på `origin/codex/free-solver-providers`. Kortjämförelsen för avslutande all-in återanvänds på turn och river. Den använder antalet okända kort för respektive gata, kräver att samtliga utdelade är kvar och lämnar beslut utan bevis när avrundning av delad pott kan ändra ett knappt utfall. En kort syn får bara räkna den del av potten som hjälten kan vinna. Det stegvisa fullmålet för 2–6 spelare finns i [checklistan](docs/CHECKLISTA.md).
+
+Före ändringen föll de tre nya proven för turn, river och delad riverpott. Efter ändringen gav `npm.cmd test -- --maxWorkers=1 --reporter=default` 461 passerade och 34 överhoppade. `npm.cmd run build` och `./node_modules/.bin/electron-builder.cmd --win --dir --x64` passerade. Windows-provet nedan bekräftade syn mot lika stora avslutande all-in i 15 fall, med kall och varm körning per fall. Samtliga 30 synliga svar tog 69–2 264 ms från frigiven hand till fångad bildruta.
+
+```powershell
+./scripts/measure-decisions.ps1 -Executable 'release/win-unpacked/Poker GTO Advisor.exe' -Output 'artifacts/gto-coverage-2026-11-22' -ClosingAllIn -ClosingAllInStreets flop,turn,river
+```
+
+[Körkommandon, testlogg och Windows-evidens](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md). Återspelningen använde syntetiska avläsningar. En ny avslutad Svenska Spel-hand, preflopbiblioteket och externa solverinstallationer ingick inte i den här körningen. Nästa steg är källkvalificering för vanlig trevägsflop med bet och raise, följt av 4–6 spelare om modellmatchning, kvalitet och tid håller. Ingen av de granskade källorna kunde kvalificeras för den kompletta fria integrationen.

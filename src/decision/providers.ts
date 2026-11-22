@@ -1,4 +1,4 @@
-import { FlopAllInProvider, provenChoice } from "./flop-all-in";
+import { POSTFLOP_ALL_IN, PostflopAllInProvider, provenChoice } from "./postflop-all-in";
 import pushFold from "../preflop/push-fold.json";
 import type { LiveSnapshot } from "../live/types";
 import type { DecisionInput, DecisionResult } from "./types";
@@ -81,7 +81,7 @@ function acceptable(result: DecisionResult, input: DecisionInput, provider: Prov
       ?result.reference.archiveSha256===pushFold.sha256 && result.reference.tablePlayers===6 && result.reference.actualDepthBB===result.reference.modelDepthBB && pushFold.depths.includes(result.reference.modelDepthBB)
     :result.reference?.archiveSha256===ARTGTO_SHA&&['artgto-preflop','holdemmath-preflop'].includes(result.provider);
   const reference=provider.id==='free-preflop'&&input.state.street==='preflop'&&input.preflop&&!input.preflop.error&&result.quality==='chart-reference'&&result.modelVerified===true&&result.exploitabilityPct===null&&chartIdentity&&result.reference?.tablePlayers===input.preflop.participants.length;
-  const proven = provider.id === "flop-all-in" && result.provider === provider.id &&
+  const proven = provider.id === POSTFLOP_ALL_IN.id && result.provider === provider.id &&
     result.quality === "proven-action" && result.exploitabilityPct === null && result.actions.length === 1 &&
     result.actions[0].frequency === 1 && result.actions[0].kind === provenChoice(input, result.bounds);
   const verified=result.quality==='verified-gto'&&result.exploitabilityPct!==null&&Number.isFinite(result.exploitabilityPct)&&result.exploitabilityPct>=0&&result.exploitabilityPct<=limit;
@@ -137,7 +137,7 @@ export class DecisionEngine {
         if (generation !== this.generation) return { status: "cancelled" };
         const coverage=error instanceof Error&&'code' in error&&error.code==='PREFLOP_UNSUPPORTED';
         failure = {
-          status: (coverage || (provider.info.id === 'flop-all-in' && error instanceof RangeError))?'unsupported':"error", provider: provider.info,
+          status: (coverage || (provider.info.id === POSTFLOP_ALL_IN.id && error instanceof RangeError))?'unsupported':"error", provider: provider.info,
           message: error instanceof Error ? error.message : "Solverberäkningen misslyckades.",
         };
       }
@@ -187,4 +187,4 @@ export class HoldemProvider implements DecisionProvider {
  solve(snapshot:LiveSnapshot,input:DecisionInput){return this.client.compute(snapshot,input);}
  cancel(){this.client.cancel();}
 }
-export const createDecisionEngine = () => new DecisionEngine([new FreePreflopProvider(),new FlopAllInProvider(),new FreePostflopProvider(), new SixplusProvider(),new MonkerProvider()]);
+export const createDecisionEngine = () => new DecisionEngine([new FreePreflopProvider(),new PostflopAllInProvider(),new FreePostflopProvider(), new SixplusProvider(),new MonkerProvider()]);

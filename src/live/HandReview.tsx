@@ -78,7 +78,7 @@ function ReviewedHand({id, reader}:{id:string;reader:string}) {
           const label = {check:"Check",bet:"Satsa",raise:"Höj till",call:"Syna",fold:"Fold"};
           return {source:outcome.provider.name, detail:r.quality === "solver-unverified" ? "Beräknad strategi · okänd felgräns" :
             r.quality === "chart-reference" ? "Källtabell · referensmodell" :
-            r.quality === "proven-action" ? "Matematiskt avgjort mot alla lagliga händer" :
+            r.quality === "proven-action" ? "Matematiskt avgjort mot alla lagliga händer · utan rake" :
             "Solverstrategi i det matchade trädet · "+r.exploitabilityPct+" % av startpotten",
             actions:r.actions.map(a=>({frequency:a.frequency,name:label[a.kind]+(["call","bet","raise"].includes(a.kind)?
               " "+((a.kind==="call"?a.cost:a.to)*input.chipUnit).toLocaleString("sv-SE")+" "+s.currency:"")}))};

@@ -10,7 +10,8 @@ exports.run = async function (window, bridge) {
   const sixplus = process.env.POKER_MEASURE_VARIANT === "sixplus";
   const checked = process.env.POKER_MEASURE_VARIANT === "checked-to";
   const uncertain = process.env.POKER_MEASURE_VARIANT === "uncertain-seat";
-  if (![2,3,4,5,6].includes(count) || !["preflop","flop","turn","river"].includes(street))
+  const closing = process.env.POKER_MEASURE_VARIANT === "closing-all-in";
+  if (![2,3,4,5,6].includes(count) || !["preflop","flop","turn","river"].includes(street) || (closing && street === "preflop"))
     throw Error("Invalid benchmark case");
   const pre = street === "preflop";
   const heroSeat = pre && count > 2 ? 3 : 1;
@@ -40,10 +41,9 @@ exports.run = async function (window, bridge) {
     s.board=["Qh","Jh","Th"]; s.heroCards=["Ah","Kh"]; s.players[1].bet=.4; s.players[1].stack=0;
     s.availableActions=["Fold","Syna"];
   }
-  const closing = process.env.POKER_MEASURE_VARIANT === "closing-all-in";
   if (closing) {
     s.heroCards = ["Ah","As"];
-    s.board = ["Ac","Ad","Kc"];
+    s.board = ["Ac","Ad","Kc","2d","7s"].slice(0, board.length);
     for (const p of s.players.filter(p => !p.hero)) Object.assign(p, {bet:.4,stack:0});
     s.pot = Number((.4 * count).toFixed(2));
     s.availableActions = ["Fold","Syna"];
@@ -106,6 +106,8 @@ exports.run = async function (window, bridge) {
       await wait(25);
     } while (Date.now()-releaseTime<15000);
     if (!ui) throw Error("Ingen synlig efteranalys för hand "+handId);
+    if (closing && !/Matematiskt avgjort mot alla lagliga händer · utan rake\s+Syna\s+0,4\s+\w+\s+100\s*%/.test(ui))
+      throw Error("Felaktig all-in-analys för hand "+handId+": "+ui);
     await page("new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>r(true))))");
     const frame = await window.webContents.capturePage();
     if (frame.isEmpty()) throw Error("Ingen renderad bildruta");

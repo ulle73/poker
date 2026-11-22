@@ -1,0 +1,2541 @@
+{
+  "build": "Windows x64 unpacked",
+  "asarSha256": "5B2884535DAF538CC606E29A4590FB93FFB83BA786C3C29F37F0AA37A4D3709C",
+  "cases": [
+    {
+      "name": "closing-all-in-flop-2",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 225,
+          "ui": "flop · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n2 synligt aktiva · 0 observerat foldade · 2 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 33.3 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 161,
+          "ui": "flop · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n2 synligt aktiva · 0 observerat foldade · 2 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 33.3 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-flop-3",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 2221,
+          "ui": "flop · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.\n\n99.9 %\nAndel av potten vid showdown\n\nSäte 2 · alla lagliga händer, jämnt viktade / Säte 3 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 0.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n5 ms\nAtt syna: 0,4 EUR\nEnkel pottodds: 25.0 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 2051,
+          "ui": "flop · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.\n\n99.9 %\nAndel av potten vid showdown\n\nSäte 2 · alla lagliga händer, jämnt viktade / Säte 3 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 0.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n4 ms\nAtt syna: 0,4 EUR\nEnkel pottodds: 25.0 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-flop-4",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 204,
+          "ui": "flop · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n4 synligt aktiva · 0 observerat foldade · 4 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 20.0 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 2125,
+          "ui": "flop · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n4 synligt aktiva · 0 observerat foldade · 4 upptagna säten.\n\n99.9 %\nAndel av potten vid showdown\n\nSäte 2 · alla lagliga händer, jämnt viktade / Säte 3 · alla lagliga händer, jämnt viktade / Säte 4 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 0.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n5 ms\nAtt syna: 0,4 EUR\nEnkel pottodds: 20.0 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-flop-5",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 204,
+          "ui": "flop · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n5 synligt aktiva · 0 observerat foldade · 5 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 16.7 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 2163,
+          "ui": "flop · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n5 synligt aktiva · 0 observerat foldade · 5 upptagna säten.\n\n100.0 %\nAndel av potten vid showdown\n\nSäte 2 · alla lagliga händer, jämnt viktade / Säte 3 · alla lagliga händer, jämnt viktade / Säte 4 · alla lagliga händer, jämnt viktade / Säte 5 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 0.0 procentenheter\nSimulerade givar\n8 000\nBeräkning\n6 ms\nAtt syna: 0,4 EUR\nEnkel pottodds: 16.7 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-flop-6",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 2264,
+          "ui": "flop · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n6 synligt aktiva · 0 observerat foldade · 6 upptagna säten.\n\n99.8 %\nAndel av potten vid showdown\n\nSäte 2 · alla lagliga händer, jämnt viktade / Säte 3 · alla lagliga händer, jämnt viktade / Säte 4 · alla lagliga händer, jämnt viktade / Säte 5 · alla lagliga händer, jämnt viktade / Säte 6 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 0.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n8 ms\nAtt syna: 0,4 EUR\nEnkel pottodds: 14.3 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 167,
+          "ui": "flop · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n6 synligt aktiva · 0 observerat foldade · 6 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 14.3 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "flop",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-river-2",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 103,
+          "ui": "river · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 20,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 72,
+          "ui": "river · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 20,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-river-3",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 108,
+          "ui": "river · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 76,
+          "ui": "river · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-river-4",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 94,
+          "ui": "river · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 74,
+          "ui": "river · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-river-5",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 103,
+          "ui": "river · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 84,
+          "ui": "river · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-river-6",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 2111,
+          "ui": "river · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 80,
+          "ui": "river · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\n7\n♠\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "river",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d",
+              "7s"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-turn-2",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 146,
+          "ui": "turn · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 1.86,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 89,
+          "ui": "turn · 2 kvar · pott 0,8 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 2,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 0.8,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "BTN / SB",
+                "stack": 1.86,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-turn-3",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 113,
+          "ui": "turn · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 69,
+          "ui": "turn · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 3,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 1.2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-turn-4",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 99,
+          "ui": "turn · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 2048,
+          "ui": "turn · 4 kvar · pott 1,6 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 4,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 1.6,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-turn-5",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 105,
+          "ui": "turn · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 75,
+          "ui": "turn · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 5,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 2,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "closing-all-in-turn-6",
+      "hardware": {
+        "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M",
+        "logicalProcessors": 16,
+        "ram": 33598853120,
+        "windows": "10.0.26200",
+        "electron": "45.1.0"
+      },
+      "synthetic": true,
+      "runs": [
+        {
+          "mode": "cold",
+          "handId": "1001",
+          "releaseHand": "1004",
+          "lag": 3,
+          "reviewMs": 129,
+          "ui": "turn · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 5,
+            "handId": "1001",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        },
+        {
+          "mode": "warm",
+          "handId": "1005",
+          "releaseHand": "1008",
+          "lag": 3,
+          "reviewMs": 84,
+          "ui": "turn · 6 kvar · pott 2,4 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\n2\n♦\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer · utan rake\n\nSyna 0,4 EUR\t100 %",
+          "fixture": {
+            "variant": "holdem",
+            "version": 1,
+            "source": "svenskaspel-dom",
+            "readerId": "isolated-measurement",
+            "sequence": 10,
+            "handId": "1005",
+            "capturedAt": 0,
+            "currency": "EUR",
+            "maxSeats": 6,
+            "street": "turn",
+            "dealerSeat": 6,
+            "heroTurn": true,
+            "heroCards": [
+              "Ah",
+              "As"
+            ],
+            "board": [
+              "Ac",
+              "Ad",
+              "Kc",
+              "2d"
+            ],
+            "pot": 2.4,
+            "valid": true,
+            "issues": [],
+            "observedActions": [],
+            "availableActions": [
+              "Fold",
+              "Syna"
+            ],
+            "players": [
+              {
+                "seat": 1,
+                "hero": true,
+                "position": "SB",
+                "stack": 1.6,
+                "bet": 0,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 2,
+                "hero": false,
+                "position": "BB",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 3,
+                "hero": false,
+                "position": "UTG",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 4,
+                "hero": false,
+                "position": "HJ",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 5,
+                "hero": false,
+                "position": "CO",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              },
+              {
+                "seat": 6,
+                "hero": false,
+                "position": "BTN",
+                "stack": 0,
+                "bet": 0.4,
+                "folded": false,
+                "inHand": true
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

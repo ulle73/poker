@@ -6,7 +6,9 @@ param(
     [switch]$IncludeSixPlus,
     [switch]$CheckedTo,
     [switch]$UncertainSeat,
-    [switch]$ClosingAllIn
+    [switch]$ClosingAllIn,
+    [ValidateSet("flop", "turn", "river")]
+    [string[]]$ClosingAllInStreets = @("flop")
 )
 $ErrorActionPreference = "Stop"
 $program = (Resolve-Path -LiteralPath $Executable).Path
@@ -28,7 +30,12 @@ function Measure-Case([int]$Count, [string]$Street, [string]$Variant) {
     if ($process.ExitCode -ne 0) { throw "Windows-provet avslutades med kod $($process.ExitCode)." }
     Write-Output "$Count · $Street · $Variant"
 }
-if ($ClosingAllIn) { foreach ($count in $Counts) { Measure-Case $count "flop" "closing-all-in" }; return }
+if ($ClosingAllIn) {
+    foreach ($count in $Counts) {
+        foreach ($street in $ClosingAllInStreets) { Measure-Case $count $street "closing-all-in" }
+    }
+    return
+}
 if ($UncertainSeat) { Measure-Case 3 "flop" "uncertain-seat"; return }
 if ($CheckedTo) {
     foreach ($street in @("flop","turn","river")) { Measure-Case 2 $street "checked-to" }

@@ -4,6 +4,7 @@ import type {
   DecisionAction,
 } from "../decision/types";
 import type { DecisionOutcome, ProviderInfo } from "../decision/providers";
+import { POSTFLOP_ALL_IN } from "../decision/postflop-all-in";
 import type { tableChoice as readTableChoice } from "../decision/adapter";
 const names = {
   fold: "Fold",
@@ -39,7 +40,8 @@ export function DecisionAdvisor({
     `${(chips * (input?.chipUnit ?? 0.01)).toLocaleString("sv-SE", { maximumFractionDigits: 2 })} ${input?.currency ?? ""}`;
   const title = (a: DecisionAction) =>
     `${names[a.kind]}${a.kind === "bet" || a.kind === "raise" ? ` till ${money(a.to)}` : a.kind === "call" ? ` ${money(a.cost)}` : ""}${a.allIn ? " · all-in" : ""}`;
-  const proven = result?.quality === "proven-action" && result.provider === "flop-all-in" && !!result.bounds;
+  const provenBounds = result?.quality === "proven-action" && result.provider === POSTFLOP_ALL_IN.id ? result.bounds : undefined;
+  const proven = !!provenBounds;
   const holdem=result?.provider==='holdem-solver-0.93'&&result.sourceProof?.entryExact===true&&result.sourceProof.visits>=32;
   const unverified=result?.quality==='solver-unverified'&&(result.provider==='monker-free-10114'||holdem)&&result.modelVerified===true;
   const solverName=holdem?'Holdem Solver':'Monker';
@@ -106,9 +108,7 @@ export function DecisionAdvisor({
         </div>
       ) : (
         <>
-          {proven && <p className="microcopy">{input?.seats.length === 2
-            ? "Samma val ger högre chip-EV mot var och en av de 1 081 möjliga händerna. Alla 990 turn- och riverkombinationer per hand ingår."
-            : "Samma val ger högre chip-EV för varje laglig kombination av motståndarnas händer. Gränsen tar hänsyn till blockerade kort och delade potter."} Modellen räknar utan rake.</p>}
+          {proven && <p className="microcopy">Samma val ger högre chip-EV för varje laglig kombination av motståndarnas händer. Modellen räknar utan rake.</p>}
           {chart&&<p className="microcopy" role="status"><strong>Tabellreferens, inte en verifierad lösning av ditt exakta bord.</strong> {chartName}: {result!.reference!.modelDepthBB} BB, {result!.reference!.modelPlayers} spelare i modellen. Din effektiva stack: {result!.reference!.actualDepthBB.toLocaleString('sv-SE',{maximumFractionDigits:1})} BB; {result!.reference!.tablePlayers} utdelade spelare. Ingen oberoende felgräns är verifierad.</p>}
           {activeDepths?.length&&activeDepths.some(d=>Math.abs(d-result!.reference!.modelDepthBB)>1e-7)?<p className="microcopy" role="status"><strong>Stackskillnad:</strong> aktiva startstackar {Math.min(...activeDepths).toLocaleString('sv-SE',{maximumFractionDigits:1})}–{Math.max(...activeDepths).toLocaleString('sv-SE',{maximumFractionDigits:1})} BB. Rådet använder fortfarande källans {result!.reference!.modelDepthBB} BB-modell.</p>:null}
           {unverified&&<p className="microcopy" role="status"><strong>Felgräns ej verifierad.</strong> {!holdem&&'Mål: 2,1 % per spelare. '}{result!.qualityNote} Detta är en beräknad träningsstrategi från {solverName}, inte verifierad GTO.</p>}
@@ -193,7 +193,7 @@ export function DecisionAdvisor({
                   <dt>{result!.qualityMetric==='max-unilateral'?'Största ensidiga förbättring / rotpott':result!.provider.includes("sixplus") ? "NashConv / rotpott" : "Exploaterbarhet / rotpott"}</dt>
                   <dd>{result!.exploitabilityPct?.toFixed(3)} %</dd>
                 </div>
-              ) : proven ? <div><dt>Jämförelser mot en motståndare</dt><dd>1 070 190</dd></div> : chart ? <div><dt>Oberoende felgräns</dt><dd>Ej verifierad</dd></div> : unverified ? <div><dt>Uppmätt fel</dt><dd>Okänt</dd></div> : (
+              ) : provenBounds ? <div><dt>Jämförelser mot en motståndare</dt><dd>{(provenBounds.combinations * provenBounds.denominator / 2).toLocaleString("sv-SE")}</dd></div> : chart ? <div><dt>Oberoende felgräns</dt><dd>Ej verifierad</dd></div> : unverified ? <div><dt>Uppmätt fel</dt><dd>Okänt</dd></div> : (
                 <div>
                   <dt>Besök vid ditt beslut</dt>
                   <dd>{result!.rootVisits}</dd>
