@@ -8,6 +8,9 @@ export interface EvaluationWorld {
   scores: number[];
 }
 
+export type ContinuationChoices = Map<string, Map<number, number>>;
+export type VisibleHandKey = (state: BettingState, hand: number[], board: number[]) => number;
+
 export function completePublicTree(input: DecisionInput) {
   const tree: { state: BettingState; children: number[] }[] = [];
   const build = (state: BettingState): number => {
@@ -34,6 +37,27 @@ export function sampledGameSeatUpper(
   batchSize: number,
   nextBatch: () => EvaluationWorld[],
 ) {
+  return optimizeSampledGame(input, policy, seat, batchCount, batchSize, nextBatch);
+}
+
+/** Fit one feasible response from training worlds. The last option keeps the
+ * frozen local mix, while allowing the fitted response at later decisions. */
+export function fitContinuationResponse(input: DecisionInput, policy: DecisionPolicy, seat: number,
+  worlds: EvaluationWorld[], key: VisibleHandKey) {
+  const choices: ContinuationChoices = new Map();
+  optimizeSampledGame(input, policy, seat, 1, worlds.length, () => worlds, { key, choices });
+  return choices;
+}
+
+function optimizeSampledGame(
+  input: DecisionInput,
+  policy: DecisionPolicy,
+  seat: number,
+  batchCount: number,
+  batchSize: number,
+  nextBatch: () => EvaluationWorld[],
+  fit?: { key: VisibleHandKey; choices: ContinuationChoices },
+) {
   const tree = completePublicTree(input);
   const root = tree.length - 1;
   const maxActions = Math.max(...tree.map(({ children }) => children.length));
@@ -42,6 +66,7 @@ export function sampledGameSeatUpper(
   const opponentReach = new Float64Array(cells);
   const best = new Float64Array(cells);
   const baseline = new Float64Array(cells);
+  const keys = new Int32Array(batchSize);
   const terminalPayoffs = tree.map(() => new Map<number, number>());
   let sum = 0, squares = 0;
 
@@ -49,7 +74,7 @@ export function sampledGameSeatUpper(
     const worlds = nextBatch();
     if (worlds.length !== batchSize) throw new Error("Sampled-game batch has wrong size");
     const firstPair = worlds[0].holes[seat];
-    if (worlds.some(({ holes }) => holes[seat].some((card, i) => card !== firstPair[i])))
+    if (!fit && worlds.some(({ holes }) => holes[seat].some((card, i) => card !== firstPair[i])))
       throw new Error("Sampled-game batch must share the deviator's private pair");
     const visible = worlds.map(({ runout }) => [runout.slice(0, 3), runout.slice(0, 4), runout]);
     const patterns = worlds.map(({ scores }) => {
@@ -87,8 +112,9 @@ export function sampledGameSeatUpper(
     for (let node = 0; node <= root; node++) {
       const { state, children } = tree[node];
       if (state.terminal) continue;
-      const groups = new Map<number, number[]>();
+      const groups = new Map<number, Float64Array>();
       const groupKey = (w: number) => {
+        if (fit) return fit.key(state, worlds[w].holes[seat], visible[w][state.boardCount - 3]);
         const [, , , turn, river] = worlds[w].runout;
         switch (state.boardCount) {
           case 3: return 0;
@@ -111,19 +137,25 @@ export function sampledGameSeatUpper(
           continue;
         }
         const key = groupKey(w);
-        const totals = groups.get(key) ?? children.map(() => 0);
+        keys[w] = key;
+        const totals = groups.get(key) ?? new Float64Array(children.length + Number(Boolean(fit)));
         for (let a = 0; a < children.length; a++) {
           totals[a] += opponentReach[cell] * best[children[a] * batchSize + w];
+        }
+        if (fit) {
+          totals[children.length] += opponentReach[cell] * response;
+          best[cell] = response;
         }
         groups.set(key, totals);
       }
       if (state.actor === seat) {
         const choices = new Map<number, number>();
         for (const [key, totals] of groups) choices.set(key, totals.indexOf(Math.max(...totals)));
+        if (fit) fit.choices.set(state.history, choices);
         for (let w = 0; w < batchSize; w++) {
-          const chosen = choices.get(groupKey(w));
+          const chosen = choices.get(keys[w]);
           if (chosen === undefined) throw new Error("Sampled-game action selection missing");
-          best[node * batchSize + w] = best[children[chosen] * batchSize + w];
+          if (chosen < children.length) best[node * batchSize + w] = best[children[chosen] * batchSize + w];
         }
       }
     }
@@ -135,6 +167,6 @@ export function sampledGameSeatUpper(
     squares += gain * gain;
   }
   const mean = sum / batchCount;
-  const variance = Math.max(0, squares - sum * mean) / (batchCount - 1);
+  const variance = batchCount > 1 ? Math.max(0, squares - sum * mean) / (batchCount - 1) : 0;
   return { mean, variance, publicNodes: tree.length };
 }

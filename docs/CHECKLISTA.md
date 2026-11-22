@@ -20,11 +20,12 @@ Vid Svenska Spels bord visas strategianalysen automatiskt i **Live · Edge → A
 - [x] Återspela linjen och hämta rätt handrad med alla lagliga kombinationer i tre ranger på flop, turn och river.
 - [x] Mät solverns svarstid. Flop 0,78 s, turn 0,52 s och river 3,87 s. Windows-kedjan återstår för en kvalificerad lösning.
 - [x] Prova en trevägsflop med större solvertabell. Outcome med jämn sampling tränade 399 854 informationsmängder och gav handrad på 6,38 s i jämförelsen. Andelen tränade beslut i de simulerade fortsättningarna ökade från 60,69 % till 74,18 %.
-- [x] Förberäkna samma trevägsflop och läs in den sparade modellen i en separat process. Alla 1 176 hålkortskombinationer går att slå upp och första uppslaget tog 1,48 ms i den lokala mätningen.
-- [ ] Verifiera bästa ensidiga avvikelse under 2,1 % för var och en av de tre spelarna. Den förberäknade profilen har övre gränser på 15,76 %, 20,98 % och 18,95 %. De lagliga avvikelser som provades räckte inte för att underkänna profilen. Den tidigare, mindre profilen underkändes med en undre gräns på 3,33 % för hjälten.
+- [x] Förberäkna samma trevägsflop och läs in den sparade modellen i en separat process. Alla 1 176 hålkortskombinationer kontrollerades. Första uppslaget från den nyuppackade kopian tog 7,98 ms och de följande tog högst 0,50 ms.
+- [x] Ompröva den sparade strategin med en snävare oberoende övre gräns och lagliga motstrategier över hela trädet. Nya övre gränser är 12,81 %, 15,88 % och 15,55 %. De undre gränserna på nya givar är 5,99 %, 7,06 % och 6,59 % av potten. Strategin underkändes för alla tre.
+- [ ] Kvalificera en starkare trevägsflop med avvikelse under 2,1 % för var och en av de tre spelarna och svar inom tio sekunder. Bekräfta svarstiden i Windows-kedjan för den godkända strategin.
 - [ ] Kör den kvalificerade kandidaten på trevägsturn och trevägsriver, sedan för fyra, fem och sex aktiva. Tidigare, enklare körningar underkändes på kvalitet på båda de senare gatorna. Utöka därefter till andra bettinglinjer, flera stackdjup och olika stackar. Verifiera också hur ranger följer en och samma hand genom alla gator.
 
-[Förberäknad trevägsflop och kvalitetsgränser](evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md) · [Flop med större tabell](evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md) · [Tidigare trevägsprov](evidence/raised-postflop-2026-11-22/RESULTAT.md) · [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
+[Oberoende omprov på den sparade trevägsfloppen](evidence/frozen-three-way-flop-audit-2026-11-22/RESULTAT.md) · [Förberäknad profil och arkiv](evidence/precomputed-three-way-flop-2026-11-22/RESULTAT.md) · [Flop med större tabell](evidence/expanded-three-way-flop-2026-11-22/RESULTAT.md) · [Tidigare trevägsprov](evidence/raised-postflop-2026-11-22/RESULTAT.md) · [Tidigare källprov](holdemsolver-qualification-2026-11-08.md) · [Windows-prov](evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
 ## Täckning i befintliga modeller
 
