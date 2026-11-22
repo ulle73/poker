@@ -1,0 +1,25 @@
+{
+  "date": "2026-11-05",
+  "command": "node scripts/verify-shortdeck-service.mjs",
+  "syntheticFixture": true,
+  "installedPersonalCopy": true,
+  "elapsedMs": 1891.4373,
+  "auditMs": 203.75060000000008,
+  "iterations": 131,
+  "nativeAveragePct": 0.048821066,
+  "independentAveragePct": 0.04882912127388224,
+  "independentNashConvPct": 0.09765824254776448,
+  "nodes": 21,
+  "cancellationCommand": "node scripts/verify-shortdeck-service.mjs --cancel",
+  "cancellation": {"cancelled": true, "activeJob": null, "remainingJobFolders": 0},
+  "liveObservation": {
+    "extensionReloadConfirmedByUser": true,
+    "pokerTabReloadConfirmedByUser": true,
+    "clientText": "Söker efter ett spel …",
+    "handNumberPresent": false,
+    "gameTypeClassPresent": false,
+    "appText": "Väntar på Edge-anslutning",
+    "currentRealHandVerified": false,
+    "performedPokerActions": false
+  }
+}

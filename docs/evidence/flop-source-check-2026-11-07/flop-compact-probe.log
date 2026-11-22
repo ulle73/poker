@@ -1,0 +1,6 @@
+{"compact":true,"elapsedMs":697,"maxRaises":1,"memoryBytes":297711760,"narrow":false,"phase":"setup"}
+{"elapsedMs":5618,"iterations":10,"pctOfPot":102.15000915527344}
+{"elapsedMs":11217,"iterations":20,"pctOfPot":76.66734313964844}
+{"elapsedMs":18768,"iterations":30,"pctOfPot":27.717601776123047}
+{"elapsedMs":26483,"iterations":40,"pctOfPot":16.59682846069336}
+{"stopped":"30s probe budget"}

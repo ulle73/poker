@@ -6,7 +6,14 @@ export class SolverClient {
   private worker: Worker | null = null;
   private reject: ((error: Error) => void) | null = null;
   private timer: ReturnType<typeof setTimeout> | null = null;
+  private nativeId: string | null = null;
+  private nativeAbort: AbortController | null = null;
   cancel() {
+    this.nativeAbort?.abort(); this.nativeAbort=null;
+    if(this.nativeId) void fetch(new URL('postflop-cancel',document.baseURI),{
+      method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:this.nativeId}),
+    }).catch(()=>{});
+    this.nativeId=null;
     this.worker?.terminate();
     this.worker = null;
     if (this.timer) clearTimeout(this.timer);
@@ -25,6 +32,29 @@ export class SolverClient {
         : configKey(config);
     const saved = cache.get(key);
     if (saved) return saved;
+    if(options.postflop && config.board.length===4 && document.baseURI.startsWith('poker://app/')) {
+      const id=crypto.randomUUID(), controller=new AbortController();
+      this.nativeId=id; this.nativeAbort=controller;
+      try {
+        const response=await fetch(new URL('postflop-solve',document.baseURI),{
+          method:'POST',headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({id,config,line:options.line??[]}),signal:controller.signal,
+        });
+        const value=await response.json();
+        if(this.nativeId!==id)throw new Error('Beräkningen avbröts.');
+        if(value.code!=='SOLVER_UNAVAILABLE') {
+          if(!response.ok||value.error)throw new Error(value.error||'Native-motorn kunde inte slutföra.');
+          const result={...value,key,config} as SolveResult;
+          if(result.backend!=='native'||!Number.isFinite(result.meta?.exploitability_pct_of_pot)||
+            result.meta.exploitability_pct_of_pot<0||result.meta.exploitability_pct_of_pot>config.targetPct||!result.nodes?.length)
+            throw new Error('Native-motorn returnerade en ogiltig lösning.');
+          cache.set(key,result);if(cache.size>8)cache.delete(cache.keys().next().value!);
+          return result;
+        }
+      } finally {
+        if(this.nativeId===id){this.nativeId=null;this.nativeAbort=null;}
+      }
+    }
     return new Promise((resolve, reject) => {
       this.reject = reject;
       const worker = new Worker(new URL("solver-worker.js", document.baseURI), {

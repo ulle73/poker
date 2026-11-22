@@ -1,0 +1,379 @@
+{
+  "verifiedAt": "2026-11-05T11:20:03.068Z",
+  "packaged": false,
+  "version": "1.4.0",
+  "electron": "45.1.0",
+  "origin": "poker://app",
+  "nodeIntegrationExposed": "undefined",
+  "dom": "DOM synkroniserad",
+  "frequencies": "Fold\n44,4 %\nCall\n55,6 %\nRaise / All-in\n0 %",
+  "decisionSaved": true,
+  "savedCountBeforeLaunch": 5,
+  "savedCountAfter": 6,
+  "persistedAfterReload": true,
+  "remoteFetchBlocked": true,
+  "iframe": {
+    "height": 400,
+    "scroll": 400
+  },
+  "scenarios": [
+    {
+      "title": "Fånga bluffen",
+      "advice": "Vanligaste handlingen\nCall\n55,6 % av gångerna · en blandstrategi",
+      "actions": 4
+    },
+    {
+      "title": "Ta betalt med set",
+      "advice": "Vanligaste handlingen\nAll-in 40 bb\n100 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "Välj dina bluffar",
+      "advice": "Vanligaste handlingen\nCheck\n70 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "När motståndaren checkar",
+      "advice": "Vanligaste handlingen\nCheck\n100 % av gångerna · en blandstrategi",
+      "actions": 3
+    },
+    {
+      "title": "Överpar under press",
+      "advice": "Vanligaste handlingen\nCall\n99,9 % av gångerna · en blandstrategi",
+      "actions": 4
+    },
+    {
+      "title": "Draget som missade",
+      "advice": "Vanligaste handlingen\nBet 20 bb\n73,4 % av gångerna · en blandstrategi",
+      "actions": 4
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "tableHeight": 400,
+      "tableScroll": 400
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "tableHeight": 417,
+      "tableScroll": 417
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "tableHeight": 408,
+      "tableScroll": 408
+    }
+  ],
+  "consoleErrors": [],
+  "expectedBlockedNetworkErrors": [
+    "Connecting to 'https://example.com/' violates the following Content Security Policy directive: \"connect-src 'self'\". The action has been blocked.",
+    "Fetch API cannot load https://example.com/. Refused to connect because it violates the document's Content Security Policy."
+  ],
+  "live": {
+    "multiwayCounts": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "decisionMatrix": [
+      {
+        "count": 2,
+        "street": "preflop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 2,
+        "street": "flop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 2,
+        "street": "turn",
+        "advice": "Vanligaste handlingen i lösningen\nBet till 5 EUR · all-in\n99.6 % av gångerna",
+        "quality": "Solverstrategi · 2 % felgräns",
+        "rows": [
+          {
+            "text": "Check\n0.4 %\n0,43 EUR",
+            "pct": 0.4
+          },
+          {
+            "text": "Bet till 5 EUR · all-in\n99.6 %\n0,94 EUR",
+            "pct": 99.6
+          }
+        ],
+        "inputs": [
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 2,
+        "street": "river",
+        "advice": "Vanligaste handlingen i lösningen\nCheck\n99.9 % av gångerna",
+        "quality": "Solverstrategi · 2 % felgräns",
+        "rows": [
+          {
+            "text": "Check\n99.9 %\n−4,3 EUR",
+            "pct": 99.9
+          },
+          {
+            "text": "Bet till 5 EUR · all-in\n0.1 %\n−4,37 EUR",
+            "pct": 0.1
+          }
+        ],
+        "inputs": [
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 3,
+        "street": "preflop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 3,
+        "street": "flop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 3,
+        "street": "turn",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 3,
+        "street": "river",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 4,
+        "street": "preflop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 4,
+        "street": "flop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 4,
+        "street": "turn",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 4,
+        "street": "river",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 5,
+        "street": "preflop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 5,
+        "street": "flop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 5,
+        "street": "turn",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 5,
+        "street": "river",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 6,
+        "street": "preflop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 6,
+        "street": "flop",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 6,
+        "street": "turn",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      {
+        "count": 6,
+        "street": "river",
+        "advice": null,
+        "quality": "Beslutsmotor",
+        "rows": [],
+        "inputs": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      }
+    ],
+    "authenticatedBridge": true,
+    "currency": "EUR",
+    "automaticAllStreetDecisions": false,
+    "coverageCases": 20,
+    "freeSolverOnly": true,
+    "verifiedNativeTurnAt2Pct": true,
+    "verifiedSixplusRiver": true,
+    "manualRangesRequired": false,
+    "experimentalStrategiesRemovedFromLive": true,
+    "verifiedRiverUpgrade": true,
+    "verifiedTurnUpgrade": true,
+    "verifiedTurnAutomaticRanges": true,
+    "turnChangeHidesAdvice": true,
+    "invalidCaptureHidesAdvice": true,
+    "staleCaptureHidesAdvice": true
+  }
+}

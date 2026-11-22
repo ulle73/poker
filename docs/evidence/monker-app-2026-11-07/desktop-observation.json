@@ -1,0 +1,34 @@
+{
+  "synthetic": true,
+  "players": 6,
+  "heroPrior": "weighted top 50 percent, 663/1326 before blockers",
+  "opponentPriors": "full legal ranges, not pruned using actual hero cards",
+  "stacksEur": [
+    3,
+    1.6,
+    1,
+    2,
+    1.2,
+    0.8
+  ],
+  "turn": {
+    "serviceWallMs": 5425,
+    "iterations": 458752,
+    "displayed": true
+  },
+  "river": {
+    "serviceWallMs": 2844,
+    "iterations": 598016,
+    "displayed": true,
+    "finalCapture": "cached redisplay of the same exact previously solved model"
+  },
+  "pixelLatencyMeasured": false,
+  "label": "Monker · felgräns ej verifierad",
+  "errorPct": null,
+  "targetErrorPct": 2.1,
+  "testFeedStopped": true,
+  "actualCurrentUserHandVerified": false,
+  "actualTableBlocker": "Both inspected Edge poker tabs were disconnected due to inactivity; active training table requested from user.",
+  "finalRendererReloadObserved": true,
+  "staleAdviceHiddenAfterReload": true
+}

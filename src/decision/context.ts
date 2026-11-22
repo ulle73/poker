@@ -1,7 +1,9 @@
 import type { LiveSnapshot } from "../live/types";
 import { prepareDecision, observedBlind, type DecisionFacts } from "./adapter";
+import {PreflopTracker} from '../preflop/history';
 /** Inference belongs to the decision layer. Capture and card recognition are untouched. */
 export class DecisionContext {
+  private preflop=new PreflopTracker();
   private previous: LiveSnapshot | null = null;
   private blind: number | undefined;
   private fullRaise: number | undefined;
@@ -10,6 +12,7 @@ export class DecisionContext {
   private ranges: Record<number, string> = {};
   private revision = 0;
   observe(s: LiveSnapshot): void {
+    this.preflop.observe(s);
     if (!s.valid) return;
     const prev = this.previous,
       newHand =
@@ -26,7 +29,7 @@ export class DecisionContext {
       this.events.clear();
       for (const a of s.observedActions) this.events.add(JSON.stringify(a));
     }
-    if (!this.blind) this.blind = observedBlind(s);
+    if (!this.blind) this.blind = observedBlind(s)??this.preflop.facts(s)?.bigBlind;
     if (!newStreet && prev) {
       const before = Math.max(...prev.players.map((p) => p.bet ?? 0)),
         after = Math.max(...s.players.map((p) => p.bet ?? 0)),
@@ -67,8 +70,9 @@ export class DecisionContext {
   }
   prepare(s: LiveSnapshot) {
     this.observe(s);
-    return prepareDecision(s, this.facts());
+    return {...prepareDecision(s, this.facts()),preflop:this.preflop.facts(s)};
   }
+  preflopFacts(s: LiveSnapshot) { return this.preflop.facts(s); }
   get rangeRevision() {
     return this.revision;
   }

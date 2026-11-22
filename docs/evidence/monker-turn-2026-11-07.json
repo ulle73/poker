@@ -1,0 +1,455 @@
+{
+  "date": "2026-11-07",
+  "completedGoal": false,
+  "appProviderActivated": false,
+  "newLiveDecisionVerified": false,
+  "metric": {
+    "name": "max-unilateral",
+    "limitPct": 2,
+    "normalization": "root pot",
+    "sumAlsoReported": true
+  },
+  "vendorSha256": "f66d7f2b5d8b35393577a39abfc0325215f26dd5102355e1ae49be477318e652",
+  "model": {
+    "board": [
+      "Ks",
+      "7d",
+      "2c",
+      "8h"
+    ],
+    "pot": 4000,
+    "stacks": 8000,
+    "actions": "check/fold/call/all-in only",
+    "rangeRanks": [
+      "AA/QQ",
+      "KK/JJ",
+      "TT/99",
+      "88/66",
+      "55/44",
+      "33/22"
+    ],
+    "rake": 0,
+    "ordinaryWideRanges": false
+  },
+  "matrix": [
+    {
+      "name": "job0-3p",
+      "players": 3,
+      "ranges": [
+        12,
+        9,
+        12
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 0.3546300518196631,
+      "nashConvPct": 0.7736154310331947,
+      "accepted": true,
+      "computeMs": 2021.7667,
+      "solveAndDecodeMs": 2407.8387,
+      "auditMs": 38.602399999999996,
+      "solveDecodeAuditMs": 2446.4411,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    },
+    {
+      "name": "job1-4p",
+      "players": 4,
+      "ranges": [
+        12,
+        9,
+        12,
+        9
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 1.1556793234937572,
+      "nashConvPct": 2.675674382831756,
+      "accepted": true,
+      "computeMs": 2006.2858,
+      "solveAndDecodeMs": 2210.2162,
+      "auditMs": 100.21719999999999,
+      "solveDecodeAuditMs": 2310.4334,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    },
+    {
+      "name": "job2-5p",
+      "players": 5,
+      "ranges": [
+        12,
+        9,
+        12,
+        9,
+        12
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 1.9316182362878636,
+      "nashConvPct": 3.8582465315075645,
+      "accepted": true,
+      "computeMs": 2016.9535,
+      "solveAndDecodeMs": 2277.9743,
+      "auditMs": 224.5361,
+      "solveDecodeAuditMs": 2502.5103999999997,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    },
+    {
+      "name": "job3-6p",
+      "players": 6,
+      "ranges": [
+        12,
+        9,
+        12,
+        9,
+        12,
+        9
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 4.019332774764223,
+      "nashConvPct": 7.382886077289209,
+      "accepted": false,
+      "computeMs": 2021.799,
+      "solveAndDecodeMs": 2586.1438,
+      "auditMs": 501.4812,
+      "solveDecodeAuditMs": 3087.625,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    },
+    {
+      "name": "job4-6p",
+      "players": 6,
+      "ranges": [
+        12,
+        9,
+        12,
+        9,
+        12,
+        9
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 3.0606811802153744,
+      "nashConvPct": 7.506262218225281,
+      "accepted": false,
+      "computeMs": 2020.5583,
+      "solveAndDecodeMs": 2572.7971,
+      "auditMs": 545.165,
+      "solveDecodeAuditMs": 3117.9620999999997,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    },
+    {
+      "name": "job5-6p",
+      "players": 6,
+      "ranges": [
+        12,
+        9,
+        12,
+        9,
+        12,
+        9
+      ],
+      "qualityMetric": "max-unilateral",
+      "errorPct": 3.5289590231414083,
+      "nashConvPct": 7.84202928763472,
+      "accepted": false,
+      "computeMs": 2016.2333,
+      "solveAndDecodeMs": 2479.1094,
+      "auditMs": 545.7505000000001,
+      "solveDecodeAuditMs": 3024.8599,
+      "excludes": [
+        "startup warm-up",
+        "Node process launch",
+        "transport",
+        "UI rendering"
+      ]
+    }
+  ],
+  "top50": {
+    "range": "33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25",
+    "physicalCombos": 672,
+    "combinationMass": 663,
+    "percentage": 50,
+    "classification": "PokerStove ordering as transcribed by holdem-eval; boundary T7o has 25 percent weight",
+    "source": "https://github.com/apometta/holdem-eval/blob/e0687e13ff0d780ec8134a33bdc17adfbc8fe606/src/PercentageToRange.cpp"
+  },
+  "payoffs": {
+    "cases": 84,
+    "compared": 6300,
+    "maximumDifference": 0,
+    "accepted": true
+  },
+  "coldPipeline": {
+    "coldProcessToAuditMs": 6011.5687,
+    "includes": [
+      "Java launch",
+      "kernel initialization",
+      "training",
+      "archive write",
+      "second Java launch",
+      "decode",
+      "Node launch",
+      "independent audit"
+    ],
+    "excludes": [
+      "source compilation",
+      "hash preflight",
+      "app transport",
+      "UI rendering"
+    ],
+    "qualityMetric": "max-unilateral",
+    "errorPct": 0.31035062122156776,
+    "accepted": true,
+    "appIntegrationVerified": false
+  },
+  "limitations": [
+    "All quality-passing timing cases are narrow pocket-pair control models",
+    "Six players did not pass the 2 percent maximum unilateral gain gate",
+    "Top50 hero with full opponent ranges exceeds exact audit budget; quality unknown",
+    "Headless numeric study bridge is not an app service",
+    "No actual live hand verified this turn"
+  ],
+  "furtherProbes": {
+    "thread-matrix": [
+      {
+        "players": 6,
+        "threads": 1,
+        "fresh": true,
+        "sameJvm": true,
+        "solveAndDecodeMs": 2332.7135,
+        "errorPct": 2.3242822964931973,
+        "nashConvPct": 6.355604497248722,
+        "accepted": false,
+        "auditMs": 241.1323
+      },
+      {
+        "players": 6,
+        "threads": 2,
+        "fresh": true,
+        "sameJvm": true,
+        "solveAndDecodeMs": 2205.4242,
+        "errorPct": 2.599631037692359,
+        "nashConvPct": 6.625132683314845,
+        "accepted": false,
+        "auditMs": 268.9684
+      },
+      {
+        "players": 6,
+        "threads": 4,
+        "fresh": true,
+        "sameJvm": true,
+        "solveAndDecodeMs": 2220.6862,
+        "errorPct": 2.7010085639738235,
+        "nashConvPct": 5.0227876617739176,
+        "accepted": false,
+        "auditMs": 247.14989999999997
+      },
+      {
+        "players": 6,
+        "threads": 8,
+        "fresh": true,
+        "sameJvm": true,
+        "solveAndDecodeMs": 2203.8647,
+        "errorPct": 3.5941163324464127,
+        "nashConvPct": 7.600464487137797,
+        "accepted": false,
+        "auditMs": 277.2167
+      }
+    ],
+    "checkpoints6": [
+      {
+        "checkpoint": 1,
+        "iterations": 1032192,
+        "cumulativeComputeMs": 1021.085,
+        "solveAndDecodeMs": 1166.4886,
+        "strategyReset": false,
+        "errorPct": 2.6693150832584593,
+        "nashConvPct": 5.76547183231219,
+        "accepted": false,
+        "auditMs": 347.8399
+      },
+      {
+        "checkpoint": 2,
+        "iterations": 2162688,
+        "cumulativeComputeMs": 2029.0929,
+        "solveAndDecodeMs": 2255.5296,
+        "strategyReset": false,
+        "errorPct": 3.718624123393238,
+        "nashConvPct": 7.1300219152029465,
+        "accepted": false,
+        "auditMs": 277.363
+      },
+      {
+        "checkpoint": 3,
+        "iterations": 3252224,
+        "cumulativeComputeMs": 3039.4393,
+        "solveAndDecodeMs": 3331.5,
+        "strategyReset": false,
+        "errorPct": 2.493848980947644,
+        "nashConvPct": 5.9190119887984824,
+        "accepted": false,
+        "auditMs": 300.63349999999997
+      },
+      {
+        "checkpoint": 4,
+        "iterations": 4300800,
+        "cumulativeComputeMs": 4061.2975,
+        "solveAndDecodeMs": 4434.4025,
+        "strategyReset": false,
+        "errorPct": 4.780404244073066,
+        "nashConvPct": 8.91610212458607,
+        "accepted": false,
+        "auditMs": 280.8746
+      },
+      {
+        "checkpoint": 5,
+        "iterations": 5308416,
+        "cumulativeComputeMs": 5065.052,
+        "solveAndDecodeMs": 5494.9676,
+        "strategyReset": false,
+        "errorPct": 2.434049512767615,
+        "nashConvPct": 6.132257189196843,
+        "accepted": false,
+        "auditMs": 272.4682
+      },
+      {
+        "checkpoint": 6,
+        "iterations": 6332416,
+        "cumulativeComputeMs": 6075.1892,
+        "solveAndDecodeMs": 6565.2837,
+        "strategyReset": false,
+        "errorPct": 3.0155907967923783,
+        "nashConvPct": 6.1071417591455965,
+        "accepted": false,
+        "auditMs": 281.7246
+      }
+    ],
+    "checkpoints6-one-thread": [
+      {
+        "checkpoint": 1,
+        "threads": 1,
+        "iterations": 278528,
+        "cumulativeComputeMs": 1000.1992,
+        "solveAndDecodeMs": 1128.7104,
+        "strategyReset": false,
+        "errorPct": 3.5373526507053725,
+        "nashConvPct": 9.961360397924569,
+        "accepted": false,
+        "auditMs": 248.8456
+      },
+      {
+        "checkpoint": 2,
+        "threads": 1,
+        "iterations": 573440,
+        "cumulativeComputeMs": 2002.2432,
+        "solveAndDecodeMs": 2220.3733,
+        "strategyReset": false,
+        "errorPct": 2.0985117714431,
+        "nashConvPct": 6.013512629685392,
+        "accepted": false,
+        "auditMs": 276.33750000000003
+      },
+      {
+        "checkpoint": 3,
+        "threads": 1,
+        "iterations": 843776,
+        "cumulativeComputeMs": 3004.4891,
+        "solveAndDecodeMs": 3289.3927,
+        "strategyReset": false,
+        "errorPct": 2.2499682625298076,
+        "nashConvPct": 5.429137430575103,
+        "accepted": false,
+        "auditMs": 259.74350000000004
+      },
+      {
+        "checkpoint": 4,
+        "threads": 1,
+        "iterations": 1097728,
+        "cumulativeComputeMs": 4004.7853999999998,
+        "solveAndDecodeMs": 4351.2196,
+        "strategyReset": false,
+        "errorPct": 3.012347527613554,
+        "nashConvPct": 5.958232672363808,
+        "accepted": false,
+        "auditMs": 271.7962
+      },
+      {
+        "checkpoint": 5,
+        "threads": 1,
+        "iterations": 1359872,
+        "cumulativeComputeMs": 5006.8798,
+        "solveAndDecodeMs": 5407.8876,
+        "strategyReset": false,
+        "errorPct": 3.2112429085121676,
+        "nashConvPct": 5.483778982704782,
+        "accepted": false,
+        "auditMs": 253.86759999999998
+      },
+      {
+        "checkpoint": 6,
+        "threads": 1,
+        "iterations": 1630208,
+        "cumulativeComputeMs": 6007.411099999999,
+        "solveAndDecodeMs": 6462.305,
+        "strategyReset": false,
+        "errorPct": 3.325067543907642,
+        "nashConvPct": 5.592621806738017,
+        "accepted": false,
+        "auditMs": 266.9741
+      }
+    ]
+  },
+  "validation": {
+    "vitest": {
+      "passed": 376,
+      "skipped": 13,
+      "filesPassed": 32,
+      "filesSkipped": 4,
+      "exitCode": 0,
+      "durationSeconds": 171.1
+    },
+    "build": {
+      "exitCode": 0
+    },
+    "payoffs": {
+      "cases": 84,
+      "compared": 6300,
+      "maximumDifference": 0,
+      "accepted": true
+    },
+    "repeatedJobs": {
+      "passed": true,
+      "jobs": 3,
+      "sequence": [
+        3,
+        6,
+        3
+      ]
+    },
+    "actualAppIntegration": false,
+    "sixPlayerPayoffs": {
+      "cases": 72,
+      "compared": 166320,
+      "maximumDifference": 0,
+      "accepted": true
+    }
+  }
+}

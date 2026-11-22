@@ -1,0 +1,97 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run --maxWorkers=1 --reporter=default
+
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ✓ tests/postflop-wasm.test.ts (17 tests) 17699ms
+   ✓ exports a complete turn chance graph with strategies only at the selected decision 1648ms
+   ✓ selects an IP decision after a check without exporting every future strategy 1359ms
+   ✓ rejects a selected line that is absent from the exact betting model 1498ms
+   ✓ matches independent card enumeration and information-set best responses across the river chance step 3608ms
+   ✓ checks legality across every turn betting line and every river chance outcome 1277ms
+   ✓ routes a real converged turn solution for hero 0 facing bettor null 662ms
+   ✓ routes a real converged turn solution for hero 1 facing bettor null 517ms
+   ✓ routes a real converged turn solution for hero 1 facing bettor 0 454ms
+   ✓ routes a real converged turn solution for hero 0 facing bettor 1 548ms
+   ✓ rejects a legal-looking tree for a different board or player count 1754ms
+   ✓ rejects a pruned mandatory future check even when every remaining node is reachable 1550ms
+   ✓ rejects a pruned mandatory future fold even when every remaining node is reachable 1448ms
+   ✓ rejects a pruned mandatory future call even when every remaining node is reachable 1343ms
+ ✓ tests/decision-outcome.test.ts (46 tests) 7843ms
+   ✓ recovers the independently solved pot-sized river bluff mixture with none baselines 761ms
+   ✓ recovers the independently solved pot-sized river bluff mixture with learned baselines 1024ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 73, none) 743ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 73, learned) 1100ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 395, none) 796ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 395, learned) 718ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 901, none) 561ms
+   ✓ respects weighted chance priors instead of the oversampled hero proposal (seed 901, learned) 680ms
+ ✓ tests/monker-pair-symmetry.test.ts (7 tests) 1490ms
+   ✓ exact multiway pair symmetry (7)
+     ✓ accepts the explicitly user-selected 2.1 percent threshold without changing the historical default 1016ms
+     ✓ never substitutes an average across players for the worst unilateral improvement 337ms
+ ✓ tests/decision-mccfr.test.ts (54 tests) 1436ms
+   ✓ external-sampling decision solver (54)
+     ✓ learns the independent pot-sized one-bet equilibrium bluff frequency 695ms
+ ✓ tests/training-strength.test.ts (4 tests) 1501ms
+   ✓ requires strict range-independent dominance and returns unmatched chips 1361ms
+ ✓ tests/decision-sampler.test.ts (39 tests) 1009ms
+ ✓ tests/decision-multiway-quality.test.ts (9 tests | 2 skipped) 772ms
+   ✓ preserves the full learned average policy under public-tree caching 751ms
+ ✓ tests/live-reader.test.ts (7 tests) 660ms
+ ✓ tests/shortdeck-audit.test.ts (4 tests) 652ms
+   ✓ matches the saved independent scalar oracle for the complete exported 6+ policy 518ms
+ ✓ tests/multiway-equity.test.ts (40 tests) 436ms
+ ✓ tests/domain.test.ts (6 tests) 286ms
+ ✓ tests/monker-config.test.ts (6 tests) 275ms
+ ✓ tests/decision-hook.test.ts (14 tests) 341ms
+ ✓ tests/holdem-model.test.ts (8 tests) 139ms
+ ✓ tests/monker-plan.test.ts (3 tests) 122ms
+ ✓ tests/decision-river.test.ts (6 tests) 108ms
+ ✓ tests/holdem-service.test.ts (3 tests) 76ms
+ ✓ tests/live-bridge.test.ts (1 test) 138ms
+ ✓ tests/decision-betting.test.ts (24 tests) 149ms
+ ✓ tests/monker-ui.test.ts (1 test) 38ms
+ ✓ tests/holdem-ui.test.ts (1 test) 57ms
+ ↓ tests/preflop-installed.test.ts (8 tests | 8 skipped)
+ ✓ tests/preflop-ui.test.ts (1 test) 34ms
+ ✓ tests/monker-audit.test.ts (8 tests) 25ms
+ ✓ tests/live-observer.test.ts (4 tests) 24ms
+ ✓ tests/preflop.test.ts (18 tests) 22ms
+ ✓ tests/decision-providers.test.ts (27 tests) 20ms
+ ✓ tests/decision-adapter.test.ts (8 tests) 17ms
+ ✓ tests/preflop-shortstack.test.ts (11 tests) 21ms
+ ✓ tests/solver-client.test.ts (3 tests) 28ms
+ ✓ tests/native-audit-profile.test.ts (4 tests) 34ms
+ ✓ tests/decision-public-tree.test.ts (4 tests) 9ms
+ ✓ tests/decision-client.test.ts (3 tests) 10ms
+ ✓ tests/session.test.ts (3 tests) 9ms
+ ✓ tests/decision-card-information.test.ts (17 tests) 16ms
+ ✓ tests/decision-variance.test.ts (10 tests) 9ms
+ ✓ tests/live-positions.test.ts (3 tests) 8ms
+ ✓ tests/extension-relay.test.ts (7 tests) 8ms
+ ✓ tests/shortdeck-service.test.ts (3 tests) 13ms
+ ✓ tests/native-config.test.ts (1 test) 11ms
+ ✓ tests/live-analysis.test.ts (4 tests) 7ms
+ ✓ tests/monker-service.test.ts (3 tests) 6ms
+ ✓ tests/postflop-service.test.ts (2 tests) 6ms
+ ✓ tests/live-hand-memory.test.ts (1 test) 3ms
+ ↓ tests/binary-bridge.test.ts (7 tests | 7 skipped)
+ ↓ tests/decision-quality.test.ts (1 test | 1 skipped)
+ ↓ tests/holdem-installed.test.ts (5 tests | 5 skipped)
+ ↓ tests/monker-service.integration.test.ts (3 tests | 3 skipped)
+ ↓ tests/monker-worker.integration.test.ts (4 tests | 4 skipped)
+ ↓ tests/native-policy-quality.test.ts (1 test | 1 skipped)
+ ↓ tests/postflop-native.test.ts (2 tests | 2 skipped)
+
+ Test Files  43 passed | 8 skipped (51)
+      Tests  443 passed | 33 skipped (476)
+   Start at  16:13:38
+   Duration  167.86s (environment 73%, tests 23%, import 3%, transform 1%)
+
+Environment  jsdom was created 51 times · 111.96s total, 73% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "archiveSha256": "cc1fc30512a3d05d60a627c7b1c42f90a809e38dc08c3a5974116267fc8f7e79",
+  "huSourceSha256": "00bc184e6b514888d23a8c2d8e9c3c83af2ac960b441310ba594c06b6cba9bec",
+  "librarySha256": "346bafe5ac3ef8c9a47fea2fff36f8d8331c05079de223128b74b5744c7dbc49",
+  "rangeFiles": 2606,
+  "nodes": 1930,
+  "skippedSizingOrFormat": [],
+  "conflictingNodes": [],
+  "overfullNodes": [],
+  "sourceUrls": [
+    "https://artgto.com/learn/ranges/",
+    "https://github.com/Julian-cloud-max/holdemmath-data/tree/7c72b1261f08c63cf8366120dc531631935c21cd"
+  ],
+  "model": "ART/GTO 6-max 100bb; HoldemMath HU no-ante push/fold 4\u201320bb"
+}

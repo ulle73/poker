@@ -1,0 +1,127 @@
+{
+  "seed": 52635299,
+  "iterations": 6000000,
+  "trainMs": 59750.301,
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "trained": true,
+    "frequencies": [
+      0.0000013992197950422828,
+      0.03463215671340682,
+      0.9653664440667982
+    ]
+  },
+  "artifact": {
+    "tables": 50,
+    "bytes": 345000,
+    "rows": 13199,
+    "rootRows": 1176,
+    "modelSha256": "b0debc9509ef66814434392a9d3e9ce16b08518a3e361d16091a39f77e27ca91",
+    "manifestSha256": "48bd40329b7d854829373d302edf2ae870f9436823c035481cc1dad4ca778d3c"
+  },
+  "processPeakRssKiB": 274912
+}

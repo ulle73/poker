@@ -9,6 +9,14 @@ const fixture = () => {
   </div></div><div class="hand-id">#12606864673</div>`;
 };
 describe("Svenska Spel DOM reader", () => {
+  it.each([["€","EUR"],[" kr","SEK"],[" SEK","SEK"]])("reads a whole table using %s", (symbol,currency)=>{
+    fixture();
+    for(const e of document.querySelectorAll(".amount,.total-pot-amount"))
+      e.textContent=e.textContent!.replace("€",symbol);
+    const s=readSiteTable(document,1,"currency");
+    expect(s).toMatchObject({valid:true,currency,pot:.04});
+    expect(s!.players.find(p=>p.hero)).toMatchObject({stack:3.99,bet:.02});
+  });
   it("parses money without inventing missing values or mixing currencies", () => {
     expect(parseMoney("1 234,56€")).toEqual({
       amount: 1234.56,
@@ -42,4 +50,36 @@ describe("Svenska Spel DOM reader", () => {
     document.querySelector(".hand-id")!.textContent = "";
     expect(readSiteTable(document, 3, "test")?.valid).toBe(false);
   });
+});
+
+it('treats a visible sit-out seat without cards or chips as occupied but not an unknown participant', () => {
+  fixture();
+  const table = document.querySelector('.table')!;
+  table.insertAdjacentHTML('beforeend', '<div class="player-area player-seat-2"><div class="player-nameplate"><div class="amount">0.64€</div></div><div class="player-left-wing-color player-sit-out"></div></div>');
+  const s = readSiteTable(document, 1, 'sitout')!;
+  expect(s.players.find(p => p.seat === 2)).toMatchObject({sittingOut: true, inHand: false, folded: false});
+  expect(s.players).toHaveLength(3);
+  expect(s.players.find(p => p.hero)?.position).toBe('BB');
+});
+it('does not remove a sit-out-marked player who still has cards or a live bet', () => {
+  fixture();
+  document.querySelector('.player-seat-6')!.insertAdjacentHTML('beforeend', '<div class="player-sit-out"></div>');
+  const s = readSiteTable(document, 1, 'sitout')!;
+  expect(s.players.find(p => p.seat === 6)).toMatchObject({sittingOut: false, inHand: true});
+});
+it('does not guess sit-out status from missing cards alone or hidden markers', () => {
+  fixture();
+  document.querySelector('.table')!.insertAdjacentHTML('beforeend', '<div class="player-area player-seat-2"><div class="player-nameplate"><div class="amount">0.64€</div></div><div class="player-sit-out" hidden></div></div>');
+  const s = readSiteTable(document, 1, 'sitout')!;
+  expect(s.players.find(p => p.seat === 2)).toMatchObject({sittingOut: false, inHand: false, folded: false});
+});
+
+it('recognizes 6+ explicitly while keeping cards below six invalid', () => {
+ fixture();
+ const root=document.querySelector('.cash-table-view')!;
+ root.classList.replace('POKER_GAME_TYPE_HOLDEM','POKER_GAME_TYPE_SIX_PLUS_HOLDEM');
+ document.querySelector('.cards-holder-hero')!.innerHTML='<div class="card"><span class="card-rank">A</span><span class="card-suit">♥</span></div><div class="card"><span class="card-rank">9</span><span class="card-suit">♣</span></div>';
+ expect(readSiteTable(document,1,'six')).toMatchObject({variant:'sixplus',valid:true});
+ document.querySelector('.cards-holder-hero .card-rank')!.textContent='2';
+ expect(readSiteTable(document,2,'six')?.valid).toBe(false);
 });

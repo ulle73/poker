@@ -1,0 +1,23 @@
+{
+  "version": 10114,
+  "java": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+  "vendorHashes": {
+    "MonkerSolverFree.exe": "f66d7f2b5d8b35393577a39abfc0325215f26dd5102355e1ae49be477318e652",
+    "handRanks.ser": "d927fac383d43d8743fa50b81e3684fcd26a900ee548ec4b38668ab9fe7a6fc5"
+  },
+  "hostClassHashes": {
+    "c/MonkerBridge$Request.class": "2ea3e3052e68d69a2d24fe1e653839209e1aa1dca5ad57a3fc51623846f9305a",
+    "c/MonkerBridge.class": "c652f508359433154c754e965d7f1ad093d33511a07f1c3669df089fbac23fc0",
+    "c/MonkerCoreProbe.class": "5c9c3a23142d564224b927a1a0ee8cd4f665eb2db6ec66fb7e29e88459f48f14",
+    "c/MonkerKernel.class": "3af5516acb6c6174362263b0cabf91faa6c82fe3a912b41ac5bb87cfd31cbc5d",
+    "c/MonkerPolicyExport$Node.class": "5657aaccca94df24a42ba37e37f1c86e249f2b7997c2e00cf05ea4d232a36425",
+    "c/MonkerPolicyExport$Stored.class": "04042f1823e7e4e601ebd3069bca42be0e6a36a5ea79b62c436b93b5b58993ae",
+    "c/MonkerPolicyExport.class": "68056e128f790d7498fe83dda8699489fbf9581bdeec3d3dd85763831ef67cc3"
+  },
+  "sourceHashes": {
+    "MonkerPolicyExport.java": "9acbc286fa9ee424cad2191963ddc23ba5b6d1b8096f63f6db12bee5e2f8cb12",
+    "MonkerKernel.java": "da0f55cc76d7560247579390b37f4ebb3433e84575c7483b7ae0a61905573351",
+    "MonkerCoreProbe.java": "04d5f25285f172db3b6fb30aaaafd1f26ae5c7263f79656d8affc817484568b4",
+    "MonkerBridge.java": "cdc725a695d55b073560f2fcf2992104e7bb021528d503334bc167b5cbe17ea6"
+  }
+}

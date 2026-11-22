@@ -1,0 +1,14 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+·························
+
+ Test Files  3 passed (3)
+      Tests  25 passed (25)
+   Start at  21:23:38
+   Duration  11.81s (environment 86%, import 6%, tests 4%, transform 3%, worker 1%)
+
+Environment  jsdom was created 3 times · 9.43s total, 86% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

@@ -1,0 +1,32 @@
+{
+  "manifestSha256": "4477d5e2972f1e931089cae72a5a432c362217dacdae6dc7b42e4505538d66c4",
+  "elapsedMs": 4974.628,
+  "seed": 78319942,
+  "samples": 16384,
+  "publicNodes": 404,
+  "seats": [
+    {
+      "seat": 0,
+      "relaxedGainPct": 45.81436554959855,
+      "upperBoundPct": 47.6601839586657
+    },
+    {
+      "seat": 1,
+      "relaxedGainPct": 40.72994926018344,
+      "upperBoundPct": 42.468421994112916
+    },
+    {
+      "seat": 2,
+      "relaxedGainPct": 27.804625645809725,
+      "upperBoundPct": 29.125379662667264
+    },
+    {
+      "seat": 3,
+      "relaxedGainPct": 47.17818571691221,
+      "upperBoundPct": 48.95931568347724
+    }
+  ],
+  "errorProbability": 0.0125,
+  "qualityLimitPct": 2.1,
+  "passesUpperGate": false
+}

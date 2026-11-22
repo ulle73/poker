@@ -1,0 +1,177 @@
+{
+  "name": "river-3",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "ms": 6183,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290167020,
+      "ui": {
+        "hand": "1000",
+        "provider": "monker-free-10114",
+        "action": "Check",
+        "quality": "Monker · felgräns ej verifierad",
+        "rows": [
+          "Check\n99.8 %\n—",
+          "Bet till 0,4 EUR\n0.2 %\n—",
+          "Bet till 1,6 EUR · all-in\n0.0 %\n—"
+        ],
+        "current": "Hand\n#1000\nGata\nriver\nPott\n0,8 EUR\nDin stack bakom\n1,6 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n3 / 3 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n354\nLika starka\n6\nSvagare\n630\n\n990 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 18,
+        "handId": "1000",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "river",
+        "dealerSeat": 3,
+        "heroTurn": true,
+        "heroCards": [
+          "Kh",
+          "8d"
+        ],
+        "board": [
+          "6h",
+          "8s",
+          "Jd",
+          "4c",
+          "Ts"
+        ],
+        "pot": 0.8,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Check",
+          "Bet"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "BTN",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "ms": 71,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290173204,
+      "ui": {
+        "hand": "1001",
+        "provider": "monker-free-10114",
+        "action": "Check",
+        "quality": "Monker · felgräns ej verifierad",
+        "rows": [
+          "Check\n99.8 %\n—",
+          "Bet till 0,4 EUR\n0.2 %\n—",
+          "Bet till 1,6 EUR · all-in\n0.0 %\n—"
+        ],
+        "current": "Hand\n#1001\nGata\nriver\nPott\n0,8 EUR\nDin stack bakom\n1,6 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n3 / 3 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n354\nLika starka\n6\nSvagare\n630\n\n990 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 19,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "river",
+        "dealerSeat": 3,
+        "heroTurn": true,
+        "heroCards": [
+          "Kh",
+          "8d"
+        ],
+        "board": [
+          "6h",
+          "8s",
+          "Jd",
+          "4c",
+          "Ts"
+        ],
+        "pot": 0.8,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Check",
+          "Bet"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "BTN",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+FFFFFE
+======================================================================
+ERROR: test_weighted_and_unweighted_combinations_use_full_class_denominator (__main__.ImporterTest.test_weighted_and_unweighted_combinations_use_full_class_denominator)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 10, in test_weighted_and_unweighted_combinations_use_full_class_denominator
+    self.assertEqual(result['AKs'],2500)
+                     ~~~~~~^^^^^^^
+KeyError: 'AKs'
+
+======================================================================
+FAIL: test_duplicate_or_malformed_combinations_cannot_inflate_source_weights (__main__.ImporterTest.test_duplicate_or_malformed_combinations_cannot_inflate_source_weights) (text='AsKs, KsAs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 16, in test_duplicate_or_malformed_combinations_cannot_inflate_source_weights
+    with self.assertRaises(ValueError):module.parse_range(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_duplicate_or_malformed_combinations_cannot_inflate_source_weights (__main__.ImporterTest.test_duplicate_or_malformed_combinations_cannot_inflate_source_weights) (text='[101]AsKs[/101]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 16, in test_duplicate_or_malformed_combinations_cannot_inflate_source_weights
+    with self.assertRaises(ValueError):module.parse_range(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_duplicate_or_malformed_combinations_cannot_inflate_source_weights (__main__.ImporterTest.test_duplicate_or_malformed_combinations_cannot_inflate_source_weights) (text='[20]AsKs[/30]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 16, in test_duplicate_or_malformed_combinations_cannot_inflate_source_weights
+    with self.assertRaises(ValueError):module.parse_range(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_duplicate_or_malformed_combinations_cannot_inflate_source_weights (__main__.ImporterTest.test_duplicate_or_malformed_combinations_cannot_inflate_source_weights) (text='AsAs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 16, in test_duplicate_or_malformed_combinations_cannot_inflate_source_weights
+    with self.assertRaises(ValueError):module.parse_range(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_duplicate_or_malformed_combinations_cannot_inflate_source_weights (__main__.ImporterTest.test_duplicate_or_malformed_combinations_cannot_inflate_source_weights) (text='not-a-range')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\dev\poker\tests\preflop_importer_test.py", line 16, in test_duplicate_or_malformed_combinations_cannot_inflate_source_weights
+    with self.assertRaises(ValueError):module.parse_range(text)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.007s
+
+FAILED (failures=5, errors=1)

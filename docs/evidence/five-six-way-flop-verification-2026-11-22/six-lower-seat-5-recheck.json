@@ -1,0 +1,35 @@
+{
+  "manifestSha256": "e631d7e227a37dd9f7637dd2bbd6b11f139b6f373471fbc46c3cbf0c56636871",
+  "elapsedMs": 177289.9209,
+  "familySize": 24,
+  "qualityLimitPct": 2.1,
+  "seats": [
+    {
+      "deviationSeat": 5,
+      "fitSeed": 66280139,
+      "evaluationSeed": 450757193,
+      "fitSamples": 160000,
+      "evaluationSamples": 640000,
+      "reachedEvaluationSamples": 640000,
+      "errorProbability": 0.0020833333333333333,
+      "confidenceBound": "empirical-bernstein",
+      "fitDecisionRows": 8770,
+      "deviationActionCounts": {
+        "fold:0": 5514,
+        "call:360": 1517,
+        "call:180": 522,
+        "raise:360": 1217
+      },
+      "profileEvConditionalOnReachChips": 48.897058000476534,
+      "possibleGainChips": 10.269057711207449,
+      "sampleStdDevChips": 226.41610334749507,
+      "errorChips": 1.1630137995847867,
+      "lowerBoundChips": 9.106043911622661,
+      "possibleGainPct": 2.8525160308909583,
+      "lowerBoundPct": 2.5294566421174056,
+      "testedContinuations": 5430827,
+      "trainedContinuations": 5430827
+    }
+  ],
+  "disprovesQualityGate": true
+}

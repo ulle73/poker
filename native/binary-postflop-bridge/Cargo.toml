@@ -1,0 +1,15 @@
+[package]
+name = "poker-binary-postflop-bridge"
+version = "0.1.0"
+edition = "2021"
+license = "AGPL-3.0-or-later"
+
+[dependencies]
+postflop-solver = {path = "../../.research/binary-postflop", default-features = false, features = ["rayon"]}
+rayon = "1"
+serde = {version = "1", features = ["derive"]}
+serde_json = "1"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

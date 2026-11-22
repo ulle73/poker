@@ -1,0 +1,116 @@
+[
+  {
+    "board": "AcKdJc",
+    "line": "n1",
+    "hand": "Kh7c",
+    "ms": 2303,
+    "actions": [
+      "Check",
+      "Satsa 1,82 BB",
+      "All-in till 97,5 BB"
+    ],
+    "frequencies": [
+      "12,84 %",
+      "87,16 %",
+      "< 0,01 %"
+    ]
+  },
+  {
+    "board": "6c3d2h",
+    "line": "n0",
+    "hand": "2s2d",
+    "ms": 228,
+    "actions": [
+      "Check",
+      "Satsa 1,82 BB",
+      "All-in till 97,5 BB"
+    ],
+    "frequencies": [
+      "98,69 %",
+      "1,31 %",
+      "< 0,01 %"
+    ]
+  },
+  {
+    "board": "6c3d2h",
+    "line": "n1",
+    "hand": "2s2d",
+    "ms": 155,
+    "actions": [
+      "Check",
+      "Satsa 1,82 BB",
+      "All-in till 97,5 BB"
+    ],
+    "frequencies": [
+      "0,28 %",
+      "99,72 %",
+      "< 0,01 %"
+    ]
+  },
+  {
+    "board": "6c3d2h",
+    "line": "n3",
+    "hand": "2s2d",
+    "ms": 119,
+    "actions": [
+      "Syna 1,82 BB",
+      "Höj till 10,96 BB",
+      "All-in till 97,5 BB",
+      "Fold"
+    ],
+    "frequencies": [
+      "< 0,01 %",
+      "100 %",
+      "< 0,01 %",
+      "0 %"
+    ]
+  },
+  {
+    "board": "6c3d2h",
+    "line": "n5",
+    "hand": "2s2d",
+    "ms": 120,
+    "actions": [
+      "Syna 9,14 BB",
+      "Fold"
+    ],
+    "frequencies": [
+      "100 %",
+      "0 %"
+    ]
+  },
+  {
+    "board": "5c4d3h",
+    "line": "n1",
+    "hand": "2s2h",
+    "ms": 220,
+    "actions": [
+      "Check",
+      "Satsa 2,75 BB",
+      "All-in till 97,5 BB"
+    ],
+    "frequencies": [
+      "36,24 %",
+      "63,76 %",
+      "< 0,01 %"
+    ]
+  },
+  {
+    "board": "Qc8d2d",
+    "line": "n3",
+    "hand": "2s2h",
+    "ms": 218,
+    "actions": [
+      "Syna 1,82 BB",
+      "Höj till 10,96 BB",
+      "All-in till 97,5 BB",
+      "Fold"
+    ],
+    "frequencies": [
+      "< 0,01 %",
+      "100 %",
+      "< 0,01 %",
+      "0 %"
+    ]
+  }
+]

@@ -1,0 +1,132 @@
+{
+  "createdAt": "2026-11-07T16:15:15.909002+00:00",
+  "synthetic": true,
+  "actualCurrentUserHandVerified": false,
+  "broadErrorPctVerified": false,
+  "userSteering": "Continue app function testing while no active training table is available.",
+  "change": {
+    "file": "electron/main.cjs",
+    "backgroundThrottling": false,
+    "sha256": "c98c66682826207904976e60ccff9c033249945b8a880b667ed517bc91bf6759",
+    "restartedAppPid": 69560,
+    "windowId": 29362226,
+    "reference": "https://www.electronjs.org/docs/latest/api/structures/web-preferences"
+  },
+  "observationCaveat": "Covered-window Windows AX text stayed old even while HTTP ingestion and native worker were active; initial frozen-state observation alone does not establish the root cause.",
+  "background": {
+    "initialHttpAckMs": 50,
+    "nativeWorkerPid": 71368,
+    "workerCreatedLocal": "2026-11-07T17:09:58.616797+01:00",
+    "visibleDecisionAfterReturn": true,
+    "firstCaptureFailed": "emit:false is unsupported for Windows screenshots; next capture succeeded",
+    "pixelLatencyMeasured": false
+  },
+  "cases": [
+    {
+      "players": 6,
+      "street": "turn",
+      "coldAfterRestart": true,
+      "background": true,
+      "serviceWallMs": 9023,
+      "iterations": 98304,
+      "decisionDisplayed": true
+    },
+    {
+      "players": 6,
+      "street": "river",
+      "serviceWallMs": 2689,
+      "iterations": 696320,
+      "decisionDisplayed": true
+    },
+    {
+      "players": 3,
+      "street": "river",
+      "afterRapidHandChange": true,
+      "serviceWallMs": 4514,
+      "iterations": 2269184,
+      "decisionDisplayed": true,
+      "newHandId": "990000000000203",
+      "javaPidBefore": 71368,
+      "javaPidAfter": 23760,
+      "oldAdviceObservedOnNewHand": false
+    }
+  ],
+  "expiry": {
+    "testFeedStopped": true,
+    "adviceHidden": true,
+    "waitingFresh": true,
+    "observationAgeMs": 14804,
+    "exactThresholdCrossingMeasured": false
+  },
+  "checks": {
+    "targetedTestsPassed": 13,
+    "targetedTestsFailed": 0,
+    "nodeMainSyntaxExit": 0,
+    "gitDiffCheckExit": 0,
+    "fullSuiteRerun": false,
+    "previousFullSuiteTimeoutUnresolved": true
+  },
+  "limitations": [
+    "First cold six-player turn remains too slow at 9.023 seconds.",
+    "No broad 2.1 percent quality certificate.",
+    "No unrestricted NLHE tree, preflop/flop support or new actual Edge-hand verification."
+  ],
+  "files": {
+    "monker-background-first.ax.txt": {
+      "bytes": 7710,
+      "sha256": "a99aac03f4ac29ee62eda15244f2e09f53db0f6a6deafde6cb1bc785c7bc9559"
+    },
+    "monker-background-regression.log": {
+      "bytes": 2996,
+      "sha256": "1935da973139471eed6b0ebb9b831d2e3f405ec85fd29fc3208c86c259a8ee8b"
+    },
+    "monker-background-resume.json": {
+      "bytes": 22197,
+      "sha256": "ff9318e1b38845e1fb863dee45a20a9bc235bc6f068d03a9f1315800866cc8d3"
+    },
+    "monker-background-second.ax.txt": {
+      "bytes": 7710,
+      "sha256": "a99aac03f4ac29ee62eda15244f2e09f53db0f6a6deafde6cb1bc785c7bc9559"
+    },
+    "monker-bakgrund-funktionstest.png": {
+      "bytes": 126979,
+      "sha256": "5c5cd7f79086ba3d3dd04d59d0bcf93240d0449639f1d81632235edbec35c55d"
+    },
+    "monker-expired.ax.txt": {
+      "bytes": 11883,
+      "sha256": "12ad1806d1459996a0e2f11bb3755a620d98dffc1662f7a941106b1b9a0ec52c"
+    },
+    "monker-inaktuell-avlasning-test.png": {
+      "bytes": 115221,
+      "sha256": "06cab3efa6d0ac6128f2e9385980d8dfd588ac8ba300d987d643911facd09637"
+    },
+    "monker-transition-after-cancel.ax.txt": {
+      "bytes": 16397,
+      "sha256": "c9bc220bbe90fa0fbc1d89497629fef40c2940731ce76b430d873b30b7b89154"
+    },
+    "monker-transition-river-pending.ax.txt": {
+      "bytes": 18309,
+      "sha256": "22210325ebd22c31d088b48825ea692e2022b9ced524517d502a85be438bf942"
+    },
+    "monker-ui-transitions-before-fix.jsonl": {
+      "bytes": 1036,
+      "sha256": "f12be3658de00016c4699b5df3d8b49d7201f96f12f026140b0ad9ef4246ec23"
+    },
+    "monker-ui-transitions-events.jsonl": {
+      "bytes": 4331,
+      "sha256": "4d25f2e3ec2e2d618c400325d40d047974501f797a4e9a4bbd10f3ebb446ec78"
+    },
+    "monker-ui-transitions.mjs": {
+      "bytes": 2181,
+      "sha256": "e24e7af241afc3c4e11560e7e98b5ffa8ab3c4b546f1138d2708ca5cbafb4200"
+    },
+    "monker-ui-transitions.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "monker-ui-transitions.stdout.log": {
+      "bytes": 123,
+      "sha256": "fed070f8d4b6c0304b4fb22f35dc6df0d6d7f0f2dbfe64b5e5752abf195097be"
+    }
+  }
+}

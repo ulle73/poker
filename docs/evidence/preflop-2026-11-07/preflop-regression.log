@@ -1,0 +1,33 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+·············x·································
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/decision-hook.test.ts > explains the coverage gap on flop without launching a solver
+AssertionError: expected 'Ditt beslutBeslutsmotorStrategi sakna…' to contain 'flop'
+
+Expected: "flop"
+Received: "Ditt beslutBeslutsmotorStrategi saknas för detta lägeIngen aktiverad solver stöder detta beslut."
+
+ ❯ tests/decision-hook.test.ts:153:33
+    151| it("explains the coverage gap on flop without launching a solver", asy…
+    152|   await act(async () => { root.render(createElement(Probe, {value: {..…
+    153|   expect(container.textContent).toContain("flop");
+       |                                 ^
+    154|   expect(calls.exact).not.toHaveBeenCalled();
+    155|   expect(calls.generic).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 46 passed (47)
+   Start at  21:13:56
+   Duration  19.99s (environment 88%, import 5%, tests 4%, transform 3%, worker 1%)
+
+Environment  jsdom was created 4 times · 16.28s total, 88% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

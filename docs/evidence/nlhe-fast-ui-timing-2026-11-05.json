@@ -1,0 +1,9 @@
+{
+  "syntheticReplay": true,
+  "provider": "b-inary-dcfr/turn",
+  "decisionElapsedMs": 2724.584999999999,
+  "calculationMs": 2121,
+  "errorPct": 1.805,
+  "limitPct": 2,
+  "certificate": "Uppmätt lösningskvalitet\nKälla\nb-inary Postflop · lokal\nVald felgräns / rotpott\n2 %\nBeräkning\n2121 ms\nIterationer\n120\nExploaterbarhet / rotpott\n1.805 %\nModell och begränsningar"
+}

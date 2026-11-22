@@ -1,0 +1,143 @@
+{
+  "seed": 52635299,
+  "iterations": 342466,
+  "trainMs": 155463.43,
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 3,
+    "seats": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180,
+        360,
+        360
+      ],
+      "bets": [
+        0,
+        60,
+        180,
+        0,
+        0
+      ],
+      "invested": [
+        0,
+        60,
+        180,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "canRaise": [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "actor": 3,
+      "dealer": 4,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "trained": true,
+    "frequencies": [
+      0.00038095238095238096,
+      0.00038095238095238096,
+      0.9992380952380953
+    ]
+  },
+  "artifact": {
+    "tables": 722,
+    "bytes": 4321152,
+    "rows": 174168,
+    "rootRows": 1176,
+    "modelSha256": "63c3aaa247c8f8342d52dbc985c44ab0257d3c4d91b89a143edc5e9052a5c0a9",
+    "manifestSha256": "a01390fae02b7dca22e6f16750750cc9b814bf72c8c7ce8b7b3664704579dcaa"
+  },
+  "processPeakRssKiB": 299708
+}

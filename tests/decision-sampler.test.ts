@@ -91,6 +91,21 @@ describe("decision range parser", () => {
   });
 });
 describe("decision joint deal sampling", () => {
+  it("draws from the unmodified weighted prior with unit importance when root oversampling is disabled", () => {
+    const config = input(3, ["Qh", "8d", "6h"]);
+    config.ranges[0] = "AhKh:0.25,QsQd:0.75";
+    const actual = config.heroCards.map(card);
+    const sample = createDealSampler(config, 431, [actual], 0);
+    let actualDeals = 0;
+    const samples = 4000;
+    for (let i = 0; i < samples; i++) {
+      const deal = sample();
+      expect(deal.importance).toBe(1);
+      if (key(deal.holes[0]) === key(actual)) actualDeals++;
+    }
+    expect(actualDeals / samples).toBeCloseTo(0.25, 1);
+    expect(() => createDealSampler(config, 431, [actual], 1)).toThrow(/oversampling/i);
+  });
   it("corrects importance for the entire oversampled root class instead of one physical hand", () => {
     const config = input(2, ["2s", "3h", "7d", "9c", "Jc"]);
     config.heroCards = ["As", "Ah"];

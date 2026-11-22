@@ -1,0 +1,2 @@
+{"players":4,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1171456,"initializeMs":1558.7894,"computeMs":2012.4638,"totalMs":3680.464,"qualityVerified":false}
+{"players":4,"nashConvPct":3.611352243802506,"accepted":false,"elapsedMs":217.56369999999998,"error":null}

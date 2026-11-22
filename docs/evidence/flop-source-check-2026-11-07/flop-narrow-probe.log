@@ -1,0 +1,8 @@
+{"elapsedMs":47,"memoryBytes":116313952,"narrow":true,"phase":"setup"}
+{"elapsedMs":2405,"iterations":10,"pctOfPot":440.87957763671875}
+{"elapsedMs":4679,"iterations":20,"pctOfPot":215.02529907226562}
+{"elapsedMs":7152,"iterations":30,"pctOfPot":79.60379791259766}
+{"elapsedMs":10355,"iterations":40,"pctOfPot":49.53740310668945}
+{"elapsedMs":13118,"iterations":50,"pctOfPot":33.920631408691406}
+{"elapsedMs":15348,"iterations":60,"pctOfPot":21.696903228759766}
+{"elapsedMs":17556,"iterations":70,"pctOfPot":49.48833084106445}

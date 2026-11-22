@@ -1,0 +1,46 @@
+{
+  "sourceRangeCounts": [
+    12,
+    9,
+    12
+  ],
+  "compressedRangeCounts": [
+    2,
+    2,
+    2
+  ],
+  "method": "exact-enumeration-information-set-best-response",
+  "values": [
+    1244.0984906510491,
+    2690.0753559609207,
+    65.82615338803001
+  ],
+  "bestResponses": [
+    1394.890157098122,
+    2818.3350456342055,
+    92.30911417744383
+  ],
+  "gains": [
+    150.79166644707288,
+    128.2596896732848,
+    26.482960789413823
+  ],
+  "nashConv": 305.5343169097715,
+  "nashConvPct": 7.638357922744288,
+  "maxGainPct": 3.7697916611768223,
+  "accepted": false,
+  "rootPot": 4000,
+  "rootActions": {
+    "JdJh": [
+      178.16442629678485,
+      186.11403566824575
+    ],
+    "KdKh": [
+      7314.288396029589,
+      7731.8025339706355
+    ]
+  },
+  "jointDeals": 8,
+  "visits": 3605,
+  "elapsedMs": 44.0983
+}

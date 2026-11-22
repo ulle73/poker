@@ -1,0 +1,35 @@
+{
+  "manifestSha256": "48bd40329b7d854829373d302edf2ae870f9436823c035481cc1dad4ca778d3c",
+  "fitSeed": 197231419,
+  "evaluationSeed": 312423817,
+  "fitSamples": 120000,
+  "evaluationSamples": 240000,
+  "errorProbability": 0.016666666666666666,
+  "publicNodes": 104,
+  "elapsedMs": 39367.7399,
+  "qualityLimitPct": 2.1,
+  "seats": [
+    {
+      "seat": 0,
+      "publicDecisionNodes": 15,
+      "estimatePct": -0.8750048105500989,
+      "errorMarginPct": 0.2549079810539326,
+      "lowerBoundPct": 0
+    },
+    {
+      "seat": 1,
+      "publicDecisionNodes": 15,
+      "estimatePct": -1.1472513030902138,
+      "errorMarginPct": 0.25530181588371165,
+      "lowerBoundPct": 0
+    },
+    {
+      "seat": 2,
+      "publicDecisionNodes": 20,
+      "estimatePct": -1.0800449494159268,
+      "errorMarginPct": 0.22315031519692702,
+      "lowerBoundPct": 0
+    }
+  ],
+  "disprovesQualityGate": false
+}

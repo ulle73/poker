@@ -1,0 +1,178 @@
+{
+  "synthetic": true,
+  "mode": "bb-vs-bu",
+  "startedAt": 1794082827705,
+  "finishedAt": 1794082877843,
+  "updates": 108,
+  "fixtures": [
+    {
+      "version": 1,
+      "source": "svenskaspel-dom",
+      "variant": "holdem",
+      "readerId": "synthetic-preflop-8329fd38-1ce7-45d9-ba36-27ddc0e4deeb",
+      "sequence": 1,
+      "handId": "990000000000301",
+      "capturedAt": 1794082827710,
+      "currency": "EUR",
+      "maxSeats": 6,
+      "players": [
+        {
+          "seat": 1,
+          "hero": false,
+          "position": "SB",
+          "stack": 1.99,
+          "bet": 0.01,
+          "folded": false,
+          "inHand": true
+        },
+        {
+          "seat": 2,
+          "hero": true,
+          "position": "BB",
+          "stack": 1.98,
+          "bet": 0.02,
+          "folded": false,
+          "inHand": true
+        },
+        {
+          "seat": 3,
+          "hero": false,
+          "position": "UTG",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 4,
+          "hero": false,
+          "position": "HJ",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 5,
+          "hero": false,
+          "position": "CO",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 6,
+          "hero": false,
+          "position": "BTN",
+          "stack": 2,
+          "bet": 0,
+          "folded": false,
+          "inHand": true
+        }
+      ],
+      "heroCards": [
+        "As",
+        "Qd"
+      ],
+      "board": [],
+      "pot": 0.03,
+      "street": "preflop",
+      "dealerSeat": 6,
+      "heroTurn": false,
+      "availableActions": [
+        "Fold",
+        "Syna",
+        "Höj"
+      ],
+      "valid": true,
+      "issues": [],
+      "observedActions": []
+    },
+    {
+      "version": 1,
+      "source": "svenskaspel-dom",
+      "variant": "holdem",
+      "readerId": "synthetic-preflop-8329fd38-1ce7-45d9-ba36-27ddc0e4deeb",
+      "sequence": 5,
+      "handId": "990000000000301",
+      "capturedAt": 1794082829690,
+      "currency": "EUR",
+      "maxSeats": 6,
+      "players": [
+        {
+          "seat": 1,
+          "hero": false,
+          "position": "SB",
+          "stack": 1.99,
+          "bet": 0.01,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 2,
+          "hero": true,
+          "position": "BB",
+          "stack": 1.98,
+          "bet": 0.02,
+          "folded": false,
+          "inHand": true
+        },
+        {
+          "seat": 3,
+          "hero": false,
+          "position": "UTG",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 4,
+          "hero": false,
+          "position": "HJ",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 5,
+          "hero": false,
+          "position": "CO",
+          "stack": 2,
+          "bet": 0,
+          "folded": true,
+          "inHand": false
+        },
+        {
+          "seat": 6,
+          "hero": false,
+          "position": "BTN",
+          "stack": 1.96,
+          "bet": 0.04,
+          "folded": false,
+          "inHand": true
+        }
+      ],
+      "heroCards": [
+        "As",
+        "Qd"
+      ],
+      "board": [],
+      "pot": 0.07,
+      "street": "preflop",
+      "dealerSeat": 6,
+      "heroTurn": true,
+      "availableActions": [
+        "Fold",
+        "Syna",
+        "Höj"
+      ],
+      "valid": true,
+      "issues": [],
+      "observedActions": []
+    }
+  ],
+  "tokenIncluded": false
+}

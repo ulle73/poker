@@ -1,0 +1,44 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+··xx·········
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > recovers when only blind seat 2 has appeared in the first snapshot
+AssertionError: expected 'Preflop: blinds är inte säkert avläst…' to be undefined
+
+- Expected:
+undefined
+
++ Received:
+"Preflop: blinds är inte säkert avlästa. Inväntar en hand från blindpostningen."
+
+ ❯ tests/preflop.test.ts:23:61
+     21|   const t=new PreflopTracker(),s=preflopSnapshot(),partial=structuredC…
+     22|   partial.players.forEach(p=>{if(p.seat!==posted){p.stack=2;p.bet=0;}}…
+     23|   t.observe(partial);t.observe(s);expect(t.facts(s)?.error).toBeUndefi…
+       |                                                             ^
+     24|  });
+     25|  it('rejects pot growth not explained by observed contributions',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > rejects pot growth not explained by observed contributions
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ tests/preflop.test.ts:27:31
+     25|  it('rejects pot growth not explained by observed contributions',()=>{
+     26|   const t=new PreflopTracker();const s=preflopSnapshot();t.observe(s);…
+     27|   expect(t.facts(gap)?.error).toMatch(/pott|pengar|historik/i);
+       |                               ^
+     28|  });
+     29|  it('keeps original six seats and both raises after players fold',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 11 passed (13)
+   Start at  21:22:38
+   Duration  2.87s (environment 93%, transform 4%, import 2%, tests 1%)
+

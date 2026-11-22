@@ -1,0 +1,1039 @@
+Window: "NLHE Solver", App: nlhe-solver-desktop.exe.
+	0 fönster NLHE Solver Secondary Actions: Raise
+		1 fönsterruta
+			8 fönsterruta NLHE Solver | No-Limit Hold'em Solving
+				9 fönsterruta (disabled)
+				10 region NLHE Solver | No-Limit Hold'em Solving – webbinnehåll
+					11 region
+						12 region
+						13 region
+							14 region
+								29 dokument NLHE Solver | No-Limit Hold'em Solving Value: http://127.0.0.1:8900/ ID: RootWebArea
+									30 grupp ID: root
+										31 rubrik
+											32 länk NLHE Solver workspace Value: http://127.0.0.1:8900/
+											33 navigering Workspace
+												34 länk Solve Value: http://127.0.0.1:8900/
+												35 länk Projects Value: http://127.0.0.1:8900/library
+												36 länk Hand review Value: http://127.0.0.1:8900/review
+												37 länk Queue Value: http://127.0.0.1:8900/batch
+											38 bild
+											79 text ENGINE READY
+											40 länk Help Value: http://127.0.0.1:8900/manual?from=app
+											41 detaljer
+												42 expanderingstriangel [account] Description: [account]
+													43 text [account]
+											44 detaljer
+												45 expanderingstriangel Advanced tools Description: Advanced tools
+												438 text ADVANCED TOOLS
+												439 länk Betting trees Value: http://127.0.0.1:8900/tree
+												440 länk Strategy viewer Value: http://127.0.0.1:8900/strategy
+												441 länk Matrix viewer Value: http://127.0.0.1:8900/matrix
+												442 länk Diagnostics Value: http://127.0.0.1:8900/operator
+												443 text v0.93
+											46 knapp Refresh all data Description: Refresh all data
+												47 bild
+										48 huvud
+											1996 avsnittsrubrik
+												1997 bild
+												1998 text RUN
+												1999 text READY
+											3168 knapp Open solve setup
+												3169 bild
+											2002 bild
+											2003 text START FRESH SOLVE
+											2004 knapp Review and run fresh solve from current spot and ranges Description: ⌘↵ / Ctrl+↵ ID: solver-run-fresh
+												3170 bild
+											3171 knapp Clear selected solve and restore default setup
+												3172 bild
+											2008 status
+												2009 text Draft saved
+											3173 bild
+											3174 text CONTINUE SELECTED SOLVE
+											3175 bild
+											3176 text RESUME THREADS
+											3177 alternativknappsgrupp (settable, string) Resume solver thread policy
+												3178 alternativknapp (selectable, settable, string) Resume solver thread policy: Auto Description: Re-run the on-device worker calibration for this solve shape.
+												3179 alternativknapp (selectable, settable, string) Resume solver thread policy: Custom Description: Set the worker count manually.
+											3180 knapp (disabled) Resume remove one solver thread
+												3181 bild
+											3182 snurrknapp (settable, float) Resume solver thread count Value: 1
+											3183 knapp Resume add one solver thread
+												3184 bild
+											3185 text Resume with 1 native workers.
+											3186 snurrknapp (settable, float) Refine convergence target Description: Convergence score Value: 10
+											3187 knapp Refine selected solve to convergence score 10
+												3188 bild
+											3189 snurrknapp (settable, float) Additional iterations Value: 20000
+											3190 knapp Continue selected solve for 20000 iterations
+												3191 bild
+											3192 text est. ~15s
+											2030 bild
+											2031 text RECENT SOLVES
+											2032 grupp Recent solves list
+												3193 knapp Currently open 41bb · BTN vs SB vs BB · Flop · JhQhKh · cEV
+											2034 bild
+											2035 text PROJECTS
+											2505 status
+												2506 text SAVED
+												2507 text Flop · BTN vs SB vs BB · JhQhKh · cEV
+												3127 text · v1
+												3128 text · Continued · 20,000 more iterations
+											2041 knapp Manage projects
+												2042 bild
+											2043 knapp Quick open saved project
+												2044 bild
+											2045 text 1 projects
+											2046 grupp Solver result workspace
+												2508 avsnittsrubrik
+													2509 bild
+													2510 text PROGRESS
+													3194 text DRAFT QUALITY
+													2512 text FINISHED
+												2522 bild
+												2523 text 19s
+												2825 bild
+												2826 status Sampled strategy stability, not exploitability. Updates about every 30 seconds at safe training boundaries. Description: Sampled strategy stability, not exploitability. Updates about every 30 seconds at safe training boundaries.
+													2827 text Convergence measuring
+												3195 status
+													3196 text Solve finished
+												3136 område Opened solve configuration
+													3137 bild
+													3138 text OPENED SOLVE
+													3139 text BTN VS SB VS BB
+													3140 text CEV
+													3141 text FLOP
+													3142 text JHQHKH
+													3143 text STACK 41BB
+													3144 text PRECISION
+													3145 text LOW
+													3146 text BOARD
+													3147 text HIGH
+													3148 text ITERS
+													3149 text 20,202
+													3150 text NASH GAP PROXY 16.87 BB/SEAT
+												3197 alternativknappsgrupp (settable, string) Solver result view
+													3198 alternativknapp (selectable, settable, string) Solver result view: Tree
+														3199 bild
+													3200 alternativknapp (selectable, settable, string) Solver result view: Runout
+														3201 bild
+												3151 varning
+													3152 text Draft strategy
+													3153 text Iteration cap reached before target
+													3154 knapp Continue this solve toward the convergence target
+														3155 bild
+												3202 avsnittsrubrik
+													3203 bild
+													3204 text ACTION
+													3205 knapp (disabled) Root
+														3206 bild
+													3207 knapp (disabled) Back
+														3208 bild
+													3209 text entry_flop
+													3210 text ACT
+													3211 text SB
+													3212 text POT
+													3213 text 4.50
+												3214 lista
+													3215 listobjekt BTN vs SB vs BB41bbcEVChange
+														3216 knapp Change
+															3217 bild
+													3218 listobjekt FLOPSBto act4.50Check100.0%
+														3219 knapp Change flop board
+														3220 grupp
+															3221 knapp SB to act Description: entry_flop
+															3222 text 4.50
+															3223 knapp Check 100.0%
+																3224 bild
+												3225 text Show previous streets
+												3226 alternativknappsgrupp (settable, string) Previous streets
+													3227 alternativknapp (selectable, settable, string) Previous streets: 0
+													3228 alternativknapp (selectable, settable, string) Previous streets: 1
+												3229 alternativknappsgrupp (settable, string) Bet size unit
+													3230 alternativknapp (selectable, settable, string) Bet size unit: bb
+													3231 alternativknapp (selectable, settable, string) Bet size unit: % pot
+												3232 knapp Change flop
+													3233 bild
+												3234 knapp Study tools
+													3235 bild
+												3236 avsnittsrubrik
+													3237 bild
+													3238 knapp RANGES
+													3239 text SB to act · flop
+													3240 knapp Lock range
+														3241 bild
+												3242 flik
+													3243 flikobjekt (selectable) Range
+													3244 flikobjekt (selectable) Breakdown
+													3245 flikobjekt (selectable) EV distribution
+												3246 grupp Selection display
+													3247 växlingsknapp Highlight
+													3248 växlingsknapp Filter
+												3249 knapp Filters
+												3250 knapp Export selection Description: Export matching combos with their weights, categories, and action EVs
+												3251 flikpanel Range
+													3252 område Strategy matrix · flop
+														3253 datarutnät (settable, string) Strategy matrix · flop
+															3254 rad AA, 6 combos AKs, 3 combos AQs, 3 combos AJs, 3 combos ATs, 4 combos A9s, 4 combos A8s, 4 combos A7s, 4 combos A6s, 4 combos A5s, 4 combos A4s, 4 combos A3s, 4 combos A2s, 4 combos
+																3255 objekt (selectable) AA, 6 combos
+																3256 objekt (selectable) AKs, 3 combos
+																3257 objekt (selectable) AQs, 3 combos
+																3258 objekt (selectable) AJs, 3 combos
+																3259 objekt (selectable) ATs, 4 combos
+																3260 objekt (selectable) A9s, 4 combos
+																3261 objekt (selectable) A8s, 4 combos
+																3262 objekt (selectable) A7s, 4 combos
+																3263 objekt (selectable) A6s, 4 combos
+																3264 objekt (selectable) A5s, 4 combos
+																3265 objekt (selectable) A4s, 4 combos
+																3266 objekt (selectable) A3s, 4 combos
+																3267 objekt (selectable) A2s, 4 combos
+															3268 rad AKo, 9 combos KK, 3 combos KQs, 3 combos KJs, 3 combos KTs, 3 combos K9s, 3 combos K8s, 3 combos K7s, 3 combos K6s, 3 combos K5s, 3 combos K4s, 3 combos K3s, 3 combos K2s, 3 combos
+																3269 objekt (selectable) AKo, 9 combos
+																3270 objekt (selectable) KK, 3 combos
+																3271 objekt (selectable) KQs, 3 combos
+																3272 objekt (selectable) KJs, 3 combos
+																3273 objekt (selectable) KTs, 3 combos
+																3274 objekt (selectable) K9s, 3 combos
+																3275 objekt (selectable) K8s, 3 combos
+																3276 objekt (selectable) K7s, 3 combos
+																3277 objekt (selectable) K6s, 3 combos
+																3278 objekt (selectable) K5s, 3 combos
+																3279 objekt (selectable) K4s, 3 combos
+																3280 objekt (selectable) K3s, 3 combos
+																3281 objekt (selectable) K2s, 3 combos
+															3282 rad AQo, 9 combos KQo, 6 combos QQ, 3 combos QJs, 3 combos QTs, 3 combos Q9s, 3 combos Q8s, 3 combos Q7s, 3 combos Q6s, 3 combos Q5s, 3 combos Q4s, 3 combos Q3s, 3 combos Q2s, 3 combos
+																3283 objekt (selectable) AQo, 9 combos
+																3284 objekt (selectable) KQo, 6 combos
+																3285 objekt (selectable) QQ, 3 combos
+																3286 objekt (selectable) QJs, 3 combos
+																3287 objekt (selectable) QTs, 3 combos
+																3288 objekt (selectable) Q9s, 3 combos
+																3289 objekt (selectable) Q8s, 3 combos
+																3290 objekt (selectable) Q7s, 3 combos
+																3291 objekt (selectable) Q6s, 3 combos
+																3292 objekt (selectable) Q5s, 3 combos
+																3293 objekt (selectable) Q4s, 3 combos
+																3294 objekt (selectable) Q3s, 3 combos
+																3295 objekt (selectable) Q2s, 3 combos
+															3296 rad AJo, 9 combos KJo, 6 combos QJo, 6 combos JJ, 3 combos JTs, 3 combos J9s, 3 combos J8s, 3 combos J7s, 3 combos J6s, 3 combos J5s, 3 combos J4s, 3 combos J3s, 3 combos J2s, 3 combos
+																3297 objekt (selectable) AJo, 9 combos
+																3298 objekt (selectable) KJo, 6 combos
+																3299 objekt (selectable) QJo, 6 combos
+																3300 objekt (selectable) JJ, 3 combos
+																3301 objekt (selectable) JTs, 3 combos
+																3302 objekt (selectable) J9s, 3 combos
+																3303 objekt (selectable) J8s, 3 combos
+																3304 objekt (selectable) J7s, 3 combos
+																3305 objekt (selectable) J6s, 3 combos
+																3306 objekt (selectable) J5s, 3 combos
+																3307 objekt (selectable) J4s, 3 combos
+																3308 objekt (selectable) J3s, 3 combos
+																3309 objekt (selectable) J2s, 3 combos
+															3310 rad ATo, 12 combos KTo, 9 combos QTo, 9 combos JTo, 9 combos TT, 6 combos T9s, 4 combos T8s, 4 combos T7s, 4 combos T6s, 4 combos T5s, 4 combos T4s, 4 combos T3s, 4 combos T2s, 4 combos
+																3311 objekt (selectable) ATo, 12 combos
+																3312 objekt (selectable) KTo, 9 combos
+																3313 objekt (selectable) QTo, 9 combos
+																3314 objekt (selectable) JTo, 9 combos
+																3315 objekt (selectable) TT, 6 combos
+																3316 objekt (selectable) T9s, 4 combos
+																3317 objekt (selectable) T8s, 4 combos
+																3318 objekt (selectable) T7s, 4 combos
+																3319 objekt (selectable) T6s, 4 combos
+																3320 objekt (selectable) T5s, 4 combos
+																3321 objekt (selectable) T4s, 4 combos
+																3322 objekt (selectable) T3s, 4 combos
+																3323 objekt (selectable) T2s, 4 combos
+															3324 rad A9o, 12 combos K9o, 9 combos Q9o, 9 combos J9o, 9 combos T9o, 12 combos 99, 6 combos 98s, 4 combos 97s, 4 combos 96s, 4 combos 95s, 4 combos 94s, 4 combos 93s, 4 combos 92s, 4 combos
+																3325 objekt (selectable) A9o, 12 combos
+																3326 objekt (selectable) K9o, 9 combos
+																3327 objekt (selectable) Q9o, 9 combos
+																3328 objekt (selectable) J9o, 9 combos
+																3329 objekt (selectable) T9o, 12 combos
+																3330 objekt (selectable) 99, 6 combos
+																3331 objekt (selectable) 98s, 4 combos
+																3332 objekt (selectable) 97s, 4 combos
+																3333 objekt (selectable) 96s, 4 combos
+																3334 objekt (selectable) 95s, 4 combos
+																3335 objekt (selectable) 94s, 4 combos
+																3336 objekt (selectable) 93s, 4 combos
+																3337 objekt (selectable) 92s, 4 combos
+															3338 rad A8o, 12 combos K8o, 9 combos Q8o, 9 combos J8o, 9 combos T8o, 12 combos 98o, 12 combos 88, 6 combos 87s, 4 combos 86s, 4 combos 85s, 4 combos 84s, 4 combos 83s, 4 combos 82s, 4 combos
+																3339 objekt (selectable) A8o, 12 combos
+																3340 objekt (selectable) K8o, 9 combos
+																3341 objekt (selectable) Q8o, 9 combos
+																3342 objekt (selectable) J8o, 9 combos
+																3343 objekt (selectable) T8o, 12 combos
+																3344 objekt (selectable) 98o, 12 combos
+																3345 objekt (selectable) 88, 6 combos
+																3346 objekt (selectable) 87s, 4 combos
+																3347 objekt (selectable) 86s, 4 combos
+																3348 objekt (selectable) 85s, 4 combos
+																3349 objekt (selectable) 84s, 4 combos
+																3350 objekt (selectable) 83s, 4 combos
+																3351 objekt (selectable) 82s, 4 combos
+															3352 rad A7o, 12 combos K7o, 9 combos Q7o, 9 combos J7o, 9 combos T7o, 12 combos 97o, 12 combos 87o, 12 combos 77, 6 combos 76s, 4 combos 75s, 4 combos 74s, 4 combos 73s, 4 combos 72s, 4 combos
+																3353 objekt (selectable) A7o, 12 combos
+																3354 objekt (selectable) K7o, 9 combos
+																3355 objekt (selectable) Q7o, 9 combos
+																3356 objekt (selectable) J7o, 9 combos
+																3357 objekt (selectable) T7o, 12 combos
+																3358 objekt (selectable) 97o, 12 combos
+																3359 objekt (selectable) 87o, 12 combos
+																3360 objekt (selectable) 77, 6 combos
+																3361 objekt (selectable) 76s, 4 combos
+																3362 objekt (selectable) 75s, 4 combos
+																3363 objekt (selectable) 74s, 4 combos
+																3364 objekt (selectable) 73s, 4 combos
+																3365 objekt (selectable) 72s, 4 combos
+															3366 rad A6o, 12 combos K6o, 9 combos Q6o, 9 combos J6o, 9 combos T6o, 12 combos 96o, 12 combos 86o, 12 combos 76o, 12 combos 66, 6 combos 65s, 4 combos 64s, 4 combos 63s, 4 combos 62s, 4 combos
+																3367 objekt (selectable) A6o, 12 combos
+																3368 objekt (selectable) K6o, 9 combos
+																3369 objekt (selectable) Q6o, 9 combos
+																3370 objekt (selectable) J6o, 9 combos
+																3371 objekt (selectable) T6o, 12 combos
+																3372 objekt (selectable) 96o, 12 combos
+																3373 objekt (selectable) 86o, 12 combos
+																3374 objekt (selectable) 76o, 12 combos
+																3375 objekt (selectable) 66, 6 combos
+																3376 objekt (selectable) 65s, 4 combos
+																3377 objekt (selectable) 64s, 4 combos
+																3378 objekt (selectable) 63s, 4 combos
+																3379 objekt (selectable) 62s, 4 combos
+															3380 rad A5o, 12 combos K5o, 9 combos Q5o, 9 combos J5o, 9 combos T5o, 12 combos 95o, 12 combos 85o, 12 combos 75o, 12 combos 65o, 12 combos 55, 6 combos 54s, 4 combos 53s, 4 combos 52s, 4 combos
+																3381 objekt (selectable) A5o, 12 combos
+																3382 objekt (selectable) K5o, 9 combos
+																3383 objekt (selectable) Q5o, 9 combos
+																3384 objekt (selectable) J5o, 9 combos
+																3385 objekt (selectable) T5o, 12 combos
+																3386 objekt (selectable) 95o, 12 combos
+																3387 objekt (selectable) 85o, 12 combos
+																3388 objekt (selectable) 75o, 12 combos
+																3389 objekt (selectable) 65o, 12 combos
+																3390 objekt (selectable) 55, 6 combos
+																3391 objekt (selectable) 54s, 4 combos
+																3392 objekt (selectable) 53s, 4 combos
+																3393 objekt (selectable) 52s, 4 combos
+															3394 rad A4o, 12 combos K4o, 9 combos Q4o, 9 combos J4o, 9 combos T4o, 12 combos 94o, 12 combos 84o, 12 combos 74o, 12 combos 64o, 12 combos 54o, 12 combos 44, 6 combos 43s, 4 combos 42s, 4 combos
+																3395 objekt (selectable) A4o, 12 combos
+																3396 objekt (selectable) K4o, 9 combos
+																3397 objekt (selectable) Q4o, 9 combos
+																3398 objekt (selectable) J4o, 9 combos
+																3399 objekt (selectable) T4o, 12 combos
+																3400 objekt (selectable) 94o, 12 combos
+																3401 objekt (selectable) 84o, 12 combos
+																3402 objekt (selectable) 74o, 12 combos
+																3403 objekt (selectable) 64o, 12 combos
+																3404 objekt (selectable) 54o, 12 combos
+																3405 objekt (selectable) 44, 6 combos
+																3406 objekt (selectable) 43s, 4 combos
+																3407 objekt (selectable) 42s, 4 combos
+															3408 rad A3o, 12 combos K3o, 9 combos Q3o, 9 combos J3o, 9 combos T3o, 12 combos 93o, 12 combos 83o, 12 combos 73o, 12 combos 63o, 12 combos 53o, 12 combos 43o, 12 combos 33, 6 combos 32s, 4 combos
+																3409 objekt (selectable) A3o, 12 combos
+																3410 objekt (selectable) K3o, 9 combos
+																3411 objekt (selectable) Q3o, 9 combos
+																3412 objekt (selectable) J3o, 9 combos
+																3413 objekt (selectable) T3o, 12 combos
+																3414 objekt (selectable) 93o, 12 combos
+																3415 objekt (selectable) 83o, 12 combos
+																3416 objekt (selectable) 73o, 12 combos
+																3417 objekt (selectable) 63o, 12 combos
+																3418 objekt (selectable) 53o, 12 combos
+																3419 objekt (selectable) 43o, 12 combos
+																3420 objekt (selectable) 33, 6 combos
+																3421 objekt (selectable) 32s, 4 combos
+															3422 rad A2o, 12 combos K2o, 9 combos Q2o, 9 combos J2o, 9 combos T2o, 12 combos 92o, 12 combos 82o, 12 combos 72o, 12 combos 62o, 12 combos 52o, 12 combos 42o, 12 combos 32o, 12 combos 22, 6 combos
+																3423 objekt (selectable) A2o, 12 combos
+																3424 objekt (selectable) K2o, 9 combos
+																3425 objekt (selectable) Q2o, 9 combos
+																3426 objekt (selectable) J2o, 9 combos
+																3427 objekt (selectable) T2o, 12 combos
+																3428 objekt (selectable) 92o, 12 combos
+																3429 objekt (selectable) 82o, 12 combos
+																3430 objekt (selectable) 72o, 12 combos
+																3431 objekt (selectable) 62o, 12 combos
+																3432 objekt (selectable) 52o, 12 combos
+																3433 objekt (selectable) 42o, 12 combos
+																3434 objekt (selectable) 32o, 12 combos
+																3435 objekt (selectable) 22, 6 combos
+													3436 text Displayed range
+													3437 text 1 176
+													3438 text 
+													3439 text combos
+													3440 text Share of displayed range
+													3441 text 100.0%
+													3442 text Average strategy EV
+													3443 text -1.31bb
+													3444 text EV coverage
+													3445 text 100.0%
+												3446 kompletterande Strategy detail
+													3447 bild 3-handed table, pot 4.5bb
+													3448 avsnittsrubrik
+														3449 text Full range
+														3450 text 1 176
+														3451 text combo
+														3452 text s
+													3453 knapp Save range
+													3454 område Action mix
+														3455 växlingsknapp CHECK 100.0% 1176.0 combos Description: Highlight Check in matrix
+															3456 text CHECK
+															3457 text 100.0%
+															3458 text 1176.0
+															3459 text combos
+													3460 område Combos
+														3461 flik
+															3462 flikobjekt (selectable) COMBOS
+															3463 flikobjekt (selectable) SUMMARY
+												3464 text Weights use the starting range × this player’s reach along the selected line.
+												3465 text 
+												3466 text Strategies and EVs use the saved per-hand estimates.
+								28 region
+		2 namnlist (settable, string) Value: NLHE Solver
+			3 menyrad System ID: MenuBar
+				4 menyalternativ System
+			5 knapp Minimera
+			6 knapp Maximera
+			7 knapp Stäng
+
+Document text: ```
+NLHE
+Solver
+Solve
+Projects
+Hand review
+Queue
+￼
+ENGINE READY
+Help
+[account]
+Advanced tools
+ADVANCED TOOLS
+Betting trees
+Strategy viewer
+Matrix viewer
+Diagnostics
+v0.93
+￼
+￼
+RUN
+READY
+￼
+Solve setup
+￼
+START FRESH SOLVE
+￼
+Review & Run
+￼
+Reset setup
+Draft saved
+￼
+CONTINUE SELECTED SOLVE
+￼
+RESUME THREADS
+Resume solver thread policy: Auto
+Resume solver thread policy: Custom
+￼
+1
+￼
+Resume with 1 native workers.
+10
+￼
+Refine to convergence ≤10
+20000
+￼
+Continue +20000 iterations
+est. ~15s
+￼
+RECENT SOLVES
+41bb · BTN vs SB vs BB · Flop · JhQhKh · cEV
+Finished
+￼
+PROJECTS
+SAVED
+Flop · BTN vs SB vs BB · JhQhKh · cEV · v1 · Continued · 20,000 more iterations
+￼
+Manage projects
+￼
+Quick open
+1 projects
+￼
+PROGRESS
+DRAFT QUALITY
+FINISHED
+￼
+19s
+￼
+Convergence measuring
+Solve finished
+￼
+OPENED SOLVE
+BTN VS SB VS BB
+CEV
+FLOP
+JHQHKH
+STACK 41BB
+PRECISION LOW
+BOARD HIGH
+ITERS 20,202
+NASH GAP PROXY 16.87 BB/SEAT
+￼
+Tree
+￼
+Runout
+Draft strategyIteration cap reached before target
+￼
+Continue to convergence ≤10
+￼
+ACTION
+￼
+Root
+￼
+Back
+entry_flop
+ACT
+SB
+POT
+4.50
+BTN vs SB vs BB
+41bb
+cEV
+￼
+Change
+FLOP
+SB
+to act
+4.50
+Check
+100.0%
+￼
+Show previous streets
+Previous streets: 0
+Previous streets: 1
+Bet size unit: bb
+Bet size unit: % pot
+￼
+Change flop
+￼
+Study tools
+￼
+RANGES
+SB to act · flop
+￼
+Lock range
+Range
+Breakdown
+EV distribution
+Highlight
+Filter
+Filters
+Export selection
+AA
+AKs
+AQs
+AJs
+ATs
+A9s
+A8s
+A7s
+A6s
+A5s
+A4s
+A3s
+A2s
+AKo
+KK
+KQs
+KJs
+KTs
+K9s
+K8s
+K7s
+K6s
+K5s
+K4s
+K3s
+K2s
+AQo
+KQo
+QQ
+QJs
+QTs
+Q9s
+Q8s
+Q7s
+Q6s
+Q5s
+Q4s
+Q3s
+Q2s
+AJo
+KJo
+QJo
+JJ
+JTs
+J9s
+J8s
+J7s
+J6s
+J5s
+J4s
+J3s
+J2s
+ATo
+KTo
+QTo
+JTo
+TT
+T9s
+T8s
+T7s
+T6s
+T5s
+T4s
+T3s
+T2s
+A9o
+K9o
+Q9o
+J9o
+T9o
+99
+98s
+97s
+96s
+95s
+94s
+93s
+92s
+A8o
+K8o
+Q8o
+J8o
+T8o
+98o
+88
+87s
+86s
+85s
+84s
+83s
+82s
+A7o
+K7o
+Q7o
+J7o
+T7o
+97o
+87o
+77
+76s
+75s
+74s
+73s
+72s
+A6o
+K6o
+Q6o
+J6o
+T6o
+96o
+86o
+76o
+66
+65s
+64s
+63s
+62s
+A5o
+K5o
+Q5o
+J5o
+T5o
+95o
+85o
+75o
+65o
+55
+54s
+53s
+52s
+A4o
+K4o
+Q4o
+J4o
+T4o
+94o
+84o
+74o
+64o
+54o
+44
+43s
+42s
+A3o
+K3o
+Q3o
+J3o
+T3o
+93o
+83o
+73o
+63o
+53o
+43o
+33
+32s
+A2o
+K2o
+Q2o
+J2o
+T2o
+92o
+82o
+72o
+62o
+52o
+42o
+32o
+22
+Displayed range
+1 176 combos
+Share of displayed range
+100.0%
+Average strategy EV
+-1.31bb
+EV coverage
+100.0%
+￼
+Full range
+1 176 combos
+Save range
+CHECK
+100.0%
+1176.0 combos
+COMBOS
+SUMMARY
+Weights use the starting range × this player’s reach along the selected line. Strategies and EVs use the saved per-hand estimates.
+```
+
+Focused element: 29 dokument NLHE Solver | No-Limit Hold'em Solving Value: http://127.0.0.1:8900/ ID: RootWebArea
+
+Document text:
+NLHE
+Solver
+Solve
+Projects
+Hand review
+Queue
+￼
+ENGINE READY
+Help
+[account]
+Advanced tools
+ADVANCED TOOLS
+Betting trees
+Strategy viewer
+Matrix viewer
+Diagnostics
+v0.93
+￼
+￼
+RUN
+READY
+￼
+Solve setup
+￼
+START FRESH SOLVE
+￼
+Review & Run
+￼
+Reset setup
+Draft saved
+￼
+CONTINUE SELECTED SOLVE
+￼
+RESUME THREADS
+Resume solver thread policy: Auto
+Resume solver thread policy: Custom
+￼
+1
+￼
+Resume with 1 native workers.
+10
+￼
+Refine to convergence ≤10
+20000
+￼
+Continue +20000 iterations
+est. ~15s
+￼
+RECENT SOLVES
+41bb · BTN vs SB vs BB · Flop · JhQhKh · cEV
+Finished
+￼
+PROJECTS
+SAVED
+Flop · BTN vs SB vs BB · JhQhKh · cEV · v1 · Continued · 20,000 more iterations
+￼
+Manage projects
+￼
+Quick open
+1 projects
+￼
+PROGRESS
+DRAFT QUALITY
+FINISHED
+￼
+19s
+￼
+Convergence measuring
+Solve finished
+￼
+OPENED SOLVE
+BTN VS SB VS BB
+CEV
+FLOP
+JHQHKH
+STACK 41BB
+PRECISION LOW
+BOARD HIGH
+ITERS 20,202
+NASH GAP PROXY 16.87 BB/SEAT
+￼
+Tree
+￼
+Runout
+Draft strategyIteration cap reached before target
+￼
+Continue to convergence ≤10
+￼
+ACTION
+￼
+Root
+￼
+Back
+entry_flop
+ACT
+SB
+POT
+4.50
+BTN vs SB vs BB
+41bb
+cEV
+￼
+Change
+FLOP
+SB
+to act
+4.50
+Check
+100.0%
+￼
+Show previous streets
+Previous streets: 0
+Previous streets: 1
+Bet size unit: bb
+Bet size unit: % pot
+￼
+Change flop
+￼
+Study tools
+￼
+RANGES
+SB to act · flop
+￼
+Lock range
+Range
+Breakdown
+EV distribution
+Highlight
+Filter
+Filters
+Export selection
+AA
+AKs
+AQs
+AJs
+ATs
+A9s
+A8s
+A7s
+A6s
+A5s
+A4s
+A3s
+A2s
+AKo
+KK
+KQs
+KJs
+KTs
+K9s
+K8s
+K7s
+K6s
+K5s
+K4s
+K3s
+K2s
+AQo
+KQo
+QQ
+QJs
+QTs
+Q9s
+Q8s
+Q7s
+Q6s
+Q5s
+Q4s
+Q3s
+Q2s
+AJo
+KJo
+QJo
+JJ
+JTs
+J9s
+J8s
+J7s
+J6s
+J5s
+J4s
+J3s
+J2s
+ATo
+KTo
+QTo
+JTo
+TT
+T9s
+T8s
+T7s
+T6s
+T5s
+T4s
+T3s
+T2s
+A9o
+K9o
+Q9o
+J9o
+T9o
+99
+98s
+97s
+96s
+95s
+94s
+93s
+92s
+A8o
+K8o
+Q8o
+J8o
+T8o
+98o
+88
+87s
+86s
+85s
+84s
+83s
+82s
+A7o
+K7o
+Q7o
+J7o
+T7o
+97o
+87o
+77
+76s
+75s
+74s
+73s
+72s
+A6o
+K6o
+Q6o
+J6o
+T6o
+96o
+86o
+76o
+66
+65s
+64s
+63s
+62s
+A5o
+K5o
+Q5o
+J5o
+T5o
+95o
+85o
+75o
+65o
+55
+54s
+53s
+52s
+A4o
+K4o
+Q4o
+J4o
+T4o
+94o
+84o
+74o
+64o
+54o
+44
+43s
+42s
+A3o
+K3o
+Q3o
+J3o
+T3o
+93o
+83o
+73o
+63o
+53o
+43o
+33
+32s
+A2o
+K2o
+Q2o
+J2o
+T2o
+92o
+82o
+72o
+62o
+52o
+42o
+32o
+22
+Displayed range
+1 176 combos
+Share of displayed range
+100.0%
+Average strategy EV
+-1.31bb
+EV coverage
+100.0%
+￼
+Full range
+1 176 combos
+Save range
+CHECK
+100.0%
+1176.0 combos
+COMBOS
+SUMMARY
+Weights use the starting range × this player’s reach along the selected line. Strategies and EVs use the saved per-hand estimates.

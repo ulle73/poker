@@ -1,0 +1,21 @@
+{
+  "readOnlyReviewer": true,
+  "findings": [
+    {
+      "priority": "P2",
+      "issue": "A first snapshot containing BB but no SB locked the hand in a blind error.",
+      "fixed": true,
+      "redGreenLog": "preflop-review-red.log / preflop-review-green.log"
+    }
+  ],
+  "sourceChecks": [
+    "Pinned range format uses conditional per-node frequencies.",
+    "All 2606 concrete range files have complete suit-symmetric hand classes."
+  ],
+  "declined": [
+    "Independent game-theoretic quality",
+    "Market-wide best-source claim",
+    "Legal interpretation",
+    "Actual current hand and full-suite verification"
+  ]
+}

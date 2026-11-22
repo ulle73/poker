@@ -34,6 +34,7 @@ export interface BettingRules {
   includeAllIn: boolean;
 }
 export interface DecisionInput {
+  preflop?: import('../preflop/types').PreflopFacts;
   key: string;
   hero: number;
   seats: number[];
@@ -56,7 +57,9 @@ export interface DecisionAction extends BettingAction {
 export interface DecisionResult {
   key: string;
   rangeRevision: number;
-  quality: "verified-gto" | "approximation";
+  quality: "verified-gto" | "approximation" | "solver-unverified" | "chart-reference" | "proven-action";
+  bounds?: import("../multiway/equity").EquityResult["bounds"];
+  reference?: import('../preflop/types').PreflopReference;
   provider: string;
   actions: DecisionAction[];
   recommended: number;
@@ -67,6 +70,11 @@ export interface DecisionResult {
   assumptions: string[];
   limitations: string[];
   exploitabilityPct: number | null;
+  qualityMetric?: 'max-unilateral';
+  qualityLimitPct?: number;
+  qualityNote?: string;
+  modelVerified?: boolean;
+  sourceProof?: {solver:'holdem-0.93';solveId:string;handIndex:number;history:string;visits:number;entryExact:true};
   diagnostics?: {
     informationSets: number;
     cachedCardViews: number;
@@ -99,10 +107,21 @@ export interface DecisionPolicy {
     frequencies: number[];
     trained: boolean;
   };
+  trainedTables?(): Iterable<{
+    history: string;
+    actionIds: readonly string[];
+    rows: Iterable<readonly [number, readonly number[]]>;
+  }>;
 }
 export interface SolveOptions {
   sampling?: "external" | "outcome";
   baseline?: "none" | "learned";
+  /** Offline profile evaluation can request a larger bounded training run. */
+  expandedResearchBudget?: boolean;
+  /** Bounded batch training for a profile to be exported before any request. */
+  offlinePrecomputation?: boolean;
+  /** Share of deals drawn from the requested hero hand's suit orbit. */
+  heroOversampling?: number;
   /** Diagnostic reference path; outcome sampling caches public transitions by default. */
   publicTreeCache?: boolean;
   seed?: number;

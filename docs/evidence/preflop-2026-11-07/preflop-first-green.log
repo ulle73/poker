@@ -1,0 +1,53 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+·····x···
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > binds a prior open and a second raise to the correct decision
+AssertionError: expected [ …(3) ] to deeply equal [ [ 'fold', 4, 0.2 ], …(2) ]
+
+- Expected
++ Received
+
+  [
+    [
+      "fold",
+      4,
+-     0.2,
+-   ],
+-   [
+-     "call",
+-     14,
+-     0.7,
++     0.20000000000000007,
+    ],
+    [
+      "raise",
+      40,
+      0.1,
++   ],
++   [
++     "call",
++     14,
++     0.7,
+    ],
+  ]
+
+ ❯ tests/preflop.test.ts:43:55
+     41|   const c=new DecisionContext();let s=preflopSnapshot(2);c.observe(s);…
+     42|   const r=preflopDecision(s,c.prepare(s),library);
+     43|   expect(r.actions.map(a=>[a.kind,a.to,a.frequency])).toEqual([['fold'…
+       |                                                       ^
+     44|  });
+     45|  it('rejects a mismatching earlier raise size and missing line data',(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  21:06:50
+   Duration  4.81s (environment 92%, transform 4%, import 2%, tests 1%)
+

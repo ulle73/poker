@@ -1,0 +1,34 @@
+{
+  "manifestSha256": "48bd40329b7d854829373d302edf2ae870f9436823c035481cc1dad4ca778d3c",
+  "familySizeCap": 24,
+  "errorProbability": 0.05,
+  "perAuditErrorProbability": 0.0020833333333333333,
+  "qualityLimitPct": 2.1,
+  "seats": [
+    {
+      "seat": 0,
+      "source": "stratified-seat-0.json",
+      "calculation": "minimum log-wealth slope on interval up to quality limit",
+      "originalUpperPct": 1.6085219454756345,
+      "increasedUpperPct": 1.966918155609062,
+      "adjustmentPct": 0.3583962101334275
+    },
+    {
+      "seat": 1,
+      "source": "card-grid-seat-1.json",
+      "calculation": "new bounded-differences margin at family alpha",
+      "originalUpperPct": 0.59917069860811,
+      "increasedUpperPct": 0.623277229956642,
+      "adjustmentPct": 0.024106531348532023
+    },
+    {
+      "seat": 2,
+      "source": "stratified-seat-2.json",
+      "calculation": "minimum log-wealth slope on interval up to quality limit",
+      "originalUpperPct": 1.371717399327584,
+      "increasedUpperPct": 1.7301136094610114,
+      "adjustmentPct": 0.3583962101334275
+    }
+  ],
+  "passesUpperGate": true
+}

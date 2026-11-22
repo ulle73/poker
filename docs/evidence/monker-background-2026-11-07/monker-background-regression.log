@@ -1,0 +1,26 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ✓ tests/decision-hook.test.ts > runs only the free exact solver and keeps advice hidden until it completes 274ms
+ ✓ tests/decision-hook.test.ts > reports solver errors instead of silently waiting for another table snapshot 15ms
+ ✓ tests/decision-hook.test.ts > explains the coverage gap on flop without launching a solver 16ms
+ ✓ tests/decision-hook.test.ts > rejects an experimental answer even if supplied by the exact adapter 13ms
+ ✓ tests/decision-hook.test.ts > ignores a late exact certificate after the hand changes 39ms
+ ✓ tests/decision-hook.test.ts > hides advice immediately when the request becomes unusable: {"fresh":false} 30ms
+ ✓ tests/decision-hook.test.ts > hides advice immediately when the request becomes unusable: {"enabled":false} 22ms
+ ✓ tests/decision-hook.test.ts > hides advice immediately when the request becomes unusable: {"value":{"version":1,"source":"svenskaspel-dom","readerId":"hook","sequence":1,"handId":"1","capturedAt":1794068030286,"currency":"EUR","maxSeats":2,"players":[{"seat":1,"hero":true,"position":"BB","stack":20,"bet":0,"folded":false,"inHand":true},{"seat":2,"hero":false,"position":"BTN / SB","stack":20,"bet":0,"folded":false,"inHand":true}],"heroCards":["Kh","Kd"],"board":["Ks","7d","2c","8h"],"pot":10,"street":"turn","dealerSeat":2,"heroTurn":false,"availableActions":["Check","Bet"],"valid":true,"issues":[],"observedActions":[]}} 22ms
+ ✓ tests/decision-hook.test.ts > hides advice immediately when the request becomes unusable: {"value":{"version":1,"source":"svenskaspel-dom","readerId":"hook","sequence":1,"handId":"1","capturedAt":1794068030286,"currency":"EUR","maxSeats":2,"players":[{"seat":1,"hero":true,"position":"BB","stack":20,"bet":0,"folded":false,"inHand":true},{"seat":2,"hero":false,"position":"BTN / SB","stack":20,"bet":0,"folded":false,"inHand":true}],"heroCards":["Kh","Kd"],"board":["Ks","7d","2c","8h"],"pot":10,"street":"turn","dealerSeat":2,"heroTurn":true,"availableActions":["Check","Bet"],"valid":false,"issues":["Ogiltig avläsning."],"observedActions":[]}} 21ms
+ ✓ tests/decision-hook.test.ts > does not revive advice when a solve completes after freshness is lost 11ms
+ ✓ tests/monker-service.test.ts > remembers an early cancel before validating input or starting Java 6ms
+ ✓ tests/monker-service.test.ts > does not stop a newer Monker job when an old request is cancelled 1ms
+ ✓ tests/monker-service.test.ts > rejects malformed job identities without touching the runtime 1ms
+
+ Test Files  2 passed (2)
+      Tests  13 passed (13)
+   Start at  17:13:40
+   Duration  11.08s (environment 86%, import 6%, tests 5%, transform 3%)
+
+Environment  jsdom was created 2 times · 8.32s total, 86% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

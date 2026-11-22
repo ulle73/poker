@@ -1,0 +1,179 @@
+{
+  "name": "preflop-4",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "ms": 2177,
+      "receivedAt": 1795255086627,
+      "ui": {
+        "hand": "1000",
+        "provider": "rangeconverter-preflop",
+        "action": "Raise till 0,04 EUR",
+        "quality": "Prefloptabell · referensmodell",
+        "rows": [
+          "Raise till 0,04 EUR\n100.0 %\n—"
+        ],
+        "current": "Hand\n#1000\nGata\npreflop\nPott\n0,03 EUR\nDin stack bakom\n0,8 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n4 / 4 / 6",
+        "strength": "Din starthand\nAA\n\nPå floppen kan din första femkortshand jämföras med motståndarnas.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 6,
+        "handId": "1000",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "preflop",
+        "dealerSeat": 4,
+        "heroTurn": true,
+        "heroCards": [
+          "As",
+          "Ah"
+        ],
+        "board": [],
+        "pot": 0.03,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna",
+          "Höj"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": false,
+            "position": "SB",
+            "stack": 0.79,
+            "bet": 0.01,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0.78,
+            "bet": 0.02,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": true,
+            "position": "CO",
+            "stack": 0.8,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "BTN",
+            "stack": 0.8,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "ms": 2012,
+      "receivedAt": 1795255088808,
+      "ui": {
+        "hand": "1001",
+        "provider": "rangeconverter-preflop",
+        "action": "Raise till 0,04 EUR",
+        "quality": "Prefloptabell · referensmodell",
+        "rows": [
+          "Raise till 0,04 EUR\n100.0 %\n—"
+        ],
+        "current": "Hand\n#1001\nGata\npreflop\nPott\n0,03 EUR\nDin stack bakom\n0,8 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n4 / 4 / 6",
+        "strength": "Din starthand\nAA\n\nPå floppen kan din första femkortshand jämföras med motståndarnas.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 12,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "preflop",
+        "dealerSeat": 4,
+        "heroTurn": true,
+        "heroCards": [
+          "As",
+          "Ah"
+        ],
+        "board": [],
+        "pot": 0.03,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna",
+          "Höj"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": false,
+            "position": "SB",
+            "stack": 0.79,
+            "bet": 0.01,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0.78,
+            "bet": 0.02,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": true,
+            "position": "CO",
+            "stack": 0.8,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "BTN",
+            "stack": 0.8,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

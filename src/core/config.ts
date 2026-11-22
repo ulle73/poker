@@ -16,7 +16,9 @@ export function validateConfig(
       typeof r !== "string" ||
       !r.trim() ||
       r.length > 512 ||
-      !/^([2-9TJQKAshdco,:+.\-\s])+$/i.test(r)
+      // 0 and 1 occur in range weights (AA:0.25), not as card ranks.
+      // Full grammar/card validation is performed by the selected range parser.
+      !/^([0-9TJQKAshdco,:+.\-\s])+$/i.test(r)
     )
       throw new Error(
         "Ogiltig range. Använd standardnotation, till exempel TT+,ATs+,AhKh.",

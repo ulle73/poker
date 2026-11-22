@@ -1,0 +1,23 @@
+{
+  "manifestSha256": "48bd40329b7d854829373d302edf2ae870f9436823c035481cc1dad4ca778d3c",
+  "fitSeed": 511679839,
+  "evaluationSeed": 737831291,
+  "fitSamples": 220000,
+  "evaluationSamples": 240000,
+  "fixedFlopPolicy": true,
+  "fittedFeatures": "visible strength and turn rank/suit or river board texture",
+  "errorProbability": 0.016666666666666666,
+  "publicNodes": 104,
+  "elapsedMs": 37721.4387,
+  "qualityLimitPct": 2.1,
+  "seats": [
+    {
+      "seat": 1,
+      "publicDecisionNodes": 12,
+      "estimatePct": -0.08072299704444844,
+      "errorMarginPct": 0.059408924654766465,
+      "lowerBoundPct": 0
+    }
+  ],
+  "disprovesQualityGate": false
+}

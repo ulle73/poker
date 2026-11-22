@@ -1,0 +1,390 @@
+{
+  "docs/evidence/monker-policy-audit/brute-crosscheck.json": {
+    "sha256": "79ea18308fc09c3231b917877d928f6f234964b276eba1d4e300345b1de8e176",
+    "bytes": 369
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3river10000Ks7d2c8h9s200000.json": {
+    "sha256": "561d098fbd6c4d01b08c767d799d8ccc3516a1cda01daaa7fac2d2ebab058da4",
+    "bytes": 5657
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3river10000nrKs7d2c8h9s200000.json": {
+    "sha256": "01c9b1c9c08b85f9062c33980eba78a29ffced7fe4b1ac51f093922811f99fb0",
+    "bytes": 5932
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3river1000Ks7d2c8h9s200000.json": {
+    "sha256": "b8f974a3f096265099f6ed5df7e5084e06770c3f715ac9fbe872f08c08489a7d",
+    "bytes": 5846
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3river100Ks7d2c8h9s200000.json": {
+    "sha256": "0fce482943eb714503329e2d39a63dc076b291ccec9fa4f62fa93a707ee76710",
+    "bytes": 5951
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3turn100000nrKs7d2c8h200000.json": {
+    "sha256": "ab317fa15aa573ab9f56bcfcb167ad799f2aa67e14882f0c5d2b1a93539e02b9",
+    "bytes": 30887
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3turn10000nrRetryKs7d2c8h200000.json": {
+    "sha256": "0a5a5974bc0e390bd1c24d62f27094632ed96e66e8e5dea070431c6d8b004893",
+    "bytes": 31858
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit3turnSPR4Ks7d2c8h16000.json": {
+    "sha256": "69e9cbac9bd9438faf1f07d2841a60ac90b188f2c6920df35227ac1ce2f44f4b",
+    "bytes": 30437
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit4river10000nrKs7d2c8h9s200000.json": {
+    "sha256": "1ea589fcf64e2c46b1e485356b9bbc3e16573d4b286c22de85c9c9e4572314af",
+    "bytes": 13884
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit4turn1000nrRetryKs7d2c8h200000.json": {
+    "sha256": "341f7b2d674276b4c54389efe444ee4c55c5303dd773b4ef0a2276b185ba7a78",
+    "bytes": 68437
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit5river10000nrKs7d2c8h9s200000.json": {
+    "sha256": "6c65e0269aba706d72116b8d16c506b341568c3fa1e2a88cc5c24b26b843dfd2",
+    "bytes": 34381
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit5turn1000nrKs7d2c8h200000.json": {
+    "sha256": "8433848d5a7cb54d5157846c1785e3c6c537d7e6306217cfc0c8bfa3bb96f70c",
+    "bytes": 162615
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit6river1000nrKs7d2c8h9s200000.json": {
+    "sha256": "99b9fab9a36f1bfa3a84e293bcb0321ff538db03377fe71bfa5a8fcc5e062525",
+    "bytes": 80703
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit6turn1000nrKs7d2c8h200000.json": {
+    "sha256": "93813808a2b1869484fd08115e86f90d658035f516a84c19f04914441f3e35c6",
+    "bytes": 417573
+  },
+  "docs/evidence/monker-policy-audit/decoded/audit6turn100nrKs7d2c8h200000.json": {
+    "sha256": "c7d04d1a5d5d54ed0cb1f2798f643610f492f6bc6149aaa4519d1237ae3913a5",
+    "bytes": 355920
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3river10000Ks7d2c8h9s200000.mkr": {
+    "sha256": "728033bd904e7aa72926d89fa8e12551f6801eb0a1381b617e51e24594f5b009",
+    "bytes": 38630
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3river10000nrKs7d2c8h9s200000.mkr": {
+    "sha256": "19d66d9a57c1cddc63152619ef948e6e0fba13123c6ef1a4b7249bad50877c05",
+    "bytes": 38630
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3river1000Ks7d2c8h9s200000.mkr": {
+    "sha256": "848510cb7ade0cceae27759d00990d2a321fa08d98385600202c882604426d59",
+    "bytes": 38630
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3river100Ks7d2c8h9s200000.mkr": {
+    "sha256": "9cb8a715758a7876dd23e55d3846642e149af48e63d065507dadb5f24a6afbb6",
+    "bytes": 38630
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3turn100000nrKs7d2c8h200000.mkr": {
+    "sha256": "610a124fce0897b6a1115d208bebbd19aabdf181320356c54981467bf6795025",
+    "bytes": 54648
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3turn10000nrRetryKs7d2c8h200000.mkr": {
+    "sha256": "922cbbdf9f0827a8ad3b8ce2de8d583e084ac41c1f1a196bc19463546607c637",
+    "bytes": 54648
+  },
+  "docs/evidence/monker-policy-audit/exports/audit3turnSPR4Ks7d2c8h16000.mkr": {
+    "sha256": "f18086b7eff8717e59feff2682b7c89ddfb4b186fede4f29d02d16b63cac3416",
+    "bytes": 54648
+  },
+  "docs/evidence/monker-policy-audit/exports/audit4river10000nrKs7d2c8h9s200000.mkr": {
+    "sha256": "c15ba1a78ed0435016763313c56f81ebfbafe3013979f7ee9759a2faff7ae85d",
+    "bytes": 52319
+  },
+  "docs/evidence/monker-policy-audit/exports/audit4turn1000nrRetryKs7d2c8h200000.mkr": {
+    "sha256": "a2f206b027ca34349e9a0fad692215535b39742a4f23e207cb40ea69da84498e",
+    "bytes": 93950
+  },
+  "docs/evidence/monker-policy-audit/exports/audit5river10000nrKs7d2c8h9s200000.mkr": {
+    "sha256": "869b5556b293cbcbcf69ed98e0689c2bedfddf3fdac3cc4d758b37cb400f6eeb",
+    "bytes": 69228
+  },
+  "docs/evidence/monker-policy-audit/exports/audit5turn1000nrKs7d2c8h200000.mkr": {
+    "sha256": "652de9d59c8689b91315a51aad5199865ca4fcd3e9403d4cf38c5275a281310c",
+    "bytes": 171953
+  },
+  "docs/evidence/monker-policy-audit/exports/audit6river1000nrKs7d2c8h9s200000.mkr": {
+    "sha256": "cb346f9cf0cb39fbcf205955873a4cc6d684e0fd095e047fa1c966c9e29f1f21",
+    "bytes": 93497
+  },
+  "docs/evidence/monker-policy-audit/exports/audit6turn1000nrKs7d2c8h200000.mkr": {
+    "sha256": "da722160e1e478131d79340ee7ee226c4fcb38cbebb0876645a35520e8a9fce6",
+    "bytes": 338399
+  },
+  "docs/evidence/monker-policy-audit/exports/audit6turn100nrKs7d2c8h200000.mkr": {
+    "sha256": "c21770f5e8ba50cea4d2221a395cd343d56e0387a5c5f46488d35ca428dfa3c3",
+    "bytes": 338399
+  },
+  "docs/evidence/monker-policy-audit/failed-handcoded-deviation.json": {
+    "sha256": "049569c8925873fb5da0ba98faebef604286bc566868734d0b82d76ca17f0063",
+    "bytes": 274
+  },
+  "docs/evidence/monker-policy-audit/final-build.log": {
+    "sha256": "0ea3a59ae1ad783fa3412d098aa9fca431066a88c7e8a89c8809c6863feced3e",
+    "bytes": 2097
+  },
+  "docs/evidence/monker-policy-audit/full-serial-tests.log": {
+    "sha256": "77fba4133578e62830246b7eedc1a4ba4c09a79aae96e19fd806ecf91dfa60ae",
+    "bytes": 1358
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-3p-river-audit2.tree": {
+    "sha256": "0d89fa6c31f8fff194d3231673d034f6f51629354b986e1b7d5ed2e4f655256f",
+    "bytes": 16047
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-3p-turn-audit2.tree": {
+    "sha256": "942130ef3d58c7f8a09d67bec93717b66da3edb908e19c3abe74c3a1e55d4cdb",
+    "bytes": 16143
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-4p-river-audit2.tree": {
+    "sha256": "e71e69b91ce619ed35dce3d0987b5c28c366b313806db290487656498b767738",
+    "bytes": 21515
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-4p-turn-audit2.tree": {
+    "sha256": "dd2faf9acc5ee9e2726df36ecbe29a4f4fc2b912638a34581106894ce1c7b648",
+    "bytes": 21771
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-5p-river-audit2.tree": {
+    "sha256": "f872f1563a78bff8c769858846aac08553439aa98717effbb27d56ca36ec3f55",
+    "bytes": 27207
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-5p-turn-audit2.tree": {
+    "sha256": "26f0ad8430482c736c9c987db4e947a2ce08665bf0d322c3e09882d1a2da4848",
+    "bytes": 27847
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-6p-river-audit2.tree": {
+    "sha256": "21bf5f95952d8d85edc07da20264d8ec930a075ba7df0f4fdb67cc1f1fdd3586",
+    "bytes": 33411
+  },
+  "docs/evidence/monker-policy-audit/inputs/monker-6p-turn-audit2.tree": {
+    "sha256": "6cbaa2da4970894225604b3579db33f58b09abb7185077c255c91211644d8cf9",
+    "bytes": 34947
+  },
+  "docs/evidence/monker-policy-audit/monker-3p-turn-final-policy.png": {
+    "sha256": "91a2a95ff10151df703e07d61ddf6b98909709d9d17c809a57d239193021397b",
+    "bytes": 96806
+  },
+  "docs/evidence/monker-policy-audit/monker-turn-future-river-mapping.png": {
+    "sha256": "114d14eb5746c711bf375bd7ad97a2d86a6dd96fa85ae7acc081060ff189663a",
+    "bytes": 97424
+  },
+  "docs/evidence/monker-policy-audit/npm-tests.log": {
+    "sha256": "a8694576256ecf57fd49d6b82965d957a03286861353dc70cedce8ec31ca27f5",
+    "bytes": 2867
+  },
+  "docs/evidence/monker-policy-audit/oracle-after.json": {
+    "sha256": "0e13ef9d9890fa6b915f9c53c61076182a4b3af05187423c98db273bf082e3e4",
+    "bytes": 3059
+  },
+  "docs/evidence/monker-policy-audit/oracle-before.json": {
+    "sha256": "f5fc3714bf7e8ad9274c3c746da895c5d8fa55926dbea4227e8b012d5e123f0d",
+    "bytes": 3050
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river10000Ks7d2c8h9s200000-average.json": {
+    "sha256": "a2c7edde9f45b1e3d5125958af06618e7deb9aae6e06c760166acdd695e7e1ef",
+    "bytes": 1107
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river10000Ks7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "aaafad19d5bd1313ead1d68e7212faf09801dbbfbee0d9ca5981fd0e47482288",
+    "bytes": 1134
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river10000nrKs7d2c8h9s200000-average.json": {
+    "sha256": "a38943f79245daca35377c83529598fdf4a504b009578a0edda1f5d03fe86f73",
+    "bytes": 1344
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river10000nrKs7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "fd507f6a1cad0a58d80896f525142091be27c44e371e10fc716127c184a2ed8b",
+    "bytes": 1130
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river1000Ks7d2c8h9s200000-average.json": {
+    "sha256": "6b72071a9e1f333e0bb77511eb483af6294cddd356741cad638b564d1b4e069f",
+    "bytes": 1326
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river1000Ks7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "e50d80fe337581c9a834977392c8722c64ff2e145fd97c2782e304227db2f885",
+    "bytes": 1133
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river100Ks7d2c8h9s200000-average.json": {
+    "sha256": "f5e5f5f7b5726a73bd8f28719dae9a4b4a1f54852201215150bc567fc2024405",
+    "bytes": 1351
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3river100Ks7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "dacf871631e081ceb6000b1dedb36162e67d1ede5bdec76b82305d7bb32f15a9",
+    "bytes": 1132
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turn100000nrKs7d2c8h200000-average.json": {
+    "sha256": "2cb0c7e2618676da732b3180d113e9621ea63a158341deb803a65c9e486a655c",
+    "bytes": 1341
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turn100000nrKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "8872f312fddb2d91e859174159d56a07710f613c684741cfad1f37d1e5f5ab59",
+    "bytes": 1215
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turn10000nrRetryKs7d2c8h200000-average.json": {
+    "sha256": "55b3114b5e5a9383a163409605903416af5f6e65a73f067bc0afb7bc21795038",
+    "bytes": 1329
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turn10000nrRetryKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "9ff95e3412d64bd9afe1720316285926feb6989b1ffe724391c8942f40a072bb",
+    "bytes": 1296
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turnSPR4Ks7d2c8h16000-average.json": {
+    "sha256": "c6553a1eaadcf168d61251b29cb53385220c394f31ca4bf000edaada561edce0",
+    "bytes": 1330
+  },
+  "docs/evidence/monker-policy-audit/quality/audit3turnSPR4Ks7d2c8h16000-current-regret-matching.json": {
+    "sha256": "954d2cc07cc478e019df02cd37006139846e6e74b364d09850f08b97bf835df1",
+    "bytes": 1298
+  },
+  "docs/evidence/monker-policy-audit/quality/audit4river10000nrKs7d2c8h9s200000-average.json": {
+    "sha256": "aedbc8cd5311dc41fc97555a585f5fddd74283e492f1c1f47d195a1e4c398393",
+    "bytes": 1371
+  },
+  "docs/evidence/monker-policy-audit/quality/audit4river10000nrKs7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "2ee7ebd45b78de998b20889518202cccc0b55ba415fecc96b52a4fc8a445f68a",
+    "bytes": 1173
+  },
+  "docs/evidence/monker-policy-audit/quality/audit4turn1000nrRetryKs7d2c8h200000-average.json": {
+    "sha256": "edeabf196071ac654fa2bbf939a4656474b3c14c4637c24f58756569ec432d91",
+    "bytes": 1407
+  },
+  "docs/evidence/monker-policy-audit/quality/audit4turn1000nrRetryKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "3407ce6138f4db3ef0253ebec182ea81335da00ea87765b050921f198448456a",
+    "bytes": 1139
+  },
+  "docs/evidence/monker-policy-audit/quality/audit5river10000nrKs7d2c8h9s200000-average.json": {
+    "sha256": "9c5fa84cb59b18af5e6ec43cb61452eaad8479018b645a6a95af95e3bc71f449",
+    "bytes": 1490
+  },
+  "docs/evidence/monker-policy-audit/quality/audit5river10000nrKs7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "f108377e7212413cf690d0ba5d7e9bbf03ad17bbf24204d661945c3fb6ed4cad",
+    "bytes": 1188
+  },
+  "docs/evidence/monker-policy-audit/quality/audit5turn1000nrKs7d2c8h200000-average.json": {
+    "sha256": "1fca5b4118817a53ccbbb3c4279b1905dfff3e8e1aec684ec62e13d1a4000f8b",
+    "bytes": 1490
+  },
+  "docs/evidence/monker-policy-audit/quality/audit5turn1000nrKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "cd6be28f39a44b347c541799587321a909df2feda2b94503888599b43784c854",
+    "bytes": 1310
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6river1000nrKs7d2c8h9s200000-average.json": {
+    "sha256": "6ba413704c351bc90fe650aab06f0e6ad466f94223240b989e7759a8613ec9ab",
+    "bytes": 1493
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6river1000nrKs7d2c8h9s200000-current-regret-matching.json": {
+    "sha256": "3a32a71355e4a6e88e3d027a798ea1b23b6b798b9a35025235995ac3f1734e9d",
+    "bytes": 1224
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6turn1000nrKs7d2c8h200000-average.json": {
+    "sha256": "3f2217bcfe6dbaab057fe1bb502e1edf58788244b5456cd009354037ad36ba34",
+    "bytes": 1571
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6turn1000nrKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "71ad6a44835bcc003f3dba627626d734d7d017c4e76e8c428d74c4ca09ab1eda",
+    "bytes": 1398
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6turn100nrKs7d2c8h200000-average.json": {
+    "sha256": "9b9b049606d06323a0614af8f07ac92bf482e2f214a8fff37ab78376e5bb212f",
+    "bytes": 1573
+  },
+  "docs/evidence/monker-policy-audit/quality/audit6turn100nrKs7d2c8h200000-current-regret-matching.json": {
+    "sha256": "171d580d1e2d6a09edb0ac1c382617b808a59fce770d19e09a03f351fe094d82",
+    "bytes": 1333
+  },
+  "docs/evidence/monker-policy-audit/restart-stderr.txt": {
+    "sha256": "97281d9e2c88a734f26133958a6ffc0506c1d208cff153c5d53446c95788fc8a",
+    "bytes": 192
+  },
+  "docs/evidence/monker-policy-audit/serial-targeted-tests.log": {
+    "sha256": "b2f130e03ad56ad45b27f8c2f9046bee8b1f42df9b0f3a8e793505b2d30df25c",
+    "bytes": 491
+  },
+  "docs/evidence/monker-policy-audit/starts.json": {
+    "sha256": "c83f601b5a6908d89823bf4cc2317546df6fc580d0220159501fb7b36d6b77c2",
+    "bytes": 2748
+  },
+  "docs/evidence/monker-policy-audit/turn-br-certificate.json": {
+    "sha256": "46d586c29e1651d45c3be9424290365c2385649da9865515f1af527b04e2869f",
+    "bytes": 19280
+  },
+  "docs/evidence/monker-policy-audit/turn-certificate-crosscheck.json": {
+    "sha256": "43926e52ddd9db0c4f0c6f3a89538bac48130e8903d5657d410f48ccae144d90",
+    "bytes": 271
+  },
+  "docs/evidence/monker-policy-audit-2026-11-06.json": {
+    "sha256": "59acadc1571be8ae93f8f9355c5301b05d136d5d6df5cf920bd261daff507b1e",
+    "bytes": 14407
+  },
+  "docs/monker-policy-audit-2026-11-06.md": {
+    "sha256": "ac320786a61d124d60697300e9f02398327b7e3574b5523044ba77f29e7772a9",
+    "bytes": 10267
+  },
+  "PROJECT_LOG.md": {
+    "sha256": "f4af4801d6fbeefaa945e957b9eca17945f17c4b02e9e597e68f0b5e84eb8d26",
+    "bytes": 106678
+  },
+  "scripts/monker-audit/audit-file.mjs": {
+    "sha256": "855d806a20ac5bc02de7dfca65629168ad6078f8b94119d6abb5b91b38073d38",
+    "bytes": 984
+  },
+  "scripts/monker-audit/crosscheck-river.mjs": {
+    "sha256": "eacd08e9ddf7e1b0460a0c7785c28574d599763c060d94b8625b64be31e9ea96",
+    "bytes": 2871
+  },
+  "scripts/monker-audit/crosscheck-turn.mjs": {
+    "sha256": "a0e5684cab80971e5730651e399d16695ab241bffa97619a0f701de104a5b446",
+    "bytes": 3268
+  },
+  "scripts/monker-audit/Measure-MonkerExports.ps1": {
+    "sha256": "d1af52e1940f11bb44827fca03949eb08a76c3d3ce22e858ec9ff05b8658d0e7",
+    "bytes": 3774
+  },
+  "scripts/monker-audit/MonkerArchiveInspect.java": {
+    "sha256": "2a375dbb93adaab328c4c832987b6f92a73a8cf780358c0e5e5a272267b7e9d3",
+    "bytes": 3889
+  },
+  "scripts/monker-audit/MonkerNarrowInputs.java": {
+    "sha256": "81f2296438bf765f1df3e5e4fae09bd6e94e3304aba728ca4cd04e7e44dc3706",
+    "bytes": 1677
+  },
+  "scripts/monker-audit/MonkerPolicyExport.java": {
+    "sha256": "9acbc286fa9ee424cad2191963ddc23ba5b6d1b8096f63f6db12bee5e2f8cb12",
+    "bytes": 12173
+  },
+  "scripts/monker-audit/MonkerProbeInputs.java": {
+    "sha256": "a81c7327b9f928022a0650b713b6d59d59e4f33dcf0e334cf784517dae536a6b",
+    "bytes": 1723
+  },
+  "scripts/monker-audit/policy-audit.d.mts": {
+    "sha256": "b7d25d8a96f4516e02f75a82e6a6a2e585e049ff961d0b0186d628bb382b2a64",
+    "bytes": 1656
+  },
+  "scripts/monker-audit/policy-audit.mjs": {
+    "sha256": "c8c3364038364ed5d9d9103f3d5d70a24142ed3b7f06215ca170806a10f18289",
+    "bytes": 9682
+  },
+  "scripts/monker-audit/README.md": {
+    "sha256": "d57ce63321bda4c8cee9af04c56cf16c8fe39c503bfdb2d0b9923f37a1c26b36",
+    "bytes": 2928
+  },
+  "scripts/monker-audit/Start-MonkerStudy.ps1": {
+    "sha256": "6f986ac3f5c5ccf646910e7c33ddf10d2d97ca02f04ceac42bb324cdf0258431",
+    "bytes": 1684
+  },
+  "scripts/river-oracle.d.mts": {
+    "sha256": "81d80d5be4bc7af6bce68f0aac64b10c3b0e61411bc9c8722766629b44fe524b",
+    "bytes": 360
+  },
+  "scripts/river-oracle.mjs": {
+    "sha256": "1bea14e0863b913b085762dcc1bd51dde4fedd77ac2353d6dbcc83a08103ff9d",
+    "bytes": 6264
+  },
+  "tests/fixtures/monker-3p-river-10114.json": {
+    "sha256": "1c89b10bd5c32432c85c09f78ab70ae39f9044b00b069683b9c39522810e8d4b",
+    "bytes": 5008
+  },
+  "tests/monker-audit.test.ts": {
+    "sha256": "9eaf4c74532c236612374fcc30ccc415324e80861512f7a55b124007aa545e06",
+    "bytes": 5313
+  }
+}

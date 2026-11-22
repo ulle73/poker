@@ -1,0 +1,108 @@
+{
+  "input": {
+    "key": "raised-postflop-probe:river",
+    "hero": 3,
+    "seats": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h",
+      "2c",
+      "Js"
+    ],
+    "state": {
+      "street": "river",
+      "stacks": [
+        360,
+        300,
+        180,
+        360,
+        360
+      ],
+      "bets": [
+        0,
+        60,
+        180,
+        0,
+        0
+      ],
+      "invested": [
+        0,
+        60,
+        180,
+        0,
+        0
+      ],
+      "folded": [
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "canRaise": [
+        true,
+        true,
+        false,
+        true,
+        true
+      ],
+      "actor": 3,
+      "dealer": 4,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "river:0:check:0|river:1:bet:60|river:2:raise:180",
+      "boardCount": 5,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "publicNodes": 276,
+  "decisions": {
+    "flop": 0,
+    "turn": 0,
+    "river": 130
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "schema": 1,
+  "source": "rangeconverter",
+  "archiveSha256": "a1723be2a7ac0e61b7a1342e1ebe7e778747bb2197572bf8fb0a877610e18799",
+  "librarySha256": "04f03ee2f184b5869d5b610e66fdce28edebe519743932d1d31ac05710539bf4",
+  "nodes": 35,
+  "order": [
+    "AA",
+    "AKs",
+    "AQs",
+    "AJs",
+    "ATs",
+    "A9s",
+    "A8s",
+    "A7s",
+    "A6s",
+    "A5s",
+    "A4s",
+    "A3s",
+    "A2s",
+    "AKo",
+    "KK",
+    "KQs",
+    "KJs",
+    "KTs",
+    "K9s",
+    "K8s",
+    "K7s",
+    "K6s",
+    "K5s",
+    "K4s",
+    "K3s",
+    "K2s",
+    "AQo",
+    "KQo",
+    "QQ",
+    "QJs",
+    "QTs",
+    "Q9s",
+    "Q8s",
+    "Q7s",
+    "Q6s",
+    "Q5s",
+    "Q4s",
+    "Q3s",
+    "Q2s",
+    "AJo",
+    "KJo",
+    "QJo",
+    "JJ",
+    "JTs",
+    "J9s",
+    "J8s",
+    "J7s",
+    "J6s",
+    "J5s",
+    "J4s",
+    "J3s",
+    "J2s",
+    "ATo",
+    "KTo",
+    "QTo",
+    "JTo",
+    "TT",
+    "T9s",
+    "T8s",
+    "T7s",
+    "T6s",
+    "T5s",
+    "T4s",
+    "T3s",
+    "T2s",
+    "A9o",
+    "K9o",
+    "Q9o",
+    "J9o",
+    "T9o",
+    "99",
+    "98s",
+    "97s",
+    "96s",
+    "95s",
+    "94s",
+    "93s",
+    "92s",
+    "A8o",
+    "K8o",
+    "Q8o",
+    "J8o",
+    "T8o",
+    "98o",
+    "88",
+    "87s",
+    "86s",
+    "85s",
+    "84s",
+    "83s",
+    "82s",
+    "A7o",
+    "K7o",
+    "Q7o",
+    "J7o",
+    "T7o",
+    "97o",
+    "87o",
+    "77",
+    "76s",
+    "75s",
+    "74s",
+    "73s",
+    "72s",
+    "A6o",
+    "K6o",
+    "Q6o",
+    "J6o",
+    "T6o",
+    "96o",
+    "86o",
+    "76o",
+    "66",
+    "65s",
+    "64s",
+    "63s",
+    "62s",
+    "A5o",
+    "K5o",
+    "Q5o",
+    "J5o",
+    "T5o",
+    "95o",
+    "85o",
+    "75o",
+    "65o",
+    "55",
+    "54s",
+    "53s",
+    "52s",
+    "A4o",
+    "K4o",
+    "Q4o",
+    "J4o",
+    "T4o",
+    "94o",
+    "84o",
+    "74o",
+    "64o",
+    "54o",
+    "44",
+    "43s",
+    "42s",
+    "A3o",
+    "K3o",
+    "Q3o",
+    "J3o",
+    "T3o",
+    "93o",
+    "83o",
+    "73o",
+    "63o",
+    "53o",
+    "43o",
+    "33",
+    "32s",
+    "A2o",
+    "K2o",
+    "Q2o",
+    "J2o",
+    "T2o",
+    "92o",
+    "82o",
+    "72o",
+    "62o",
+    "52o",
+    "42o",
+    "32o",
+    "22"
+  ],
+  "sourceUrl": "https://rangeconverter.com/downloads/6-max-40bb-Poker-Charts-No-Limit-Texas-Holdem-Cash",
+  "origins": {
+    "UTG|": {
+      "page": 3,
+      "chart": 1
+    },
+    "MP|": {
+      "page": 3,
+      "chart": 2
+    },
+    "CO|": {
+      "page": 3,
+      "chart": 3
+    },
+    "BU|": {
+      "page": 3,
+      "chart": 4
+    },
+    "SB|": {
+      "page": 3,
+      "chart": 5
+    },
+    "MP|UTG_RFI": {
+      "page": 4,
+      "chart": 1
+    },
+    "CO|UTG_RFI": {
+      "page": 5,
+      "chart": 1
+    },
+    "CO|MP_RFI": {
+      "page": 5,
+      "chart": 2
+    },
+    "BU|UTG_RFI": {
+      "page": 6,
+      "chart": 1
+    },
+    "BU|MP_RFI": {
+      "page": 6,
+      "chart": 2
+    },
+    "BU|CO_RFI": {
+      "page": 6,
+      "chart": 3
+    },
+    "SB|UTG_RFI": {
+      "page": 7,
+      "chart": 1
+    },
+    "SB|MP_RFI": {
+      "page": 7,
+      "chart": 2
+    },
+    "SB|CO_RFI": {
+      "page": 7,
+      "chart": 3
+    },
+    "SB|BU_RFI": {
+      "page": 7,
+      "chart": 4
+    },
+    "BB|UTG_RFI": {
+      "page": 8,
+      "chart": 1
+    },
+    "BB|MP_RFI": {
+      "page": 8,
+      "chart": 2
+    },
+    "BB|CO_RFI": {
+      "page": 8,
+      "chart": 3
+    },
+    "BB|BU_RFI": {
+      "page": 8,
+      "chart": 4
+    },
+    "BB|SB_RFI": {
+      "page": 8,
+      "chart": 5
+    },
+    "UTG|UTG_RFI_CO_3bet": {
+      "page": 9,
+      "chart": 1
+    },
+    "UTG|UTG_RFI_MP_3bet": {
+      "page": 9,
+      "chart": 2
+    },
+    "UTG|UTG_RFI_BU_3bet": {
+      "page": 9,
+      "chart": 3
+    },
+    "UTG|UTG_RFI_SB_3bet": {
+      "page": 9,
+      "chart": 4
+    },
+    "UTG|UTG_RFI_BB_3bet": {
+      "page": 9,
+      "chart": 5
+    },
+    "MP|MP_RFI_BB_3bet": {
+      "page": 10,
+      "chart": 1
+    },
+    "MP|MP_RFI_BU_3bet": {
+      "page": 10,
+      "chart": 2
+    },
+    "MP|MP_RFI_CO_3bet": {
+      "page": 10,
+      "chart": 3
+    },
+    "MP|MP_RFI_SB_3bet": {
+      "page": 10,
+      "chart": 4
+    },
+    "CO|CO_RFI_BU_3bet": {
+      "page": 11,
+      "chart": 1
+    },
+    "CO|CO_RFI_SB_3bet": {
+      "page": 11,
+      "chart": 2
+    },
+    "CO|CO_RFI_BB_3bet": {
+      "page": 11,
+      "chart": 3
+    },
+    "BU|BU_RFI_SB_3bet": {
+      "page": 12,
+      "chart": 1
+    },
+    "BU|BU_RFI_BB_3bet": {
+      "page": 12,
+      "chart": 2
+    },
+    "SB|SB_RFI_BB_3bet": {
+      "page": 13,
+      "chart": 1
+    }
+  },
+  "rounding": "Rendered 50-percent mixes, not the original unrounded solver output. Printed aggregate bars may differ."
+}

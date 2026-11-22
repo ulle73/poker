@@ -1,0 +1,83 @@
+{
+  "zeta": {
+    "multiwayRiver": true,
+    "benchmarkRun": false,
+    "repository": "https://github.com/lewismj/zeta",
+    "multiwayExploitabilityAvailable": false,
+    "cleanCheckout": true,
+    "files": [
+      {
+        "sha256": "057a7f373a0d30fa48a64d8c445abf8352548f886c005109e241094ffd47c957",
+        "path": "doc/holdem/cli_usage.md"
+      },
+      {
+        "sha256": "67148c5a8e1e2973a2a3b0bd20f2d3258c726aad5da2a67e1d18d7cc48ad5957",
+        "path": "zeta/holdem/src/cli/solve_cli.h"
+      }
+    ],
+    "revision": "acd8f042b1271cd16ecdff3c4fbd5f11105450e5",
+    "multiwayTurn": false,
+    "sourceCheck": "solve_cli.h:2562-2578 rejects N != 2 for multi-street solve"
+  },
+  "liveEvidence": {
+    "huRiverDecision": "reported by user, not independently observed",
+    "automaticTransfer": "observed in previous turn on 2026-11-06",
+    "lastObservedHand": "12626626315",
+    "threeWayTurnScreenshotHand": "12626640668",
+    "newGuiVerification": false
+  },
+  "otherSources": [
+    {
+      "url": "https://github.com/conorarmstrong/noregrets#licensing",
+      "blocker": "Pretrained blueprints commercially licensed only; no own training restarted"
+    },
+    {
+      "url": "https://pypi.org/project/donksolver/",
+      "blocker": "No NLHE best response or measured completed multiway blueprint"
+    },
+    {
+      "url": "https://holdemsolver.com/",
+      "blocker": "Free during beta only; multiway stability is not exploitability"
+    },
+    {
+      "url": "https://prismsolver.com/pricing",
+      "blocker": "Free Viewer does not solve custom models; solver/CLI paid"
+    }
+  ],
+  "delivered": false,
+  "requirements": {
+    "ownTrainingAuthorized": false,
+    "players": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "maxCanonicalErrorPct": 2,
+    "latencyGoal": "a few seconds",
+    "price": 0,
+    "streets": [
+      "turn",
+      "river"
+    ]
+  },
+  "providerActivated": false,
+  "productCodeChanged": false,
+  "monker": {
+    "installed": false,
+    "liveLatency": "not measured",
+    "source": "https://www.monkerware.com/solver.html",
+    "headContentLength": 31729454,
+    "download": "https://www.monkerware.com/downloads/monkersolverfree-setup.exe",
+    "automatedExportContract": "not established",
+    "multiway2PctBound": "not established",
+    "headLastModified": "2020-06-06T11:33:43Z",
+    "runtimeExtractedAndRun": true,
+    "archiveExportVerified": true,
+    "completedBatchExports": 10,
+    "sixWayTurnRatio10Ms": 30174,
+    "benchmarkEvidence": "monker-free-benchmark-2026-11-06.json"
+  },
+  "task": "Free qualified 3-6 active NLHE turn and river",
+  "reviewDate": "2026-11-06"
+}

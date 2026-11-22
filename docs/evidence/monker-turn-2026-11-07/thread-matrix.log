@@ -1,0 +1,5 @@
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":3203072,"initializeMs":926.4007,"computeMs":3002.3456,"totalMs":3977.9461,"qualityVerified":false}
+{"players":6,"threads":1,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":548864,"initializeMs":143.7131,"computeMs":2000.7153,"totalMs":2188.3943,"qualityVerified":false}
+{"players":6,"threads":2,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":966656,"initializeMs":128.7477,"computeMs":2000.721,"totalMs":2158.4103,"qualityVerified":false}
+{"players":6,"threads":4,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1392640,"initializeMs":137.5465,"computeMs":2000.5408,"totalMs":2172.3221,"qualityVerified":false}
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":2154496,"initializeMs":125.9328,"computeMs":2012.2677,"totalMs":2171.6436,"qualityVerified":false}

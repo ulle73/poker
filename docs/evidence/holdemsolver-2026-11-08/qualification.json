@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-08",
+  "timezone": "Europe/Stockholm",
+  "goalComplete": false,
+  "newProviderActivated": false,
+  "vendor": "Holdem Solver",
+  "version": "0.93.0",
+  "accountLogin": "performed by user; ENGINE READY observed",
+  "trial": {
+    "synthetic": true,
+    "variant": "NLHE",
+    "players": 3,
+    "street": "flop",
+    "board": ["Jh", "Qh", "Kh"],
+    "potBB": 4.5,
+    "effectiveStackBB": 40.5,
+    "ranges": "full for every player",
+    "legalCombosPerPlayer": 1176,
+    "precision": "low hand precision, default board precision",
+    "aggressiveActionsPerStreet": 1,
+    "maxIterations": 10000,
+    "stabilityTarget": 10,
+    "stabilityIsExploitability": false,
+    "initialDisplayedSeconds": 3,
+    "resumeDisplayedSeconds": 5,
+    "resumeThreads": 1,
+    "finalIterations": 2,
+    "unsampledArrivingCombos": 1174,
+    "evCoveragePct": 0.2,
+    "status": "TREE TOO LARGE / STOPPED during abstraction initialization",
+    "usableDecision": false,
+    "completedExportVerified": false,
+    "qualityErrorPct": null
+  },
+  "externalIntegration": {
+    "gateway": "http://127.0.0.1:8900",
+    "healthStatus": 401,
+    "healthError": "login_required",
+    "runtimeHelpAttempt": "--role exact-flop -- --help",
+    "runtimeError": "grant_missing",
+    "supportedExternalAuthVerified": false,
+    "credentialsReadOrTransferred": false
+  },
+  "installedRegression": {
+    "testFilesPassed": 3,
+    "testsPassed": 12,
+    "durationSeconds": 47.19,
+    "files": ["tests/preflop-installed.test.ts", "tests/postflop-native.test.ts", "tests/monker-service.integration.test.ts"],
+    "monkerEvidence": "monker-regression-2026-11-08.json",
+    "liveHandProof": false
+  },
+  "finalApp": {
+    "running": true,
+    "view": "live",
+    "receiver": "ready; awaiting fresh Edge snapshot",
+    "pokerClient": "disconnected due to inactivity",
+    "vendorTrialProcessesStopped": true
+  }
+}

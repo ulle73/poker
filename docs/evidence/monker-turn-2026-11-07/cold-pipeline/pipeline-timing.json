@@ -1,0 +1,23 @@
+{
+  "coldProcessToAuditMs": 6011.5687,
+  "includes": [
+    "Java launch",
+    "kernel initialization",
+    "training",
+    "archive write",
+    "second Java launch",
+    "decode",
+    "Node launch",
+    "independent audit"
+  ],
+  "excludes": [
+    "source compilation",
+    "hash preflight",
+    "app transport",
+    "UI rendering"
+  ],
+  "qualityMetric": "max-unilateral",
+  "errorPct": 0.31035062122156776,
+  "accepted": true,
+  "appIntegrationVerified": false
+}

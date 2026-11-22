@@ -1,0 +1,56 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+··xxx·········
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > recovers when only blind seat 2 has appeared in the first snapshot
+AssertionError: expected 'Preflop: blinds är inte säkert avläst…' to be undefined
+
+- Expected:
+undefined
+
++ Received:
+"Preflop: blinds är inte säkert avlästa. Inväntar en hand från blindpostningen."
+
+ ❯ tests/preflop.test.ts:23:61
+     21|   const t=new PreflopTracker(),s=preflopSnapshot(),partial=structuredC…
+     22|   partial.players.forEach(p=>{if(p.seat!==posted){p.stack=2;p.bet=0;}}…
+     23|   t.observe(partial);t.observe(s);expect(t.facts(s)?.error).toBeUndefi…
+       |                                                             ^
+     24|  });
+     25|  it('rejects pot growth not explained by observed contributions',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > rejects pot growth not explained by observed contributions
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ tests/preflop.test.ts:27:31
+     25|  it('rejects pot growth not explained by observed contributions',()=>{
+     26|   const t=new PreflopTracker();const s=preflopSnapshot();t.observe(s);…
+     27|   expect(t.facts(gap)?.error).toMatch(/pott|pengar|historik/i);
+       |                               ^
+     28|  });
+     29|  it('waits through a transient pot animation then recovers the same ob…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > waits through a transient pot animation then recovers the same observed raise
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ tests/preflop.test.ts:31:58
+     29|  it('waits through a transient pot animation then recovers the same ob…
+     30|   const t=new PreflopTracker(),s=preflopSnapshot();t.observe(s);const …
+     31|   t.observe(animation);expect(t.facts(animation)?.error).toMatch(/pott…
+       |                                                          ^
+     32|   t.observe(settled);expect(t.facts(settled)?.error).toBeUndefined();e…
+     33|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 11 passed (14)
+   Start at  21:23:31
+   Duration  2.93s (environment 94%, transform 3%, import 2%, tests 1%)
+

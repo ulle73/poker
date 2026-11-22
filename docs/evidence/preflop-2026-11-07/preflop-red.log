@@ -1,0 +1,188 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+xxxxxxxxx
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > keeps original six seats and both raises after players fold
+AssertionError: expected undefined to match object { bigBlind: 2, …(2) }
+
+- Expected:
+{
+  "bigBlind": 2,
+  "participants": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+  ],
+  "steps": [
+    {
+      "kind": "raise",
+      "seat": 3,
+      "to": 4,
+    },
+    {
+      "kind": "raise",
+      "seat": 6,
+      "to": 14,
+    },
+    {
+      "kind": "fold",
+      "seat": 4,
+      "to": 0,
+    },
+  ],
+}
+
++ Received:
+undefined
+
+ ❯ tests/preflop.test.ts:19:22
+     17|   const t=new PreflopTracker();let s=preflopSnapshot(2);t.observe(s);
+     18|   s=changed(s,3,.04);t.observe(s);s=changed(s,6,.14);s.players[3].fold…
+     19|   expect(t.facts(s)).toMatchObject({bigBlind:2,participants:[1,2,3,4,5…
+       |                      ^
+     20|  });
+     21|  it('rejects skipped multiple contributions instead of inventing their…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > rejects skipped multiple contributions instead of inventing their order
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ tests/preflop.test.ts:23:82
+     21|  it('rejects skipped multiple contributions instead of inventing their…
+     22|   const t=new PreflopTracker();const s=preflopSnapshot();t.observe(s);
+     23|   const n=changed(changed(s,3,.04),4,.14);t.observe(n);expect(t.facts(…
+       |                                                                                  ^
+     24|  });
+     25|  it('recovers a unique first open from intact blinds and accounted pot…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > recovers a unique first open from intact blinds and accounted pot
+AssertionError: expected undefined to match object { bigBlind: 2, steps: [ { …(3) } ] }
+
+- Expected:
+{
+  "bigBlind": 2,
+  "steps": [
+    {
+      "kind": "raise",
+      "seat": 3,
+      "to": 4,
+    },
+  ],
+}
+
++ Received:
+undefined
+
+ ❯ tests/preflop.test.ts:27:22
+     25|  it('recovers a unique first open from intact blinds and accounted pot…
+     26|   const t=new PreflopTracker();const s=changed(preflopSnapshot(5),3,.0…
+     27|   expect(t.facts(s)).toMatchObject({bigBlind:2,steps:[{seat:3,kind:'ra…
+       |                      ^
+     28|   const broken=structuredClone(s);broken.pot!+=.08;const bad=new Prefl…
+     29|  });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > does not guess blinds when the small blind has already raised
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ tests/preflop.test.ts:31:112
+     29|  });
+     30|  it('does not guess blinds when the small blind has already raised',()…
+     31|   const s=changed(preflopSnapshot(),1,.08);const t=new PreflopTracker(…
+       |                                                                                                                ^
+     32|  });
+     33| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > uses position and exact source frequencies rather than top 50 percent
+Error: Preflop is not implemented
+ ❯ preflopDecision src/preflop/strategy.ts:5:9
+      3| import type {PreflopLibrary} from './types';
+      4| export function preflopDecision(_s:LiveSnapshot,_input:DecisionInput,_…
+      5|   throw Error('Preflop is not implemented');
+       |         ^
+      6| }
+      7|
+ ❯ tests/preflop.test.ts:36:74
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > binds a prior open and a second raise to the correct decision
+Error: Preflop is not implemented
+ ❯ preflopDecision src/preflop/strategy.ts:5:9
+      3| import type {PreflopLibrary} from './types';
+      4| export function preflopDecision(_s:LiveSnapshot,_input:DecisionInput,_…
+      5|   throw Error('Preflop is not implemented');
+       |         ^
+      6| }
+      7|
+ ❯ tests/preflop.test.ts:42:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > rejects a mismatching earlier raise size and missing line data
+AssertionError: expected [Function] to throw error matching /storlek|BB/i but got 'Preflop is not implemented'
+
+- Expected:
+/storlek|BB/i
+
++ Received:
+"Preflop is not implemented"
+
+ ❯ tests/preflop.test.ts:47:55
+     45|  it('rejects a mismatching earlier raise size and missing line data',(…
+     46|   const c=new DecisionContext();let s=preflopSnapshot(5);c.observe(s);…
+     47|   expect(()=>preflopDecision(s,c.prepare(s),library)).toThrow(/storlek…
+       |                                                       ^
+     48|  });
+     49|  it('rejects a 25bb cash stack rather than treating it as 100bb',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > rejects a 25bb cash stack rather than treating it as 100bb
+AssertionError: expected [Function] to throw error matching /stack|BB/i but got 'Preflop is not implemented'
+
+- Expected:
+/stack|BB/i
+
++ Received:
+"Preflop is not implemented"
+
+ ❯ tests/preflop.test.ts:51:55
+     49|  it('rejects a 25bb cash stack rather than treating it as 100bb',()=>{
+     50|   const s=preflopSnapshot();s.players[4].stack=.5;const c=new Decision…
+     51|   expect(()=>preflopDecision(s,c.prepare(s),library)).toThrow(/stack|B…
+       |                                                       ^
+     52|  });
+     53|  it('uses real heads-up short-stack data only for a two-seat hand',()=…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > uses real heads-up short-stack data only for a two-seat hand
+Error: Preflop is not implemented
+ ❯ preflopDecision src/preflop/strategy.ts:5:9
+      3| import type {PreflopLibrary} from './types';
+      4| export function preflopDecision(_s:LiveSnapshot,_input:DecisionInput,_…
+      5|   throw Error('Preflop is not implemented');
+       |         ^
+      6| }
+      7|
+ ❯ tests/preflop.test.ts:55:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  9 failed (9)
+   Start at  21:04:15
+   Duration  9.57s (environment 96%, transform 2%, tests 1%, import 1%)
+

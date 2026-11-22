@@ -1,0 +1,419 @@
+{
+  "synthetic": true,
+  "sourceLaunch": "official signed-in vendor UI",
+  "solveId": "20261108T102244_continue_f0d8ce",
+  "observedFrom": "first discovery by polling, not UI click time",
+  "firstSnapshot": {
+    "ms": 3780,
+    "status": "running",
+    "phase": "training",
+    "snapshotStatus": 200,
+    "iterations": 70218,
+    "iterationsThisRun": 16,
+    "fresh": true,
+    "history": "entry_flop.check",
+    "heroRow": {
+      "visits": 59,
+      "frequencies": {
+        "allin": 0.46979332528251755,
+        "bet_60p": 0.11699198346733129,
+        "check": 0.41321469125015126
+      },
+      "actions": [
+        "check",
+        "bet_60p",
+        "allin"
+      ]
+    }
+  },
+  "firstWatched": {
+    "ms": 3780,
+    "status": "running",
+    "phase": "training",
+    "snapshotStatus": 200,
+    "iterations": 70218,
+    "iterationsThisRun": 16,
+    "fresh": true,
+    "history": "entry_flop.check",
+    "heroRow": {
+      "visits": 59,
+      "frequencies": {
+        "allin": 0.46979332528251755,
+        "bet_60p": 0.11699198346733129,
+        "check": 0.41321469125015126
+      },
+      "actions": [
+        "check",
+        "bet_60p",
+        "allin"
+      ]
+    }
+  },
+  "firstCombo": {
+    "ms": 4012,
+    "status": 200,
+    "provenance": "retained_native_exact_average",
+    "visits": 59,
+    "frequencies": {
+      "allin": 0.46979332528251755,
+      "bet_60p": 0.11699198346733129,
+      "check": 0.41321469125015126
+    }
+  },
+  "finishedMs": 25118,
+  "elapsedSeconds": 25.717,
+  "trainingElapsedSeconds": 8.4853256,
+  "artifactSaveMode": "full_resumable",
+  "memoryGuardTriggered": false,
+  "samples": [
+    {
+      "ms": 224,
+      "status": "running",
+      "phase": "initializing",
+      "snapshotStatus": 202,
+      "fresh": false,
+      "heroRow": null
+    },
+    {
+      "ms": 2760,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 202,
+      "fresh": false,
+      "heroRow": null
+    },
+    {
+      "ms": 3780,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 70218,
+      "iterationsThisRun": 16,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 59,
+        "frequencies": {
+          "allin": 0.46979332528251755,
+          "bet_60p": 0.11699198346733129,
+          "check": 0.41321469125015126
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 4794,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 75218,
+      "iterationsThisRun": 5016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 6752,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 80218,
+      "iterationsThisRun": 10016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 70,
+        "frequencies": {
+          "allin": 0.5074861815243019,
+          "bet_60p": 0.0831145237410982,
+          "check": 0.4093992947345999
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 8289,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 85218,
+      "iterationsThisRun": 15016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 77,
+        "frequencies": {
+          "allin": 0.45357940705641797,
+          "bet_60p": 0.06836672701123936,
+          "check": 0.4780538659323427
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 9760,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 90218,
+      "iterationsThisRun": 20016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 82,
+        "frequencies": {
+          "allin": 0.4180055234627805,
+          "bet_60p": 0.06013190794307226,
+          "check": 0.5218625685941471
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 11548,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 95218,
+      "iterationsThisRun": 25016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 89,
+        "frequencies": {
+          "allin": 0.3833516276501066,
+          "bet_60p": 0.05109623870653682,
+          "check": 0.5655521336433568
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 12189,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 100218,
+      "iterationsThisRun": 30016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 93,
+        "frequencies": {
+          "allin": 0.3516445399550307,
+          "bet_60p": 0.046870058863535326,
+          "check": 0.601485401181434
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 13726,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 105218,
+      "iterationsThisRun": 35016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 97,
+        "frequencies": {
+          "allin": 0.3247012044954698,
+          "bet_60p": 0.04310898587975143,
+          "check": 0.6321898096247789
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 15472,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 110218,
+      "iterationsThisRun": 40016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 103,
+        "frequencies": {
+          "allin": 0.28989902448678184,
+          "bet_60p": 0.03828640356701671,
+          "check": 0.6718145719462014
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 16800,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 115218,
+      "iterationsThisRun": 45016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 104,
+        "frequencies": {
+          "allin": 0.28462369331478726,
+          "bet_60p": 0.03754487352788385,
+          "check": 0.6778314331573289
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 17532,
+      "status": "running",
+      "phase": "saving",
+      "snapshotStatus": 200,
+      "iterations": 115218,
+      "iterationsThisRun": 45016,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 104,
+        "frequencies": {
+          "allin": 0.28462369331478726,
+          "bet_60p": 0.03754487352788385,
+          "check": 0.6778314331573289
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 18521,
+      "status": "running",
+      "phase": "finalizing",
+      "snapshotStatus": 200,
+      "iterations": 120202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 108,
+        "frequencies": {
+          "allin": 0.26570944937468494,
+          "bet_60p": 0.034743453299737874,
+          "check": 0.6995470973255772
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 19747,
+      "status": "running",
+      "phase": "exporting",
+      "snapshotStatus": 200,
+      "iterations": 120202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 108,
+        "frequencies": {
+          "allin": 0.26570944937468494,
+          "bet_60p": 0.034743453299737874,
+          "check": 0.6995470973255772
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 24427,
+      "status": "running",
+      "phase": "indexing",
+      "snapshotStatus": 200,
+      "iterations": 120202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 108,
+        "frequencies": {
+          "allin": 0.26570944937468494,
+          "bet_60p": 0.034743453299737874,
+          "check": 0.6995470973255772
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    },
+    {
+      "ms": 25118,
+      "status": "done",
+      "phase": "complete",
+      "snapshotStatus": 200,
+      "iterations": 120202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop.check",
+      "heroRow": {
+        "visits": 108,
+        "frequencies": {
+          "allin": 0.26570944937468494,
+          "bet_60p": 0.034743453299737874,
+          "check": 0.6995470973255772
+        },
+        "actions": [
+          "check",
+          "bet_60p",
+          "allin"
+        ]
+      }
+    }
+  ]
+}

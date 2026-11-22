@@ -1,0 +1,51 @@
+{
+  "synthetic": true,
+  "players": 3,
+  "request": {
+    "variant": 2,
+    "players": 3,
+    "button": 2,
+    "street": "flop",
+    "entry_point": "flop",
+    "board": "JhQhKh",
+    "starting_pot_bb": 40,
+    "stack_bb": 80,
+    "effective_stack_bb": 80,
+    "seat_stacks_bb": [
+      80,
+      80,
+      80
+    ],
+    "ranges": {
+      "0": "33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25"
+    },
+    "use_default_ranges": false,
+    "entry_private_keying": "lossless",
+    "iterations": 40000,
+    "threads": 2,
+    "buckets": 256,
+    "buckets_by_street": {
+      "flop": 256,
+      "turn": 30,
+      "river": 30
+    },
+    "max_raises_per_street": 1,
+    "postflop_bet_fractions": [
+      0.5
+    ],
+    "postflop_raise_fractions": [
+      2.5
+    ],
+    "postflop_raise_mode": "facing",
+    "allow_oop_bet": true,
+    "allow_donk_bets": true,
+    "export_nodes": true,
+    "artifact_save_mode": "ultra_light",
+    "strategy_snapshot_interval": 1000,
+    "memory_budget_mb": 1024,
+    "seed": 23
+  },
+  "quality": "not independently verified",
+  "passed": false,
+  "error": "Holdem Solvers profil används av originalklienten. Sessionsbryggan måste startas innan originalklienten."
+}

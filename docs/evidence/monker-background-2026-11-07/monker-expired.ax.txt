@@ -1,0 +1,325 @@
+Window: "Poker GTO Advisor", App: electron.exe.
+	0 fönster Poker GTO Advisor Secondary Actions: Raise
+		1 fönsterruta (disabled)
+		2 region Poker GTO Advisor
+			3 region
+				4 region
+					5 region
+						6 region
+							7 region
+								8 region
+									9 dokument Poker GTO Advisor Value: poker://app/index.html?view=live ID: RootWebArea
+										10 grupp ID: root
+											11 rubrik
+												12 länk Poker GTO Advisor Value: poker://app/index.html?view=live#
+												13 navigering Huvudmeny
+													14 knapp Träningsbord
+													15 knapp Live · Edge
+													16 knapp Min session
+													17 knapp Egen studie
+													18 knapp Metod & källor
+												19 text Lokalt · DOM-avläsning
+											20 huvud
+												21 text Texas hold’em · Svenska Spel · Endast avläsning
+												22 rubrik Ditt bord, live.
+												23 text Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+												24 rubrik Svenska Spel · Liveavläsning
+												25 text Anslutningen är inaktuell
+												64 text Hand
+												65 text #
+												66 text 990000000000203
+												67 text Gata
+												68 text river
+												69 text Pott
+												70 text 0,8 EUR
+												71 text Aktiva / upptagna / säten
+												72 text 3
+												73 text /
+												74 text 3
+												75 text /
+												76 text 6
+												77 text Dina kort
+												78 grupp Kh
+													79 text K
+													80 text ♥
+												81 grupp 8d
+													82 text 8
+													83 text ♦
+												84 text Bräda
+												85 grupp 6h
+													86 text 6
+													87 text ♥
+												88 grupp 8s
+													89 text 8
+													90 text ♠
+												91 grupp Jd
+													92 text J
+													93 text ♦
+												94 grupp 5c
+													95 text 5
+													96 text ♣
+												378 grupp 2s
+													379 text 2
+													380 text ♠
+												97 text Säte / position
+												98 text Stack bakom
+												99 text Synlig insats
+												100 text Tillstånd
+												101 text Du
+												102 text Säte
+												103 text 1
+												104 text ·
+												105 text SB
+												106 text 3 EUR
+												107 text 0 EUR
+												108 text I handen
+												109 text Spelare 2
+												110 text Säte
+												111 text 2
+												112 text ·
+												113 text BB
+												114 text 1,6 EUR
+												115 text 0 EUR
+												116 text I handen
+												117 text Spelare 3
+												118 text Säte
+												119 text 3
+												120 text ·
+												121 text BTN
+												122 text 1 EUR
+												123 text 0 EUR
+												124 text I handen
+												149 text Dina handlingsknappar är synliga.
+												150 text 
+												151 text Avläst
+												152 text 17:12:39
+												153 text ·
+												154 text 
+												155 text 14804
+												156 text ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+												27 rubrik Observerad handlinje
+												28 text Delvis historik
+												29 text Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+												30 text Ingen ny handling har observerats.
+												31 rubrik Strategimodell · 3 spelare
+												32 kryssruta (settable, string) Räkna automatiskt
+												33 text Monker Free · lokal träningssolver · 0 kr. 3–6 aktiva spelare på turn och river i matchande begränsat bettingträd. Mål: 2,1 % per spelare. Breda ranger visas som beräknad träningsstrategi med tydlig märkning när felgränsen saknar verifiering.
+												34 text 
+												35 text Preflop, flop, 6+-turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+												157 text Du
+												158 text · Säte
+												159 text 1
+												160 text ·
+												161 text SB
+												162 redigera (settable, string) Du · Säte 1 · SB Description: Förvald topp 50 % · ange annan range vid behov Value: 33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25
+												163 text Motståndare
+												164 text · Säte
+												165 text 2
+												166 text ·
+												167 text BB
+												168 redigera (settable, string) Motståndare · Säte 2 · BB Description: Alla händer · valfritt: 22+,A2s+,ATo+
+												169 text Motståndare
+												170 text · Säte
+												171 text 3
+												172 text ·
+												173 text BTN
+												174 redigera (settable, string) Motståndare · Säte 3 · BB Description: Alla händer · valfritt: 22+,A2s+,ATo+
+												36 text Tom range betyder jämnt fördelade lagliga händer, inte en löst prefloprange. Din tomma Monker-range använder förvald topp 50 %. Egna ranger är modellantaganden. Kort, insatser och bettingträd regelkontrolleras. Monker märker breda resultat tydligt när felgränsen saknar oberoende verifiering. Ingen rake ingår. Totalpotten antas inkludera aktuella insatser; tidigare okända sidopotter kan inte återskapas.
+												37 detaljer
+													38 expanderingstriangel Teknisk anslutning
+														39 text Teknisk anslutning
+												40 område Automatiskt beslut
+													41 rubrik Ditt beslut
+													42 text Beslutsmotor
+													457 rubrik Inväntar beslutsläge
+													458 status
+														459 text Inväntar färsk avläsning.
+												46 område Multiway equity
+													47 rubrik Potten i siffror
+													48 text 2–10 spelare · Equity
+													49 text 3
+													50 text synligt aktiva ·
+													51 text 
+													52 text 0
+													53 text observerat foldade ·
+													54 text 
+													55 text 3
+													56 text upptagna säten.
+													460 text Inväntar aktuell bordsläsning.
+													58 text Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+												59 avsnittets sidfot
+													60 text Poker GTO Advisor
+													61 text / 1.4 · Träning & strategilabb
+													62 text Verklig solver. Synliga antaganden. Träning på din dator.
+								63 region
+
+Document text: ```
+Poker GTO Advisor
+Träningsbord
+Live · Edge
+Min session
+Egen studie
+Metod & källor
+Lokalt · DOM-avläsning
+Texas hold’em · Svenska Spel · Endast avläsning
+Ditt bord, live.
+Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+Svenska Spel · Liveavläsning
+Anslutningen är inaktuell
+Hand
+#990000000000203
+Gata
+river
+Pott
+0,8 EUR
+Aktiva / upptagna / säten
+3 / 3 / 6
+Dina kort
+K
+♥
+8
+♦
+Bräda
+6
+♥
+8
+♠
+J
+♦
+5
+♣
+2
+♠
+Säte / position
+Stack bakom
+Synlig insats
+Tillstånd
+Du
+Säte 1 · SB
+3 EUR
+0 EUR
+I handen
+Spelare 2
+Säte 2 · BB
+1,6 EUR
+0 EUR
+I handen
+Spelare 3
+Säte 3 · BTN
+1 EUR
+0 EUR
+I handen
+Dina handlingsknappar är synliga. Avläst 17:12:39 · 14804 ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+Observerad handlinje
+Delvis historik
+Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+Ingen ny handling har observerats.
+Strategimodell · 3 spelare
+￼
+Monker Free · lokal träningssolver · 0 kr. 3–6 aktiva spelare på turn och river i matchande begränsat bettingträd. Mål: 2,1 % per spelare. Breda ranger visas som beräknad träningsstrategi med tydlig märkning när felgränsen saknar verifiering. Preflop, flop, 6+-turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+Du · Säte 1 · SB
+33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25
+Motståndare · Säte 2 · BB
+￼
+Motståndare · Säte 3 · BTN
+￼
+Tom range betyder jämnt fördelade lagliga händer, inte en löst prefloprange. Din tomma Monker-range använder förvald topp 50 %. Egna ranger är modellantaganden. Kort, insatser och bettingträd regelkontrolleras. Monker märker breda resultat tydligt när felgränsen saknar oberoende verifiering. Ingen rake ingår. Totalpotten antas inkludera aktuella insatser; tidigare okända sidopotter kan inte återskapas.
+Teknisk anslutning
+Ditt beslut
+Beslutsmotor
+Inväntar beslutsläge
+Inväntar färsk avläsning.
+Potten i siffror
+2–10 spelare · Equity
+3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.
+Inväntar aktuell bordsläsning.
+Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+Poker GTO Advisor / 1.4 · Träning & strategilabb
+Verklig solver. Synliga antaganden. Träning på din dator.
+```
+
+Focused element: 0 fönster Poker GTO Advisor Secondary Actions: Raise
+
+Document text:
+Poker GTO Advisor
+Träningsbord
+Live · Edge
+Min session
+Egen studie
+Metod & källor
+Lokalt · DOM-avläsning
+Texas hold’em · Svenska Spel · Endast avläsning
+Ditt bord, live.
+Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+Svenska Spel · Liveavläsning
+Anslutningen är inaktuell
+Hand
+#990000000000203
+Gata
+river
+Pott
+0,8 EUR
+Aktiva / upptagna / säten
+3 / 3 / 6
+Dina kort
+K
+♥
+8
+♦
+Bräda
+6
+♥
+8
+♠
+J
+♦
+5
+♣
+2
+♠
+Säte / position
+Stack bakom
+Synlig insats
+Tillstånd
+Du
+Säte 1 · SB
+3 EUR
+0 EUR
+I handen
+Spelare 2
+Säte 2 · BB
+1,6 EUR
+0 EUR
+I handen
+Spelare 3
+Säte 3 · BTN
+1 EUR
+0 EUR
+I handen
+Dina handlingsknappar är synliga. Avläst 17:12:39 · 14804 ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+Observerad handlinje
+Delvis historik
+Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+Ingen ny handling har observerats.
+Strategimodell · 3 spelare
+￼
+Monker Free · lokal träningssolver · 0 kr. 3–6 aktiva spelare på turn och river i matchande begränsat bettingträd. Mål: 2,1 % per spelare. Breda ranger visas som beräknad träningsstrategi med tydlig märkning när felgränsen saknar verifiering. Preflop, flop, 6+-turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+Du · Säte 1 · SB
+33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25
+Motståndare · Säte 2 · BB
+￼
+Motståndare · Säte 3 · BTN
+￼
+Tom range betyder jämnt fördelade lagliga händer, inte en löst prefloprange. Din tomma Monker-range använder förvald topp 50 %. Egna ranger är modellantaganden. Kort, insatser och bettingträd regelkontrolleras. Monker märker breda resultat tydligt när felgränsen saknar oberoende verifiering. Ingen rake ingår. Totalpotten antas inkludera aktuella insatser; tidigare okända sidopotter kan inte återskapas.
+Teknisk anslutning
+Ditt beslut
+Beslutsmotor
+Inväntar beslutsläge
+Inväntar färsk avläsning.
+Potten i siffror
+2–10 spelare · Equity
+3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.
+Inväntar aktuell bordsläsning.
+Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+Poker GTO Advisor / 1.4 · Träning & strategilabb
+Verklig solver. Synliga antaganden. Träning på din dator.

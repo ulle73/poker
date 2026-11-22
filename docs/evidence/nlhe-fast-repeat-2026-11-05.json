@@ -1,0 +1,204 @@
+[
+  {
+    "config": {
+      "board": [
+        "Ks",
+        "7d",
+        "2c",
+        "8h"
+      ],
+      "oopRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "ipRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "pot": 0.2,
+      "stack": 2,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 2
+    },
+    "line": [],
+    "all": false,
+    "elapsedMs": 3234.6675,
+    "wallMs": 3057.1194,
+    "meta": {
+      "exploitability_chips": 0.0032413589954376223,
+      "exploitability_pct_of_pot": 1.620679497718811,
+      "iterations": 100,
+      "node_count": 5547,
+      "root_evs": {
+        "pot_share": [
+          0.09209602326154709,
+          0.10790397971868515
+        ],
+        "zero_sum": [
+          -0.007903976365923882,
+          0.007903977297246456
+        ]
+      }
+    },
+    "nodes": 5547,
+    "memoryBytes": 48427152,
+    "timings": {
+      "cfrMs": 2626.4900000000002,
+      "exportMs": 139.4454,
+      "qualityMs": 250.23990000000003,
+      "setupMs": 39.3553
+    }
+  },
+  {
+    "config": {
+      "board": [
+        "As",
+        "Kd",
+        "Qh",
+        "2c"
+      ],
+      "oopRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "ipRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "pot": 0.11,
+      "stack": 1.81,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 2
+    },
+    "line": [
+      "check"
+    ],
+    "all": false,
+    "elapsedMs": 4907.4465,
+    "wallMs": 4741.2418,
+    "meta": {
+      "exploitability_chips": 0.002054112255573273,
+      "exploitability_pct_of_pot": 1.8673747777938843,
+      "iterations": 140,
+      "node_count": 5547,
+      "root_evs": {
+        "pot_share": [
+          0.051216479390859604,
+          0.05878352001309395
+        ],
+        "zero_sum": [
+          -0.003783521242439747,
+          0.003783520543947816
+        ]
+      }
+    },
+    "nodes": 5547,
+    "memoryBytes": 48427152,
+    "timings": {
+      "cfrMs": 4150.527600000002,
+      "exportMs": 166.8015,
+      "qualityMs": 385.7518,
+      "setupMs": 36.301300000000005
+    }
+  },
+  {
+    "config": {
+      "board": [
+        "Th",
+        "9h",
+        "8c",
+        "7d"
+      ],
+      "oopRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "ipRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "pot": 0.17,
+      "stack": 1.93,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 2
+    },
+    "line": [],
+    "all": false,
+    "elapsedMs": 4844.2906,
+    "wallMs": 4679.3681,
+    "meta": {
+      "exploitability_chips": 0.0028773413896560672,
+      "exploitability_pct_of_pot": 1.6925537586212158,
+      "iterations": 100,
+      "node_count": 5547,
+      "root_evs": {
+        "pot_share": [
+          0.0790037214756012,
+          0.09099628031253815
+        ],
+        "zero_sum": [
+          -0.005996275693178177,
+          0.005996276158839464
+        ]
+      }
+    },
+    "nodes": 5547,
+    "memoryBytes": 48427152,
+    "timings": {
+      "cfrMs": 4032.026399999999,
+      "exportMs": 159.8686,
+      "qualityMs": 434.94530000000003,
+      "setupMs": 50.8022
+    }
+  },
+  {
+    "config": {
+      "board": [
+        "Kc",
+        "Tc",
+        "7c",
+        "2c"
+      ],
+      "oopRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "ipRange": "22+,32s+,32o+,42s+,42o+,52s+,52o+,62s+,62o+,72s+,72o+,82s+,82o+,92s+,92o+,T2s+,T2o+,J2s+,J2o+,Q2s+,Q2o+,K2s+,K2o+,A2s+,A2o+",
+      "pot": 0.15,
+      "stack": 1.89,
+      "betSizes": [
+        50
+      ],
+      "raiseSizes": [
+        50
+      ],
+      "maxIterations": 300,
+      "targetPct": 2
+    },
+    "line": [],
+    "all": false,
+    "elapsedMs": 2525.448400000001,
+    "wallMs": 2341.616,
+    "meta": {
+      "exploitability_chips": 0.0029232394695281982,
+      "exploitability_pct_of_pot": 1.9488263130187988,
+      "iterations": 120,
+      "node_count": 5547,
+      "root_evs": {
+        "pot_share": [
+          0.07020629942417145,
+          0.07979370653629303
+        ],
+        "zero_sum": [
+          -0.004793702159076929,
+          0.004793702624738216
+        ]
+      }
+    },
+    "nodes": 5547,
+    "memoryBytes": 22787344,
+    "timings": {
+      "cfrMs": 1971.9495000000004,
+      "exportMs": 141.3069,
+      "qualityMs": 187.00180000000003,
+      "setupMs": 39.806099999999994
+    }
+  }
+]

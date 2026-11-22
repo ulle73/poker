@@ -1,0 +1,6 @@
+import {build} from 'vite';
+await build({configFile:false,publicDir:false,build:{target:'node22',outDir:'electron/generated',emptyOutDir:false,minify:false,lib:{entry:'src/holdem/model.ts',formats:['cjs'],fileName:()=> 'holdem-model.cjs'}}});
+await build({configFile:false,publicDir:false,build:{target:'node22',outDir:'electron/generated',emptyOutDir:false,minify:false,lib:{entry:'src/shortdeck/audit-worker.ts',formats:['es'],fileName:()=> 'shortdeck-audit.mjs'},rollupOptions:{external:['node:worker_threads']}}});
+await build({configFile:false,publicDir:false,build:{target:'node22',outDir:'electron/generated',emptyOutDir:false,minify:false,lib:{entry:'src/solver/native-config.ts',formats:['cjs'],fileName:()=> 'postflop-config.cjs'}}});
+await build({configFile:false,publicDir:false,build:{target:'node22',outDir:'electron/generated',emptyOutDir:false,minify:false,lib:{entry:'src/monker/response.ts',formats:['cjs'],fileName:()=> 'monker-model.cjs'}}});
+await build({configFile:false,publicDir:false,build:{target:'node22',outDir:'electron/generated',emptyOutDir:false,minify:false,lib:{entry:'src/monker/audit-worker.ts',formats:['es'],fileName:()=> 'monker-audit.mjs'},rollupOptions:{external:['node:worker_threads','node:fs/promises']}}});

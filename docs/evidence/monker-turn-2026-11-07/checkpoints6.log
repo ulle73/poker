@@ -1,0 +1,8 @@
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":2088960,"initializeMs":1025.0009,"computeMs":2007.7533,"totalMs":3083.9508,"qualityVerified":false}
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":0,"initializeMs":138.6173,"computeMs":0.6535,"totalMs":168.6921,"qualityVerified":false}
+{"checkpoint":1,"iterations":1032192,"cumulativeComputeMs":1021.085,"solveAndDecodeMs":1166.4886,"strategyReset":false}
+{"checkpoint":2,"iterations":2162688,"cumulativeComputeMs":2029.0929,"solveAndDecodeMs":2255.5296,"strategyReset":false}
+{"checkpoint":3,"iterations":3252224,"cumulativeComputeMs":3039.4393,"solveAndDecodeMs":3331.5,"strategyReset":false}
+{"checkpoint":4,"iterations":4300800,"cumulativeComputeMs":4061.2975,"solveAndDecodeMs":4434.4025,"strategyReset":false}
+{"checkpoint":5,"iterations":5308416,"cumulativeComputeMs":5065.052,"solveAndDecodeMs":5494.9676,"strategyReset":false}
+{"checkpoint":6,"iterations":6332416,"cumulativeComputeMs":6075.1892,"solveAndDecodeMs":6565.2837,"strategyReset":false}

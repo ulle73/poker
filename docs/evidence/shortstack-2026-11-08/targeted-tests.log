@@ -1,0 +1,12 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+
+ Test Files  5 passed (5)
+      Tests  56 passed (56)
+   Start at  10:17:06
+   Duration  22.61s (environment 90%, transform 4%, import 4%, tests 2%)
+
+    Isolate  5 workers spawned · ~4.08s startup each (spawn + environment, per file)
+             at least ~16.33s faster with isolate: false — reuses workers across files instead of one per file
+

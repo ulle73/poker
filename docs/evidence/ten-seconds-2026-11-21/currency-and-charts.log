@@ -1,0 +1,31 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > reads a whole table using € 265ms
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > reads a whole table using  kr 58ms
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > reads a whole table using  SEK 35ms
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > parses money without inventing missing values or mixing currencies 2ms
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > distinguishes occupied seats from six-seat layout and hidden placeholder cards 32ms
+ ✓ tests/live-reader.test.ts > Svenska Spel DOM reader > suppresses inconsistent and mid-animation card states rather than guessing 54ms
+ ✓ tests/live-reader.test.ts > treats a visible sit-out seat without cards or chips as occupied but not an unknown participant 32ms
+ ✓ tests/live-reader.test.ts > does not remove a sit-out-marked player who still has cards or a live bet 29ms
+ ✓ tests/live-reader.test.ts > does not guess sit-out status from missing cards alone or hidden markers 31ms
+ ✓ tests/live-reader.test.ts > recognizes 6+ explicitly while keeping cards below six invalid 87ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > produces source decisions for all two-to-six table mappings 56ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > preserves the concrete-source AQo mix for BB facing BU open 5ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > selects the four-bet node after an observed open and three-bet 3ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > uses the genuine ten-BB HU call chart rather than the six-max reference 2ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > rejects a data edit even if the changed JSON remains parseable 26ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > returns the HJ source fold for the reported 119bb hero with a 43bb small blind 3ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > reports a missing stack model as unsupported coverage, not a solver failure 2ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > routes all two-to-six mappings through the installed forty-BB source 7ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  20:43:45
+   Duration  8.77s (environment 78%, tests 9%, transform 7%, import 5%)
+
+Environment  jsdom was created 2 times · 6.10s total, 78% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

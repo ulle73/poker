@@ -1,0 +1,25 @@
+import {mkdir,readFile,writeFile,copyFile,readdir} from 'node:fs/promises';
+import {createReadStream} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const [vendorDirectory,javaDirectory,directory]=process.argv.slice(2);
+if(!directory||!javaDirectory||!vendorDirectory)throw Error('Expected official runtime, Java bin directory and installation directory');
+const root=fileURLToPath(new URL('../',import.meta.url));
+async function hash(file){const h=createHash('sha256');for await(const chunk of createReadStream(file))h.update(chunk);return h.digest('hex');}
+const expected={'MonkerSolverFree.exe':'f66d7f2b5d8b35393577a39abfc0325215f26dd5102355e1ae49be477318e652','handRanks.ser':'d927fac383d43d8743fa50b81e3684fcd26a900ee548ec4b38668ab9fe7a6fc5'};
+for(const [file,sha]of Object.entries(expected))if(await hash(path.join(vendorDirectory,file))!==sha)throw Error('Unsupported official file '+file);
+await mkdir(path.join(directory,'classes'),{recursive:true});
+for(const file of Object.keys(expected))await copyFile(path.join(vendorDirectory,file),path.join(directory,file));
+const sources=['MonkerPolicyExport.java','MonkerKernel.java','MonkerCoreProbe.java','MonkerBridge.java'].map(file=>path.join(root,'scripts/monker-audit',file));
+const compile=spawnSync(path.join(javaDirectory,'javac.exe'),['-cp',path.join(directory,'MonkerSolverFree.exe'),'-d',path.join(directory,'classes'),...sources],{windowsHide:true,encoding:'utf8',timeout:30000});
+if(compile.status!==0)throw Error(compile.stderr||'Java compilation failed');
+const hostClassHashes={};
+for(const file of await readdir(path.join(directory,'classes/c')))if(file.endsWith('.class'))hostClassHashes['c/'+file]=await hash(path.join(directory,'classes/c',file));
+const manifest={version:10114,java:path.join(javaDirectory,'java.exe'),vendorHashes:expected,hostClassHashes,sourceHashes:Object.fromEntries(await Promise.all(sources.map(async file=>[path.basename(file),await hash(file)])))};
+await writeFile(path.join(directory,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
+const provenanceFile=path.join(root,'docs/solver-provenance.json'),provenance=JSON.parse(await readFile(provenanceFile,'utf8'));
+provenance.optionalMonker={version:10114,officialFree:true,vendorHashes:expected,hostClassHashes,sourceHashes:manifest.sourceHashes,quality:'Verified only when an independent certificate passes; broad results explicitly marked unverified',limitPct:2.1};
+await writeFile(provenanceFile,JSON.stringify(provenance,null,2)+'\n');
+console.log(JSON.stringify({directory,classes:Object.keys(hostClassHashes).length,version:10114}));

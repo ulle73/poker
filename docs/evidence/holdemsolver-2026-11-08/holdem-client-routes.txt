@@ -1,0 +1,574 @@
+{
+  "sha256": "23279a9864264994ffdef77283a9ff66392af6157f82dc2d4f08f29613320fc1",
+  "calls": [
+    {
+      "function": "Zt",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/health\"",
+          "body": "void 0"
+        }
+      ]
+    },
+    {
+      "function": "en",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/live-dashboard\"",
+          "body": "void 0"
+        }
+      ]
+    },
+    {
+      "function": "tn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/solve\"",
+          "body": "e"
+        }
+      ]
+    },
+    {
+      "function": "nn",
+      "parameters": [
+        "e",
+        "t",
+        "n",
+        "i"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/solve-next-street`",
+          "body": "ze(t,n,i)"
+        }
+      ]
+    },
+    {
+      "function": "on",
+      "parameters": [
+        "e",
+        "t",
+        "n"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/change-street`",
+          "body": "{board:t,...ze(\"\",\"\",n),node:void 0,next_card:void 0}"
+        }
+      ]
+    },
+    {
+      "function": "rn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}`"
+        }
+      ]
+    },
+    {
+      "function": "sn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/lineage`"
+        }
+      ]
+    },
+    {
+      "function": "ln",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/result`",
+          "body": "void 0"
+        }
+      ]
+    },
+    {
+      "function": "cn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/aggregate-report\"",
+          "body": "e"
+        }
+      ]
+    },
+    {
+      "function": "an",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/convergence-history`"
+        }
+      ]
+    },
+    {
+      "function": "un",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/nodes`",
+          "body": "{street:t==null?void 0:t.street,player:t==null?void 0:t.player,bucket:t==null?void 0:t.bucket,history:t==null?void 0:t.history,parent_history:t==null?void 0:t.parentHistory,limit:t==null?void 0:t.limit,tree:t!=null&&t.tree?1:void 0}"
+        }
+      ]
+    },
+    {
+      "function": "_n",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/stop`",
+          "body": "t?{...t.abandonExport?{abandon_export:!0}:{},...t.artifact_save_mode?{artifact_save_mode:t.artifact_save_mode}:{},...t.keep_previous_version!==void 0?{keep_previous_version:t.keep_previous_version}:{}}:void 0"
+        }
+      ]
+    },
+    {
+      "function": "dn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/threads`",
+          "body": "n"
+        }
+      ]
+    },
+    {
+      "function": "bn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/continue`",
+          "body": "i"
+        }
+      ]
+    },
+    {
+      "function": "fn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/solves\""
+        }
+      ]
+    },
+    {
+      "function": "hn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/solve/${encodeURIComponent(e)}/save-as`",
+          "body": "{name:t}"
+        }
+      ]
+    },
+    {
+      "function": "pn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/library\"",
+          "body": "{include_discovered:!1}"
+        }
+      ]
+    },
+    {
+      "function": "yn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/library/${encodeURIComponent(e)}/open`"
+        }
+      ]
+    },
+    {
+      "function": "Sn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/library/${encodeURIComponent(e)}/metadata`",
+          "body": "t"
+        }
+      ]
+    },
+    {
+      "function": "gn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/library/${encodeURIComponent(e)}/delete`"
+        }
+      ]
+    },
+    {
+      "function": "vn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/library/trash/${encodeURIComponent(e)}/restore`"
+        }
+      ]
+    },
+    {
+      "function": "Rn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/library/storage\""
+        }
+      ]
+    },
+    {
+      "function": "xn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/library/location/choose\"",
+          "body": "void 0"
+        }
+      ]
+    },
+    {
+      "function": "Bn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/library/storage/cleanup\"",
+          "body": "{empty_trash:!0}"
+        }
+      ]
+    },
+    {
+      "function": "mn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/library/compare\"",
+          "body": "{names:e}"
+        }
+      ]
+    },
+    {
+      "function": "In",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/library/${encodeURIComponent(e)}/versions`"
+        }
+      ]
+    },
+    {
+      "function": "Pn",
+      "parameters": [
+        "e",
+        "t={}"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/library/${encodeURIComponent(e)}/version`",
+          "body": "{label:t.label,source_solve_id:t.sourceSolveId}"
+        }
+      ]
+    },
+    {
+      "function": "kn",
+      "parameters": [],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/batch\""
+        }
+      ]
+    },
+    {
+      "function": "Fn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/batch\"",
+          "body": "e"
+        }
+      ]
+    },
+    {
+      "function": "Ln",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}`"
+        }
+      ]
+    },
+    {
+      "function": "Mn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/pause`"
+        }
+      ]
+    },
+    {
+      "function": "En",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/resume`"
+        }
+      ]
+    },
+    {
+      "function": "An",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/cancel`"
+        }
+      ]
+    },
+    {
+      "function": "Tn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/retry`",
+          "body": "t?{entry_ids:t}:{}"
+        }
+      ]
+    },
+    {
+      "function": "zn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/reorder`",
+          "body": "{entry_ids:t}"
+        }
+      ]
+    },
+    {
+      "function": "wn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/rename`",
+          "body": "{name:t}"
+        }
+      ]
+    },
+    {
+      "function": "Cn",
+      "parameters": [
+        "e",
+        "t",
+        "n"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/entries/bulk`",
+          "body": "{action:t,entry_ids:n}"
+        }
+      ]
+    },
+    {
+      "function": "jn",
+      "parameters": [
+        "e",
+        "t"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "`/batch/${encodeURIComponent(e)}/entries/${encodeURIComponent(t)}/open`"
+        }
+      ]
+    },
+    {
+      "function": "Un",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "POST",
+          "service": "\"runner\"",
+          "path": "\"/tree-profile\"",
+          "body": "{...t,...e!=null&&e.tree_rules?{tree_rules:e.tree_rules}:{}}"
+        },
+        {
+          "method": "GET",
+          "service": "\"runner\"",
+          "path": "\"/tree-profile\"",
+          "body": "s"
+        }
+      ]
+    },
+    {
+      "function": "Nn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "e",
+          "path": "\"/health\"",
+          "body": "void 0"
+        }
+      ]
+    },
+    {
+      "function": "Dn",
+      "parameters": [
+        "e"
+      ],
+      "calls": [
+        {
+          "method": "GET",
+          "service": "\"db\"",
+          "path": "\"/artifacts\"",
+          "body": "{role:e==null?void 0:e.role,schema:e==null?void 0:e.schema,q:e==null?void 0:e.q,ext:e==null?void 0:e.ext,limit:e==null?void 0:e.limit}"
+        }
+      ]
+    }
+  ]
+}
+export{$t as $,y as A,On as B,vn as C,mn as D,Bn as E,Sn as F,$n as G,gn as H,Pn as I,Rn as J,In as K,Fn as L,Mn as M,En as N,An as O,Tn as P,zn as Q,wn as R,Cn as S,jn as T,Ln as U,cn as V,Yt as W,Be as X,ke as Y,Ot as Z,kt as _,kn as a,O as a0,Ft as a1,Wt as a2,Un as a3,d as a4,U as a5,V as a6,Pt as a7,a as a8,Et as a9,Zt as aA,en as aB,an as aC,un as aD,sn as aE,ne as aa,Se as ab,Lt as ac,Ge as ad,Ve as ae,Xe as af,Mt as ag,ge as ah,K as ai,Jt as aj,W as ak,Ut as al,ie as am,wt as an,Ct as ao,jt as ap,rt as aq,Nt as ar,le as as,Dt as at,ot as au,Dn as av,Qt as aw,Ht as ax,Nn as ay,Xt as az,qt as b,p as c,h as d,Vt as e,Gt as f,rn as g,ln as h,At as i,nt as j,Tt as k,fn as l,Ie as m,F as n,zt as o,tn as p,pn as q,Kt as r,_n as s,on as t,nn as u,bn as v,dn as w,hn as x,yn as y,xn as z};
+

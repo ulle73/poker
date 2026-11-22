@@ -1,0 +1,7 @@
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1089536,"initializeMs":1983.5465,"computeMs":3031.6336,"totalMs":5206.4514,"qualityVerified":false}
+{"players":3,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":2252800,"initializeMs":30.0917,"computeMs":2021.7667,"totalMs":2177.5259,"qualityVerified":false}
+{"players":4,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1196032,"initializeMs":27.6189,"computeMs":2006.2858,"totalMs":2111.0555,"qualityVerified":false}
+{"players":5,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1097728,"initializeMs":71.8604,"computeMs":2016.9535,"totalMs":2178.7962,"qualityVerified":false}
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":753664,"initializeMs":349.1529,"computeMs":2021.799,"totalMs":2487.0435,"qualityVerified":false}
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":745472,"initializeMs":319.9428,"computeMs":2020.5583,"totalMs":2459.6379,"qualityVerified":false}
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":720896,"initializeMs":293.4757,"computeMs":2016.2333,"totalMs":2386.9608,"qualityVerified":false}

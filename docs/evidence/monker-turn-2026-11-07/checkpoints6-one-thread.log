@@ -1,0 +1,8 @@
+{"players":6,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":1916928,"initializeMs":911.0435,"computeMs":2013.7158,"totalMs":2987.9049,"qualityVerified":false}
+{"players":6,"threads":1,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":0,"initializeMs":124.8168,"computeMs":0.0988,"totalMs":155.5757,"qualityVerified":false}
+{"checkpoint":1,"threads":1,"iterations":278528,"cumulativeComputeMs":1000.1992,"solveAndDecodeMs":1128.7104,"strategyReset":false}
+{"checkpoint":2,"threads":1,"iterations":573440,"cumulativeComputeMs":2002.2432,"solveAndDecodeMs":2220.3733,"strategyReset":false}
+{"checkpoint":3,"threads":1,"iterations":843776,"cumulativeComputeMs":3004.4891,"solveAndDecodeMs":3289.3927,"strategyReset":false}
+{"checkpoint":4,"threads":1,"iterations":1097728,"cumulativeComputeMs":4004.7853999999998,"solveAndDecodeMs":4351.2196,"strategyReset":false}
+{"checkpoint":5,"threads":1,"iterations":1359872,"cumulativeComputeMs":5006.8798,"solveAndDecodeMs":5407.8876,"strategyReset":false}
+{"checkpoint":6,"threads":1,"iterations":1630208,"cumulativeComputeMs":6007.411099999999,"solveAndDecodeMs":6462.305,"strategyReset":false}

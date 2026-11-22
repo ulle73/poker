@@ -1,0 +1,11 @@
+  • electron-builder  version=26.18.0 os=10.0.26200
+  • loaded configuration  file=package.json ("build" field)
+  • executing @electron/rebuild  electronVersion=45.1.0 arch=x64 buildFromSource=false workspaceRoot=C:\dev\poker-gto-coverage projectDir=./ appDir=./
+  • installing native dependencies  arch=x64
+  • completed installing native dependencies
+  • packaging       platform=win32 arch=x64 electron=45.1.0 appOutDir=release\win-unpacked
+  • downloaded      label=electron progress=100%
+  • downloaded electron zip extracted successfully  output=C:\dev\poker-gto-coverage\release\win-unpacked
+  • searching for node modules  pm=npm searchDir=C:\dev\poker-gto-coverage
+  • updating asar integrity executable resource  executablePath=release\win-unpacked\Poker GTO Advisor.exe
+  • executable resource editing and code signing skipped — signAndEditExecutable is false. To skip only code signing while keeping icon and metadata applied, use signExecutable: false instead.  exe=release\win-unpacked\Poker GTO Advisor.exe

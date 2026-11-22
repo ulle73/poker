@@ -1,0 +1,21 @@
+{
+  "method": "independent-normal-form-enumeration",
+  "pureStrategies": [
+    256,
+    256,
+    256
+  ],
+  "values": [
+    27.59939955101097,
+    3953.3000723630275,
+    19.10052808596096
+  ],
+  "bestResponses": [
+    32.70198750347991,
+    3972.860726862561,
+    32.82143952090097
+  ],
+  "nashConvPct": 0.9596038471735281,
+  "matched": true,
+  "elapsedMs": 69.0101
+}

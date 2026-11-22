@@ -1,0 +1,28 @@
+{
+  "scope": "read-only source review; no independent game-theoretic quality or live-hand verification",
+  "findings": [
+    {
+      "priority": "P2",
+      "issue": "Observed bet to effective cap was encoded as absolute size when bettor retained uncallable chips.",
+      "fix": "Shared effectiveStacksFor calculation for client prefix and public tree.",
+      "regression": {
+        "stacks": [
+          160,
+          160,
+          300
+        ],
+        "bettor": 2,
+        "bet": 160,
+        "remaining": 140,
+        "expectedPrefix": [
+          1,
+          1,
+          3
+        ],
+        "unitPass": true,
+        "realKernelClientPass": true
+      }
+    }
+  ],
+  "otherConcreteP0P1Reported": false
+}

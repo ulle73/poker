@@ -1,0 +1,9 @@
+{
+  "method": "independent-fixed-noncheating-deviation-enumeration",
+  "baseline": 3947.1296255994025,
+  "deviation": 5390.343691817401,
+  "gain": 1443.2140662179986,
+  "gainPct": 36.08035165544997,
+  "disprovesTwoPercent": true,
+  "hiddenCardsUsedForDecisions": false
+}

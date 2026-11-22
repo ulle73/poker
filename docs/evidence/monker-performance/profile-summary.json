@@ -1,0 +1,315 @@
+{
+  "eventCounts": {
+    "jdk.ExecutionSample": 5217,
+    "jdk.GarbageCollection": 13,
+    "jdk.ObjectAllocationSample": 961,
+    "jdk.JavaMonitorEnter": 6
+  },
+  "topFrames": [
+    [
+      "c.aE.i",
+      2366
+    ],
+    [
+      "c.aE.c",
+      1033
+    ],
+    [
+      "c.v.a",
+      755
+    ],
+    [
+      "c.ar.a",
+      364
+    ],
+    [
+      "a.a.a.a.b.a.a",
+      279
+    ],
+    [
+      "c.aE.a",
+      193
+    ],
+    [
+      "c.aE.b",
+      79
+    ],
+    [
+      "java.util.HashMap.getNode",
+      60
+    ],
+    [
+      "c.v.c",
+      32
+    ],
+    [
+      "c.az.a",
+      11
+    ],
+    [
+      "jdk.internal.util.random.RandomSupport.boundedNextInt",
+      5
+    ],
+    [
+      "c.t.a",
+      5
+    ],
+    [
+      "javax.swing.TimerQueue.run",
+      3
+    ],
+    [
+      "d.a.a.b.c.a",
+      3
+    ],
+    [
+      "java.util.random.RandomGenerator.nextInt",
+      3
+    ],
+    [
+      "java.util.PriorityQueue.poll",
+      1
+    ],
+    [
+      "javax.swing.SortingFocusTraversalPolicy.mergeSort",
+      1
+    ],
+    [
+      "jdk.jfr.internal.RequestEngine.run_requests",
+      1
+    ],
+    [
+      "javax.swing.tree.VariableHeightLayoutCache.getNodeForPath",
+      1
+    ],
+    [
+      "java.util.Arrays.fill",
+      1
+    ]
+  ],
+  "inclusiveFrames": [
+    [
+      "c.aE.c",
+      3491
+    ],
+    [
+      "c.aE.i",
+      2366
+    ],
+    [
+      "c.aE.b",
+      1990
+    ],
+    [
+      "c.v.a",
+      1674
+    ],
+    [
+      "c.A.c",
+      1496
+    ],
+    [
+      "c.A$$Lambda$333+0x000001f612209038.1214966422.run",
+      1411
+    ],
+    [
+      "java.lang.Thread.run",
+      692
+    ],
+    [
+      "c.ar.a",
+      364
+    ],
+    [
+      "c.aE.a",
+      285
+    ],
+    [
+      "a.a.a.a.b.a.a",
+      280
+    ],
+    [
+      "c.v.c",
+      92
+    ],
+    [
+      "c.az.a",
+      71
+    ],
+    [
+      "java.util.HashMap.getNode",
+      60
+    ],
+    [
+      "java.util.HashMap.get",
+      60
+    ],
+    [
+      "java.util.random.RandomGenerator.nextInt",
+      9
+    ],
+    [
+      "c.aE.d",
+      9
+    ],
+    [
+      "jdk.internal.util.random.RandomSupport.boundedNextInt",
+      6
+    ],
+    [
+      "javax.swing.TimerQueue.run",
+      5
+    ],
+    [
+      "c.t.a",
+      5
+    ],
+    [
+      "jdk.jfr.internal.PlatformRecorder.lambda$startDiskMonitor$1",
+      3
+    ]
+  ],
+  "sampledAllocationBytesByClass": [
+    [
+      "java/lang/Integer",
+      266469928
+    ],
+    [
+      "[I",
+      141933416
+    ],
+    [
+      "java/awt/EventQueue$4",
+      74939464
+    ],
+    [
+      "java/lang/StringBuilder",
+      44524616
+    ],
+    [
+      "java/lang/String",
+      26141160
+    ],
+    [
+      "[Lc/h;",
+      15312176
+    ],
+    [
+      "[D",
+      13108256
+    ],
+    [
+      "[B",
+      8418264
+    ],
+    [
+      "c/h",
+      5146312
+    ],
+    [
+      "[J",
+      4932064
+    ],
+    [
+      "sun/java2d/SunGraphics2D",
+      3406000
+    ],
+    [
+      "java/util/concurrent/locks/AbstractQueuedSynchronizer$ConditionNode",
+      2736560
+    ]
+  ],
+  "gc": [
+    {
+      "duration": "PT0.007168663S",
+      "sumOfPauses": "PT0.007168663S",
+      "longestPause": "PT0.007168663S"
+    },
+    {
+      "duration": "PT0.017868935S",
+      "sumOfPauses": "PT0.00324628S",
+      "longestPause": "PT0.003140543S"
+    },
+    {
+      "duration": "PT0.003068103S",
+      "sumOfPauses": "PT0.003068103S",
+      "longestPause": "PT0.003068103S"
+    },
+    {
+      "duration": "PT0.000452956S",
+      "sumOfPauses": "PT0S",
+      "longestPause": "PT0S"
+    },
+    {
+      "duration": "PT0.019886724S",
+      "sumOfPauses": "PT0.019886724S",
+      "longestPause": "PT0.019886724S"
+    },
+    {
+      "duration": "PT0.016621844S",
+      "sumOfPauses": "PT0.016621844S",
+      "longestPause": "PT0.016621844S"
+    },
+    {
+      "duration": "PT0.025233008S",
+      "sumOfPauses": "PT0.025233008S",
+      "longestPause": "PT0.025233008S"
+    },
+    {
+      "duration": "PT0.0009921S",
+      "sumOfPauses": "PT0.0009921S",
+      "longestPause": "PT0.0009921S"
+    },
+    {
+      "duration": "PT0.022423002S",
+      "sumOfPauses": "PT0.002302933S",
+      "longestPause": "PT0.002187279S"
+    },
+    {
+      "duration": "PT0.001337036S",
+      "sumOfPauses": "PT0.001337036S",
+      "longestPause": "PT0.001337036S"
+    },
+    {
+      "duration": "PT0.001574506S",
+      "sumOfPauses": "PT0.001574506S",
+      "longestPause": "PT0.001574506S"
+    },
+    {
+      "duration": "PT0.035496048S",
+      "sumOfPauses": "PT0.003185833S",
+      "longestPause": "PT0.003007511S"
+    },
+    {
+      "duration": "PT0.017975691S",
+      "sumOfPauses": "PT0.017975691S",
+      "longestPause": "PT0.017975691S"
+    }
+  ],
+  "locks": [
+    {
+      "duration": "PT0.02892962S",
+      "class": "java/awt/Component$AWTTreeLock"
+    },
+    {
+      "duration": "PT0.033017398S",
+      "class": "java/awt/Component$AWTTreeLock"
+    },
+    {
+      "duration": "PT0.015214477S",
+      "class": "java/awt/Component$AWTTreeLock"
+    },
+    {
+      "duration": "PT0.013950589S",
+      "class": "java/awt/Component$AWTTreeLock"
+    },
+    {
+      "duration": "PT0.011371685S",
+      "class": "java/awt/Component$AWTTreeLock"
+    },
+    {
+      "duration": "PT0.01189955S",
+      "class": "java/awt/Component$AWTTreeLock"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "range": "33+,A2s+,K2s+,Q2s+,J4s+,T6s+,96s+,86s+,76s,65s,A2o+,K5o+,Q7o+,J7o+,T8o+,98o,T7o:0.25",
+  "physicalCombos": 672,
+  "combinationMass": 663.0,
+  "percentage": 50,
+  "classification": "PokerStove ordering as transcribed by holdem-eval; boundary T7o has 25 percent weight",
+  "source": "https://github.com/apometta/holdem-eval/blob/e0687e13ff0d780ec8134a33bdc17adfbc8fe606/src/PercentageToRange.cpp"
+}

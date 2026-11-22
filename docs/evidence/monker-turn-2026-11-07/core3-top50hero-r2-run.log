@@ -1,0 +1,3 @@
+{"players":3,"threads":8,"averageResetAfterMs":0,"fresh":true,"iterationsBefore":0,"iterations":5029888,"initializeMs":868.6683,"computeMs":2287.7378,"totalMs":3390.8793,"qualityVerified":false}
+Quality unknown
+{"players":3,"nashConvPct":null,"accepted":false,"elapsedMs":null,"error":"Exact audit joint-range budget exceeded; quality unknown"}

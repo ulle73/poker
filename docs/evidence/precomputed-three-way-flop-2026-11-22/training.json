@@ -1,0 +1,202 @@
+{
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "offlineOptions": {
+    "seed": 395,
+    "sampling": "outcome",
+    "baseline": "learned",
+    "heroOversampling": 0,
+    "offlinePrecomputation": true,
+    "timeBudgetMs": 90000,
+    "maxInfosets": 1250000,
+    "maxIterations": 5000000
+  },
+  "result": {
+    "key": "raised-postflop-probe:flop",
+    "rangeRevision": 0,
+    "quality": "approximation",
+    "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0",
+        "frequency": 0.0009426639748094978,
+        "ev": 0
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180",
+        "frequency": 0.03266444577472968,
+        "ev": 114.67400333995789
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360",
+        "frequency": 0.9663928902504608,
+        "ev": 252.79195344750926
+      }
+    ],
+    "recommended": 2,
+    "iterations": 1773971,
+    "rootVisits": 1492,
+    "elapsedMs": 50328,
+    "cutoffCount": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ],
+    "limitations": [
+      "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+      "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+      "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+      "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+      "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+      "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+      "Training stopped before the 1250000 entry limit because a complete update cycle could no longer be reserved."
+    ],
+    "exploitabilityPct": null,
+    "diagnostics": {
+      "informationSets": 1249854,
+      "cachedCardViews": 651358,
+      "suitPermutations": 24,
+      "rootClassSize": 1,
+      "tableLimited": true,
+      "completedEpisodes": 5321913,
+      "maximumEpisodeNodes": 49,
+      "baselineUpdates": 20093534,
+      "baselineBytes": 60044904,
+      "publicTreeNodes": 104,
+      "publicTreeLimited": false
+    }
+  },
+  "trainedRoot": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "frequencies": [
+      0.0009426639748094978,
+      0.03266444577472968,
+      0.9663928902504608
+    ],
+    "trained": true
+  },
+  "artifact": {
+    "tables": 50,
+    "bytes": 12366072,
+    "rows": 514532,
+    "rootRows": 721,
+    "modelSha256": "b0debc9509ef66814434392a9d3e9ce16b08518a3e361d16091a39f77e27ca91",
+    "manifestSha256": "d178eda83fb26465fdd785c7f4926aa821030581b637db86f9611c7696d58000"
+  },
+  "exportMs": 903.7795000000042,
+  "processPeakRssKiB": 1217984
+}

@@ -1,0 +1,145 @@
+{
+  "name": "sek-preflop-2",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "ms": 1224,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290120986,
+      "ui": {
+        "hand": "1000",
+        "provider": "holdemmath-preflop",
+        "action": "Raise till 0,2 SEK · all-in",
+        "quality": "Prefloptabell · referensmodell",
+        "rows": [
+          "Raise till 0,2 SEK · all-in\n100.0 %\n—"
+        ],
+        "current": "Hand\n#1000\nGata\npreflop\nPott\n0,03 SEK\nDin stack bakom\n0,19 SEK\nTur att agera\nDin tur\nAktiva / upptagna / säten\n2 / 2 / 6",
+        "strength": "Din starthand\nAA\n\nPå floppen kan din första femkortshand jämföras med motståndarnas.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 4,
+        "handId": "1000",
+        "capturedAt": 0,
+        "currency": "SEK",
+        "maxSeats": 6,
+        "street": "preflop",
+        "dealerSeat": 1,
+        "heroTurn": true,
+        "heroCards": [
+          "As",
+          "Ah"
+        ],
+        "board": [],
+        "pot": 0.03,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna",
+          "Höj"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "BTN / SB",
+            "stack": 0.19,
+            "bet": 0.01,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0.18000000000000002,
+            "bet": 0.02,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "ms": 78,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290122211,
+      "ui": {
+        "hand": "1001",
+        "provider": "holdemmath-preflop",
+        "action": "Raise till 0,2 SEK · all-in",
+        "quality": "Prefloptabell · referensmodell",
+        "rows": [
+          "Raise till 0,2 SEK · all-in\n100.0 %\n—"
+        ],
+        "current": "Hand\n#1001\nGata\npreflop\nPott\n0,03 SEK\nDin stack bakom\n0,19 SEK\nTur att agera\nDin tur\nAktiva / upptagna / säten\n2 / 2 / 6",
+        "strength": "Din starthand\nAA\n\nPå floppen kan din första femkortshand jämföras med motståndarnas.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 5,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "SEK",
+        "maxSeats": 6,
+        "street": "preflop",
+        "dealerSeat": 1,
+        "heroTurn": true,
+        "heroCards": [
+          "As",
+          "Ah"
+        ],
+        "board": [],
+        "pot": 0.03,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna",
+          "Höj"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "BTN / SB",
+            "stack": 0.19,
+            "bet": 0.01,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0.18000000000000002,
+            "bet": 0.02,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

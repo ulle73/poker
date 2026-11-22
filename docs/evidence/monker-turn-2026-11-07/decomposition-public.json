@@ -1,0 +1,135 @@
+[
+  {
+    "file": "C:/dev/poker/docs/evidence/monker-policy-audit/decoded/audit3turn100000nrKs7d2c8h200000.json",
+    "baseNashConvPct": 21.38305857967541,
+    "originalGainsPct": [
+      0.8957180953609006,
+      20.452917871492254,
+      0.03442261282225747
+    ],
+    "rows": [
+      {
+        "hero": 0,
+        "street": 2,
+        "changedInfosets": 4,
+        "gainPct": 0.0975618851848809
+      },
+      {
+        "hero": 0,
+        "street": 3,
+        "changedInfosets": 206,
+        "gainPct": 0.7981562101760198
+      },
+      {
+        "hero": 1,
+        "street": 2,
+        "changedInfosets": 2,
+        "gainPct": -3.8536626731354433
+      },
+      {
+        "hero": 1,
+        "street": 3,
+        "changedInfosets": 128,
+        "gainPct": 0.6367912970216366
+      },
+      {
+        "hero": 2,
+        "street": 2,
+        "changedInfosets": 4,
+        "gainPct": 0
+      },
+      {
+        "hero": 2,
+        "street": 3,
+        "changedInfosets": 212,
+        "gainPct": 0.03442261282225747
+      }
+    ]
+  },
+  {
+    "file": "C:/dev/poker/docs/evidence/monker-policy-audit/decoded/audit6turn1000nrKs7d2c8h200000.json",
+    "baseNashConvPct": 146.77957454614395,
+    "originalGainsPct": [
+      5.311258428360104,
+      132.7208405862104,
+      1.9827135953164312,
+      2.929352724543302,
+      1.2616425426946742,
+      2.5737666690190113
+    ],
+    "rows": [
+      {
+        "hero": 0,
+        "street": 2,
+        "changedInfosets": 8,
+        "gainPct": 1.0288160872379317
+      },
+      {
+        "hero": 0,
+        "street": 3,
+        "changedInfosets": 362,
+        "gainPct": 4.282442341122174
+      },
+      {
+        "hero": 1,
+        "street": 2,
+        "changedInfosets": 2,
+        "gainPct": -4.4536093922315665
+      },
+      {
+        "hero": 1,
+        "street": 3,
+        "changedInfosets": 134,
+        "gainPct": 3.795021756987205
+      },
+      {
+        "hero": 2,
+        "street": 2,
+        "changedInfosets": 4,
+        "gainPct": 0
+      },
+      {
+        "hero": 2,
+        "street": 3,
+        "changedInfosets": 240,
+        "gainPct": 1.9827135953164312
+      },
+      {
+        "hero": 3,
+        "street": 2,
+        "changedInfosets": 4,
+        "gainPct": 0.0004185184325113944
+      },
+      {
+        "hero": 3,
+        "street": 3,
+        "changedInfosets": 196,
+        "gainPct": 2.928934206110791
+      },
+      {
+        "hero": 4,
+        "street": 2,
+        "changedInfosets": 6,
+        "gainPct": 0
+      },
+      {
+        "hero": 4,
+        "street": 3,
+        "changedInfosets": 298,
+        "gainPct": 1.2616425426946742
+      },
+      {
+        "hero": 5,
+        "street": 2,
+        "changedInfosets": 6,
+        "gainPct": 0.0009710781776459676
+      },
+      {
+        "hero": 5,
+        "street": 3,
+        "changedInfosets": 298,
+        "gainPct": 2.5727955908413653
+      }
+    ]
+  }
+]

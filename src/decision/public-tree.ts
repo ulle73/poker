@@ -49,6 +49,9 @@ export class PublicBettingTree<T> {
   get size() {
     return this.byHistory.size;
   }
+  nodes(): IterableIterator<PublicBettingNode<T>> {
+    return this.byHistory.values();
+  }
   private create(state: BettingState): PublicBettingNode<T> {
     if (this.size >= this.capacity)
       throw new Error("Public betting cache exceeded its reserved capacity.");

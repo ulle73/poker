@@ -47,6 +47,8 @@ export interface SolveMeta {
   node_count: number;
 }
 export interface SolveResult {
+  backend?: "native";
+  engine?: "b-inary";
   key: string;
   meta: SolveMeta;
   nodes: SolvedNode[];

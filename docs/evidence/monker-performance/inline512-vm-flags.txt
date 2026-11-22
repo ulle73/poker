@@ -1,0 +1,3 @@
+     intx C1MaxRecursiveInlineLevel                = 1                                      {C1 product} {default}
+     intx FreqInlineSize                           = 512                                 {C2 pd product} {command line}
+     intx MaxRecursiveInlineLevel                  = 1                                      {C2 product} {default}

@@ -1,3 +1,5 @@
+import { unknownParticipation } from "./participation";
+import { NLHE_LIVE_ERROR_PCT } from "../decision/quality";
 import { validateConfig } from "../core/config";
 import { matchLine, adviceFor } from "../core/strategy";
 import type {
@@ -11,6 +13,7 @@ import { postflopOrder } from "./positions";
 export function liveKey(s: LiveSnapshot): string {
   return JSON.stringify([
     s.readerId,
+    s.variant,
     s.handId,
     s.valid,
     s.issues,
@@ -27,6 +30,7 @@ export function liveKey(s: LiveSnapshot): string {
       p.bet,
       p.folded,
       p.inHand,
+      p.sittingOut,
     ]),
   ]);
 }
@@ -51,7 +55,7 @@ export function prepareLiveSolve(
     throw new Error(
       `${active.length} aktiva spelare i potten. Den anslutna GTO-motorn saknar multiway-lösning för detta läge.`,
     );
-  if (s.players.some((p) => !p.inHand && !p.folded))
+  if (s.players.some(unknownParticipation))
     throw new Error(
       "Ett upptaget sätes deltagande är oklart. Väntar på en verifierad fold eller aktiv hand.",
     );
@@ -110,7 +114,7 @@ export function prepareLiveSolve(
       betSizes,
       raiseSizes: [50],
       maxIterations: s.street === "turn" ? 300 : 1500,
-      targetPct: 0.2,
+      targetPct: NLHE_LIVE_ERROR_PCT,
     },
     options,
   );

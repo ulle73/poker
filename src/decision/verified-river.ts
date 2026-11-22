@@ -88,7 +88,7 @@ export async function verifiedPostflop(
     key: input.key,
     rangeRevision: input.rangeRevision,
     quality: "verified-gto",
-    provider: turn ? "postflop-dcfr/turn" : "postflop-dcfr/river",
+    provider: turn ? solved.engine === "b-inary" ? "b-inary-dcfr/turn" : `postflop-dcfr${solved.backend === "native" ? "-native" : ""}/turn` : "postflop-dcfr/river",
     actions,
     recommended: actions.findIndex(
       (a) => a.frequency === Math.max(...actions.map((x) => x.frequency)),
@@ -103,6 +103,7 @@ export async function verifiedPostflop(
     ],
     limitations: [
       "GTO-kontrollen gäller det valda heads-up-trädet och rangeantagandena, inte hela no-limit-spelet.",
+      `Vald maximal exploaterbarhet: ${solved.config.targetPct} % av rotpotten. Detta är en approximerad solverstrategi.`,
       `Ingen rake. EV i denna provider anges relativt ${turn ? "turnstart" : "riverstart"} med halva startpotten per spelare.`,
     ],
     exploitabilityPct: solved.meta.exploitability_pct_of_pot,

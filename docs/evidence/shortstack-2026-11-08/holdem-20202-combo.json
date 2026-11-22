@@ -1,0 +1,152 @@
+{
+  "actions": [
+    "check"
+  ],
+  "board": "JhQhKh",
+  "board_conflict_hand_count": 0,
+  "board_len": 3,
+  "bucket_by_hand_b64": "AA==",
+  "bucket_by_hand_u16_b64": "AAA=",
+  "bucket_count": 1,
+  "bucket_encoding": "exact_range_combo_rows",
+  "bucket_strategies": {
+    "0": {
+      "action_evs": {
+        "check": -4.974063396453857
+      },
+      "arrival_reach": 1,
+      "ev_bb": -4.974063274309829,
+      "freqs": {
+        "check": 1
+      },
+      "strategy_provenance": "retained_native_exact_average",
+      "strategy_row_retained": true,
+      "strategy_source": "retained_native_exact_average",
+      "unvisited_default": false,
+      "visits": 17
+    }
+  },
+  "buckets": 1,
+  "cards_b64": "Hh8=",
+  "combo_strategy_contract": {
+    "arrival_reach": true,
+    "arrival_reach_source": "acting_player_own_action_path_product",
+    "arriving_membership": "complete_positive_board_legal_combos",
+    "board_aware": true,
+    "board_conflict_strategy_rows_excluded": 0,
+    "board_conflicts": "zero_membership_and_no_strategy",
+    "combo_to_bucket_join": true,
+    "entry_private_keying": "exact_entry_hand_index_v1",
+    "exact_per_combo": true,
+    "fractional_range_weights": true,
+    "full_canonical_universe": false,
+    "future_street_private_keying": "bucket_only",
+    "lossless_scope": "NLHE_High_entry_street_private_hand_identity",
+    "missing_strategy_policy": "zero_regret_uniform_over_legal_actions",
+    "per_combo_grid": true,
+    "range_membership": "uniform_exact",
+    "strategy_coverage": "retained_native_exact_entry_rows",
+    "strategy_provenance": "per_page_row_and_full_range_counts",
+    "strategy_source": "retained_native_exact_average_or_explicit_unvisited_uniform",
+    "zero_weight_strategy_rows_excluded": 0
+  },
+  "combo_table_source": "complete_nlhe_exact_entry_membership",
+  "exact_combo_rows": [
+    {
+      "bucket": 0,
+      "cards": [
+        30,
+        31
+      ],
+      "hand": "9h9s",
+      "hand_index": 1095,
+      "strategy_provenance": "retained_native_exact_average",
+      "strategy_row_retained": true
+    }
+  ],
+  "full_range_aggregate": {
+    "action_combo_mass": {
+      "check": 1176
+    },
+    "action_positive_combo_count": {
+      "check": 1176
+    },
+    "arriving_membership_complete": true,
+    "base_mass": 1176,
+    "board_conflict_hand_count": 150,
+    "bucket_combo_counts": {},
+    "bucket_population_exact": true,
+    "covered_base_mass": 1176,
+    "covered_combos": 1176,
+    "covered_node_combos": 1176,
+    "excluded_board_conflict_strategy_rows": 0,
+    "excluded_zero_weight_strategy_rows": 0,
+    "freqs": {
+      "check": 1
+    },
+    "learned_strategy_combos": 1176,
+    "membership_source": "uniform_board_valid_combos",
+    "missing_strategy_policy": "zero_regret_uniform_over_legal_actions",
+    "node_combos": 1176,
+    "reach_weighted": false,
+    "scope": "full_range",
+    "source": "complete_arriving_membership_x_exact_or_initialized_strategy_x_arrival_reach",
+    "strategy_coverage_fraction": 1,
+    "strategy_coverage_source": "retained_native_exact_entry_rows",
+    "strategy_provenance_base_mass": {
+      "retained_native_exact_average": 1176
+    },
+    "strategy_provenance_combo_count": {
+      "retained_native_exact_average": 1176
+    },
+    "strategy_provenance_node_mass": {
+      "retained_native_exact_average": 1176
+    },
+    "strategy_refreshable": false,
+    "synthesized_unvisited_combos": 0,
+    "total_combos": 1176,
+    "unvisited_uniform_combos": 0
+  },
+  "hand_count": 1,
+  "hole_count": 2,
+  "node": {
+    "history": "entry_flop",
+    "infoset_key": "n3|p1|flop|b0|hi586|pub=1716|active=111|allin=000|tc0|pot4.5|h=entry_flop|a=check",
+    "legal_actions": [
+      "check"
+    ],
+    "parent_action": "entry_flop",
+    "parent_history": "",
+    "pot": 4.5,
+    "street": "flop",
+    "to_call": 0
+  },
+  "page_hand_indices": [
+    1095
+  ],
+  "paging": {
+    "bucket_strategies_scope": "page",
+    "filter_cards": "9s9h",
+    "filtered_hand_count": 1,
+    "limit": 5,
+    "max_limit": 50000,
+    "offset": 0,
+    "order": "table",
+    "paged": true,
+    "returned_hand_count": 1,
+    "total_board_conflict_hand_count": 0,
+    "total_hand_count": 1176,
+    "unpaged_max_hand_count": 65534
+  },
+  "passed": true,
+  "player": 1,
+  "range_membership_exact": true,
+  "range_positive_hand_count": 1,
+  "range_total_weight": 1,
+  "range_weight_source": "uniform_board_valid_combos",
+  "schema": "nlhe_product_solve_runner_api_combo_strategy_v1",
+  "solve_id": "20261108T093406_continue_ee783d",
+  "street": "flop",
+  "valid_hand_count": 1,
+  "variant": 2
+}
