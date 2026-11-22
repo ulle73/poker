@@ -23,27 +23,29 @@ for (const rank of "23456789TJQKA") {
   for (const suit of "cdhs") cardsByCode[encode(rank + suit)] = rank + suit;
 }
 
-function raisedSpot(street: typeof streets[number], players = 3): DecisionInput {
+function raisedSpot(street: typeof streets[number], players = 3, checkedStack?: number): DecisionInput {
   const board = fullBoard.slice(0, 3 + streets.indexOf(street));
   const rules = { betFractions: [0.5], raiseFractions: [0.5], maxRaises: 2, includeAllIn: true };
   const seats = Array.from({ length: players }, (_, seat) => seat);
   let state: BettingState = {
     street,
-    stacks: seats.map(() => 360), bets: seats.map(() => 0), invested: seats.map(() => 0),
+    stacks: seats.map(() => checkedStack ?? 360), bets: seats.map(() => 0), invested: seats.map(() => 0),
     folded: seats.map(() => false), pending: seats.map(() => true), canRaise: seats.map(() => true),
     actor: 0, dealer: players - 1, currentBet: 0, lastFullRaise: 10, minBet: 10,
     deadPot: 120, raises: 0, history: "", boardCount: board.length, terminal: false,
   };
-  for (const id of ["check:0", "bet:60", "raise:180"]) {
+  for (const id of checkedStack ? ["check:0", "check:0"] : ["check:0", "bet:60", "raise:180"]) {
     const action = legalActions(state, rules).find((candidate) => candidate.id === id);
     if (!action) throw new Error(`Fixture could not replay ${id}`);
     state = applyAction(state, action, rules);
   }
   return {
-    key: `raised-postflop-probe:${street}`, hero: state.actor, seats,
+    key: checkedStack ? "checked-three-way-flop" : `raised-postflop-probe:${street}`, hero: state.actor, seats,
     heroCards: ["Ah", "Kh"], board, state, rules, chipUnit: 1, currency: "SEK",
     ranges: seats.map(() => ""), rangeRevision: 0,
-    assumptions: ["Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."],
+    assumptions: [checkedStack
+      ? "Uniform compatible private combinations after two flop checks, without action-conditioned priors or rake."
+      : "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."],
   };
 }
 
@@ -471,8 +473,14 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
     const started = performance.now();
     const players = Number(process.env.POKER_RAISED_POSTFLOP_PLAYERS ?? 3);
     if (!Number.isInteger(players) || players < 3 || players > 6) throw new Error("Choose 3–6 players");
-    const input = raisedSpot(street, players);
     const offlineMode = process.env.POKER_RAISED_POSTFLOP_OFFLINE;
+    const setting = process.env.POKER_THREE_WAY_CHECKED_FLOP;
+    const checked = setting === "1" || setting === "6bb";
+    const checkedStack = setting === "6bb" ? 60 : checked ? 80 : undefined;
+    if (checked && (players !== 3 || street !== "flop" || !offlineMode)) {
+      throw new Error("The checked-flop model is only available for offline three-player flop qualification");
+    }
+    const input = raisedSpot(street, players, checkedStack);
     const profileDir = process.env.POKER_RAISED_POSTFLOP_PROFILE;
     if (offlineMode && offlineMode !== "model-size" && !profileDir) {
       throw new Error("Set POKER_RAISED_POSTFLOP_PROFILE to the profile directory");
@@ -501,7 +509,9 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       const iterations = Number(process.env.POKER_RAISED_POSTFLOP_TRAIN_DEALS ?? 3_000_000);
       if (!Number.isSafeInteger(iterations) || iterations < 1) throw new Error("Invalid number of training deals");
       const seed = 52635299;
-      const next = players === 3 && street === "flop" ? auditRandom(seed)
+      const next = checked ? wideAuditRandom(
+        setting === "6bb" ? "training/three-way-checked-flop/6bb" : "training/three-way-checked-flop", seed)
+        : players === 3 && street === "flop" ? auditRandom(seed)
         : wideAuditRandom(players === 3 ? `training/${street}` : `training/${players}/${street}`, seed);
       const board = input.board.map(encode);
       const hand = input.heroCards.map(encode);
@@ -577,7 +587,9 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       const heroRow = root.policy.query(input.state, hand, board);
       const lookupMs = performance.now() - started;
       expect(heroRow.trained).toBe(true);
-      expect(heroRow.actions.map((a) => a.id)).toEqual(["fold:0", "call:180", "raise:360"]);
+      expect(heroRow.actions.map((a) => a.id)).toEqual(checked
+        ? setting === "6bb" ? ["check:0", "bet:60"] : ["check:0", "bet:60", "bet:80"]
+        : ["fold:0", "call:180", "raise:360"]);
       expect(heroRow.frequencies.reduce((sum, frequency) => sum + frequency, 0)).toBeCloseTo(1, 12);
       const warmSamplesMs = Array.from({ length: 25 }, () => {
         const request = performance.now();
@@ -685,9 +697,10 @@ it.skipIf(process.env.POKER_RAISED_POSTFLOP_PROBE !== "1")(
       const familySize = Number(process.env.POKER_RAISED_POSTFLOP_AUDIT_FAMILY ?? players);
       if (!Number.isSafeInteger(familySize) || familySize < players) throw new Error("Invalid audit family size");
       const seed = (cardGrid ? 1392716381 : deep ? 862701449 : 71283597) + 31_123_713 * seat + 113_920_197 * streets.indexOf(street);
-      const reproduceArchivedStream = players === 3 && street === "flop" &&
+      const reproduceArchivedStream = !checked && players === 3 && street === "flop" &&
         process.env.POKER_RAISED_POSTFLOP_AUDIT_RANDOM === "legacy";
-      const auditLabel = players === 3 ? `${offlineMode}/${street}/${seat}` : `${offlineMode}/${players}/${street}/${seat}`;
+      const auditLabel = checked ? `three-way-checked-flop${setting === "6bb" ? "/6bb" : ""}/${offlineMode}/${seat}`
+        : players === 3 ? `${offlineMode}/${street}/${seat}` : `${offlineMode}/${players}/${street}/${seat}`;
       const runLabel = familySize === players ? auditLabel : `${auditLabel}/${familySize}/${dealsPerRunout}`;
       const random = reproduceArchivedStream ? auditRandom(seed) : wideAuditRandom(runLabel, seed);
       const board = input.board.map(encode);

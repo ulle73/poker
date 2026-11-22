@@ -1,0 +1,23 @@
+[
+  {
+    "hand": 2100,
+    "releaseHand": 2103,
+    "mode": "EUR-6bb",
+    "ms": 223,
+    "review": "Avslutad hand #2100\nflop · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nK\n♥\nBräda\nQ\n♥\n8\n♦\n6\n♥\n\nIngen matchande strategi för öppet flopspel med 3 aktiva. Bara vissa avslutande all-in-beslut kan avgöras matematiskt.\n\nDin bästa femkortshand\nHögt kort\nStarkare\n432\nLika starka\n9\nSvagare\n640\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.\n\n58.5 %\nAndel av potten vid showdown\n\nSäte 1 · alla lagliga händer, jämnt viktade / Säte 2 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 1.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n22 ms\nAtt syna: 0 EUR\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger."
+  },
+  {
+    "hand": 2101,
+    "releaseHand": 2104,
+    "mode": "SEK-6bb",
+    "ms": 124,
+    "review": "Avslutad hand #2101\nflop · 3 kvar · pott 1,2 SEK\nDin hand\nA\n♠\nK\n♠\nBräda\nQ\n♠\n8\n♣\n6\n♠\n\nIngen matchande strategi för öppet flopspel med 3 aktiva. Bara vissa avslutande all-in-beslut kan avgöras matematiskt.\n\nDin bästa femkortshand\nHögt kort\nStarkare\n432\nLika starka\n9\nSvagare\n640\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.\n\n57.8 %\nAndel av potten vid showdown\n\nSäte 1 · alla lagliga händer, jämnt viktade / Säte 2 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 1.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n20 ms\nAtt syna: 0 SEK\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger."
+  },
+  {
+    "hand": 2102,
+    "releaseHand": 2105,
+    "mode": "EUR-6.1bb",
+    "ms": 100,
+    "review": "Avslutad hand #2102\nflop · 3 kvar · pott 1,2 EUR\nDin hand\nA\n♥\nK\n♥\nBräda\nQ\n♥\n8\n♦\n6\n♥\n\nIngen matchande strategi för öppet flopspel med 3 aktiva. Bara vissa avslutande all-in-beslut kan avgöras matematiskt.\n\nDin bästa femkortshand\nHögt kort\nStarkare\n432\nLika starka\n9\nSvagare\n640\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n3 synligt aktiva · 0 observerat foldade · 3 upptagna säten.\n\n58.5 %\nAndel av potten vid showdown\n\nSäte 1 · alla lagliga händer, jämnt viktade / Säte 2 · alla lagliga händer, jämnt viktade.\n\nMonte Carlo-fel, cirka 95 %\n± 1.1 procentenheter\nSimulerade givar\n8 000\nBeräkning\n26 ms\nAtt syna: 0 EUR\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger."
+  }
+]
