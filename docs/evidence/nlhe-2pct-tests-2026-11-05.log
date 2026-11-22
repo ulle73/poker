@@ -1,0 +1,17 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run --maxWorkers=1 --testTimeout=15000
+
+
+ RUN  v5.0.5 C:/dev/poker
+
+
+ Test Files  29 passed | 2 skipped (31)
+      Tests  361 passed | 4 skipped (365)
+   Start at  12:20:23
+   Duration  159.28s (environment 55%, tests 43%, import 2%, transform 1%)
+
+Environment  jsdom was created 31 times · 82.36s total, 55% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

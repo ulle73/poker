@@ -57,7 +57,7 @@ export function evaluate7(cards) {
       best = Math.max(best, score5(cards.filter((_, i) => i !== a && i !== b)));
   return best;
 }
-export function independentRiverReport(result) {
+export function independentRiverReport(result, evaluator = evaluate7) {
   const byId = new Map(result.nodes.map((n) => [n.id, n]));
   const parse = (s) => s.match(/../g),
     key = (s) => parse(s).sort().join("");
@@ -67,7 +67,7 @@ export function independentRiverReport(result) {
       throw new Error("Showdown requires a complete board.");
     const cacheKey = board.join("") + hand;
     if (!rankCache.has(cacheKey))
-      rankCache.set(cacheKey, evaluate7([...board, ...parse(hand)]));
+      rankCache.set(cacheKey, evaluator([...board, ...parse(hand)]));
     return rankCache.get(cacheKey);
   };
   const strategy = new Map(

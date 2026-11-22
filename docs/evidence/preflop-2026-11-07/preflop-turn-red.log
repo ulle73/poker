@@ -1,0 +1,32 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+·············x·
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > does not advise a late seat while an earlier unacted live seat remains pending
+AssertionError: expected [Function] to throw an error
+
+- Expected:
+null
+
++ Received:
+undefined
+
+ ❯ tests/preflop.test.ts:72:105
+     70|  });
+     71|  it('does not advise a late seat while an earlier unacted live seat re…
+     72|   const s=preflopSnapshot(),c=new DecisionContext();expect(()=>preflop…
+       |                                                                                                         ^
+     73|  });
+     74|  it('uses real heads-up short-stack data only for a two-seat hand',()=…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  21:29:25
+   Duration  2.68s (environment 93%, transform 4%, import 2%, tests 1%)
+

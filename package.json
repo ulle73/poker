@@ -9,7 +9,7 @@
   "main": "electron/main.cjs",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
-    "build": "node scripts/build-live-reader.mjs && tsc -b && vite build",
+    "build": "node scripts/build-live-reader.mjs && node scripts/build-native-audit.mjs && tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "vitest run",
     "start": "electron .",
@@ -19,7 +19,8 @@
     "verify:solver": "node scripts/verify-solver.mjs",
     "verify:turn": "node scripts/verify-turn.mjs",
     "smoke:desktop": "electron . --smoke-test",
-    "verify:multiway": "node scripts/verify-multiway.mjs"
+    "verify:multiway": "node scripts/verify-multiway.mjs",
+    "build:extension": "node scripts/build-extension.mjs"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.8",

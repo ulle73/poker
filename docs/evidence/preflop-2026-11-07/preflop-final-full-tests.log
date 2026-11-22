@@ -1,0 +1,17 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run --pool=forks --maxWorkers=1 --reporter=dot
+
+
+ RUN  v5.0.5 C:/dev/poker
+
+···································································································································--····················································································································································································································································································-----------------------
+
+ Test Files  38 passed | 7 skipped (45)
+      Tests  407 passed | 25 skipped (432)
+   Start at  21:24:58
+   Duration  165.37s (environment 73%, tests 23%, import 3%, transform 1%)
+
+    Isolate  45 workers spawned · ~2.74s startup each (spawn + environment, per file)
+             at least ~120.65s faster with isolate: false — reuses workers across files instead of one per file
+

@@ -83,6 +83,14 @@ describe("authenticated loopback bridge", () => {
           })
         ).status,
       ).toBe(200);
+      expect((await fetch(endpoint, {method:'POST',
+        headers:{'X-Poker-Token':'test-token',Origin:'chrome-extension://'+'a'.repeat(32)},
+        body:JSON.stringify({...snapshot,sequence:2})})).status).toBe(200);
+      expect((await fetch(endpoint, {method:'POST',
+        headers:{Origin:'chrome-extension://'+'a'.repeat(32)},
+        body:JSON.stringify({...snapshot,sequence:3})})).status).toBe(401);
+      expect((await fetch(endpoint, {method:'POST',headers:{'X-Poker-Token':'test-token'},
+        body:JSON.stringify({...snapshot,sequence:3,players:snapshot.players.map(p=>({...p,sittingOut:true}))})})).status).toBe(422);
       expect(bridge.state().snapshot.handId).toBe("123");
       expect(
         (
@@ -93,6 +101,21 @@ describe("authenticated loopback bridge", () => {
           })
         ).status,
       ).toBe(409);
+      const post = async (sequence: number, observedActions: object[], handId="123") => {
+        const response=await fetch(endpoint,{method:"POST",headers:{"X-Poker-Token":"test-token"},
+          body:JSON.stringify({...snapshot,sequence,observedActions,handId})});
+        expect(response.status).toBe(200);
+        return bridge.state().snapshot.observedActions;
+      };
+      const call={seat:6,street:"preflop",action:"call",amount:.02};
+      expect(await post(4,[call])).toEqual([call]);
+      const firstReceipt=bridge.state().decisionReceivedAt;
+      await new Promise(resolve=>setTimeout(resolve,12));
+      expect(await post(5,[])).toEqual([call]);
+      expect(bridge.state().receivedAt).toBeGreaterThan(firstReceipt);
+      expect(bridge.state().decisionReceivedAt).toBe(firstReceipt);
+      expect(await post(6,[],"124")).toEqual([]);
+      expect(bridge.state().decisionReceivedAt).toBeGreaterThan(firstReceipt);
     } finally {
       await bridge.close();
     }

@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Poker Advisor – automatisk bordsläsare",
+  "version": "1.1.0",
+  "description": "Läser Svenska Spels pokerbord till din lokala Poker Advisor.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://games-svenskaspel.onegameslink.com/poker/web/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_popup": "options.html"
+  },
+  "incognito": "spanning"
+}

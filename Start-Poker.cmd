@@ -1,11 +1,15 @@
 @echo off
 cd /d "%~dp0"
+if exist "release\Poker-Advisor-Windows\Poker GTO Advisor.exe" (
+  start "" "release\Poker-Advisor-Windows\Poker GTO Advisor.exe" --live
+  exit /b
+)
 if exist "release\Poker-GTO-Advisor-1.4.0-Windows.exe" (
   start "" "release\Poker-GTO-Advisor-1.4.0-Windows.exe" --live
   exit /b
 )
 if exist "release\win-unpacked\Poker GTO Advisor.exe" (
-  start "" "release\win-unpacked\Poker GTO Advisor.exe"
+  start "" "release\win-unpacked\Poker GTO Advisor.exe" --live
   exit /b
 )
 echo Den paketerade appen saknas. Bygger och startar utvecklingsversionen...

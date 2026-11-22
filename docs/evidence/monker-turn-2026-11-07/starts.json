@@ -1,0 +1,11 @@
+[
+  {
+    "name": "cause3turn1thread",
+    "players": 3,
+    "street": "turn",
+    "ratio": 10000,
+    "resetAfter": 1000000000,
+    "threads": 1,
+    "startMs": 1794006354369
+  }
+]

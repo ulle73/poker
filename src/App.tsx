@@ -33,6 +33,8 @@ import { MESSAGE, type TableLoad } from "./table/protocol";
 import { Card } from "./components/Card";
 import { Advisor } from "./components/Advisor";
 import { ConfigLab } from "./components/ConfigLab";
+import { FlopStudy } from "./components/FlopStudy";
+import { HandStrength } from "./components/HandStrength";
 import { LivePanel } from "./live/LivePanel";
 
 const solver = new SolverClient();
@@ -111,6 +113,7 @@ export function App() {
   const [view, setView] = useState<
     "trainer" | "session" | "lab" | "method" | "live"
   >(
+    new URLSearchParams(location.search).get("view") === "lab" ? "lab" :
     new URLSearchParams(location.search).get("view") === "live"
       ? "live"
       : "trainer",
@@ -157,7 +160,9 @@ export function App() {
       ? "Handen saknar nåbar strategi efter den här linjen. Välj en ny övning eller ändra studiens ranger."
       : "");
 
+  const trainerStarted = useRef(false);
   const start = useCallback(async (next: Drill, selectView = true) => {
+    trainerStarted.current = true;
     const seq = ++sequence.current;
     solver.cancel();
     setBusy(true);
@@ -231,14 +236,20 @@ export function App() {
     }
   }, []);
   useEffect(() => {
-    start(DRILLS[0], false);
     const timer = setInterval(() => setClock(Date.now()), 750);
     return () => {
       ++sequence.current;
+      trainerStarted.current = false;
       solver.cancel();
       clearInterval(timer);
     };
   }, [start]);
+  // Opening the live view should not train an unrelated offline river drill.
+  useEffect(() => {
+    if (view === "trainer" && !trainerStarted.current) {
+      start(DRILLS[0], false);
+    }
+  }, [view, start]);
   useEffect(() => {
     if (!saveSession(records))
       setNotice(
@@ -494,20 +505,20 @@ export function App() {
                 : view === "session"
                   ? "Min session"
                   : view === "lab"
-                    ? "Studera en egen river"
+                    ? "Egen studie"
                     : view === "method"
                       ? "Det här bygger råden på"
-                      : "Ett bättre beslut i taget."}
+                      : "Träningsbordet"}
             </h1>
             <p>
               {view === "live"
-                ? "Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning."
+                ? "Följ din hand, pott och turordning från Edge."
                 : view === "trainer"
                   ? "Läs bordet. Förstå frekvenserna. Träna ditt nästa beslut."
                   : view === "session"
                     ? "Dina sparade beslut, med den strategi som faktiskt användes."
                     : view === "lab"
-                      ? "Ändra förutsättningarna och låt solvern räkna om."
+                      ? "Studera en löst flop eller bygg din egen riverhand."
                       : "Tydliga antaganden, riktig solver och mätbar lösningskvalitet."}
             </p>
           </div>
@@ -591,6 +602,7 @@ export function App() {
                     </button>
                   </div>
                 )}
+                {view === "trainer" && connected && snapshot && <HandStrength hero={snapshot.heroCards} board={snapshot.board} />}
                 <div className="table-footer">
                   <span>
                     {snapshot
@@ -758,7 +770,7 @@ export function App() {
           </div>
         </div>
         {view === "lab" && (
-          <ConfigLab
+          <div className="study-panels"><FlopStudy/><ConfigLab
             key={configKey(drill.config)}
             config={drill.config}
             busy={busy}
@@ -775,7 +787,7 @@ export function App() {
                   "Egen studie med explicita ranges och fast bettingträd. Resultatet gäller dessa antaganden.",
               })
             }
-          />
+          /></div>
         )}
         {view === "session" && (
           <>
@@ -942,10 +954,9 @@ function Method() {
       <section className="panel">
         <h2>Strategin räknas, den gissas inte.</h2>
         <p>
-          Liveflikens nya MCCFR-motor räknar alla gator och 2–10 spelare, men har
-          inte klarat kvalitetsgranskningen. Den är avstängd som råd i standardläget
-          och kan visas som experiment för studier. Verifierade turn-/river-råd kräver
-          separat kvalitets- och laglighetskontroll i det valda trädet.
+          Preflopråden bygger på källmärkta tabeller. På turn och river visar
+          appen lösningens kvalitet för det valda trädet. Bred Monkerstrategi
+          har okänd felgräns. På floppen kan du studera handstyrka och equity.
         </p>
         <p>
           Postflop räknar en approximativ Nash-strategi med Discounted

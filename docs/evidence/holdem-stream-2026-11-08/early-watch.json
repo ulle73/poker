@@ -1,0 +1,217 @@
+{
+  "synthetic": true,
+  "sourceLaunch": "official signed-in vendor UI",
+  "solveId": "20261108T102047_continue_5414c2",
+  "observedFrom": "first discovery by polling, not UI click time",
+  "firstSnapshot": {
+    "ms": 4489,
+    "status": "running",
+    "phase": "training",
+    "snapshotStatus": 200,
+    "iterations": 20218,
+    "iterationsThisRun": 16,
+    "fresh": true,
+    "history": "entry_flop",
+    "heroRow": null
+  },
+  "firstWatched": null,
+  "firstCombo": {
+    "ms": 23987,
+    "status": 200,
+    "provenance": "retained_native_exact_average",
+    "visits": 59,
+    "frequencies": {
+      "allin": 0.46979331970214844,
+      "bet_60p": 0.11699198186397552,
+      "check": 0.41321468353271484
+    }
+  },
+  "finishedMs": 24523,
+  "elapsedSeconds": 24,
+  "trainingElapsedSeconds": 8.8437064,
+  "artifactSaveMode": "full_resumable",
+  "memoryGuardTriggered": false,
+  "samples": [
+    {
+      "ms": 543,
+      "status": "running",
+      "phase": "initializing",
+      "snapshotStatus": 202,
+      "fresh": false,
+      "heroRow": null
+    },
+    {
+      "ms": 3445,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 202,
+      "fresh": false,
+      "heroRow": null
+    },
+    {
+      "ms": 4489,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 20218,
+      "iterationsThisRun": 16,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 5138,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 25218,
+      "iterationsThisRun": 5016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 6941,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 30218,
+      "iterationsThisRun": 10016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 8526,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 35218,
+      "iterationsThisRun": 15016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 9224,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 40218,
+      "iterationsThisRun": 20016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 10535,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 45218,
+      "iterationsThisRun": 25016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 11941,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 50218,
+      "iterationsThisRun": 30016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 12752,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 55218,
+      "iterationsThisRun": 35016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 14290,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 60218,
+      "iterationsThisRun": 40016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 15563,
+      "status": "running",
+      "phase": "training",
+      "snapshotStatus": 200,
+      "iterations": 65218,
+      "iterationsThisRun": 45016,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 16649,
+      "status": "running",
+      "phase": "saving",
+      "snapshotStatus": 200,
+      "iterations": 70202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 17504,
+      "status": "running",
+      "phase": "finalizing",
+      "snapshotStatus": 200,
+      "iterations": 70202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 19801,
+      "status": "running",
+      "phase": "exporting",
+      "snapshotStatus": 200,
+      "iterations": 70202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 23703,
+      "status": "running",
+      "phase": "indexing",
+      "snapshotStatus": 200,
+      "iterations": 70202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    },
+    {
+      "ms": 24523,
+      "status": "done",
+      "phase": "complete",
+      "snapshotStatus": 200,
+      "iterations": 70202,
+      "iterationsThisRun": 50000,
+      "fresh": true,
+      "history": "entry_flop",
+      "heroRow": null
+    }
+  ]
+}

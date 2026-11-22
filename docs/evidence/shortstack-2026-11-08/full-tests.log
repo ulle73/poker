@@ -1,0 +1,30 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ❯ tests/postflop-wasm.test.ts (17 tests | 1 failed) 27033ms
+   × matches independent card enumeration and information-set best responses across the river chance step 6400ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/postflop-wasm.test.ts > matches independent card enumeration and information-set best responses across the river chance step
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/postflop-wasm.test.ts:87:1
+     85| });
+     86|
+     87| it("matches independent card enumeration and information-set best resp…
+       | ^
+     88|   const result = solveTree(turnToml(), turnConfig, () => {}, {
+     89|     postflop: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 39 passed | 6 skipped (46)
+      Tests  1 failed | 421 passed | 20 skipped (442)
+   Start at  10:18:46
+   Duration  254.86s (environment 77%, tests 20%, import 2%, transform 1%)
+
+    Isolate  46 workers spawned · ~4.36s startup each (spawn + environment, per file)
+             at least ~196.23s faster with isolate: false — reuses workers across files instead of one per file
+

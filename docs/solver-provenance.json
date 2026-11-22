@@ -5,6 +5,42 @@
     "revision": "5fc7ee3d92b823b6c58e4f58cbee7d50d5e9e6de"
   },
   "locallyRebuiltFromSource": false,
+  "optionalNativePostflop": {
+    "reviewedAt": "2026-11-05",
+    "repository": "https://github.com/ucsandman/postflop",
+    "revision": "5fc7ee3d92b823b6c58e4f58cbee7d50d5e9e6de",
+    "locallyRebuiltFromSource": true,
+    "exeSha256": "972bff3d194bf64be6fdcb551935b8394683a02e15951ccd94c63d66e1c9ce17",
+    "compiler": "rustc 1.99.1, MSVC, release, target-cpu=native",
+    "threads": 4,
+    "bundled": false,
+    "scope": "Historical 19.5-second baseline, replaced by optionalFastNativePostflop"
+  },
+  "optionalFastNativePostflop": {
+    "reviewedAt": "2026-11-05",
+    "repository": "https://github.com/b-inary/postflop-solver",
+    "revision": "9d1509fe5077d019825f833eed04b16d342dfda1",
+    "locallyRebuiltFromSource": true,
+    "exeSha256": "0d826be3bf09ea453b0747b90d17d51eb117673babe6a36402a65b4f9ac37bb3",
+    "license": "AGPL-3.0-or-later",
+    "sourcePatch": "native/binary-postflop-bridge/rust-compat.patch",
+    "compiler": "rustc 1.99.1 (58cf8f9c3 2026-10-13), MSVC, release, target-cpu=native",
+    "threads": 4,
+    "bundled": false,
+    "scope": "Matched HU NLHE turn through river; no rake; user-selected 2 percent bound"
+  },
+  "optionalNativeSixplus": {
+    "reviewedAt": "2026-11-05",
+    "repository": "https://github.com/bupticybee/TexasSolver",
+    "release": "https://github.com/bupticybee/TexasSolver/releases/tag/v0.2.0",
+    "locallyRebuiltFromSource": false,
+    "bundled": false,
+    "scope": "Two active players, 6+ river, matched tree, no rake",
+    "exeSha256": "8b74cd6f687387a9ea6c567591642cfe0bfca88360a1748ff7c7db769d0c5c1a",
+    "shortdeckTableSha256": "10f9e0e16364a849de6cf93025704c86cf054bb894ffdb7cece89d932aefc54b",
+    "archiveSha256": "0a9122fa0cd9384e6c1cbe0492e8a3b8ac7809890c649e1a53f77a59d6d50a7c",
+    "qualityMetric": "Independent NashConv / root pot, maximum 0.2 percent"
+  },
   "artifacts": [
     {
       "path": "public/wasm/solver_wasm.js",
@@ -18,5 +54,50 @@
       "bytes": 712855,
       "sha256": "1121f50f5a25dfd21297bb7cd553ba030ebe1653a028720d2c2332b404dcc56a"
     }
-  ]
+  ],
+  "optionalMonker": {
+    "version": 10114,
+    "officialFree": true,
+    "vendorHashes": {
+      "MonkerSolverFree.exe": "f66d7f2b5d8b35393577a39abfc0325215f26dd5102355e1ae49be477318e652",
+      "handRanks.ser": "d927fac383d43d8743fa50b81e3684fcd26a900ee548ec4b38668ab9fe7a6fc5"
+    },
+    "hostClassHashes": {
+      "c/MonkerBridge$Request.class": "2ea3e3052e68d69a2d24fe1e653839209e1aa1dca5ad57a3fc51623846f9305a",
+      "c/MonkerBridge.class": "c652f508359433154c754e965d7f1ad093d33511a07f1c3669df089fbac23fc0",
+      "c/MonkerCoreProbe.class": "5c9c3a23142d564224b927a1a0ee8cd4f665eb2db6ec66fb7e29e88459f48f14",
+      "c/MonkerKernel.class": "3af5516acb6c6174362263b0cabf91faa6c82fe3a912b41ac5bb87cfd31cbc5d",
+      "c/MonkerPolicyExport$Node.class": "5657aaccca94df24a42ba37e37f1c86e249f2b7997c2e00cf05ea4d232a36425",
+      "c/MonkerPolicyExport$Stored.class": "04042f1823e7e4e601ebd3069bca42be0e6a36a5ea79b62c436b93b5b58993ae",
+      "c/MonkerPolicyExport.class": "68056e128f790d7498fe83dda8699489fbf9581bdeec3d3dd85763831ef67cc3"
+    },
+    "sourceHashes": {
+      "MonkerPolicyExport.java": "9acbc286fa9ee424cad2191963ddc23ba5b6d1b8096f63f6db12bee5e2f8cb12",
+      "MonkerKernel.java": "da0f55cc76d7560247579390b37f4ebb3433e84575c7483b7ae0a61905573351",
+      "MonkerCoreProbe.java": "04d5f25285f172db3b6fb30aaaafd1f26ae5c7263f79656d8affc817484568b4",
+      "MonkerBridge.java": "cdc725a695d55b073560f2fcf2992104e7bb021528d503334bc167b5cbe17ea6"
+    },
+    "quality": "Verified only when an independent certificate passes; broad results explicitly marked unverified",
+    "limitPct": 2.1
+  },
+  "optionalPreflopShortstack": {
+    "archiveSha256": "a1723be2a7ac0e61b7a1342e1ebe7e778747bb2197572bf8fb0a877610e18799",
+    "librarySha256": "04f03ee2f184b5869d5b610e66fdce28edebe519743932d1d31ac05710539bf4",
+    "nodes": 35,
+    "model": "RangeConverter 40bb 6-max cash, PokerStars 500z, rendered simplified 50-percent chart mixes",
+    "sourceUrl": "https://rangeconverter.com/downloads/6-max-40bb-Poker-Charts-No-Limit-Texas-Holdem-Cash",
+    "quality": "chart-reference only; no independent error bound"
+  },
+  "optionalPreflop": {
+    "archiveSha256": "cc1fc30512a3d05d60a627c7b1c42f90a809e38dc08c3a5974116267fc8f7e79",
+    "huSourceSha256": "00bc184e6b514888d23a8c2d8e9c3c83af2ac960b441310ba594c06b6cba9bec",
+    "librarySha256": "346bafe5ac3ef8c9a47fea2fff36f8d8331c05079de223128b74b5744c7dbc49",
+    "nodes": 1930,
+    "rangeFiles": 2606,
+    "sourceUrls": [
+      "https://artgto.com/learn/ranges/",
+      "https://github.com/Julian-cloud-max/holdemmath-data/tree/7c72b1261f08c63cf8366120dc531631935c21cd"
+    ],
+    "model": "ART/GTO 6-max 100bb; HoldemMath HU no-ante push/fold 4–20bb"
+  }
 }

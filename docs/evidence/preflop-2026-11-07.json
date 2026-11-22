@@ -1,0 +1,323 @@
+{
+  "createdAt": "2026-11-07T20:37:59.365890+00:00",
+  "installed": true,
+  "enabled": true,
+  "costIncurred": 0,
+  "providers": [
+    "ART/GTO",
+    "HoldemMath HU"
+  ],
+  "manifest": {
+    "schema": 1,
+    "archiveSha256": "cc1fc30512a3d05d60a627c7b1c42f90a809e38dc08c3a5974116267fc8f7e79",
+    "huSourceSha256": "00bc184e6b514888d23a8c2d8e9c3c83af2ac960b441310ba594c06b6cba9bec",
+    "librarySha256": "346bafe5ac3ef8c9a47fea2fff36f8d8331c05079de223128b74b5744c7dbc49",
+    "rangeFiles": 2606,
+    "nodes": 1930,
+    "skippedSizingOrFormat": [],
+    "conflictingNodes": [],
+    "overfullNodes": [],
+    "sourceUrls": [
+      "https://artgto.com/learn/ranges/",
+      "https://github.com/Julian-cloud-max/holdemmath-data/tree/7c72b1261f08c63cf8366120dc531631935c21cd"
+    ],
+    "model": "ART/GTO 6-max 100bb; HoldemMath HU no-ante push/fold 4–20bb"
+  },
+  "scope": {
+    "variant": "52-card NLHE preflop",
+    "artModel": {
+      "players": 6,
+      "depthBB": 100
+    },
+    "actualReferencePlayers": [
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "actualReferenceStackBB": [
+      50,
+      150
+    ],
+    "separatelySolvedTwoToFive": false,
+    "nativeHuPushFoldDepths": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      15,
+      20
+    ],
+    "huSelection": "nearest published depth for effective 4–20 BB, no ante",
+    "smallSizingToleranceBB": 0.5,
+    "minimumSizingToleranceChips": 1,
+    "top50UsedForPreflop": false,
+    "postflopRangesAutomaticallyUpdated": false
+  },
+  "quality": {
+    "label": "Prefloptabell · referensmodell",
+    "independentErrorBoundVerified": false,
+    "rakeArtgto": "not documented in downloaded package",
+    "referenceMismatchExplicit": true
+  },
+  "verification": {
+    "lastFullSuite": {
+      "passed": 408,
+      "skipped": 25,
+      "failed": 0,
+      "pool": "forks",
+      "durationSeconds": 153.54
+    },
+    "initialDefaultFullSuite": {
+      "passed": 402,
+      "skipped": 25,
+      "failed": 1,
+      "failure": "existing postflop-wasm.test.ts:87 exceeded 5000ms"
+    },
+    "previousForkSuite": {
+      "passed": 407,
+      "skipped": 25,
+      "failed": 0
+    },
+    "installedDataIntegrationPassed": 5,
+    "latestTargetedIncludingInstalledPassed": 20,
+    "pythonImporterPassed": 2,
+    "buildAndTypescriptPassed": true,
+    "timeoutsRaised": false
+  },
+  "desktop": {
+    "synthetic": true,
+    "appPid": 40316,
+    "windowId": 5506512,
+    "cases": [
+      {
+        "case": "BB AQo vs BU 2bb",
+        "call": 0.1002,
+        "raise": 0.8998,
+        "raiseToBB": 9.5,
+        "uiLookupMsRounded": 1
+      },
+      {
+        "case": "UTG AQo after own 2bb and BU 7bb 3bet",
+        "fold": 0.5475,
+        "raise": 0.4525,
+        "raiseToBB": 20,
+        "uiLookupMsRounded": 1
+      },
+      {
+        "case": "HU 10bb BB AA vs SB shove",
+        "call": 1,
+        "callToBB": 10,
+        "uiLookupMsRounded": 0
+      }
+    ],
+    "initialFourBetFixtureWasCorrected": "First fixture incorrectly left blinds active; retained as non-final fixture evidence. Final proof has actual blind folds and passes turn replay.",
+    "snapshotToPixelLatencyMeasured": false,
+    "actualCurrentEdgeHandVerified": false,
+    "latestInspectedPokerTab": "lobby",
+    "allSyntheticFeedsStopped": true
+  },
+  "review": {
+    "readOnlyReviewer": true,
+    "findings": [
+      {
+        "priority": "P2",
+        "issue": "A first snapshot containing BB but no SB locked the hand in a blind error.",
+        "fixed": true,
+        "redGreenLog": "preflop-review-red.log / preflop-review-green.log"
+      }
+    ],
+    "sourceChecks": [
+      "Pinned range format uses conditional per-node frequencies.",
+      "All 2606 concrete range files have complete suit-symmetric hand classes."
+    ],
+    "declined": [
+      "Independent game-theoretic quality",
+      "Market-wide best-source claim",
+      "Legal interpretation",
+      "Actual current hand and full-suite verification"
+    ]
+  },
+  "noVendorCodeExecuted": true,
+  "vendorDataRedistributed": false,
+  "extensionPermissionsChanged": false,
+  "committed": false,
+  "pushed": false,
+  "portableRebuilt": false,
+  "evidence": {
+    "installed-manifest.json": {
+      "bytes": 661,
+      "sha256": "d70fb04a720aa0055dade7e87068ebfc0c3baeac998058059faddf43d6eb25b3"
+    },
+    "preflop-animation-red.log": {
+      "bytes": 2602,
+      "sha256": "3af3356c5e77fe6af40164258d7eb79b6d33c0e90a9e94a3e8c6c5efb2ea9b68"
+    },
+    "preflop-bb-mot-button.png": {
+      "bytes": 125104,
+      "sha256": "125001775714a8446d3b7bcbcaf117f10fe0c960a70b9411141cff08a4a8a284"
+    },
+    "preflop-bb-vs-bu.ax.txt": {
+      "bytes": 15173,
+      "sha256": "aa8e6db7fcb4ab4fd39af359cffc4c7d606991af7cc2ad5ef4ea779271f6c642"
+    },
+    "preflop-checked-build.log": {
+      "bytes": 2569,
+      "sha256": "ba806b995859ac107fb29e001827f2a79c0a5f142148a53918df34581921c5fb"
+    },
+    "preflop-checked-full-tests.log": {
+      "bytes": 1360,
+      "sha256": "d66745ed70f8e597006feda9824c0c3c1acec49db6d650a14ed58237babc708e"
+    },
+    "preflop-efter-3bet.png": {
+      "bytes": 123424,
+      "sha256": "b907a3c9390e2cf151f93ca8221d2b78a007db660b6c9845a6e8f741b49de4f1"
+    },
+    "preflop-final-full-tests.log": {
+      "bytes": 1358,
+      "sha256": "aba8f1f99942d8a10cb494b4ae1c39009246e19f4370d3af04513d393307f12f"
+    },
+    "preflop-first-green.log": {
+      "bytes": 1276,
+      "sha256": "9088284bdd92b620f6f90b4110e77a8510e558cec544c9cf05f4a531feb23583"
+    },
+    "preflop-four-bet-initial-fixture.ax.txt": {
+      "bytes": 15128,
+      "sha256": "801daee76488f564477bcc3ac52a140df9557102aef25868d0ace4e8c13f6dd8"
+    },
+    "preflop-four-bet-initial-fixture.png": {
+      "bytes": 123708,
+      "sha256": "2026dc325b04a96c197cf5458a31416d684653f1618176abc13835c9d4c00753"
+    },
+    "preflop-four-bet.ax.txt": {
+      "bytes": 15113,
+      "sha256": "d988dd1cfc4cce5a5f9bd8c7d7ea44a9b4f2dc11a4b9bd17399173758fd75946"
+    },
+    "preflop-full-tests.log": {
+      "bytes": 2163,
+      "sha256": "6ac8fa79696e759ee525d8f833ff697ca1ca8f89ebdf2ad688dc02ab27ad775f"
+    },
+    "preflop-hu-kortstack.png": {
+      "bytes": 126088,
+      "sha256": "ac0ebe226b91f26a35e6c7af2aa3bde857e22e7d9227e709ed47f49c7e9997cd"
+    },
+    "preflop-hu.ax.txt": {
+      "bytes": 13851,
+      "sha256": "6fc2e54d642483c834a6cf20778786a3b7d5e4846a2a49da16c797f64990eb87"
+    },
+    "preflop-import-final.log": {
+      "bytes": 105,
+      "sha256": "354c3d828acda6a2a7353175af6f47b9a6ade35a84756ca5433e46f76b8d8b55"
+    },
+    "preflop-import-red.log": {
+      "bytes": 4007,
+      "sha256": "61260b1fc86c2af1fc0c2f903aa834e75efd950f47e41d08b92a336b5d2e1f15"
+    },
+    "preflop-installed.log": {
+      "bytes": 902,
+      "sha256": "efe69ea95961a9792722924e4112921c46bee5d2d7d402b18a2c5e0e61be8a13"
+    },
+    "preflop-red.log": {
+      "bytes": 6982,
+      "sha256": "140400c1cc2558d42664a57a39a40f57274fa7303ef775825c5753b10abaed22"
+    },
+    "preflop-regression.log": {
+      "bytes": 1518,
+      "sha256": "85d9c91f87507639da417e8b099cbb5656fb066f7299643f9a81fde4019e4d3f"
+    },
+    "preflop-review-green.log": {
+      "bytes": 553,
+      "sha256": "0265572a3a5099b244760217089d0b0bc8860c2746c3efc86c8921c322c52381"
+    },
+    "preflop-review-red.log": {
+      "bytes": 1854,
+      "sha256": "3064af9811e54c3cd8bbe32beb0572b9956d7a925dc543f7b851f84349d7c17c"
+    },
+    "preflop-turn-green.log": {
+      "bytes": 543,
+      "sha256": "136addda502db636e3a5501277b9ca230e3d31991ba528aff920646b8e5b7928"
+    },
+    "preflop-turn-red.log": {
+      "bytes": 1052,
+      "sha256": "a116570fe1843707a026473f3e8b2299a01bdb7b5f14990fc9d41c08d07b896f"
+    },
+    "preflop-ui-bb-vs-bu.events.jsonl": {
+      "bytes": 2035,
+      "sha256": "e168be7a1b1034276c8a1786fc4e033e0a058d3f883241974d233c44834360a8"
+    },
+    "preflop-ui-bb-vs-bu.input.json": {
+      "bytes": 3785,
+      "sha256": "4cd2351e9fc78b6ac93df67e895a489b7cb178164dafbb2c19d8e93dc3ba95e3"
+    },
+    "preflop-ui-bb-vs-bu.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preflop-ui-bb-vs-bu.stdout.log": {
+      "bytes": 66,
+      "sha256": "796c146b4b98bf9f4a1b27fe5f708e5e5c4e1904d9db3eb9905b4967ede2b862"
+    },
+    "preflop-ui-four-bet.events.jsonl": {
+      "bytes": 3091,
+      "sha256": "e0298551bd4eb83b988bf51e2f0a785620d0e77c143e486dec1e4d0d0246ab79"
+    },
+    "preflop-ui-four-bet.input.json": {
+      "bytes": 5630,
+      "sha256": "f3716d5b887fcac96207bf36cd07d6b9d6369631bfb25cd888c492a48dbe2887"
+    },
+    "preflop-ui-four-bet.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preflop-ui-four-bet.stdout.log": {
+      "bytes": 65,
+      "sha256": "dba41e49cd9715878d95c88de6f80f2477c8bcc48a9c56ec055e92dd99af91ef"
+    },
+    "preflop-ui-hu.events.jsonl": {
+      "bytes": 1355,
+      "sha256": "5424006c4e0b90100311529653bda060f7312b4271948e4d87432e26d799ca5c"
+    },
+    "preflop-ui-hu.input.json": {
+      "bytes": 2282,
+      "sha256": "f994b33130642d817c4399d2a83fb65e594a4acebe8514f86d4f249e154cbf71"
+    },
+    "preflop-ui-hu.stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "preflop-ui-hu.stdout.log": {
+      "bytes": 59,
+      "sha256": "51e7c4e15bc1335d1f4b76a619ea33456a09d263b4c8927c19f41250b627c69b"
+    },
+    "preflop-ui-probe.mjs": {
+      "bytes": 2677,
+      "sha256": "6afa65d6594a7f65bb0c90d56c906870cc1ba9f6052082fc6ddc458af84edc92"
+    },
+    "preflop-ui-red.log": {
+      "bytes": 3434,
+      "sha256": "49bee046575adbbe5c3b4c3104145b46e156b46dae84502589478a3e47d30b5d"
+    },
+    "preflop-unit-green.log": {
+      "bytes": 205,
+      "sha256": "8cb8b0462419ebc7ae740c4d684c49fac6a5fe9119e68373f96fe7baf8905858"
+    },
+    "review.json": {
+      "bytes": 648,
+      "sha256": "44f2ea1e976091c19b43c3a5e71513b6cf5cd5ea74bf03111e16e2708f7a3133"
+    }
+  },
+  "sourceFiles": {
+    "src/preflop/history.ts": "b1554d951090fb2dad6d7cd83541d2e0bc4f2411c444d09a568ba856041898ff",
+    "src/preflop/strategy.ts": "fe01fb568036cb3097196bd36de1b27104ba2db0d576b0ecf8cf52f703faebeb",
+    "src/preflop/client.ts": "b6c11c896ca85f7454c1ea94464ddf45764a099b1429c03f01df4185dd08fdd6",
+    "src/preflop/types.ts": "610f0412b3d00b3d662445d7e6c42ebfac7cce3c560a8776d7817f192448d78b",
+    "src/decision/context.ts": "482587996924d2f19869f9fea1b64f7f74fc439665a1804d3ab2bd7e50b99cf8",
+    "src/decision/providers.ts": "7b3533a944fb3a0d04fa80ed7f10a58e14c7b6de89033232ab642a7d75d1135c",
+    "src/components/DecisionAdvisor.tsx": "da8fb889b97b49cdce9aede8c05e92e9660b37417e534fefe03c9c72961a3eb9",
+    "electron/preflop-data.cjs": "929873a5a5e911476d4979190a9d443aa3af23a328aec2d066e406f0e9980f40",
+    "electron/main.cjs": "2cc0d301f3c98eb0ad08c99bb6b099a3c7e7e7fd676c6fb8743b1dedf2a64145",
+    "scripts/install-preflop.py": "d1b4b484f7c54e6b5a81ddcd2587e660aaf791aa2c77fc7da1658f1dab590775"
+  }
+}

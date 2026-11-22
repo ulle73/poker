@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-07",
+  "scope": "ART/GTO preflop reference eligibility for unequal active stacks",
+  "cause": "A 43 BB seat incorrectly vetoed a deeper hero-opponent reference contest.",
+  "rule": "50 <= min(hero starting BB, max(remaining opponent starting BB)) <= 150; all active starting depths finite and positive; 100 BB source model remains unchanged.",
+  "source_quality": "chart-reference; no independently verified 2 or 2.1 percent bound",
+  "reported_case": {
+    "hand": "12631082642",
+    "hero": "8c4c",
+    "position": "HJ",
+    "hero_BB": 119,
+    "active_BB": [
+      43,
+      139,
+      119,
+      122,
+      53.5
+    ],
+    "actual_installed_data_result": "fold 100%",
+    "proof": "installed-data regression, not a replay of this old hand in the current live UI"
+  },
+  "tests": {
+    "targeted": {
+      "passed": 51
+    },
+    "full": {
+      "passed": 410,
+      "skipped": 27,
+      "files_passed": 38,
+      "files_skipped": 7,
+      "seconds": 243.06,
+      "exit": 0
+    },
+    "build": "pass"
+  },
+  "runtime": {
+    "full_restart": true,
+    "pid": 65656,
+    "new_renderer_wording_observed": true,
+    "live_reader_active": true,
+    "positive_live_decision_after_restart": false,
+    "negative_live_hand": "12631111996",
+    "negative_reason": "BTN open 3 BB not uniquely matched in source tree",
+    "later_live_hand": "12631116005",
+    "later_reason": "earlier player still pending; turn validation rejected the snapshot",
+    "screenshot": "live-coverage-negative.png",
+    "screenshot_warning": "Screenshot captured after AX; it shows a newer state than preflop-stack-live-ax.txt. Not an atomic positive-decision proof."
+  },
+  "commands": [
+    "$env:POKER_PREFLOP_TEST_DIR='C:\\Users\\ryd\\AppData\\Roaming\\Poker GTO Advisor\\preflop'; npx vitest run tests/preflop.test.ts tests/preflop-installed.test.ts tests/preflop-ui.test.ts tests/decision-providers.test.ts --maxWorkers=1 --reporter=dot",
+    "npm run build",
+    "npm test -- --pool=forks --maxWorkers=1 --reporter=dot"
+  ],
+  "code_sha256": {
+    "src/preflop/errors.ts": "34e4c387ff58e441fe50cbd6b4b2483c8bec821588586b62c1a1c1b2ed31298b",
+    "src/preflop/types.ts": "c38ded22dbc8ed03afbef6d58750c8610db7902b8f2de607d46be36ea5b5746f",
+    "src/preflop/strategy.ts": "e534a9a73908691ce7f3f487bd94e3ccbedee97ea84fe326b50f3194ca71b59c",
+    "src/decision/providers.ts": "8aa9fc624bcb5ded140c23d04339b8fec7de7b816d9bdea4842ec28d8ef58672",
+    "src/components/DecisionAdvisor.tsx": "1dd8400fd8a8357f2d0c6431de71ea02c9e578ccdf5d32cbd11d9e7b2f508c72",
+    "src/live/LivePanel.tsx": "cfe099b66af00bd8033d6f1df126dd302c998ad0ca20e63495241014e60cb45e",
+    "tests/preflop.test.ts": "b10c8be0989dff7ae4e4b2f1f3857dcedda7a2ae5a87770d7f7dfbc94cbf2e03",
+    "tests/preflop-installed.test.ts": "1b9bf15d3860ceed7a3689ff9cbbee0a9be7ccb081dcc2a76fd3a428939c807b"
+  },
+  "files": [
+    "preflop-stack-red.log",
+    "preflop-stack-coverage-red.log",
+    "preflop-stack-green.log",
+    "preflop-stack-build.log",
+    "preflop-stack-full-tests.log",
+    "preflop-stack-live-ax.txt",
+    "preflop-stack-live-unsupported-ax.txt",
+    "preflop-stack-current-ax.txt"
+  ],
+  "remaining": "Missing open sizes/lines, shallow cash models, exact unequal-stack solutions; no claim of complete live preflop coverage."
+}

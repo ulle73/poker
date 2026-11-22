@@ -1,0 +1,501 @@
+{
+  "createdAt": "2026-11-07T15:14:25.827103+00:00",
+  "installedAndEnabled": true,
+  "source": "Monker Free 10114 original numeric kernel",
+  "repository": "C:\\dev\\poker",
+  "runtimeDirectory": "C:\\Users\\ryd\\AppData\\Roaming\\Poker GTO Advisor\\solvers\\monker-free",
+  "costIncurred": 0,
+  "players": [
+    3,
+    4,
+    5,
+    6
+  ],
+  "streets": [
+    "turn",
+    "river"
+  ],
+  "variant": "52-card NLHE",
+  "qualityPolicy": {
+    "chosenBy": "assistant under explicit user delegation",
+    "allowSourceComputedUnknownMonker": true,
+    "broadErrorVerified": false,
+    "errorPct": null,
+    "targetPct": 2.1,
+    "metric": "maximum unilateral EV improvement / root pot",
+    "knownFailuresOverTargetBlocked": true,
+    "ownExperimentalApproximationBlocked": true
+  },
+  "limitations": [
+    "Bounded betting tree, not unrestricted NLHE: 50 percent pot sizing at current decision; later check/effective-all-in/fold/call, no further raises.",
+    "No rake; prior ranges are not automatically inferred posteriors from the entire hand.",
+    "Ambiguous earlier raises or unreconstructible previous all-ins/side pots are rejected.",
+    "Hero outside chosen prior rejected; no fabricated fallback.",
+    "No preflop/flop or short-deck multiway support."
+  ],
+  "serviceMatrix": {
+    "synthetic": true,
+    "cases": [
+      {
+        "players": 3,
+        "street": "turn",
+        "stacks": [
+          3,
+          1.6,
+          1
+        ],
+        "rangeCounts": [
+          582,
+          1128,
+          1128
+        ],
+        "publicNodes": 104,
+        "frequencies": [
+          0.03698141366242242,
+          0.9630185863375775,
+          0
+        ],
+        "bucketWeight": 510,
+        "iterations": 999424,
+        "wallMs": 4455.7594,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 4,
+        "street": "turn",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2
+        ],
+        "rangeCounts": [
+          582,
+          1128,
+          1128,
+          1128
+        ],
+        "publicNodes": 368,
+        "frequencies": [
+          0.726318716456427,
+          0.27368128354357296,
+          0
+        ],
+        "bucketWeight": 168,
+        "iterations": 598016,
+        "wallMs": 2572.9851,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 5,
+        "street": "turn",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2,
+          1.2
+        ],
+        "rangeCounts": [
+          582,
+          1128,
+          1128,
+          1128,
+          1128
+        ],
+        "publicNodes": 1280,
+        "frequencies": [
+          0.7647058823529411,
+          0.23529411764705882,
+          0
+        ],
+        "bucketWeight": 85,
+        "iterations": 385024,
+        "wallMs": 2940.3358,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 6,
+        "street": "turn",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2,
+          1.2,
+          0.8
+        ],
+        "rangeCounts": [
+          582,
+          1128,
+          1128,
+          1128,
+          1128,
+          1128
+        ],
+        "publicNodes": 4408,
+        "frequencies": [
+          0.7232568619654323,
+          0.27674313803456774,
+          0
+        ],
+        "bucketWeight": 30,
+        "iterations": 237568,
+        "wallMs": 4388.018900000001,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 3,
+        "street": "river",
+        "stacks": [
+          3,
+          1.6,
+          1
+        ],
+        "rangeCounts": [
+          576,
+          1081,
+          1081
+        ],
+        "publicNodes": 32,
+        "frequencies": [
+          0.900857734989518,
+          0.09873115939051863,
+          0.000411105619963155
+        ],
+        "bucketWeight": 711.0000000000001,
+        "iterations": 1482752,
+        "wallMs": 2291.4695999999985,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 4,
+        "street": "river",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2
+        ],
+        "rangeCounts": [
+          576,
+          1081,
+          1081,
+          1081
+        ],
+        "publicNodes": 80,
+        "frequencies": [
+          1,
+          0,
+          0
+        ],
+        "bucketWeight": 405,
+        "iterations": 1441792,
+        "wallMs": 2335.954099999999,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 5,
+        "street": "river",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2,
+          1.2
+        ],
+        "rangeCounts": [
+          576,
+          1081,
+          1081,
+          1081,
+          1081
+        ],
+        "publicNodes": 192,
+        "frequencies": [
+          0.9903846153846154,
+          0.009615384615384616,
+          0
+        ],
+        "bucketWeight": 208,
+        "iterations": 1122304,
+        "wallMs": 2458.8584999999985,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      },
+      {
+        "players": 6,
+        "street": "river",
+        "stacks": [
+          3,
+          1.6,
+          1,
+          2,
+          1.2,
+          0.8
+        ],
+        "rangeCounts": [
+          576,
+          1081,
+          1081,
+          1081,
+          1081,
+          1081
+        ],
+        "publicNodes": 448,
+        "frequencies": [
+          0.9892082445180409,
+          0.01079175548195905,
+          0
+        ],
+        "bucketWeight": 83,
+        "iterations": 630784,
+        "wallMs": 2638.7507000000005,
+        "quality": {
+          "status": "unknown",
+          "errorPct": null,
+          "limitPct": 2.1,
+          "metric": "max-unilateral",
+          "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+        }
+      }
+    ]
+  },
+  "desktop": {
+    "synthetic": true,
+    "players": 6,
+    "heroPrior": "weighted top 50 percent, 663/1326 before blockers",
+    "opponentPriors": "full legal ranges, not pruned using actual hero cards",
+    "stacksEur": [
+      3,
+      1.6,
+      1,
+      2,
+      1.2,
+      0.8
+    ],
+    "turn": {
+      "serviceWallMs": 5425,
+      "iterations": 458752,
+      "displayed": true
+    },
+    "river": {
+      "serviceWallMs": 2844,
+      "iterations": 598016,
+      "displayed": true,
+      "finalCapture": "cached redisplay of the same exact previously solved model"
+    },
+    "pixelLatencyMeasured": false,
+    "label": "Monker · felgräns ej verifierad",
+    "errorPct": null,
+    "targetErrorPct": 2.1,
+    "testFeedStopped": true,
+    "actualCurrentUserHandVerified": false,
+    "actualTableBlocker": "Both inspected Edge poker tabs were disconnected due to inactivity; active training table requested from user.",
+    "finalRendererReloadObserved": true,
+    "staleAdviceHiddenAfterReload": true
+  },
+  "checks": {
+    "finalFullSuite": {
+      "passed": 391,
+      "skipped": 20,
+      "failed": 1,
+      "log": "monker-app-clean-final-tests.log",
+      "observedFailure": "existing postflop WASM oracle test exceeded 5000 ms, also without concurrent build",
+      "rootCauseOfTimingDifference": "not established"
+    },
+    "earlierLoadedRun": {
+      "passed": 391,
+      "skipped": 20,
+      "failed": 1,
+      "observedFailure": "same existing postflop WASM oracle test exceeded 5000 ms during concurrent build",
+      "log": "monker-app-final-tests.log"
+    },
+    "isolatedWasmRecheck": {
+      "passed": 17,
+      "failed": 0,
+      "oracleTestMs": 3821,
+      "log": "monker-app-wasm-final-isolated.log"
+    },
+    "targetedReviewRegression": {
+      "passed": 36,
+      "log": "monker-app-review-regression.log"
+    },
+    "installedServiceBroadMatrixAndCancel": {
+      "passed": 2,
+      "log": "monker-app-service-tests.log"
+    },
+    "installedNativeCapBetRegression": {
+      "passed": 1,
+      "filteredSkipped": 2,
+      "log": "monker-review-native-regression.log"
+    },
+    "buildAndTypescript": {
+      "passed": true,
+      "log": "monker-app-final-build.log"
+    },
+    "testTimeoutsRaised": false
+  },
+  "review": {
+    "scope": "read-only source review; no independent game-theoretic quality or live-hand verification",
+    "findings": [
+      {
+        "priority": "P2",
+        "issue": "Observed bet to effective cap was encoded as absolute size when bettor retained uncallable chips.",
+        "fix": "Shared effectiveStacksFor calculation for client prefix and public tree.",
+        "regression": {
+          "stacks": [
+            160,
+            160,
+            300
+          ],
+          "bettor": 2,
+          "bet": 160,
+          "remaining": 140,
+          "expectedPrefix": [
+            1,
+            1,
+            3
+          ],
+          "unitPass": true,
+          "realKernelClientPass": true
+        }
+      }
+    ],
+    "otherConcreteP0P1Reported": false
+  },
+  "runtimeManifest": {
+    "version": 10114,
+    "java": "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.16.8-hotspot\\bin\\java.exe",
+    "vendorHashes": {
+      "MonkerSolverFree.exe": "f66d7f2b5d8b35393577a39abfc0325215f26dd5102355e1ae49be477318e652",
+      "handRanks.ser": "d927fac383d43d8743fa50b81e3684fcd26a900ee548ec4b38668ab9fe7a6fc5"
+    },
+    "hostClassHashes": {
+      "c/MonkerBridge$Request.class": "2ea3e3052e68d69a2d24fe1e653839209e1aa1dca5ad57a3fc51623846f9305a",
+      "c/MonkerBridge.class": "c652f508359433154c754e965d7f1ad093d33511a07f1c3669df089fbac23fc0",
+      "c/MonkerCoreProbe.class": "5c9c3a23142d564224b927a1a0ee8cd4f665eb2db6ec66fb7e29e88459f48f14",
+      "c/MonkerKernel.class": "3af5516acb6c6174362263b0cabf91faa6c82fe3a912b41ac5bb87cfd31cbc5d",
+      "c/MonkerPolicyExport$Node.class": "5657aaccca94df24a42ba37e37f1c86e249f2b7997c2e00cf05ea4d232a36425",
+      "c/MonkerPolicyExport$Stored.class": "04042f1823e7e4e601ebd3069bca42be0e6a36a5ea79b62c436b93b5b58993ae",
+      "c/MonkerPolicyExport.class": "68056e128f790d7498fe83dda8699489fbf9581bdeec3d3dd85763831ef67cc3"
+    },
+    "sourceHashes": {
+      "MonkerPolicyExport.java": "9acbc286fa9ee424cad2191963ddc23ba5b6d1b8096f63f6db12bee5e2f8cb12",
+      "MonkerKernel.java": "da0f55cc76d7560247579390b37f4ebb3433e84575c7483b7ae0a61905573351",
+      "MonkerCoreProbe.java": "04d5f25285f172db3b6fb30aaaafd1f26ae5c7263f79656d8affc817484568b4",
+      "MonkerBridge.java": "cdc725a695d55b073560f2fcf2992104e7bb021528d503334bc167b5cbe17ea6"
+    }
+  },
+  "portableRebuilt": false,
+  "committed": false,
+  "pushed": false,
+  "originalFullCoverageGoalAchieved": false,
+  "evidenceFiles": {
+    "desktop-observation.json": {
+      "bytes": 967,
+      "sha256": "003cdd26bbba00ee36d7315ea9c99997b7854f32da724db233b0bde1277da004"
+    },
+    "installed-manifest.json": {
+      "bytes": 1464,
+      "sha256": "43948081b6be769b41c59cbe6e4fd8fbd3d4981b8f09bd30d7f250b8d37d611d"
+    },
+    "monker-app-clean-final-tests.log": {
+      "bytes": 2136,
+      "sha256": "5abe254f4cb9616ffb4db067ed8ba503db4491f5ea391199e141950ae92f7a1e"
+    },
+    "monker-app-final-build.log": {
+      "bytes": 2572,
+      "sha256": "6c025452568981663f3f665532d61482ec214572ea316e4ed2afaa8b13f129d3"
+    },
+    "monker-app-final-tests.log": {
+      "bytes": 2136,
+      "sha256": "61fd49c98f10b591ad2a2e79509aa5f0cac353095d0c71c00a22d7f3623137dc"
+    },
+    "monker-app-full-tests.log": {
+      "bytes": 1407,
+      "sha256": "09d26b6cb4c15b5536d0079b80766cfb018d56d064a21972ffc4213f5451f903"
+    },
+    "monker-app-review-regression.log": {
+      "bytes": 491,
+      "sha256": "dc2e130d613bac0271d4b26fc8a702870624ed67512fcc69689c01710203c808"
+    },
+    "monker-app-service-tests.log": {
+      "bytes": 145,
+      "sha256": "0d6e0bb1f258617234a381842344835d63ff0967926b6f280e0972bca1f544ea"
+    },
+    "monker-app-wasm-final-isolated.log": {
+      "bytes": 2202,
+      "sha256": "bf0649d0755c07d613193492dedc924cfeb395876c4d0c47ed30590432f4eac6"
+    },
+    "monker-app-wasm-recheck.log": {
+      "bytes": 189,
+      "sha256": "99e02ce73d654027af2ff0e1bc6ee24003ab93ec771992b30bd23c00bb8ad771"
+    },
+    "monker-review-native-regression.log": {
+      "bytes": 181,
+      "sha256": "87e00c7e569aaefabd03b9fc986a721eea648e3331a5a8111fc1246cb81380c5"
+    },
+    "review.json": {
+      "bytes": 746,
+      "sha256": "4bc48bb1175bba520c9ff798e859df9efa620a2c4f8b12d27529ea79b7da2130"
+    },
+    "river-desktop.png": {
+      "bytes": 127664,
+      "sha256": "4ff3d9c48fa57f0a3b0796e79536d299a43c7df8244f02963fdaa576259f7322"
+    },
+    "service-matrix.json": {
+      "bytes": 5597,
+      "sha256": "99a2cf6855bd51d2009fcd203c11169ca2f935d52e1d3884a46dad240a0f0f48"
+    },
+    "synthetic-river-input.json": {
+      "bytes": 1829,
+      "sha256": "f23b4fc7a8ba9e0ae78319ef5d836649392dc94ceb0b582a184d766bf427d957"
+    },
+    "synthetic-turn-input.json": {
+      "bytes": 1782,
+      "sha256": "713e2bf855e9abba434564870c9eeef36f177a8298cc68893e524bcccce6efc1"
+    }
+  }
+}

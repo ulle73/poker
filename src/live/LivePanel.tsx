@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import type { LiveState } from "./types";
 import { Card } from "../components/Card";
-import { DecisionAdvisor } from "../components/DecisionAdvisor";
-import { useDecision } from "../decision/use-decision";
 import { postflopOrder } from "./positions";
-import { MultiwayStats } from "../components/MultiwayStats";
+import { HandReview } from "./HandReview";
 export function LivePanel() {
   const [state, setState] = useState<LiveState>({
       available: false,
@@ -12,52 +10,39 @@ export function LivePanel() {
       history: [],
     }),
     [clock, setClock] = useState(Date.now());
-  const [automatic, setAutomatic] = useState(true);
-  const [experimental, setExperimental] = useState(false);
   const s = state.snapshot;
   const fresh =
-    !!s &&
+    !!s && Math.max(clock, Date.now()) - s.capturedAt >= -500 &&
     clock - (state.receivedAt ?? 0) < 3000 &&
     clock - s.capturedAt < 4000;
   const active = s ? postflopOrder(s) : [];
-  const decision = useDecision(s, fresh, automatic);
   useEffect(() => {
-    let stopped = false,
-      pending = false;
+    const controller = new AbortController();
+    let revision: number | undefined;
+    let retry: ReturnType<typeof setTimeout>;
     const refresh = async () => {
-      if (pending) return;
-      pending = true;
+      let delay = 500;
       try {
-        const res = await fetch(new URL("live-state", document.baseURI), {
-          cache: "no-store",
-        });
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        if (!stopped) {
-          setState(data);
-          setClock(Date.now());
-        }
+        const url = new URL("live-state", document.baseURI);
+        if (revision !== undefined) url.searchParams.set("after", String(revision));
+        const response = await fetch(url, {cache:"no-store", signal:controller.signal});
+        if (!response.ok) throw Error();
+        const data: LiveState = await response.json();
+        if (controller.signal.aborted) return;
+        setState(data);
+        setClock(Date.now());
+        revision = data.revision;
+        if (revision !== undefined) delay = 0;
       } catch {
-        if (!stopped)
-          setState({
-            available: false,
-            snapshot: null,
-            history: [],
-            error: "Liveanslutningen är tillgänglig i Windows-appen.",
-          });
-      } finally {
-        pending = false;
+        if (controller.signal.aborted) return;
+        revision = undefined;
+        setState({available:false,snapshot:null,history:[],error:"Liveanslutningen är tillgänglig i Windows-appen."});
       }
+      retry = setTimeout(refresh, delay);
     };
     refresh();
-    const timer = setInterval(() => {
-      setClock(Date.now());
-      refresh();
-    }, 500);
-    return () => {
-      stopped = true;
-      clearInterval(timer);
-    };
+    const timer = setInterval(() => setClock(Date.now()), 200);
+    return () => {controller.abort(); clearTimeout(retry); clearInterval(timer);};
   }, []);
   const money = (v: number | null) =>
     v === null
@@ -78,10 +63,11 @@ export function LivePanel() {
                   : "Väntar på Edge-anslutning"}
             </span>
           </div>
+          {s && !fresh && state.readerIssue && <p role="status">{state.readerIssue.message}</p>}
           {!s ? (
             <p>
-              {state.error ??
-                "Den lokala mottagaren är redo. Anslut den läsande bordssensorn till din öppna Edge-flik."}
+              {state.readerIssue?.message ?? state.error ??
+                "Öppna bordet i Edge med tillägget Poker Advisor aktiverat. Vid privat surfning behöver tillägget åtkomst i InPrivate. Parningskoden finns under Teknisk anslutning."}
             </p>
           ) : (
             <>
@@ -97,6 +83,14 @@ export function LivePanel() {
                 <div>
                   <span>Pott</span>
                   <strong>{money(s.pot)}</strong>
+                </div>
+                <div>
+                  <span>Din stack bakom</span>
+                  <strong>{money(s.players.find(p => p.hero)?.stack ?? null)}</strong>
+                </div>
+                <div>
+                  <span>Tur att agera</span>
+                  <strong className={fresh && s.valid && s.heroTurn ? "hero-turn" : ""}>{fresh && s.valid ? s.heroTurn ? "Din tur" : "Inväntar din tur" : "Okänd"}</strong>
                 </div>
                 <div>
                   <span>Aktiva / upptagna / säten</span>
@@ -145,7 +139,7 @@ export function LivePanel() {
                     <span>
                       {p.folded
                         ? "Foldat"
-                        : p.inHand
+                        : p.sittingOut ? "Står över" : p.inHand
                           ? "I handen"
                           : "Oklart / väntar"}
                     </span>
@@ -191,51 +185,6 @@ export function LivePanel() {
             <p>Ingen ny handling har observerats.</p>
           )}
         </section>
-        <section className="panel live-ranges">
-          <div className="panel-heading">
-            <h2>Strategimodell · {active.length} spelare</h2>
-            <label>
-              <input
-                type="checkbox"
-                checked={automatic}
-                onChange={(e) => setAutomatic(e.target.checked)}
-              />{" "}
-              Räkna automatiskt
-            </label>
-          </div>
-          <p>
-            Beslut räknas automatiskt från preflop till river för 2–10 aktiva
-            spelare. Tom range använder alla lagliga händer. Egna ranger är
-            valfria modellantaganden; motståndarnas dolda kort är okända.
-          </p>
-          <div className="form-grid">
-            {active.map((p) => (
-              <label key={p.seat}>
-                {p.hero ? "Du" : "Motståndare"} · Säte {p.seat} · {p.position}
-                <input
-                  value={decision.ranges[p.seat] ?? ""}
-                  placeholder="Alla händer · valfritt: 22+,A2s+,ATo+"
-                  onChange={(e) => decision.setRange(p.seat, e.target.value)}
-                />
-              </label>
-            ))}
-          </div>
-          <p className="microcopy">
-            MCCFR beräknar en approximation i ett begränsat spelträd. Verifierad
-            GTO visas när solvern klarar kvalitetskontrollen för det valda
-            heads-up-trädet på turn eller river. Totalpotten antas inkludera aktuella
-            insatser. Tidigare okända ranger och sidopotter kan påverka råden.
-          </p>
-          <label>
-            <input
-              type="checkbox"
-              data-testid="experimental-strategies"
-              checked={experimental}
-              onChange={(e) => setExperimental(e.target.checked)}
-            />{" "}
-            Visa experimentella strategier för studier och test
-          </label>
-        </section>
         <details className="panel live-connection">
           <summary>Teknisk anslutning</summary>
           <p>
@@ -255,14 +204,7 @@ export function LivePanel() {
         </details>
       </div>
       <div className="live-advisor">
-        <DecisionAdvisor
-          input={decision.input}
-          result={decision.result}
-          busy={decision.busy}
-          error={decision.error}
-          experimental={experimental}
-        />
-        <MultiwayStats snapshot={s} fresh={fresh} />
+        <HandReview review={state.review} />
       </div>
     </div>
   );

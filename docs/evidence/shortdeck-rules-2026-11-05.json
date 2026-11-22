@@ -1,0 +1,15 @@
+{
+  "sourceSha256": "10f9e0e16364a849de6cf93025704c86cf054bb894ffdb7cece89d932aefc54b",
+  "entries": 376992,
+  "distinctRanks": 1404,
+  "ranks": {
+    "flush": 127,
+    "fullHouse": 270,
+    "trips": 522,
+    "straight": 527,
+    "aceLowStraight": 528,
+    "highCard": 1399
+  },
+  "allFiveCardHandsChecked": true,
+  "compatible": true
+}

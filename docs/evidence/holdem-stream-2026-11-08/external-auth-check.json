@@ -1,0 +1,19 @@
+{
+  "time": "2026-11-08T18:30:46.119Z",
+  "desktopUI": "ENGINE READY, FREE BETA, current workstation active",
+  "runnerHealthStatus": 200,
+  "newJobStatus": 403,
+  "newJobError": "compute_not_granted",
+  "newJobMessage": "This solver runs on permission from the account service, which was not presented: no compute grant was presented. Sign in through the app.",
+  "externalGatewaySession": {
+    "status": 200,
+    "authenticated": false
+  },
+  "officialBrowserPage": {
+    "error": "local_origin_required",
+    "message": "Open NLHE Solver from its desktop window."
+  },
+  "accountCookiesRead": false,
+  "computeGrantsCopied": false,
+  "authenticationModified": false
+}

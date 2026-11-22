@@ -1,0 +1,72 @@
+[
+  {
+    "case": "3p-turn-ratio1",
+    "treeSha256": "4b062d2d3e21e19ee0f97bfed684c1ebcfb7c724151e72ee84abad0b4fc3ca0b",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "3p-river-ratio1",
+    "treeSha256": "c514767e93adf1e14f15a6d940067baca4ffd3d9083e4e3b535da24220173a27",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "4p-turn-ratio1",
+    "treeSha256": "8a15983532e2f2f11dfbd35d36db5ae0f6ae677496bca9364e6fc2c24c2c0ef3",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "4p-river-ratio1",
+    "treeSha256": "565d2793aee15e83637ca13514be04a1b3084273c1e9fd068890aad394890d56",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "5p-turn-ratio1",
+    "treeSha256": "8651137407bdfd36b80490d794cc471d5489ae5a80cdfa34adaf468bd08660a0",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "5p-river-ratio1",
+    "treeSha256": "5718dbc58f4667832e6ffbc85be37e1afd3250c90e327edb9b6c3abf1647140d",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "6p-turn-ratio1",
+    "treeSha256": "1afa8d0809ad7b957a07053c1a2a00773f043a89d9bdd54263b00b360e0982d3",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "6p-river-ratio1",
+    "treeSha256": "242c077a8f34a37997d2683f95abc5e2d8c1675d395181942747ce81a593a769",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "6p-river-ratio10",
+    "treeSha256": "242c077a8f34a37997d2683f95abc5e2d8c1675d395181942747ce81a593a769",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  },
+  {
+    "case": "6p-turn-ratio10",
+    "treeSha256": "1afa8d0809ad7b957a07053c1a2a00773f043a89d9bdd54263b00b360e0982d3",
+    "treeRoundTripIdentical": true,
+    "finite": true,
+    "metadataValid": true
+  }
+]

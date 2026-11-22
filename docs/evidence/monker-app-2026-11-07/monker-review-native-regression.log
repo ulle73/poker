@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 2 skipped (3)
+   Start at  16:00:14
+   Duration  5.87s (tests 95%, transform 3%, import 2%)
+

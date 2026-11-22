@@ -1,5 +1,86 @@
 var PokerTableReader = (function(exports) {
 	Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+	// src/live/hand-memory.ts
+	var LiveHandMemory = class {
+		hand = "";
+		folded = /* @__PURE__ */ new Set();
+		seenActive = /* @__PURE__ */ new Set();
+		apply(snapshot) {
+			if (snapshot.handId !== this.hand) {
+				this.hand = snapshot.handId;
+				this.folded.clear();
+				this.seenActive.clear();
+			}
+			for (const p of snapshot.players) {
+				if (p.inHand) this.seenActive.add(p.seat);
+				if (p.folded && (this.seenActive.has(p.seat) || snapshot.street !== "preflop")) this.folded.add(p.seat);
+			}
+			return {
+				...snapshot,
+				players: snapshot.players.map((p) => this.folded.has(p.seat) ? {
+					...p,
+					folded: true,
+					inHand: false
+				} : p)
+			};
+		}
+	};
+	// src/live/table-observer.ts
+	function startTableObserver(options) {
+		const readerId = crypto.randomUUID(), memory = new LiveHandMemory();
+		let stopped = false, pending = false, sequence = 0, failed = 0, nextAttempt = 0;
+		let debounce;
+		const tick = async () => {
+			if (stopped || pending || Date.now() < nextAttempt) return;
+			const capture = options.capture(++sequence, readerId);
+			if (!capture) return;
+			const snapshot = memory.apply(capture);
+			pending = true;
+			nextAttempt = Date.now() + 180;
+			try {
+				const { status } = await options.send(snapshot);
+				if (stopped) return;
+				if (status !== 200 && status !== 409 && status !== 422) throw new Error(`bridge ${status}`);
+				failed = 0;
+				options.onStatus?.({
+					ok: status === 200,
+					handId: snapshot.handId,
+					sequence: snapshot.sequence,
+					...status === 200 ? {} : { error: `bridge ${status}` }
+				});
+			} catch {
+				if (stopped) return;
+				nextAttempt = Date.now() + Math.min(15e3, 600 * 2 ** Math.min(++failed, 5));
+				options.onStatus?.({
+					ok: false,
+					error: "Mottagaren är inte tillgänglig; återansluter automatiskt."
+				});
+			} finally {
+				pending = false;
+			}
+		};
+		const observer = new MutationObserver(() => {
+			clearTimeout(debounce);
+			debounce = setTimeout(tick, 80);
+		});
+		observer.observe(document.body, {
+			subtree: true,
+			childList: true,
+			attributes: true,
+			characterData: true
+		});
+		const timer = setInterval(tick, 600);
+		tick();
+		return {
+			readerId,
+			stop: () => {
+				stopped = true;
+				observer.disconnect();
+				clearInterval(timer);
+				clearTimeout(debounce);
+			}
+		};
+	}
 	// src/live/positions.ts
 	var tails = {
 		3: [],
@@ -57,31 +138,6 @@ var PokerTableReader = (function(exports) {
 		});
 		return result;
 	}
-	// src/live/hand-memory.ts
-	var LiveHandMemory = class {
-		hand = "";
-		folded = /* @__PURE__ */ new Set();
-		seenActive = /* @__PURE__ */ new Set();
-		apply(snapshot) {
-			if (snapshot.handId !== this.hand) {
-				this.hand = snapshot.handId;
-				this.folded.clear();
-				this.seenActive.clear();
-			}
-			for (const p of snapshot.players) {
-				if (p.inHand) this.seenActive.add(p.seat);
-				if (p.folded && (this.seenActive.has(p.seat) || snapshot.street !== "preflop")) this.folded.add(p.seat);
-			}
-			return {
-				...snapshot,
-				players: snapshot.players.map((p) => this.folded.has(p.seat) ? {
-					...p,
-					folded: true,
-					inHand: false
-				} : p)
-			};
-		}
-	};
 	// src/live/reader.ts
 	var SUIT = {
 		"♠": "s",
@@ -135,7 +191,6 @@ var PokerTableReader = (function(exports) {
 		const seat = (e) => Number(e.className.match(/\bplayer-seat-(\d+)\b/)?.[1]);
 		const dealer = areas.find((e) => visible(e.querySelector(".game-position .dealer")));
 		const dealerSeat = dealer ? seat(dealer) : null;
-		const positions = seatPositions(occupied.map(seat), dealerSeat, Number(root.querySelector(".table")?.className.match(/table-(\d+)-players/)?.[1] ?? 0));
 		const players = occupied.map((e) => {
 			const stack = readMoney(e.querySelector(".player-nameplate .amount"));
 			const betElement = e.querySelector(".player-bet .amount");
@@ -146,17 +201,20 @@ var PokerTableReader = (function(exports) {
 			const cards = [...e.querySelectorAll(".cards-holder-hero .card,.cards-holder-other-hidden .card,.cards-holder-other .card")].filter(visible);
 			const folded = foldBadge && cards.length < 2;
 			if (foldBadge && cards.length >= 2) issues.push("Foldanimation pågår; väntar på stabilt deltagande.");
-			const id = seat(e);
 			return {
-				seat: id,
+				seat: seat(e),
 				hero: e.classList.contains("my-player"),
-				position: positions[id],
+				position: "Okänd",
 				stack: stack?.amount ?? null,
 				bet: bet?.amount ?? (betElement && visible(betElement) && betElement.textContent?.trim() ? null : 0),
+				...!e.classList.contains("my-player") && { shownCards: readCards(e.querySelector(".cards-holder-other")) },
+				sittingOut: !folded && cards.length === 0 && (!betElement || !visible(betElement) || bet?.amount === 0) && [...e.querySelectorAll(".player-sit-out")].some(visible),
 				folded,
 				inHand: cards.length >= 2 && !folded
 			};
 		});
+		const positions = seatPositions(players.filter((p) => !p.sittingOut).map((p) => p.seat), dealerSeat, Number(root.querySelector(".table")?.className.match(/table-(\d+)-players/)?.[1] ?? 0));
+		for (const p of players) p.position = p.sittingOut ? "Står över" : positions[p.seat] ?? "Okänd";
 		const heroCards = readCards(occupied.find((e) => e.classList.contains("my-player"))?.querySelector(".cards-holder-hero") ?? null);
 		const board = readCards(root.querySelector(".community-cards"));
 		const handId = doc.querySelector(".hand-id")?.textContent?.replace(/[^\d]/g, "") ?? "";
@@ -173,9 +231,15 @@ var PokerTableReader = (function(exports) {
 			4,
 			5
 		].includes(board.length)) issues.push("Kortanimation eller ofullständig bräda.");
-		if ((/* @__PURE__ */ new Set([...board, ...heroCards])).size !== board.length + heroCards.length) issues.push("Överlappande kort: väntar på en stabil bild.");
+		if ((/* @__PURE__ */ new Set([
+			...board,
+			...heroCards,
+			...players.flatMap((p) => p.shownCards ?? [])
+		])).size !== board.length + heroCards.length + players.reduce((n, p) => n + (p.shownCards?.length ?? 0), 0)) issues.push("Överlappande kort: väntar på en stabil bild.");
 		if (heroCards.length !== 2) issues.push("Dina två kort är inte synliga.");
-		if (!root.classList.contains("POKER_GAME_TYPE_HOLDEM")) issues.push("Endast Texas Hold’em stöds.");
+		const variant = root.classList.contains("POKER_GAME_TYPE_SIX_PLUS_HOLDEM") ? "sixplus" : root.classList.contains("POKER_GAME_TYPE_HOLDEM") ? "holdem" : "unknown";
+		if (variant === "unknown") issues.push("Endast Texas Hold’em stöds.");
+		if (variant === "sixplus" && [...heroCards, ...board].some((c) => !/^[6-9TJQKA]/.test(c))) issues.push("Kort under sex är inte giltiga på ett 6+-bord.");
 		const street = board.length === 0 ? "preflop" : board.length === 3 ? "flop" : board.length === 4 ? "turn" : board.length === 5 ? "river" : "unknown";
 		const observedActions = occupied.flatMap((e) => {
 			const action = actionLabel([...e.querySelectorAll(".player-action .action-text")].find(visible)?.textContent ?? "");
@@ -188,6 +252,7 @@ var PokerTableReader = (function(exports) {
 		});
 		return {
 			version: 1,
+			variant,
 			source: "svenskaspel-dom",
 			readerId,
 			sequence,
@@ -214,19 +279,10 @@ var PokerTableReader = (function(exports) {
 		if (url.hostname !== "127.0.0.1" || url.protocol !== "http:" || url.pathname !== "/ingest") throw new Error("Mottagaren måste vara den lokala appen.");
 		const owner = window;
 		owner.__pokerAdvisorLiveStop?.();
-		const readerId = crypto.randomUUID();
-		const memory = new LiveHandMemory();
-		let sequence = 0, stopped = false, pending = false, failed = 0, lastSent = 0;
-		let debounce;
-		const tick = async () => {
-			if (stopped || pending || Date.now() - lastSent < 180) return;
-			const capture = readSiteTable(document, ++sequence, readerId);
-			if (!capture) return;
-			const snapshot = memory.apply(capture);
-			pending = true;
-			lastSent = Date.now();
-			try {
-				const response = await fetch(options.endpoint, {
+		const reader = startTableObserver({
+			capture: readSiteTable.bind(null, document),
+			send: async (snapshot) => {
+				return { status: (await fetch(options.endpoint, {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -235,56 +291,20 @@ var PokerTableReader = (function(exports) {
 					body: JSON.stringify(snapshot),
 					signal: AbortSignal.timeout(2e3),
 					credentials: "omit",
-					cache: "no-store"
-				});
-				if (response.status === 422 || response.status === 409) {
-					owner.__pokerAdvisorLiveStatus = {
-						ok: false,
-						error: `bridge ${response.status}`,
-						waitingForValidCapture: true
-					};
-					failed = 0;
-					return;
-				}
-				if (!response.ok) throw new Error(`bridge ${response.status}`);
-				owner.__pokerAdvisorLiveStatus = {
-					ok: true,
-					handId: snapshot.handId,
-					...await response.json()
-				};
-				failed = 0;
-			} catch (e) {
-				owner.__pokerAdvisorLiveStatus = {
-					ok: false,
-					error: String(e)
-				};
-				if (++failed >= 30) stop();
-			} finally {
-				pending = false;
+					cache: "no-store",
+					redirect: "error"
+				})).status };
+			},
+			onStatus: (status) => {
+				owner.__pokerAdvisorLiveStatus = status;
 			}
-		};
-		const observer = new MutationObserver(() => {
-			clearTimeout(debounce);
-			debounce = setTimeout(tick, 80);
 		});
-		observer.observe(document.body, {
-			childList: true,
-			subtree: true,
-			attributes: true,
-			characterData: true
-		});
-		const heartbeat = setInterval(tick, 600);
-		const stop = () => {
-			stopped = true;
-			observer.disconnect();
-			clearInterval(heartbeat);
-			clearTimeout(debounce);
+		owner.__pokerAdvisorLiveStop = () => {
+			reader.stop();
 			delete owner.__pokerAdvisorLiveStop;
 		};
-		owner.__pokerAdvisorLiveStop = stop;
-		tick();
 		return {
-			readerId,
+			readerId: reader.readerId,
 			endpoint: url.origin,
 			mode: "read-only",
 			stopsOnReload: true

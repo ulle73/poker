@@ -1,0 +1,34 @@
+{
+  "exportedCombinationUniverseOnly": true,
+  "rootRangeAlignmentIndependentlyValidated": false,
+  "board": [
+    "Ks",
+    "7d",
+    "6c",
+    "8h",
+    "9d"
+  ],
+  "pot": 10,
+  "stack": 20,
+  "nodes": 45,
+  "rangeCombinations": [
+    465,
+    465
+  ],
+  "ev": [
+    -0.3239198567001893,
+    0.3239198567001892
+  ],
+  "bestResponse": [
+    -0.3022036285548184,
+    0.34082937319583584
+  ],
+  "gains": [
+    0.021716228145370886,
+    0.016909516495646648
+  ],
+  "exploitabilityChips": 0.03862574464101742,
+  "nashConvPct": 0.38625744641017423,
+  "averageExploitabilityPct": 0.19312872320508712,
+  "auditMs": 51216.0054
+}

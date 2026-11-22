@@ -1,0 +1,14 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > produces source decisions for all two-to-six table mappings 36ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > preserves the concrete-source AQo mix for BB facing BU open 2ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > selects the four-bet node after an observed open and three-bet 2ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > uses the genuine ten-BB HU call chart rather than the six-max reference 2ms
+ ✓ tests/preflop-installed.test.ts > installed, pinned preflop library > rejects a data edit even if the changed JSON remains parseable 40ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  21:15:05
+   Duration  947ms (transform 53%, import 30%, tests 14%, worker 2%)
+

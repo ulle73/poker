@@ -1,0 +1,127 @@
+[
+  {
+    "name": "profile4",
+    "threads": 4,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": true,
+    "startMs": 1793978047259
+  },
+  {
+    "name": "threads1a",
+    "threads": 1,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793978286975
+  },
+  {
+    "name": "threads8a",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793978525339
+  },
+  {
+    "name": "threads8b",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793978675924
+  },
+  {
+    "name": "threads4plain",
+    "threads": 4,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793978817981
+  },
+  {
+    "name": "graal8cold",
+    "runtime": "GraalVM CE 25.4.4.1.1",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793979163297
+  },
+  {
+    "name": "graal8warm1",
+    "runtime": "GraalVM CE 25.4.4.1.1",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793979321179
+  },
+  {
+    "name": "inline8cold",
+    "runtime": "Adoptium 17.0.16.8; FreqInlineSize=700; MaxRecursiveInlineLevel=2",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793979823588
+  },
+  {
+    "name": "inline8warm1",
+    "runtime": "Adoptium 17.0.16.8; FreqInlineSize=700; MaxRecursiveInlineLevel=2",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793979976844
+  },
+  {
+    "name": "java11cold",
+    "runtime": "Bundled AdoptOpenJDK 11.0.7+10",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793980444734
+  },
+  {
+    "name": "java11warm1",
+    "runtime": "Bundled AdoptOpenJDK 11.0.7+10",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793980566269
+  },
+  {
+    "name": "inline512cold",
+    "runtime": "Adoptium 17.0.16.8; FreqInlineSize=512; recursion default 1",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793982425858
+  },
+  {
+    "name": "inline512warm1",
+    "runtime": "Adoptium 17.0.16.8; FreqInlineSize=512; recursion default 1",
+    "threads": 8,
+    "avg": 2,
+    "ev": 2,
+    "ratio": 10,
+    "profiled": false,
+    "startMs": 1793982481085
+  }
+]

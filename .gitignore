@@ -5,3 +5,7 @@ release/
 .taste-skill/
 artifacts/
 *.tsbuildinfo
+
+electron/generated/
+native/**/target/
+__pycache__/

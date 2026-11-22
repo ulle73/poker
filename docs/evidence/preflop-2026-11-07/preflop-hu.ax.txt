@@ -1,0 +1,384 @@
+Window: "Poker GTO Advisor", App: electron.exe.
+	0 fönster Poker GTO Advisor Secondary Actions: Raise
+		1 fönsterruta (disabled)
+		2 region Poker GTO Advisor
+			3 region
+				4 region
+					5 region
+						6 region
+							7 region
+								8 region
+									9 dokument Poker GTO Advisor Value: poker://app/index.html?view=live ID: RootWebArea
+										10 grupp ID: root
+											11 rubrik
+												12 länk Poker GTO Advisor Value: poker://app/index.html?view=live#
+												13 navigering Huvudmeny
+													14 knapp Träningsbord
+													15 knapp Live · Edge
+													16 knapp Min session
+													17 knapp Egen studie
+													18 knapp Metod & källor
+												19 text Lokalt · DOM-avläsning
+											20 huvud
+												21 text Texas hold’em · Svenska Spel · Endast avläsning
+												22 rubrik Ditt bord, live.
+												23 text Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+												24 rubrik Svenska Spel · Liveavläsning
+												25 text Live · uppdateras automatiskt
+												64 text Hand
+												65 text #
+												66 text 990000000000303
+												67 text Gata
+												68 text preflop
+												69 text Pott
+												70 text 0,22 EUR
+												71 text Aktiva / upptagna / säten
+												72 text 2
+												73 text /
+												74 text 2
+												75 text /
+												76 text 6
+												77 text Dina kort
+												78 grupp As
+													79 text A
+													80 text ♠
+												438 grupp Ah
+													439 text A
+													440 text ♥
+												84 text Bräda
+												85 text Inga gemensamma kort
+												86 text Säte / position
+												87 text Stack bakom
+												88 text Synlig insats
+												89 text Tillstånd
+												90 text Spelare 1
+												91 text Säte
+												92 text 1
+												93 text ·
+												94 text SB
+												95 text 0 EUR
+												96 text 0,2 EUR
+												97 text I handen
+												98 text Du
+												99 text Säte
+												100 text 2
+												101 text ·
+												102 text BB
+												103 text 0,18 EUR
+												104 text 0,02 EUR
+												105 text I handen
+												138 text Dina handlingsknappar är synliga.
+												139 text 
+												140 text Avläst
+												141 text 21:34:59
+												142 text ·
+												143 text 
+												144 text 725
+												145 text ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+												27 rubrik Observerad handlinje
+												28 text Delvis historik
+												29 text Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+												30 text Ingen ny handling har observerats.
+												31 rubrik Strategimodell · 2 spelare
+												32 kryssruta (settable, string) Räkna automatiskt
+												33 text ART/GTO + HoldemMath · fria prefloptabeller · 0 kr. ART/GTO: 100 BB-referens när aktuella stackar ligger inom 50–150 BB. Två till sex utdelade spelare mappas till källans positioner. Riktig heads-up: även push/fold vid 4–20 BB. Position, stack och tidigare höjningar styr tabellvalet. Modellskillnader visas; ingen oberoende GTO-felgräns är verifierad.
+												34 text 
+												35 text Flop, 6+-preflop/turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+												146 text Preflop använder källtabellens handfrekvenser. Topp 50 % och egna postflopranger påverkar inte prefloprådet. Limpar, andra stackdjup och saknade linjer kan sakna täckning.
+												37 detaljer
+													38 expanderingstriangel Teknisk anslutning
+														39 text Teknisk anslutning
+												40 område Automatiskt beslut
+													41 rubrik Ditt beslut
+													42 text Prefloptabell · referensmodell
+													441 status
+														442 text Tabellreferens, inte en verifierad lösning av ditt exakta bord.
+														443 text 
+														444 text HoldemMath push/fold
+														445 text :
+														446 text 10
+														447 text BB,
+														448 text 2
+														449 text spelare i modellen. Din effektiva stack:
+														450 text 10
+														451 text BB;
+														452 text 2
+														453 text utdelade spelare. Ingen oberoende felgräns är verifierad.
+													454 text Vanligaste handlingen i källtabellen
+													455 text Call 0,18 EUR · all-in
+													456 text 100.0
+													457 text % av gångerna
+													458 text Fold
+													459 text 0.0
+													460 text %
+													461 text Check / Call
+													462 text 100.0
+													463 text %
+													464 text Bet / Raise
+													465 text 0.0
+													466 text %
+													467 text Handling / sizing
+													468 text Frekvens
+													469 text EV¹
+													470 text Call 0,18 EUR · all-in
+													471 text 100.0
+													472 text %
+													473 text —
+													474 text ¹
+													475 text 
+													476 text Ingen verifierad action-EV redovisas för tabellreferensen.
+													477 text Tabellens modell och täckning
+													478 lista
+														479 term Källa
+															480 text Källa
+														481 text HoldemMath · HU push/fold
+														482 term Beräkning
+															483 text Beräkning
+														484 text 0
+														485 text ms
+														486 term Oberoende felgräns
+															487 text Oberoende felgräns
+														488 text Ej verifierad
+													489 detaljer
+														490 expanderingstriangel Modell och begränsningar
+															491 text Modell och begränsningar
+												46 område Multiway equity
+													47 rubrik Potten i siffror
+													48 text 2–10 spelare · Equity
+													49 text 2
+													50 text synligt aktiva ·
+													51 text 
+													52 text 0
+													53 text observerat foldade ·
+													54 text 
+													55 text 2
+													56 text upptagna säten.
+													492 text 85.1
+													493 text %
+													494 text Andel av potten vid showdown
+													495 text Mot jämnt slumpade, okända motståndarhänder. Ingen range eller spelstil antas vara GTO.
+													496 lista
+														497 term Monte Carlo-fel, cirka 95 %
+															498 text Monte Carlo-fel, cirka 95 %
+														499 text ±
+														500 text 0.8
+														501 text 
+														502 text procentenheter
+														503 term Simulerade givar
+															504 text Simulerade givar
+														505 text 8 000
+														506 term Beräkning
+															507 text Beräkning
+														508 text 6
+														509 text ms
+													510 text Att syna:
+													511 text 
+													512 text 0,18
+													513 text 
+													514 text EUR
+													515 text Enkel pottodds:
+													516 text 45.0
+													517 text %
+													58 text Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+												59 avsnittets sidfot
+													60 text Poker GTO Advisor
+													61 text / 1.4 · Träning & strategilabb
+													62 text Verklig solver. Synliga antaganden. Träning på din dator.
+								63 region
+
+Document text: ```
+Poker GTO Advisor
+Träningsbord
+Live · Edge
+Min session
+Egen studie
+Metod & källor
+Lokalt · DOM-avläsning
+Texas hold’em · Svenska Spel · Endast avläsning
+Ditt bord, live.
+Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+Svenska Spel · Liveavläsning
+Live · uppdateras automatiskt
+Hand
+#990000000000303
+Gata
+preflop
+Pott
+0,22 EUR
+Aktiva / upptagna / säten
+2 / 2 / 6
+Dina kort
+A
+♠
+A
+♥
+Bräda
+Inga gemensamma kort
+Säte / position
+Stack bakom
+Synlig insats
+Tillstånd
+Spelare 1
+Säte 1 · SB
+0 EUR
+0,2 EUR
+I handen
+Du
+Säte 2 · BB
+0,18 EUR
+0,02 EUR
+I handen
+Dina handlingsknappar är synliga. Avläst 21:34:59 · 264 ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+Observerad handlinje
+Delvis historik
+Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+Ingen ny handling har observerats.
+Strategimodell · 2 spelare
+￼
+ART/GTO + HoldemMath · fria prefloptabeller · 0 kr. ART/GTO: 100 BB-referens när aktuella stackar ligger inom 50–150 BB. Två till sex utdelade spelare mappas till källans positioner. Riktig heads-up: även push/fold vid 4–20 BB. Position, stack och tidigare höjningar styr tabellvalet. Modellskillnader visas; ingen oberoende GTO-felgräns är verifierad. Flop, 6+-preflop/turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+Preflop använder källtabellens handfrekvenser. Topp 50 % och egna postflopranger påverkar inte prefloprådet. Limpar, andra stackdjup och saknade linjer kan sakna täckning.
+Teknisk anslutning
+Ditt beslut
+Prefloptabell · referensmodell
+Tabellreferens, inte en verifierad lösning av ditt exakta bord. HoldemMath push/fold: 10 BB, 2 spelare i modellen. Din effektiva stack: 10 BB; 2 utdelade spelare. Ingen oberoende felgräns är verifierad.
+Vanligaste handlingen i källtabellen
+Call 0,18 EUR · all-in
+100.0 % av gångerna
+Fold
+0.0 %
+Check / Call
+100.0 %
+Bet / Raise
+0.0 %
+Handling / sizing
+Frekvens
+EV¹
+Call 0,18 EUR · all-in
+100.0 %
+—
+¹ Ingen verifierad action-EV redovisas för tabellreferensen.
+Tabellens modell och täckning
+Källa
+HoldemMath · HU push/fold
+Beräkning
+0 ms
+Oberoende felgräns
+Ej verifierad
+Modell och begränsningar
+Potten i siffror
+2–10 spelare · Equity
+2 synligt aktiva · 0 observerat foldade · 2 upptagna säten.
+85.1 %
+Andel av potten vid showdown
+Mot jämnt slumpade, okända motståndarhänder. Ingen range eller spelstil antas vara GTO.
+Monte Carlo-fel, cirka 95 %
+± 0.8 procentenheter
+Simulerade givar
+8 000
+Beräkning
+6 ms
+Att syna: 0,18 EUR
+Enkel pottodds: 45.0 %
+Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+Poker GTO Advisor / 1.4 · Träning & strategilabb
+Verklig solver. Synliga antaganden. Träning på din dator.
+```
+
+Focused element: 0 fönster Poker GTO Advisor Secondary Actions: Raise
+
+Document text:
+Poker GTO Advisor
+Träningsbord
+Live · Edge
+Min session
+Egen studie
+Metod & källor
+Lokalt · DOM-avläsning
+Texas hold’em · Svenska Spel · Endast avläsning
+Ditt bord, live.
+Alla spelare, positioner och insatser. Aktuell pottmatematik och strategins faktiska täckning.
+Svenska Spel · Liveavläsning
+Live · uppdateras automatiskt
+Hand
+#990000000000303
+Gata
+preflop
+Pott
+0,22 EUR
+Aktiva / upptagna / säten
+2 / 2 / 6
+Dina kort
+A
+♠
+A
+♥
+Bräda
+Inga gemensamma kort
+Säte / position
+Stack bakom
+Synlig insats
+Tillstånd
+Spelare 1
+Säte 1 · SB
+0 EUR
+0,2 EUR
+I handen
+Du
+Säte 2 · BB
+0,18 EUR
+0,02 EUR
+I handen
+Dina handlingsknappar är synliga. Avläst 21:34:59 · 264 ms sedan mottagning. Beloppen visas i den avlästa valutan, utan omräkning till bb.
+Observerad handlinje
+Delvis historik
+Insamlingen börjar när anslutningen öppnas. Tidigare händelser och animationer kan saknas; listan är inte en komplett handhistorik.
+Ingen ny handling har observerats.
+Strategimodell · 2 spelare
+￼
+ART/GTO + HoldemMath · fria prefloptabeller · 0 kr. ART/GTO: 100 BB-referens när aktuella stackar ligger inom 50–150 BB. Två till sex utdelade spelare mappas till källans positioner. Riktig heads-up: även push/fold vid 4–20 BB. Position, stack och tidigare höjningar styr tabellvalet. Modellskillnader visas; ingen oberoende GTO-felgräns är verifierad. Flop, 6+-preflop/turn och potter med fler än sex aktiva spelare saknar ansluten strategimotor. Bord och showdown-equity kan fortfarande visas.
+Preflop använder källtabellens handfrekvenser. Topp 50 % och egna postflopranger påverkar inte prefloprådet. Limpar, andra stackdjup och saknade linjer kan sakna täckning.
+Teknisk anslutning
+Ditt beslut
+Prefloptabell · referensmodell
+Tabellreferens, inte en verifierad lösning av ditt exakta bord. HoldemMath push/fold: 10 BB, 2 spelare i modellen. Din effektiva stack: 10 BB; 2 utdelade spelare. Ingen oberoende felgräns är verifierad.
+Vanligaste handlingen i källtabellen
+Call 0,18 EUR · all-in
+100.0 % av gångerna
+Fold
+0.0 %
+Check / Call
+100.0 %
+Bet / Raise
+0.0 %
+Handling / sizing
+Frekvens
+EV¹
+Call 0,18 EUR · all-in
+100.0 %
+—
+¹ Ingen verifierad action-EV redovisas för tabellreferensen.
+Tabellens modell och täckning
+Källa
+HoldemMath · HU push/fold
+Beräkning
+0 ms
+Oberoende felgräns
+Ej verifierad
+Modell och begränsningar
+Potten i siffror
+2–10 spelare · Equity
+2 synligt aktiva · 0 observerat foldade · 2 upptagna säten.
+85.1 %
+Andel av potten vid showdown
+Mot jämnt slumpade, okända motståndarhänder. Ingen range eller spelstil antas vara GTO.
+Monte Carlo-fel, cirka 95 %
+± 0.8 procentenheter
+Simulerade givar
+8 000
+Beräkning
+6 ms
+Att syna: 0,18 EUR
+Enkel pottodds: 45.0 %
+Detta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.
+Poker GTO Advisor / 1.4 · Träning & strategilabb
+Verklig solver. Synliga antaganden. Träning på din dator.

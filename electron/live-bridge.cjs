@@ -5,6 +5,7 @@ function validSnapshot(s) {
   if (
     !s ||
     s.version !== 1 ||
+    (s.variant !== undefined && !["holdem", "sixplus", "unknown"].includes(s.variant)) ||
     s.source !== "svenskaspel-dom" ||
     typeof s.readerId !== "string" ||
     s.readerId.length > 80 ||
@@ -48,6 +49,8 @@ function validSnapshot(s) {
         typeof p.hero === "boolean" &&
         typeof p.folded === "boolean" &&
         typeof p.inHand === "boolean" &&
+        (p.sittingOut === undefined || (typeof p.sittingOut === "boolean" && (!p.sittingOut || (!p.inHand && p.bet === 0)))) &&
+        (p.shownCards === undefined || (!p.hero && cards(p.shownCards) && p.shownCards.length <= 2)) &&
         amount(p.stack) &&
         amount(p.bet) &&
         typeof p.position === "string" &&
@@ -86,8 +89,8 @@ function validSnapshot(s) {
     s.valid &&
     (s.heroCards.length !== 2 ||
       ![0, 3, 4, 5].includes(s.board.length) ||
-      new Set([...s.heroCards, ...s.board]).size !==
-        s.heroCards.length + s.board.length ||
+      new Set([...s.heroCards, ...s.board, ...s.players.flatMap(p => p.shownCards ?? [])]).size !==
+        s.heroCards.length + s.board.length + s.players.reduce((n,p) => n + (p.shownCards?.length ?? 0), 0) ||
       s.issues.length ||
       s.pot === null ||
       s.currency === "UNKNOWN")
@@ -107,14 +110,22 @@ async function createLiveBridge({
     lastSequence = 0,
     lastHand = null;
   const events = new Set();
+  const review = require("./hand-review.cjs").createHandReview();
+  let actionState = "";
+  let decisionReceivedAt = 0;
+  const decisionActions = new Map();
+  let revision = 0;
+  let lastIssue = null;
+  const reportIssue = message => { lastIssue = { message, at: Date.now() }; };
+  const subscribers = new Set();
   const server = http.createServer(async (req, res) => {
     const origin = req.headers.origin;
-    if (origin && origin !== SITE) {
+    if (origin && origin !== SITE && !/^chrome-extension:\/\/[a-p]{32}$/.test(origin)) {
       res.writeHead(403);
       res.end();
       return;
     }
-    if (origin) res.setHeader("Access-Control-Allow-Origin", SITE);
+    if (origin) res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
     res.setHeader("Cache-Control", "no-store");
     if (req.method === "OPTIONS") {
@@ -131,6 +142,8 @@ async function createLiveBridge({
       Buffer.byteLength(supplied) !== Buffer.byteLength(token) ||
       !crypto.timingSafeEqual(Buffer.from(supplied), Buffer.from(token))
     ) {
+      if (req.url === "/ingest" && /^chrome-extension:\/\/[a-p]{32}$/.test(origin ?? ""))
+        reportIssue("Edge kontaktar appen med en ogiltig parningskod. Spara appens kod i bordsläsarens inställningar.");
       res.writeHead(401);
       res.end();
       return;
@@ -152,6 +165,7 @@ async function createLiveBridge({
       }
       const data = JSON.parse(body);
       if (!validSnapshot(data)) {
+        reportIssue("Edge är anslutet men bordets avläsning kunde inte tolkas. Kontrollera att rätt bord är öppet och att läsaren är uppdaterad.");
         res.writeHead(422);
         res.end();
         return;
@@ -170,13 +184,27 @@ async function createLiveBridge({
         res.end();
         return;
       }
-      if (!connectedAt) connectedAt = Date.now();
+      const now = Date.now();
+      if (!connectedAt) connectedAt = now;
+      const stateKey = JSON.stringify([data.readerId, data.handId, data.street, data.variant,
+        data.board, data.heroCards, data.players, data.pot, data.currency, data.dealerSeat,
+        data.availableActions, data.heroTurn, data.valid]);
+      if (stateKey !== actionState || now - receivedAt >= 3000 ||
+          (snapshot && data.capturedAt - snapshot.capturedAt >= 4000)) {
+        actionState = stateKey;
+        decisionReceivedAt = now;
+        decisionActions.clear();
+      }
       if (data.readerId !== reader || data.handId !== lastHand) {
         history = [];
         events.clear();
       }
       for (const a of data.observedActions) {
         const key = JSON.stringify(a);
+        if (data.valid && a.street === data.street && !decisionActions.has(key)) {
+          decisionActions.set(key, a);
+          decisionReceivedAt = now;
+        }
         if (!events.has(key)) {
           events.add(key);
           history.push(a);
@@ -186,8 +214,13 @@ async function createLiveBridge({
       reader = data.readerId;
       lastHand = data.handId;
       lastSequence = data.sequence;
-      snapshot = data;
-      receivedAt = Date.now();
+      // A fading action label changes the DOM but does not undo an observed bet.
+      snapshot = { ...data, observedActions: [...decisionActions.values()] };
+      review.observe(snapshot, now);
+      lastIssue = null;
+      receivedAt = now;
+      revision++;
+      for (const notify of subscribers) notify();
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(JSON.stringify({ ok: true, sequence: lastSequence, receivedAt }));
     } catch {
@@ -206,11 +239,30 @@ async function createLiveBridge({
   return {
     port: actualPort,
     token,
+    reviewedHand: review.get,
+    waitForChange(after, signal) {
+      if (after !== revision || signal?.aborted) return Promise.resolve();
+      return new Promise(resolve => {
+        const notify = () => {
+          clearTimeout(timer);
+          subscribers.delete(notify);
+          signal?.removeEventListener("abort", notify);
+          resolve();
+        };
+        const timer = setTimeout(notify, 1200);
+        subscribers.add(notify);
+        signal?.addEventListener("abort", notify, {once: true});
+      });
+    },
     state: () => ({
+      revision,
+      review: review.status(),
+      readerIssue: lastIssue,
       available: true,
       endpoint: `http://127.0.0.1:${actualPort}/ingest`,
       token,
       receivedAt,
+      decisionReceivedAt,
       connectedAt,
       snapshot,
       history,

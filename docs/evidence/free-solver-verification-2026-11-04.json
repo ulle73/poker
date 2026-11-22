@@ -1,0 +1,75 @@
+{
+  "recordedAt": "2026-11-04T20:59:49.6765743+01:00",
+  "baseCommit": "e87cbc275b72757db16c6e3decaaf996db594e11",
+  "branch": "codex/free-solver-providers",
+  "scope": "Free Postflop provider, replace experimental live route, future optional paid adapter boundary",
+  "strategyCoverageExpanded": false,
+  "tests": [
+    {
+      "command": "npm test -- tests/decision-hook.test.ts",
+      "passed": 1,
+      "stage": "red",
+      "failed": 4,
+      "expectedFailure": true
+    },
+    {
+      "command": "npm test -- tests/decision-hook.test.ts tests/decision-providers.test.ts tests/decision-river.test.ts tests/postflop-wasm.test.ts",
+      "failure": "Existing independent turn best-response test exceeded 5000 ms in parallel run",
+      "passed": 49,
+      "failed": 1
+    },
+    {
+      "command": "npm test -- --maxWorkers=1",
+      "passed": 330,
+      "failed": 0,
+      "durationSeconds": 163.72,
+      "skipped": 4
+    },
+    {
+      "command": "npm test -- tests/decision-hook.test.ts tests/decision-providers.test.ts --maxWorkers=1",
+      "passed": 32,
+      "stage": "final with five additional lifecycle regressions",
+      "failed": 0,
+      "durationSeconds": 13.67
+    },
+    {
+      "exitCode": 0,
+      "command": "npm run build"
+    },
+    {
+      "command": "npm run smoke:desktop",
+      "exitCode": 0,
+      "coverageCases": 20,
+      "report": "free-solver-desktop-2026-11-04.json"
+    },
+    {
+      "exitCode": 0,
+      "command": "git diff --check"
+    }
+  ],
+  "nativeApp": {
+    "status": "Waiting for Edge connection",
+    "browserObserved": "Poker lobby, no current table observed",
+    "pid": 71284,
+    "windowId": 1705910,
+    "experimentalOptInAbsent": true,
+    "observedUpdatedFreeCoverageText": true,
+    "liveHandValidated": false
+  },
+  "paidProviderInstalled": false,
+  "texasSolver": {
+    "registeredAsProvider": false,
+    "lastReportedExploitabilityPct": 1.4131937,
+    "archiveSha256": "0A9122FA0CD9384E6C1CBE0492E8A3B8AC7809890C649E1A53F77A59D6D50A7C",
+    "elapsedSeconds": 30.85,
+    "lastReportedIteration": 41,
+    "input": "Unmodified vendor example: Qs,8d,7h; IP T9s; OOP JTs,43s; pot4; stack10; target0.5; iterations200; threads8",
+    "completeOutputProduced": false,
+    "terminatedAtBudget": true,
+    "binarySha256": "8B74CD6F687387A9EA6C567591642CFE0BFCA88360A1748FF7C7DB769D0C5C1A",
+    "conclusion": "Candidate not qualified for live use by this bounded run. No claim that all configurations fail or that offline solving is unusable.",
+    "command": "console_solver.exe -i resources/text/commandline_sample_input.txt",
+    "url": "https://github.com/bupticybee/TexasSolver/releases/download/v0.2.0/TexasSolver-v0.2.0-Windows.zip",
+    "release": "v0.2.0"
+  }
+}

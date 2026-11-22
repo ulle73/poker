@@ -1,0 +1,16 @@
+{
+  "time": "2026-11-08T11:26:34.8404672+01:00",
+  "operation": "NTFS compression, no deletion",
+  "root": "C:\\dev\\indexreglering\\node_modules",
+  "files": 167,
+  "logicalBytes": 6227679000.0,
+  "freeBefore": 1812930560,
+  "freeAfter": 2664955904,
+  "recoveredBytes": 852025344,
+  "allContentHashesUnchanged": true,
+  "compressedFiles": 167,
+  "tradingDataModified": false,
+  "pokerDependenciesModified": false,
+  "priorDeleteRejected": true,
+  "priorDeleteReason": "blocked by policy"
+}

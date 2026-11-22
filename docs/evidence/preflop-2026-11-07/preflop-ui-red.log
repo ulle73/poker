@@ -1,0 +1,50 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+x·········x
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop-ui.test.ts > shows a chart reference and actual stack without a solver quality certificate
+AssertionError: expected '<section class="panel advisor-panel d…' to match /Prefloptabell/
+
+- Expected:
+/Prefloptabell/
+
++ Received:
+"<section class=\"panel advisor-panel decision-advisor\" aria-label=\"Automatiskt beslut\"><div class=\"panel-heading\"><h2>Ditt beslut</h2><span class=\"quiet-badge\">Strategi inte godkänd</span></div><div class=\"recommendation fold\"><span>Experimentell handling · inte kvalitetsvaliderad</span><strong>Fold</strong><span>100.0 % av gångerna</span></div><div class=\"action-mix\"><div class=\"mix-lane fold\"><div><span class=\"signal-dot\"></span><strong>Fold</strong><b>100.0 %</b></div><div class=\"mix-track\"><span style=\"width:100%\"></span></div></div><div class=\"mix-lane call\"><div><span class=\"signal-dot\"></span><strong>Check / Call</strong><b>0.0 %</b></div><div class=\"mix-track\"><span style=\"width:0%\"></span></div></div><div class=\"mix-lane raise\"><div><span class=\"signal-dot\"></span><strong>Bet / Raise</strong><b>0.0 %</b></div><div class=\"mix-track\"><span style=\"width:0%\"></span></div></div></div><div class=\"sizing-table\"><div class=\"sizing-header\"><span>Handling / sizing</span><span>Frekvens</span><span>EV¹</span></div><div class=\"sizing-row\"><span><i class=\"tiny-dot fold\"></i>Fold</span><b>100.0 %</b><span>—</span></div></div><p class=\"microcopy\">¹ Samplad netto-EV under träningspolicyn, inklusive modellens representerade insatser; inte en vinstprognos.</p><div class=\"solve-certificate\"><strong>Beräknad strategi · inte GTO-certifierad</strong><dl><div><dt>Beräkning</dt><dd>1 ms</dd></div><div><dt>Iterationer</dt><dd>0</dd></div><div><dt>Besök vid ditt beslut</dt><dd>0</dd></div></dl><details><summary>Modell och begränsningar</summary><ul></ul><p>artgto-preflop</p></details></div></section>"
+
+ ❯ tests/preflop-ui.test.ts:11:15
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/preflop.test.ts > preflop action context > recovers when a new hand is observed before either blind has appeared
+AssertionError: expected undefined to be 2 // Object.is equality
+
+- Expected:
+2
+
++ Received:
+undefined
+
+ ❯ tests/preflop.test.ts:18:65
+     16|  it('recovers when a new hand is observed before either blind has appe…
+     17|   const t=new PreflopTracker(),s=preflopSnapshot();const unposted=stru…
+     18|   t.observe(unposted);t.observe(s);expect(t.facts(s)?.bigBlind).toBe(2…
+       |                                                                 ^
+     19|  });
+     20|  it('keeps original six seats and both raises after players fold',()=>{
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 9 passed (11)
+   Start at  21:12:34
+   Duration  9.31s (environment 92%, import 3%, transform 3%, tests 2%, worker 1%)
+
+Environment  jsdom was created 2 times · 7.86s total, 92% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

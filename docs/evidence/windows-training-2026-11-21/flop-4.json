@@ -1,0 +1,179 @@
+{
+  "name": "flop-4",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "ms": null,
+      "receivedAt": 1795255091528,
+      "ui": {
+        "hand": null,
+        "quality": "Beslutsmotor",
+        "rows": null,
+        "status": "Strategi saknas för detta läge\n\nFloprådet kräver två utdelade spelare och en avslutande syn eller fold mot all-in.",
+        "current": "Hand\n#1000\nGata\nflop\nPott\n0,8 EUR\nDin stack bakom\n1,6 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n4 / 4 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n180\nLika starka\n6\nSvagare\n895\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.",
+        "visible": null
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 1,
+        "handId": "1000",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "flop",
+        "dealerSeat": 4,
+        "heroTurn": true,
+        "heroCards": [
+          "Kh",
+          "8d"
+        ],
+        "board": [
+          "6h",
+          "8s",
+          "Jd"
+        ],
+        "pot": 0.8,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Check",
+          "Bet"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "CO",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "BTN",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "ms": null,
+      "receivedAt": 1795255091756,
+      "ui": {
+        "hand": null,
+        "quality": "Beslutsmotor",
+        "rows": null,
+        "status": "Strategi saknas för detta läge\n\nFloprådet kräver två utdelade spelare och en avslutande syn eller fold mot all-in.",
+        "current": "Hand\n#1001\nGata\nflop\nPott\n0,8 EUR\nDin stack bakom\n1,6 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n4 / 4 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n180\nLika starka\n6\nSvagare\n895\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.",
+        "visible": null
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 2,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "flop",
+        "dealerSeat": 4,
+        "heroTurn": true,
+        "heroCards": [
+          "Kh",
+          "8d"
+        ],
+        "board": [
+          "6h",
+          "8s",
+          "Jd"
+        ],
+        "pot": 0.8,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Check",
+          "Bet"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "CO",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "BTN",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run --reporter=dot
+
+
+ RUN  v5.0.5 C:/dev/poker
+
+---------···································································--·························································x······································································································x············································································································································--
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/decision-mccfr.test.ts > external-sampling decision solver > reports node, table and depth cutoffs, bounded time, and no convergence guarantee
+Error: Undertrained decision: no root information-set regret traversal completed within the computation budget. Increase the budget or retry.
+ ❯ solveDecision src/decision/mccfr.ts:529:11
+    527|   // decision merely because a uniform information-set entry was alloc…
+    528|   if (rootVisits === 0)
+    529|     throw new Error(
+       |           ^
+    530|       "Undertrained decision: no root information-set regret traversal…
+    531|     );
+ ❯ solveDecision tests/decision-mccfr.test.ts:15:3
+ ❯ tests/decision-mccfr.test.ts:342:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/postflop-wasm.test.ts > matches independent card enumeration and information-set best responses across the river chance step
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/postflop-wasm.test.ts:87:1
+     85| });
+     86|
+     87| it("matches independent card enumeration and information-set best resp…
+       | ^
+     88|   const result = solveTree(turnToml(), turnConfig, () => {}, {
+     89|     postflop: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 29 passed | 4 skipped (35)
+      Tests  2 failed | 366 passed | 13 skipped (381)
+   Start at  18:05:42
+   Duration  53.32s (environment 79%, tests 19%, import 2%, transform 1%)
+
+Environment  jsdom was created 35 times · 267.83s total, 79% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

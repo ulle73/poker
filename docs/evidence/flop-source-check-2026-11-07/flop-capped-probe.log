@@ -1,0 +1,2 @@
+{"compact":false,"elapsedMs":523,"maxRaises":1,"memoryBytes":2893313208,"narrow":false,"phase":"setup"}
+{"rejected":"over 1 GiB test budget"}

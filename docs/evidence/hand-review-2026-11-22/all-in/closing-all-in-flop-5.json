@@ -1,0 +1,185 @@
+{
+  "name": "closing-all-in-flop-5",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "handId": "1001",
+      "releaseHand": "1004",
+      "lag": 3,
+      "reviewMs": 2658,
+      "ui": "flop · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n5 synligt aktiva · 0 observerat foldade · 5 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 16.7 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 5,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "flop",
+        "dealerSeat": 5,
+        "heroTurn": true,
+        "heroCards": [
+          "Ah",
+          "As"
+        ],
+        "board": [
+          "Ac",
+          "Ad",
+          "Kc"
+        ],
+        "pot": 2,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "HJ",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "CO",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 5,
+            "hero": false,
+            "position": "BTN",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "handId": "1005",
+      "releaseHand": "1008",
+      "lag": 3,
+      "reviewMs": 2061,
+      "ui": "flop · 5 kvar · pott 2 EUR\nDin hand\nA\n♥\nA\n♠\nBräda\nA\n♣\nA\n♦\nK\n♣\nExakt all-in-jämförelse\n\nMatematiskt avgjort mot alla lagliga händer\n\nSyna 0,4 EUR\t100 %\nDin bästa femkortshand\nFyrtal\nStarkare\n0\nLika starka\n0\nSvagare\n1 081\n\n1 081 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.\n\nEquity vid showdown\n2–10 spelare · Equity\n\n5 synligt aktiva · 0 observerat foldade · 5 upptagna säten.\n\nBeräknar mot alla synligt aktiva spelare…\n\nAtt syna: 0,4 EUR\nEnkel pottodds: 16.7 %\n\nDetta är kort- och pottmatematik, inte GTO-frekvenser eller ett spelråd. Equity förutsätter showdown utan framtida folds; sidopotter och framtida satsningar ingår inte. Felet ovan beskriver sampling, inte osäkerheten om motståndarranger.",
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 10,
+        "handId": "1005",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "flop",
+        "dealerSeat": 5,
+        "heroTurn": true,
+        "heroCards": [
+          "Ah",
+          "As"
+        ],
+        "board": [
+          "Ac",
+          "Ad",
+          "Kc"
+        ],
+        "pot": 2,
+        "valid": true,
+        "issues": [],
+        "observedActions": [],
+        "availableActions": [
+          "Fold",
+          "Syna"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": true,
+            "position": "SB",
+            "stack": 1.6,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": false,
+            "position": "BB",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 3,
+            "hero": false,
+            "position": "HJ",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 4,
+            "hero": false,
+            "position": "CO",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 5,
+            "hero": false,
+            "position": "BTN",
+            "stack": 0,
+            "bet": 0.4,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

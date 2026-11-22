@@ -1,0 +1,67 @@
+{
+  "date": "2026-11-08",
+  "synthetic": true,
+  "before": {
+    "artifact_save_mode": "full_resumable",
+    "base_checkpoint_reserve_mb": 2048.0,
+    "effective_checkpoint_reserve_mb": 2048.0,
+    "growth_headroom_mb": 42.0,
+    "growth_mb_per_second": 14.0,
+    "host_physical_memory_mb": 16075.5859375,
+    "message": "Tree too large for the memory currently available on this machine. Training was frozen before an out-of-memory crash; the solver is saving a resumable checkpoint and browseable strategy.",
+    "pressure_samples": 2,
+    "pressure_triggers": [
+      "system_available_memory"
+    ],
+    "process_memory_ceiling_mb": 16075.5859375,
+    "process_memory_ceiling_source": "installed_physical_memory",
+    "process_stop_threshold_mb": 15947.6,
+    "reason": "memory_pressure",
+    "requested_at": "2026-11-08T01:17:01Z",
+    "rss_mb": 49.2,
+    "schema": "nlhe_runtime_memory_guard_v1",
+    "system_available_memory_mb": 1117.5546875
+  },
+  "after": {
+    "solve_id": "20261108T085025_continue_7e422d",
+    "status": "done",
+    "iterations": 202,
+    "iterations_this_run": 200,
+    "training_complete": true,
+    "converged": false,
+    "training_elapsed_seconds": 0.1337604,
+    "elapsed_seconds": 4.0,
+    "runtime_memory_guard": {
+      "admission_policy": "warning_only_unless_certified",
+      "base_checkpoint_reserve_mb": 2048.0,
+      "confirm_samples": 2,
+      "effective_checkpoint_reserve_mb": 2048.0,
+      "enabled": true,
+      "external_stop_supported": true,
+      "growth_headroom_mb": 0.0,
+      "growth_mb_per_second": 0.0,
+      "host_physical_memory_mb": 16075.5859375,
+      "policy": "measured_pressure_checkpoint_stop",
+      "poll_seconds": 0.5,
+      "pressure_confirmed": false,
+      "pressure_samples": 0,
+      "pressure_triggers": [],
+      "process_memory_ceiling_mb": 16075.5859375,
+      "process_memory_ceiling_source": "installed_physical_memory",
+      "process_stop_threshold_mb": 15947.6,
+      "rss_mb": 443.6,
+      "schema": "nlhe_runtime_memory_guard_v1",
+      "system_available_memory_mb": 2188.19140625,
+      "triggered": false
+    },
+    "stop_reason": "iteration_cap"
+  },
+  "authenticatedReadAPI": "passed with existing loopback runner key",
+  "newSolveAPI": {
+    "status": 403,
+    "error": "compute_not_granted",
+    "accountCookiesRead": false,
+    "gatesModified": false
+  },
+  "sourceCaveat": "200 iterations are draft quality; 995/1176 root combos unvisited; chosen 99 combo had visits=0; no decision imported"
+}

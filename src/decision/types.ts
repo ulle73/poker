@@ -34,6 +34,7 @@ export interface BettingRules {
   includeAllIn: boolean;
 }
 export interface DecisionInput {
+  preflop?: import('../preflop/types').PreflopFacts;
   key: string;
   hero: number;
   seats: number[];
@@ -56,7 +57,9 @@ export interface DecisionAction extends BettingAction {
 export interface DecisionResult {
   key: string;
   rangeRevision: number;
-  quality: "verified-gto" | "approximation";
+  quality: "verified-gto" | "approximation" | "solver-unverified" | "chart-reference" | "proven-action";
+  bounds?: import("../multiway/equity").EquityResult["bounds"];
+  reference?: import('../preflop/types').PreflopReference;
   provider: string;
   actions: DecisionAction[];
   recommended: number;
@@ -67,6 +70,11 @@ export interface DecisionResult {
   assumptions: string[];
   limitations: string[];
   exploitabilityPct: number | null;
+  qualityMetric?: 'max-unilateral';
+  qualityLimitPct?: number;
+  qualityNote?: string;
+  modelVerified?: boolean;
+  sourceProof?: {solver:'holdem-0.93';solveId:string;handIndex:number;history:string;visits:number;entryExact:true};
   diagnostics?: {
     informationSets: number;
     cachedCardViews: number;

@@ -1,0 +1,26 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+ ✓ tests/postflop-wasm.test.ts > exports a complete turn chance graph with strategies only at the selected decision 1993ms
+ ✓ tests/postflop-wasm.test.ts > selects an IP decision after a check without exporting every future strategy 1747ms
+ ✓ tests/postflop-wasm.test.ts > retains the original river-only memory/node gate unless explicitly using postflop mode 5ms
+ ✓ tests/postflop-wasm.test.ts > rejects a selected line that is absent from the exact betting model 1576ms
+ ✓ tests/postflop-wasm.test.ts > matches independent card enumeration and information-set best responses across the river chance step 3821ms
+ ✓ tests/postflop-wasm.test.ts > checks legality across every turn betting line and every river chance outcome 1740ms
+ ✓ tests/postflop-wasm.test.ts > rejects mismatched TOML/metadata boards before entering postflop preflight 1ms
+ ✓ tests/postflop-wasm.test.ts > accepts turn configurations only through the explicit postflop path 13ms
+ ✓ tests/postflop-wasm.test.ts > accepts standard offsuit notation and the automatically generated full range 1ms
+ ✓ tests/postflop-wasm.test.ts > routes a real converged turn solution for hero 0 facing bettor null 999ms
+ ✓ tests/postflop-wasm.test.ts > routes a real converged turn solution for hero 1 facing bettor null 964ms
+ ✓ tests/postflop-wasm.test.ts > routes a real converged turn solution for hero 1 facing bettor 0 905ms
+ ✓ tests/postflop-wasm.test.ts > routes a real converged turn solution for hero 0 facing bettor 1 781ms
+ ✓ tests/postflop-wasm.test.ts > rejects a legal-looking tree for a different board or player count 1482ms
+ ✓ tests/postflop-wasm.test.ts > rejects a pruned mandatory future check even when every remaining node is reachable 1592ms
+ ✓ tests/postflop-wasm.test.ts > rejects a pruned mandatory future fold even when every remaining node is reachable 1744ms
+ ✓ tests/postflop-wasm.test.ts > rejects a pruned mandatory future call even when every remaining node is reachable 1450ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  16:12:55
+   Duration  25.18s (tests 84%, environment 15%, import 1%, transform 1%)
+

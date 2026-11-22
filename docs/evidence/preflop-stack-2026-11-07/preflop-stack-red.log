@@ -1,0 +1,46 @@
+
+ RUN  v5.0.5 C:/dev/poker
+
+·············x········x
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/preflop-installed.test.ts > installed, pinned preflop library > returns the HJ source fold for the reported 119bb hero with a 43bb small blind
+AssertionError: expected 'error' to be 'ready' // Object.is equality
+
+Expected: "ready"
+Received: "error"
+
+ ❯ tests/preflop-installed.test.ts:53:20
+     51|   s.players[2].folded=true;s.players[2].inHand=false;
+     52|   const r=await engine().compute(s,new DecisionContext().prepare(s));
+     53|   expect(r.status).toBe('ready');if(r.status!=='ready')throw Error(JSO…
+       |                    ^
+     54|   expect(r.result.actions).toMatchObject([{kind:'fold',frequency:1}]);
+     55|   expect(r.result.reference).toMatchObject({actualDepthBB:119,modelDep…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/preflop.test.ts > source chart decisions > keeps a deep reference when a shorter opponent is still seated behind hero
+Error: ART/GTO har endast 100 BB. Referensläget stöder verkliga stackar 50–150 BB; annan stack kräver annan källa.
+ ❯ preflopDecision src/preflop/strategy.ts:42:63
+     40|     actions=[{token:key==='SB'?'allin':'call',bb:key==='SB'?heroDepth:…
+     41|   }else{
+     42|     if(depths.some(d=>!Number.isFinite(d)||d<50||d>150))throw Error('A…
+       |                                                               ^
+     43|     for(const step of f.steps){
+     44|       const actor=f.positions[step.seat];if(!actor)throw Error('Preflo…
+ ❯ tests/preflop.test.ts:74:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 21 passed (23)
+   Start at  22:39:47
+   Duration  7.28s (environment 85%, transform 7%, import 5%, tests 2%, worker 1%)
+
+Environment  jsdom was created 2 times · 5.54s total, 85% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

@@ -1,3 +1,4 @@
+import { unknownParticipation } from "../live/participation";
 import type { LiveSnapshot } from "../live/types";
 import type {
   DecisionActionKind,
@@ -11,6 +12,29 @@ export interface DecisionFacts {
   rangeRevision?: number;
   ranges?: Record<number, string>;
   notes?: string[];
+}
+const alternatives = new Intl.ListFormat("sv", {type:"disjunction"});
+/** Visible controls require no inference about whether an unmarked seat folded. */
+export function tableChoice(s: LiveSnapshot) {
+  const hero = s.players.find(p => p.hero);
+  const cards = [...s.heroCards,...s.board];
+  if (!s.valid || !s.heroTurn || !hero?.inHand || hero.folded || !hero.stack ||
+      !s.handId || s.heroCards.length !== 2 || new Set(cards).size !== cards.length ||
+      s.board.length !== ({preflop:0,flop:3,turn:4,river:5} as Record<string,number>)[s.street] ||
+      hero.bet == null || s.players.some(p => p.bet == null) || s.issues.length) return null;
+  const highest = Math.max(...s.players.map(p => p.bet!));
+  const cost = Math.min(hero.stack, Math.max(0, highest - hero.bet));
+  const has = (label: RegExp) => s.availableActions.some(text => label.test(text.trim()));
+  const check = cost === 0 && has(/^(check|passa)$/i) && !has(/^(syna|call)(?:\s|$)/i);
+  const verbs: string[] = [];
+  if (check) verbs.push("checka gratis");
+  if (cost > 0) {
+    if (has(/^(fold|lägg dig)$/i)) verbs.push("lägga dig");
+    if (has(/^(syna|call)(?:\s|$)/i)) verbs.push(`syna ${cost.toLocaleString("sv-SE",{maximumFractionDigits:2})} ${s.currency}`);
+  }
+  if (hero.stack > cost && has(/^(satsa|bet|höj|raise)(?:\s|$)/i))
+    verbs.push(highest > 0 ? "höja" : "satsa");
+  return verbs.length ? { check, text: alternatives.format(verbs) } : null;
 }
 /** A current BB contribution may be a raise. Infer only an intact blind post. */
 export function observedBlind(s: LiveSnapshot): number | undefined {
@@ -35,6 +59,7 @@ export function decisionKey(s: LiveSnapshot, revision = 0): string {
     s.readerId,
     s.handId,
     s.street,
+    s.variant,
     s.board,
     s.heroCards,
     s.pot,
@@ -53,6 +78,8 @@ export function decisionKey(s: LiveSnapshot, revision = 0): string {
       p.bet,
       p.folded,
       p.inHand,
+      p.sittingOut,
+      p.shownCards ?? [],
     ]),
     revision,
   ]);
@@ -63,6 +90,8 @@ export function prepareDecision(
 ): DecisionInput {
   if (!s.valid)
     throw new Error(s.issues.join(" ") || "Bordets avläsning är inte giltig.");
+  if (s.players.some(p => p.shownCards?.length))
+    throw new Error("Visade motståndarkort ligger utanför strategimodellen.");
   if (!s.heroTurn) throw new Error("Inväntar ditt nästa beslut.");
   if (
     !["preflop", "flop", "turn", "river"].includes(s.street) ||
@@ -80,9 +109,10 @@ export function prepareDecision(
     throw new Error("Dina kort och brädan måste vara unika.");
   if (s.pot === null || s.pot <= 0 || s.dealerSeat === null)
     throw new Error("Pott eller dealerposition saknas.");
-  if (s.players.some((p) => !p.inHand && !p.folded))
+  const uncertain = s.players.filter(unknownParticipation);
+  if (uncertain.length)
     throw new Error(
-      "Ett upptaget sätes deltagande är oklart. Inväntar bekräftat deltagande eller fold.",
+      `Minst ett sätes deltagande är oklart. Inväntar bekräftelse för säte ${uncertain.map(p => p.seat).join(", ")}.`,
     );
   const active = s.players
     .filter((p) => p.inHand && !p.folded)

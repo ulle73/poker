@@ -1,0 +1,173 @@
+{
+  "name": "checked-to-turn-2",
+  "hardware": {
+    "cpu": "11th Gen Intel(R) Core(TM) i5-11300H @ 3.10GHz",
+    "logicalProcessors": 8,
+    "ram": 16856473600,
+    "windows": "10.0.26200",
+    "electron": "45.1.0"
+  },
+  "synthetic": true,
+  "runs": [
+    {
+      "mode": "cold",
+      "ms": 5326,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290197777,
+      "ui": {
+        "hand": "1000",
+        "provider": "b-inary-dcfr/turn",
+        "action": "Check",
+        "quality": "Solverstrategi · 2 % felgräns",
+        "rows": [
+          "Check\n99.8 %\n−0,04 EUR",
+          "Bet till 0,07 EUR\n0.2 %\n−0,04 EUR",
+          "Bet till 1,86 EUR\n0.0 %\n−0,15 EUR"
+        ],
+        "current": "Hand\n#1000\nGata\nturn\nPott\n0,14 EUR\nDin stack bakom\n3,73 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n2 / 2 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n698\nLika starka\n57\nSvagare\n280\n\n1 035 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 15,
+        "handId": "1000",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "turn",
+        "dealerSeat": 2,
+        "heroTurn": true,
+        "heroCards": [
+          "Qd",
+          "4h"
+        ],
+        "board": [
+          "Td",
+          "8s",
+          "Ts",
+          "7c"
+        ],
+        "pot": 0.14,
+        "valid": true,
+        "issues": [],
+        "observedActions": [
+          {
+            "seat": 1,
+            "street": "turn",
+            "action": "check",
+            "amount": 0
+          }
+        ],
+        "availableActions": [
+          "Fold",
+          "Check",
+          "Satsa"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.86,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": true,
+            "position": "BTN / SB",
+            "stack": 3.73,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    },
+    {
+      "mode": "warm",
+      "ms": 91,
+      "tableChoiceMs": null,
+      "receivedAt": 1795290203104,
+      "ui": {
+        "hand": "1001",
+        "provider": "b-inary-dcfr/turn",
+        "action": "Check",
+        "quality": "Solverstrategi · 2 % felgräns",
+        "rows": [
+          "Check\n99.8 %\n−0,04 EUR",
+          "Bet till 0,07 EUR\n0.2 %\n−0,04 EUR",
+          "Bet till 1,86 EUR\n0.0 %\n−0,15 EUR"
+        ],
+        "current": "Hand\n#1001\nGata\nturn\nPott\n0,14 EUR\nDin stack bakom\n3,73 EUR\nTur att agera\nDin tur\nAktiva / upptagna / säten\n2 / 2 / 6",
+        "strength": "Din bästa femkortshand\nPar\nStarkare\n698\nLika starka\n57\nSvagare\n280\n\n1 035 möjliga tvåkortskombinationer för en motståndare med okända kort. Dina kort, brädan är borträknade. Varje kombination väger lika. Kommande kort kan ändra ordningen.",
+        "visible": true
+      },
+      "fixture": {
+        "variant": "holdem",
+        "version": 1,
+        "source": "svenskaspel-dom",
+        "readerId": "isolated-measurement",
+        "sequence": 16,
+        "handId": "1001",
+        "capturedAt": 0,
+        "currency": "EUR",
+        "maxSeats": 6,
+        "street": "turn",
+        "dealerSeat": 2,
+        "heroTurn": true,
+        "heroCards": [
+          "Qd",
+          "4h"
+        ],
+        "board": [
+          "Td",
+          "8s",
+          "Ts",
+          "7c"
+        ],
+        "pot": 0.14,
+        "valid": true,
+        "issues": [],
+        "observedActions": [
+          {
+            "seat": 1,
+            "street": "turn",
+            "action": "check",
+            "amount": 0
+          }
+        ],
+        "availableActions": [
+          "Fold",
+          "Check",
+          "Satsa"
+        ],
+        "players": [
+          {
+            "seat": 1,
+            "hero": false,
+            "position": "BB",
+            "stack": 1.86,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          },
+          {
+            "seat": 2,
+            "hero": true,
+            "position": "BTN / SB",
+            "stack": 3.73,
+            "bet": 0,
+            "folded": false,
+            "inHand": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import type { SolveResult } from "../src/core/types";
 export function evaluate7(cards: readonly string[]): number;
 export function independentRiverReport(
   result: Pick<SolveResult, "nodes" | "rootRanges">,
+  evaluator?: (cards: readonly string[]) => number,
 ): {
   ev: number[];
   bestResponse: number[];

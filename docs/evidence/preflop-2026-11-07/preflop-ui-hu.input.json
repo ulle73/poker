@@ -1,0 +1,106 @@
+{
+  "synthetic": true,
+  "mode": "hu",
+  "startedAt": 1794083672535,
+  "finishedAt": 1794083700397,
+  "updates": 60,
+  "fixtures": [
+    {
+      "version": 1,
+      "source": "svenskaspel-dom",
+      "variant": "holdem",
+      "readerId": "synthetic-preflop-7949142a-d096-4ae4-b146-6b3fbbd9f266",
+      "sequence": 1,
+      "handId": "990000000000303",
+      "capturedAt": 1794083672539,
+      "currency": "EUR",
+      "maxSeats": 6,
+      "players": [
+        {
+          "seat": 1,
+          "hero": false,
+          "position": "SB",
+          "stack": 0.19,
+          "bet": 0.01,
+          "folded": false,
+          "inHand": true
+        },
+        {
+          "seat": 2,
+          "hero": true,
+          "position": "BB",
+          "stack": 0.18000000000000002,
+          "bet": 0.02,
+          "folded": false,
+          "inHand": true
+        }
+      ],
+      "heroCards": [
+        "As",
+        "Qd"
+      ],
+      "board": [],
+      "pot": 0.03,
+      "street": "preflop",
+      "dealerSeat": 1,
+      "heroTurn": false,
+      "availableActions": [
+        "Fold",
+        "Syna",
+        "Höj"
+      ],
+      "valid": true,
+      "issues": [],
+      "observedActions": []
+    },
+    {
+      "version": 1,
+      "source": "svenskaspel-dom",
+      "variant": "holdem",
+      "readerId": "synthetic-preflop-7949142a-d096-4ae4-b146-6b3fbbd9f266",
+      "sequence": 5,
+      "handId": "990000000000303",
+      "capturedAt": 1794083674415,
+      "currency": "EUR",
+      "maxSeats": 6,
+      "players": [
+        {
+          "seat": 1,
+          "hero": false,
+          "position": "SB",
+          "stack": 0,
+          "bet": 0.2,
+          "folded": false,
+          "inHand": true
+        },
+        {
+          "seat": 2,
+          "hero": true,
+          "position": "BB",
+          "stack": 0.18000000000000002,
+          "bet": 0.02,
+          "folded": false,
+          "inHand": true
+        }
+      ],
+      "heroCards": [
+        "As",
+        "Ah"
+      ],
+      "board": [],
+      "pot": 0.22,
+      "street": "preflop",
+      "dealerSeat": 1,
+      "heroTurn": true,
+      "availableActions": [
+        "Fold",
+        "Syna",
+        "Höj"
+      ],
+      "valid": true,
+      "issues": [],
+      "observedActions": []
+    }
+  ],
+  "tokenIncluded": false
+}

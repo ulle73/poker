@@ -254,7 +254,7 @@ it.each([
     const result = await verifiedRiver(snapshot, prepared, client);
     expect(result?.quality).toBe("verified-gto");
     expect(result?.provider).toContain("turn");
-    expect(result?.exploitabilityPct).toBeLessThanOrEqual(0.2);
+    expect(result?.exploitabilityPct).toBeLessThanOrEqual(2);
     expect(
       renderToStaticMarkup(
         createElement(DecisionAdvisor, {

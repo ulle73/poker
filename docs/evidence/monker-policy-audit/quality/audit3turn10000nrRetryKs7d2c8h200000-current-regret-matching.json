@@ -1,0 +1,66 @@
+{
+  "schema": "monker-audit-10114-v1",
+  "strategyMode": "current-regret-matching",
+  "archiveSha256": "922cbbdf9f0827a8ad3b8ce2de8d583e084ac41c1f1a196bc19463546607c637",
+  "treeSha256": "4b062d2d3e21e19ee0f97bfed684c1ebcfb7c724151e72ee84abad0b4fc3ca0b",
+  "players": 3,
+  "board": [
+    "Ks",
+    "7d",
+    "2c",
+    "8h"
+  ],
+  "rangeCounts": [
+    2,
+    2,
+    2
+  ],
+  "iterations": 3489792,
+  "informationStates": 336,
+  "decodeMs": 277.303,
+  "sampledRootEvs": {
+    "JdJh": [
+      1143.6081507507718,
+      1249.6894766056803
+    ],
+    "KcKd": [
+      6285.177688342526,
+      6690.073765997636
+    ]
+  },
+  "status": "audited",
+  "method": "exact-enumeration-information-set-best-response",
+  "values": [
+    324.6295948745883,
+    3675.3704051254244,
+    0
+  ],
+  "bestResponses": [
+    1000.0000000000023,
+    18574.927882665845,
+    0
+  ],
+  "gains": [
+    675.370405125414,
+    14899.55747754042,
+    0
+  ],
+  "nashConv": 15574.927882665834,
+  "nashConvPct": 389.37319706664584,
+  "maxGainPct": 372.4889369385105,
+  "accepted": false,
+  "rootPot": 4000,
+  "rootActions": {
+    "JdJh": [
+      3142.857142857144,
+      -25989.59114555703
+    ],
+    "KcKd": [
+      3714.2857142857165,
+      33340.33195580788
+    ]
+  },
+  "jointDeals": 8,
+  "visits": 2684,
+  "elapsedMs": 40.8013
+}

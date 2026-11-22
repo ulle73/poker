@@ -6,6 +6,8 @@ export interface LivePlayer {
   bet: number | null;
   folded: boolean;
   inHand: boolean;
+  sittingOut?: boolean;
+  shownCards?: string[];
 }
 export interface LiveAction {
   seat: number;
@@ -14,6 +16,7 @@ export interface LiveAction {
   amount: number | null;
 }
 export interface LiveSnapshot {
+  variant?: "holdem" | "sixplus" | "unknown";
   version: 1;
   source: "svenskaspel-dom";
   readerId: string;
@@ -35,10 +38,14 @@ export interface LiveSnapshot {
   observedActions: LiveAction[];
 }
 export interface LiveState {
+  review?: {lag:number; completed:number; hands:string[]; reader?:string};
+  revision?: number;
+  readerIssue?: {message: string; at: number} | null;
   available: boolean;
   endpoint?: string;
   token?: string;
   receivedAt?: number;
+  decisionReceivedAt?: number;
   snapshot: LiveSnapshot | null;
   history: LiveAction[];
   connectedAt?: number;

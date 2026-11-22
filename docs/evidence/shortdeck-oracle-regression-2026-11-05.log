@@ -1,0 +1,13 @@
+
+> poker-gto-advisor@1.4.0 test
+> vitest run tests/postflop-wasm.test.ts --maxWorkers=1
+
+
+ RUN  v5.0.5 C:/dev/poker
+
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  10:25:26
+   Duration  40.36s (tests 77%, environment 21%, transform 1%, import 1%)
+

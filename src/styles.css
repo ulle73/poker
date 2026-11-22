@@ -549,6 +549,16 @@ small {
   justify-content: center;
   align-items: flex-start;
 }
+.decision-choices {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--rule);
+}
+.study-panels { display: grid; gap: 20px; }
+.flop-actions { border-collapse: collapse; width: 100%; max-width: 36rem; }
+.flop-actions th, .flop-actions td { text-align: left; padding: .5rem; border-bottom: 1px solid var(--rule); }
+.flop-actions th:last-child, .flop-actions td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
 .advisor-state h3 {
   font-size: 20px;
   margin: 12px 0 4px;
@@ -1888,4 +1898,28 @@ body:has(.table-document) {
 }
 .live-facts > div {
   min-width: 0;
+}
+
+.hand-strength { padding: 16px 20px; background: #151c1a; border: 1px solid #354139; border-radius: 8px; margin: 0 0 18px; }
+.table-panel .hand-strength { margin: 12px 20px; }
+.hand-strength h3 { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; margin: 0; font-size: 13px; font-weight: 500; }
+.hand-strength h3 strong { font-size: 21px; color: #b8efd2; }
+.hand-strength dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0 0; }
+.hand-strength dt { color: #b3bfb7; font-size: 13px; }
+.hand-strength dd { margin: 3px 0; font-size: 20px; font-variant-numeric: tabular-nums; }
+.hand-strength p { margin: 9px 0 0; color: #b3bfb7; font-size: 12px; line-height: 1.5; }
+.hero-turn { color: #b8efd2; }
+.review-spot { padding: 1rem 0; border-top: 1px solid var(--rule); }
+.review-spot .live-cards { flex-wrap: wrap; }
+.review-spot .multiway-stats { margin-top: 1rem; }
+.hand-review summary { cursor: pointer; }
+@media (min-width: 601px) { .live-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 1050px) {
+  .live-primary, .live-advisor { display: contents; }
+  .live-status { order: 1; }
+  .decision-advisor, .hand-review { order: 2; }
+  .multiway-stats { order: 3; }
+  .live-ranges { order: 4; }
+  .live-history { order: 5; }
+  .live-connection { order: 6; }
 }

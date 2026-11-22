@@ -1,0 +1,269 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "players": 3,
+      "street": "turn",
+      "stacks": [
+        3,
+        1.6,
+        1
+      ],
+      "rangeCounts": [
+        582,
+        1128,
+        1128
+      ],
+      "publicNodes": 104,
+      "frequencies": [
+        0.019440757536654127,
+        0.9805592424633459,
+        0
+      ],
+      "bucketWeight": 470,
+      "iterations": 909312,
+      "wallMs": 4350.593,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 4,
+      "street": "turn",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2
+      ],
+      "rangeCounts": [
+        582,
+        1128,
+        1128,
+        1128
+      ],
+      "publicNodes": 368,
+      "frequencies": [
+        0.6194738037937688,
+        0.3805261962062311,
+        0
+      ],
+      "bucketWeight": 187,
+      "iterations": 655360,
+      "wallMs": 2685.5252999999993,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 5,
+      "street": "turn",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2,
+        1.2
+      ],
+      "rangeCounts": [
+        582,
+        1128,
+        1128,
+        1128,
+        1128
+      ],
+      "publicNodes": 1280,
+      "frequencies": [
+        0.941747572815534,
+        0.05825242718446602,
+        0
+      ],
+      "bucketWeight": 103,
+      "iterations": 475136,
+      "wallMs": 2854.9725,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 6,
+      "street": "turn",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2,
+        1.2,
+        0.8
+      ],
+      "rangeCounts": [
+        582,
+        1128,
+        1128,
+        1128,
+        1128,
+        1128
+      ],
+      "publicNodes": 4408,
+      "frequencies": [
+        0.6925554197889656,
+        0.3074445802110344,
+        0
+      ],
+      "bucketWeight": 26,
+      "iterations": 229376,
+      "wallMs": 4314.127400000001,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 3,
+      "street": "river",
+      "stacks": [
+        3,
+        1.6,
+        1
+      ],
+      "rangeCounts": [
+        576,
+        1081,
+        1081
+      ],
+      "publicNodes": 32,
+      "frequencies": [
+        0.8569199880995995,
+        0.14270189583332002,
+        0.0003781160670804309
+      ],
+      "bucketWeight": 710,
+      "iterations": 1482752,
+      "wallMs": 2277.9395000000004,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 4,
+      "street": "river",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2
+      ],
+      "rangeCounts": [
+        576,
+        1081,
+        1081,
+        1081
+      ],
+      "publicNodes": 80,
+      "frequencies": [
+        1,
+        0,
+        0
+      ],
+      "bucketWeight": 513,
+      "iterations": 1802240,
+      "wallMs": 2297.624899999999,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 5,
+      "street": "river",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2,
+        1.2
+      ],
+      "rangeCounts": [
+        576,
+        1081,
+        1081,
+        1081,
+        1081
+      ],
+      "publicNodes": 192,
+      "frequencies": [
+        0.9901477832512315,
+        0.009852216748768473,
+        0
+      ],
+      "bucketWeight": 203,
+      "iterations": 1064960,
+      "wallMs": 2476.6715000000004,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    },
+    {
+      "players": 6,
+      "street": "river",
+      "stacks": [
+        3,
+        1.6,
+        1,
+        2,
+        1.2,
+        0.8
+      ],
+      "rangeCounts": [
+        576,
+        1081,
+        1081,
+        1081,
+        1081,
+        1081
+      ],
+      "publicNodes": 448,
+      "frequencies": [
+        0.9851362560312684,
+        0.014863743968731618,
+        0
+      ],
+      "bucketWeight": 90.99999999999999,
+      "iterations": 696320,
+      "wallMs": 2661.4969999999994,
+      "quality": {
+        "status": "unknown",
+        "errorPct": null,
+        "limitPct": 2.1,
+        "metric": "max-unilateral",
+        "reason": "Breda ranger: oberoende felgräns saknas. 2,1 % är ett mål, inte ett uppmätt resultat."
+      }
+    }
+  ]
+}
