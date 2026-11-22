@@ -7,6 +7,8 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
+**Senaste solverprov, 22 november.** Lokal MCCFR gav handrader inom 0,52–3,87 s på flop, turn och river efter trevägs check → bet → raise med fulla ranger. En uppmätt ensidig avvikelse över 2,1 % av rotpotten underkände varje profil. Ett extra riverprov med external sampling underkändes också. Fyra till sex aktiva väntar på godkänd trevägsflop. [Metod, resultat och körkommandon](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md)
+
 **22 november 2026.** Svenska Spel-vyn använder automatisk efteranalys med tre handbyten i fördröjning. Den senaste frigivna handen analyseras när vyn är öppen. Två kvar matchas mot befintliga HU-flopreferenser och tidigare motorer används för sina stödda lägen. För 3–6 kvar saknas generell vanlig floppstrategi. [Windows-prov och gränser](docs/evidence/hand-review-2026-11-22/RESULTAT.md)
 
 **Senaste flopstatus, 21 november.** Egen studie har 74 färdiglösta floppar och tio beslutslägen per bräda för BB mot knappen, 100 BB i ett sexmaxspel. Den automatiska motorn har också fått matematiskt avgjorda slutbeslut mot all-in för 3–6 utdelade under villkoren i [flopprovet](docs/evidence/flop-study-2026-11-21/RESULTAT.md). Vanliga flervägsfloppar och en allmän oberoende GTO-verifiering återstår.
@@ -2302,3 +2304,17 @@ Före ändringen föll de tre nya proven för turn, river och delad riverpott. E
 ```
 
 [Körkommandon, testlogg och Windows-evidens](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md). Återspelningen använde syntetiska avläsningar. En ny avslutad Svenska Spel-hand, preflopbiblioteket och externa solverinstallationer ingick inte i den här körningen. Nästa steg är källkvalificering för vanlig trevägsflop med bet och raise, följt av 4–6 spelare om modellmatchning, kvalitet och tid håller. Ingen av de granskade källorna kunde kvalificeras för den kompletta fria integrationen.
+
+### 2026-11-22 · Trevägs check → bet → raise på flop, turn och river
+
+Hypotesen var att befintlig lokal MCCFR kunde lämna en tillräckligt stark handrad inom tio sekunder över hela bredden av lagliga kombinationer. Roten byggdes på varje gata genom att spela check, bet 60 och raise till 180. Alla tre körningar gav fold, syn 180 och all-in till 360 inom tiden. Följande kommando kördes för varje gata och för den extra riverjämförelsen med miljövariablerna i [körkommandona](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md#kör-om-provet).
+
+```powershell
+npm.cmd test -- tests/decision-raised-postflop-probe.test.ts
+```
+
+Strategierna underkändes i en separat audit. Den statistiska undre gränsen för vinsten av att ändra bara hjältens första beslut var 7,39 % av potten på flop, 10,91 % på turn och 2,87 % på river. External sampling på river gav en undre gräns på 17,49 %. Flop och turn nådde tabellgränsen inom en sekund, och drygt 59–61 % av auditens spelade fortsättningar hade tränade rader. Gatorna är separata spel med uttryckliga likaviktade ranger. Windows- och liveanslutning provades inte. [Rådata, antaganden och exakta tider](docs/evidence/raised-postflop-2026-11-22/RESULTAT.md#utfall)
+
+`npm.cmd test -- --maxWorkers=1 --reporter=default` gav 461 passerade och 35 överhoppade. `./node_modules/.bin/tsc.cmd --noEmit` passerade. Det nya auditprovet körs med miljövariablerna ovan och är överhoppat i standardsviten.
+
+Nästa steg är att kvalificera en kandidat med större trädtäckning eller en kontrollerad förberäkning och mäta bästa ensidiga avvikelse i det definierade spelet. Fortsätt med fyra till sex aktiva först när trevägsfloppen klarar både kvalitet och tid.

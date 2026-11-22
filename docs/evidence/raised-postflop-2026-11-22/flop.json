@@ -1,0 +1,225 @@
+{
+  "verifiedAt": "2026-11-22T10:30:01.893Z",
+  "revision": "92ffa9b",
+  "environment": {
+    "platform": "win32",
+    "node": "v24.19.0",
+    "cpu": "AMD Ryzen AI 7 350 w/ Radeon 860M"
+  },
+  "input": {
+    "key": "raised-postflop-probe:flop",
+    "hero": 0,
+    "seats": [
+      0,
+      1,
+      2
+    ],
+    "heroCards": [
+      "Ah",
+      "Kh"
+    ],
+    "board": [
+      "Qh",
+      "8d",
+      "6h"
+    ],
+    "state": {
+      "street": "flop",
+      "stacks": [
+        360,
+        300,
+        180
+      ],
+      "bets": [
+        0,
+        60,
+        180
+      ],
+      "invested": [
+        0,
+        60,
+        180
+      ],
+      "folded": [
+        false,
+        false,
+        false
+      ],
+      "pending": [
+        true,
+        true,
+        false
+      ],
+      "canRaise": [
+        true,
+        true,
+        false
+      ],
+      "actor": 0,
+      "dealer": 2,
+      "currentBet": 180,
+      "lastFullRaise": 120,
+      "minBet": 10,
+      "deadPot": 120,
+      "raises": 1,
+      "history": "flop:0:check:0|flop:1:bet:60|flop:2:raise:180",
+      "boardCount": 3,
+      "terminal": false
+    },
+    "rules": {
+      "betFractions": [
+        0.5
+      ],
+      "raiseFractions": [
+        0.5
+      ],
+      "maxRaises": 2,
+      "includeAllIn": true
+    },
+    "chipUnit": 1,
+    "currency": "SEK",
+    "ranges": [
+      "",
+      "",
+      ""
+    ],
+    "rangeRevision": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ]
+  },
+  "options": {
+    "seed": 395,
+    "sampling": "outcome",
+    "baseline": "learned",
+    "timeBudgetMs": 4000
+  },
+  "elapsedMs": 776.0034999999989,
+  "heroRow": {
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0"
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180"
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360"
+      }
+    ],
+    "frequencies": [
+      0.0002003522170106178,
+      0.13638625559904308,
+      0.8634133921839463
+    ],
+    "trained": true
+  },
+  "result": {
+    "key": "raised-postflop-probe:flop",
+    "rangeRevision": 0,
+    "quality": "approximation",
+    "provider": "variance-reduced-outcome-mccfr/isomorphic-v1",
+    "actions": [
+      {
+        "kind": "fold",
+        "to": 0,
+        "cost": 0,
+        "allIn": false,
+        "id": "fold:0",
+        "frequency": 0.0002003522170106178,
+        "ev": 0
+      },
+      {
+        "kind": "call",
+        "to": 180,
+        "cost": 180,
+        "allIn": false,
+        "id": "call:180",
+        "frequency": 0.13638625559904308,
+        "ev": 292.68452775418854
+      },
+      {
+        "kind": "raise",
+        "to": 360,
+        "cost": 360,
+        "allIn": true,
+        "id": "raise:360",
+        "frequency": 0.8634133921839463,
+        "ev": 284.75620531638214
+      }
+    ],
+    "recommended": 2,
+    "iterations": 25542,
+    "rootVisits": 12692,
+    "elapsedMs": 775,
+    "cutoffCount": 0,
+    "assumptions": [
+      "Uniform compatible private combinations at the raised decision root, without action-conditioned priors or rake."
+    ],
+    "limitations": [
+      "Finite bet-size abstraction and sampled private ranges; no measured exploitability or Nash/GTO certificate.",
+      "Action EVs are sampled means against evolving training policies in chip units, not independently evaluated average-policy values.",
+      "No rake model; prior investments are included in net payoff and are common sunk costs at the root.",
+      "Outcome sampling completes every started update cycle to terminal without passive continuation. High-variance importance estimates and finite training do not certify strategy quality.",
+      "Player-specific learned control variates aim to reduce outcome-sampling variance. Only future baseline targets are bounded by physical payoffs; utilities and regret estimates are not clipped. This is not a convergence or GTO certificate.",
+      "Multiplayer outcome-sampling CFR has no general Nash-convergence guarantee.",
+      "Suit-isomorphic private/public card states share training only under permutations preserving every weighted range. Root visits include equivalent card states, not only the exact physical cards.",
+      "Training stopped before the 50000 entry limit because a complete update cycle could no longer be reserved."
+    ],
+    "exploitabilityPct": null,
+    "diagnostics": {
+      "informationSets": 49862,
+      "cachedCardViews": 32502,
+      "suitPermutations": 24,
+      "rootClassSize": 1,
+      "tableLimited": true,
+      "completedEpisodes": 76626,
+      "maximumEpisodeNodes": 49,
+      "baselineUpdates": 269495,
+      "baselineBytes": 2445288,
+      "publicTreeNodes": 104,
+      "publicTreeLimited": false
+    }
+  },
+  "rootCombos": 1176,
+  "rootTrained": 1176,
+  "heroRowMatchesResult": true,
+  "auditMs": 20329.057399999998,
+  "audit": {
+    "fitSeed": 81013,
+    "evaluationSeed": 240781,
+    "fitSamples": 60000,
+    "evaluationSamples": 160000,
+    "errorProbability": 0.016666666666666666,
+    "fitPrivateCombos": 1176,
+    "deviationActionCounts": {
+      "fold:0": 332,
+      "call:180": 102,
+      "raise:360": 742
+    },
+    "profileEvChips": 82.05883587720486,
+    "possibleGainChips": 35.173914122795864,
+    "errorChips": 8.58476569977293,
+    "lowerBoundChips": 26.589148423022934,
+    "possibleGainPct": 9.770531700776628,
+    "lowerBoundPct": 7.385874561950815,
+    "testedContinuations": 1334085,
+    "trainedContinuations": 809614
+  },
+  "qualityLimitPct": 2.1,
+  "latencyPass": true,
+  "quality": "rejected-by-deviation",
+  "qualifies": false
+}
