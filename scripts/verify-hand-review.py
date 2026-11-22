@@ -1,5 +1,6 @@
 """Replay play-money hands into an isolated packaged receiver and verify the painted review."""
 import json
+from copy import deepcopy
 import os
 from pathlib import Path
 import socket
@@ -22,6 +23,31 @@ def opening(number, count, hero):
                 handId=str(number), street="preflop", currency="EUR", maxSeats=6, dealerSeat=count,
                 players=seats, board=[], heroCards=["Kh","7c"], pot=.03, issues=[], valid=True,
                 heroTurn=False, observedActions=[], availableActions=[])
+
+
+def qualified_flop(number, count, currency):
+    snapshot = opening(number, count, 1 if count == 3 else 4)
+    snapshot.update(currency=currency, heroCards=["Ah", "Kh"], pot=.15)
+    players = snapshot["players"]
+    target = 1.2 / count
+    for p, bet in zip(players, [.05, .10, 0, 0]):
+        p.update(bet=bet, stack=round(3.6 + target - bet, 2))
+    yield deepcopy(snapshot)
+    for i in [*range(2, count), 0, 1]:
+        p = players[i]
+        snapshot["pot"] = round(snapshot["pot"] + target - p["bet"], 2)
+        p.update(bet=target, stack=3.6)
+        yield deepcopy(snapshot)
+    for p in players:
+        p.update(bet=0, stack=3.6)
+    snapshot.update(street="flop", board=["Qh", "8d", "6h"])
+    yield deepcopy(snapshot)
+    for i, bet in [(1, .6), (2, 1.8)]:
+        players[i].update(bet=bet, stack=round(3.6-bet, 2))
+        snapshot["pot"] = round(1.2 + sum(p["bet"] for p in players), 2)
+        if i == 2:
+            snapshot.update(heroTurn=True, availableActions=["Fold", "Syna", "Höj"])
+        yield deepcopy(snapshot)
 
 
 def replay(exe, out):
@@ -60,9 +86,13 @@ def replay(exe, out):
                     headers={"Content-Type":"application/json","X-Poker-Token":pair["token"]})
                 with urllib.request.urlopen(request,timeout=3) as r:
                     assert r.status == 200
-            for i in range(9):
+            for i in range(12):
                 count = i+1 if 2 <= i <= 5 else 6
-                s = opening(2000+i,count,6 if i==0 else 2)
+                profile_frames = list(qualified_flop(2000+i, 3 if i==6 else 4, "EUR" if i==6 else "SEK")) if 6<=i<=8 else []
+                if i == 8:
+                    # Same endpoint as the valid four-way case, with the intermediate bet frame lost.
+                    del profile_frames[-2]
+                s = profile_frames[0] if profile_frames else opening(2000+i,count,6 if i==0 else 2)
                 start=time.perf_counter()
                 send(s)
                 if i<3:
@@ -73,8 +103,15 @@ def replay(exe, out):
                     old=i-3
                     hand=page.locator(f'[data-reviewed-hand="{2000+old}"]')
                     hand.wait_for(timeout=10000)
-                    expected = "TexasSolver · källreferens" if old<2 else "Matematiskt avgjort mot alla lagliga händer"
-                    hand.get_by_text(expected,exact=True).first.wait_for(timeout=10000)
+                    if old < 2:
+                        expected = "TexasSolver · källreferens"
+                    elif old < 6:
+                        expected = "Matematiskt avgjort mot alla lagliga händer · utan rake"
+                    elif old < 8:
+                        expected = "Verifierad flopprofil · modellreferens"
+                    else:
+                        expected = "En källstrategi för öppet flopspel med 4 aktiva saknas."
+                    hand.get_by_text(expected,exact=old<8).first.wait_for(timeout=10000)
                     page.evaluate("new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve(true))))")
                     ms=round((time.perf_counter()-start)*1000)
                     assert ms<10000
@@ -82,8 +119,15 @@ def replay(exe, out):
                         hand.get_by_text("87,16 %",exact=True).wait_for()
                         hand.get_by_text("Syna 9,14 BB",exact=True).wait_for()
                     if old==1: hand.get_by_text("Höj till 10,96 BB",exact=True).wait_for()
-                    if old>=2: hand.get_by_text(f"En källstrategi för öppet flopspel med {old+1} aktiva",exact=False).first.wait_for()
-                    results.append(dict(hand=2000+old,active=2 if old<2 else old+1,
+                    if 2<=old<6: hand.get_by_text(f"En källstrategi för öppet flopspel med {old+1} aktiva",exact=False).first.wait_for()
+                    if 6<=old<=7:
+                        bound, currency = ("1,967", "EUR") if old == 6 else ("2,098", "SEK")
+                        hand.get_by_text(f"{bound} % av potten",exact=False).wait_for()
+                        hand.get_by_text(f"Syna 1,8 {currency}",exact=True).wait_for()
+                        hand.get_by_text(f"Höj till 3,6 {currency} (all-in)",exact=True).wait_for()
+                        hand.get_by_text("96,54 %" if old==6 else "29,96 %",exact=True).wait_for()
+                    if old==8: assert hand.get_by_text("Verifierad flopprofil · modellreferens").count()==0
+                    results.append(dict(hand=2000+old,active=2 if old<2 else old+1 if old<6 else 3 if old==6 else 4,
                                         releaseHand=2000+i,ms=ms,review=hand.inner_text()))
                 if i<2:
                     for p in s["players"]:
@@ -112,6 +156,9 @@ def replay(exe, out):
                     s.update(street="flop",board=["Ac","Ad","Kc"],heroCards=["Ah","As"],
                              heroTurn=True,pot=round(.4*count,2),availableActions=["Fold","Syna"])
                     send(s)
+                else:
+                    for frame in profile_frames[1:]:
+                        send(frame)
             (out/"windows.json").write_text(json.dumps(results,indent=2,ensure_ascii=False),encoding="utf8")
         except Exception:
             if "page" in locals() and not page.is_closed():

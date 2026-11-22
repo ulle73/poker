@@ -7,6 +7,8 @@ behållas och märkas som ersatta om en senare körning ändrar bilden.
 
 **Aktuell målbild, 22 november 2026.** Uppdraget omfattar vanlig No-Limit Texas Hold’em för 2–6 spelare inklusive hjälten, från första preflopbeslut till river. Avslutande all-in kan avgöras matematiskt på alla tre postflopgatorna under villkoren i [checklistan](docs/CHECKLISTA.md). Vanligt flervägsspel, flera höjningar på samma gata och full verifiering av strategikvalitet återstår. [Färska Windows-prov och källgranskning](docs/evidence/gto-coverage-2026-11-22/RESULTAT.md)
 
+**Ordinarie efteranalys, 22 november.** De arkiverade flopprofilerna för tre och fyra aktiva är anslutna som modellreferenser efter check → bet → raise. Matchning kräver rätt bräda, sittordning, full avläst satsningsföljd och exakta chipbelopp. Färskt Windows-prov visade råden efter 176 ms i EUR och 107 ms i SEK. [Test och täckningsgränser](docs/evidence/qualified-flops-review-2026-11-22/RESULTAT.md)
+
 **Senaste solverprov, 22 november.** En ny sparad trevägsprofil efter check → bet → raise klarade 2,1 % för varje säte på `Qh 8d 6h`. De oberoende övre gränserna är 1,967 %, 0,624 % och 1,731 % av rotpotten, avrundat uppåt med justering för omprov. Första kompletta handraden visades på 0,17 s i ett separat Windows-forskningsfönster. Den ordinarie efteranalysens historik, ranger och satsningsregler behöver matchas före användning i appen. [Floppens verifiering, rådata och profil](docs/evidence/chance-sampled-three-way-flop-2026-11-22/RESULTAT.md)
 
 **Turn och river, 22 november.** Färdigtränade trevägsprofiler klarade 2,1 % för varje säte med övre gränser på högst 0,298 % för turn och 0,380 % för river. Svaren visades på 0,14 och 0,20 s i Windows-forskningsfönstret. Turn och river testades som egna modeller med likaviktade ranger vid beslutet. [Oberoende verifiering, rådata och profiler](docs/evidence/chance-sampled-three-way-turn-2026-11-22/RESULTAT.md)
@@ -2434,3 +2436,17 @@ npm.cmd test
 Det riktade kommandot kördes med lägena `first-decision-response`, `tight-card-grid`, `train-chance` och `lookup`. Femvägsmodellen fick 1,6 miljoner träningsgivar och fyra säten klarade gränsen. Sexvägsmodellen med 460 000 givar förbättrade sätet som satsade från 10,19458 % till 6,01241 % vid samma stickprovsstorlek. Rottestet verifierade 1 176 tränade rotkombinationer och avvisade en avvikande pott för bägge profilerna. Första kompletta Windows-bildrutan tog 0,166 respektive 0,844 s. Standardsviten gav 470 passerade och 35 överhoppade och typkontrollen passerade.
 
 En tidigare sexvägsträning skrev ut sin rapport efter ett uppehåll i Windows och testköraren rapporterade timeout. Omkörningen passerade med exakt samma manifest. Körningens uppslagstid mättes separat. Status för femvägshöjaren och de sex aktiva är fortsatt öppen. Nästa uppsättning körningar ökar stickprovet för höjaren till 96 dolda givar per eget kortpar och ordnad bräda och tränar sexvägsprofilen på 1,6 miljoner givar. [Rådata, testkommandon och Windows-bildrutor](docs/evidence/five-six-way-flop-verification-2026-11-22/RESULTAT.md)
+
+
+### 2026-11-22 · Verifierade tre- och fyrvägsfloppar i ordinarie efteranalys
+
+Sparade komborader exporterades från de två publicerade profilarkiven. Hypotesen var att den ordinarie mottagaren kan känna igen rätt beslut utan att anpassa profilerna till andra brädor eller storlekar. Paketerad Windows-återspelning matchade båda profilerna och avvisade ett till synes likadant slutläge med saknad mellansatsning. Alla 41 riktade tester passerade och ett opt-in-prov hoppades över. Nästa täckningsluckor är andra flopplinjer och brädor samt en godkänd strategi för fem och sex aktiva.
+
+```powershell
+python -X utf8 scripts/export-qualified-flops.py
+npm.cmd run build
+npm.cmd test -- tests/hand-review.test.ts tests/decision-providers.test.ts tests/decision-raised-postflop-probe.test.ts --maxWorkers=2
+python -X utf8 scripts/verify-hand-review.py 'artifacts/ten-second-windows/Poker GTO Advisor.exe' docs/evidence/qualified-flops-review-2026-11-22
+```
+
+[Observerade frekvenser, tider, modellantaganden och rådata](docs/evidence/qualified-flops-review-2026-11-22/RESULTAT.md).

@@ -17,6 +17,14 @@ interface Spot {
   frame:number; snapshot:LiveSnapshot; pre?:PreflopFacts; input?:DecisionInput; error?:string;
 }
 interface Answer {source:string; detail:string; actions:{name:string; frequency:number}[]}
+const actionLabel = {check:"Check",bet:"Satsa",raise:"Höj till",call:"Syna",fold:"Fold"};
+
+function actionName(a: import("../decision/types").BettingAction, input: DecisionInput) {
+  const amount = a.kind === "call" ? a.cost : a.to;
+  return actionLabel[a.kind] + (["call", "bet", "raise"].includes(a.kind)
+    ? " " + (amount * input.chipUnit).toLocaleString("sv-SE") + " " + input.currency : "") +
+    (a.allIn ? " (all-in)" : "");
+}
 
 export function reviewSpots(hand:ReviewHand) {
   const context = new DecisionContext(), spots = new Map<string,Spot>();
@@ -69,19 +77,27 @@ function ReviewedHand({id, reader}:{id:string;reader:string}) {
             try {return await flopReference(hand.frames.slice(0,spot.frame+1),spot.pre,input,read);}
             catch (e) {reason = (e as Error).message;}
           }
+          if (s.street === "flop" && [3, 4].includes(input.seats.length) && s.variant === "holdem") {
+            const {qualifiedFlopReview} = await import("../flop/qualified-review");
+            const profile = qualifiedFlopReview(hand.frames.slice(0, spot.frame + 1), input);
+            if (profile) {
+              const upper = (Math.ceil(profile.upperPct * 1000) / 1000).toLocaleString("sv-SE");
+              return {source:"Verifierad flopprofil · modellreferens",
+                detail:`Check → bet → raise. Övre gräns för bästa ensidiga förbättring är ${upper} % av potten vid beslutet (95 % gemensam konfidens). Gäller modellens likaviktade ranger vid beslutet, utan rake och med fasta satsningsstorlekar.`,
+                actions:profile.actions.map((a,i)=>({name:actionName(a,input),frequency:profile.frequencies[i]}))};
+            }
+          }
           if (signal.aborted || expired) throw Error("Avbruten.");
           const outcome = await engine.compute(s,input);
           if (outcome.status !== "ready") throw Error(reason || (s.street==="flop" && input.seats.length>2 && outcome.status==="unsupported"
             ? "En källstrategi för öppet flopspel med "+input.seats.length+" aktiva saknas. Bara vissa avslutande all-in-beslut kan avgöras matematiskt."
             : "message" in outcome ? outcome.message : "Avbruten."));
           const r = outcome.result;
-          const label = {check:"Check",bet:"Satsa",raise:"Höj till",call:"Syna",fold:"Fold"};
           return {source:outcome.provider.name, detail:r.quality === "solver-unverified" ? "Beräknad strategi · okänd felgräns" :
             r.quality === "chart-reference" ? "Källtabell · referensmodell" :
             r.quality === "proven-action" ? "Matematiskt avgjort mot alla lagliga händer · utan rake" :
             "Solverstrategi i det matchade trädet · "+r.exploitabilityPct+" % av startpotten",
-            actions:r.actions.map(a=>({frequency:a.frequency,name:label[a.kind]+(["call","bet","raise"].includes(a.kind)?
-              " "+((a.kind==="call"?a.cost:a.to)*input.chipUnit).toLocaleString("sv-SE")+" "+s.currency:"")}))};
+            actions:r.actions.map(a=>({frequency:a.frequency,name:actionName(a,input)}))};
         };
         let timer:ReturnType<typeof setTimeout>|undefined;
         let answer:Answer|undefined, error:string|undefined;
